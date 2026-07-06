@@ -1,7 +1,9 @@
 [
   {
     "id": "1",
-    "knowledge_point": "变量与数据类型",
+    "exam": {"type": "GESP", "level": 4, "date": "2026-06"},
+    "knowledge_points": ["变量与数据类型"],
+    "frequency": "常考",
     "type": "single_choice",
     "question": "以下哪个是 C++ 的基本数据类型？",
     "options": {
@@ -15,7 +17,9 @@
   },
   {
     "id": "2",
-    "knowledge_point": "变量与数据类型",
+    "exam": {"type": "GESP", "level": 4, "date": "2026-06"},
+    "knowledge_points": ["变量与数据类型"],
+    "frequency": "常考",
     "type": "true_false",
     "question": "C++ 中，浮点数类型 float 的大小固定为 4 字节。",
     "answer": "true",
@@ -23,7 +27,9 @@
   },
   {
     "id": "3",
-    "knowledge_point": "变量与数据类型",
+    "exam": {"type": "GESP", "level": 4, "date": "2026-06"},
+    "knowledge_points": ["变量与数据类型"],
+    "frequency": "常考",
     "type": "single_choice",
     "question": "以下哪个不是 C++ 的整型？",
     "options": {
@@ -37,7 +43,9 @@
   },
   {
     "id": "4",
-    "knowledge_point": "控制流",
+    "exam": {"type": "GESP", "level": 4, "date": "2026-06"},
+    "knowledge_points": ["控制流"],
+    "frequency": "常考",
     "type": "single_choice",
     "question": "以下哪个关键字用于条件分支？",
     "options": {
@@ -51,7 +59,9 @@
   },
   {
     "id": "5",
-    "knowledge_point": "控制流",
+    "exam": {"type": "GESP", "level": 4, "date": "2026-06"},
+    "knowledge_points": ["控制流"],
+    "frequency": "常考",
     "type": "true_false",
     "question": "C++ 中，switch 语句的 case 分支必须以 break 结尾。",
     "answer": "false",
@@ -59,7 +69,9 @@
   },
   {
     "id": "6",
-    "knowledge_point": "控制流",
+    "exam": {"type": "GESP", "level": 4, "date": "2026-06"},
+    "knowledge_points": ["控制流"],
+    "frequency": "常考",
     "type": "single_choice",
     "question": "以下哪个循环至少执行一次？",
     "options": {

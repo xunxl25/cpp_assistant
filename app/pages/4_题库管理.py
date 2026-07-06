@@ -15,7 +15,7 @@ st.set_page_config(
     layout="wide"
 )
 
-from app.core.question_loader import load_questions, get_knowledge_point_frequency
+from app.core.question_loader import load_questions, get_knowledge_point_frequency, build_question_bank_index
 
 # 题库路径
 QUESTION_BANK_PATH = "question_bank/gesp4-2606.json"
@@ -30,9 +30,17 @@ def main():
 
     # 题库概览
     st.header("题库概览")
-    col1, col2, col3 = st.columns(3)
+
+    # 刷新索引按钮
+    col_refresh, col1, col2, col3 = st.columns([1, 1, 1, 1])
+    with col_refresh:
+        if st.button("刷新题库索引"):
+            with st.spinner("正在构建索引..."):
+                build_question_bank_index()
+                st.success("索引已刷新")
+
     col1.metric("总题目数", len(questions))
-    col2.metric("知识点数量", len(set(q["knowledge_point"] for q in questions)))
+    col2.metric("知识点数量", len(set(q.get("knowledge_point", "") for q in questions)))
     freq = get_knowledge_point_frequency(questions)
     col3.metric("最多知识点", max(freq.keys(), key=lambda k: freq[k]) if freq else "无")
 
@@ -87,7 +95,10 @@ def main():
                 with open(QUESTION_BANK_PATH, "w", encoding="utf-8") as f:
                     json.dump(new_questions, f, ensure_ascii=False, indent=2)
 
-                st.success("✅ 题库保存成功！")
+                # 刷新题库索引
+                build_question_bank_index()
+
+                st.success("✅ 题库保存成功！索引已刷新")
 
             except json.JSONDecodeError as e:
                 st.error(f"❌ JSON 格式错误: {e}")

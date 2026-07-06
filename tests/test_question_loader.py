@@ -29,7 +29,14 @@ class TestGetQuestionsByKnowledgePoint:
         questions = load_questions("question_bank/gesp4-2606.json")
         filtered = get_questions_by_knowledge_point(questions, "变量与数据类型")
         assert len(filtered) == 3
-        assert all(q["knowledge_point"] == "变量与数据类型" for q in filtered)
+        # 兼容新旧格式
+        for q in filtered:
+            kps = q.get("knowledge_points", [])
+            kp = q.get("knowledge_point")
+            if kps:
+                assert "变量与数据类型" in kps
+            else:
+                assert kp == "变量与数据类型"
 
     def test_filter_by_nonexistent_knowledge_point(self):
         """测试筛选不存在的知识点"""
@@ -68,7 +75,13 @@ class TestGetQuestionById:
         question = get_question_by_id(questions, "1")
         assert question is not None
         assert question["id"] == "1"
-        assert question["knowledge_point"] == "变量与数据类型"
+        # 兼容新旧格式
+        kps = question.get("knowledge_points", [])
+        kp = question.get("knowledge_point")
+        if kps:
+            assert "变量与数据类型" in kps
+        else:
+            assert kp == "变量与数据类型"
 
     def test_get_nonexistent_question(self):
         """测试获取不存在的题目"""
