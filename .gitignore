@@ -17,3 +17,6 @@ data/*.db
 # OS
 Thumbs.db
 .DS_Store
+
+# 历年试卷 PDF（不提交）
+past_exam/*.pdf
