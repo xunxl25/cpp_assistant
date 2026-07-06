@@ -141,10 +141,14 @@ def main():
         # 显示选项（选择题）
         if current_question["type"] == "single_choice":
             options = current_question["options"]
-            user_answer = st.radio("选择答案", list(options.keys()))
+            # 显示选项列表
+            for key, value in options.items():
+                st.write(f"**{key}.** {value}")
+            # 单选
+            user_answer = st.radio("选择答案", list(options.keys()), key=f"answer_{current_question['id']}")
 
             # 提交按钮
-            if st.button("提交答案"):
+            if st.button("提交答案", key=f"submit_{current_question['id']}"):
                 is_correct = user_answer == current_question["answer"]
 
                 # 记录答案
@@ -170,7 +174,7 @@ def main():
         elif current_question["type"] == "true_false":
             user_answer = st.radio("选择答案", ["true", "false"], format_func=lambda x: "正确" if x == "true" else "错误")
 
-            if st.button("提交答案"):
+            if st.button("提交答案", key=f"submit_tf_{current_question['id']}"):
                 is_correct = user_answer == current_question["answer"]
 
                 record_answer(
