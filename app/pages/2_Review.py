@@ -9,7 +9,8 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import random
-from app.core.question_loader import load_questions, get_question_by_id
+# from app.core.question_loader import load_questions, get_question_by_id
+from app.core.question_loader import load_questions_from_folder, get_question_by_id
 from app.core.practice_tracker import get_mistake_questions, PracticeTracker
 from app.core.practice_ui import render_practice_ui
 
@@ -23,7 +24,8 @@ st.set_page_config(
 DB_PATH = "data/practice_log.db"
 
 # 题库路径
-QUESTION_BANK_PATH = "question_bank/gesp4-2606.json"
+# QUESTION_BANK_PATH = "question_bank/gesp4-2606.json"
+QUESTION_BANK_PATH = "question_bank"
 
 # 初始化 session state
 if "mistake_questions" not in st.session_state:
@@ -47,8 +49,8 @@ def main():
     """错题本页面"""
     st.title("📝 错题本")
 
-    # 加载数据
-    questions = load_questions(QUESTION_BANK_PATH)
+    # 加载数据 (使用之前修改的动态加载文件夹)
+    questions = load_questions_from_folder(QUESTION_BANK_PATH)
     mistake_logs = get_mistake_questions(DB_PATH)
 
     if not mistake_logs:
@@ -66,7 +68,6 @@ def main():
                 kp = question.get("knowledge_point", "")
                 kps = [kp] if kp else ["未知"]
             knowledge_point = kps[0] if kps else "未知"
-
             mistakes.append({
                 "题目ID": log["question_id"],
                 "知识点": knowledge_point,
@@ -99,34 +100,44 @@ def main():
         df = pd.DataFrame(mistakes)
         st.dataframe(df, use_container_width=True)
 
-        # 选择题目进行复习
+        # 题目复习
         st.divider()
         st.header("题目复习")
+        
+        # 加载当前筛选条件下的完整题目列表
+        questions_to_practice = []
+        for m in mistakes:
+            q = get_question_by_id(questions, m["题目ID"])
+            if q:
+                questions_to_practice.append(q)
+                
+        if not questions_to_practice:
+            st.warning("没有符合条件的错题")
+        else:
+            # 初始化或获取当前复习索引
+            if "review_current_index" not in st.session_state:
+                st.session_state.review_current_index = 0
+                
+            # 防止索引越界 (比如移出错题本后列表变短了)
+            if st.session_state.review_current_index >= len(questions_to_practice):
+                st.session_state.review_current_index = 0
 
-        selected_idx = st.selectbox(
-            "选择要复习的题目",
-            range(len(mistakes)),
-            format_func=lambda i: f"{mistakes[i]['题目ID']}: {mistakes[i]['题目内容']}"
-        )
+            # 直接使用做题组件渲染整个列表
+            result = render_practice_ui(
+                questions=questions_to_practice,
+                current_index=st.session_state.review_current_index,
+                db_path=DB_PATH,
+                is_mistake_mode=True,
+                on_remove_from_mistake=remove_from_mistake
+            )
 
-        # 加载完整题目
-        current_mistake = mistakes[selected_idx]
-        current_question = get_question_by_id(questions, current_mistake["题目ID"])
-
-        # 使用做题组件
-        result = render_practice_ui(
-            questions=[current_question],
-            current_index=0,
-            db_path=DB_PATH,
-            is_mistake_mode=True,
-            on_remove_from_mistake=remove_from_mistake
-        )
-
-        # 处理移出错题本后的重新加载
-        if result['action'] == 'remove':
-            st.success("已移出错题本")
-            st.rerun()
-
+            # 处理组件返回的动作 (支持下一题和移出错题本)
+            if result['action'] == 'next':
+                st.session_state.review_current_index = result['next_index']
+                st.rerun()
+            elif result['action'] == 'remove':
+                st.success("已移出错题本")
+                st.rerun()
     else:
         st.warning("没有符合条件的错题")
 

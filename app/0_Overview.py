@@ -1,9 +1,15 @@
 """总览页 - 只显示知识点统计"""
 import sys
+import os
 from pathlib import Path
 
+import importlib
+import app.core.question_loader
+importlib.reload(app.core.question_loader)
+
+
 # 添加项目根目录到 Python 路径
-project_root = Path(__file__).parent.parent.parent
+project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import streamlit as st
@@ -11,10 +17,12 @@ import pandas as pd
 import plotly.express as px
 from app.core.question_loader import (
     load_questions,
+    load_questions_from_folder,
     get_knowledge_points,
     get_knowledge_point_frequency
 )
 from app.core.practice_tracker import get_practice_log
+
 
 st.set_page_config(
     page_title="总览 - C++ 做题助手",
@@ -26,7 +34,8 @@ st.set_page_config(
 DB_PATH = Path("data/practice_log.db")
 
 # 题库路径
-QUESTION_BANK_PATH = "question_bank/gesp4-2606.json"
+# QUESTION_BANK_PATH = "question_bank/gesp4-2606.json"
+QUESTION_BANK_PATH = "question_bank"
 
 
 def main():
@@ -34,7 +43,8 @@ def main():
     st.title("📊 学习总览")
 
     # 加载数据
-    questions = load_questions(QUESTION_BANK_PATH)
+    # questions = load_questions(QUESTION_BANK_PATH)
+    questions = load_questions_from_folder(QUESTION_BANK_PATH)
     practice_logs = get_practice_log(str(DB_PATH))
 
     if not questions:

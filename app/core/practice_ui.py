@@ -41,18 +41,20 @@ def render_practice_ui(
     # 显示题目
     st.subheader(f"题目 {current_index + 1} / {len(questions)}")
     st.write(current_question["question"])
-    st.caption(f"知识点: {knowledge_point}")
 
     # 显示选项（选择题）
     if current_question["type"] == "single_choice":
         options = current_question["options"]
-        for key, value in options.items():
-            st.write(f"**{key}.** {value}")
-        user_answer = st.radio("选择答案", list(options.keys()), key=f"answer_{current_question['id']}")
+        user_answer = st.radio(
+            "",
+            list(options.keys()),
+            format_func=lambda x: f"**{x}.** {options[x]}",
+            key=f"answer_{current_question['id']}"
+        )
 
     # 判断题
     elif current_question["type"] == "true_false":
-        user_answer = st.radio("选择答案", ["true", "false"],
+        user_answer = st.radio("", ["true", "false"],
                                format_func=lambda x: "正确" if x == "true" else "错误",
                                key=f"answer_tf_{current_question['id']}")
 

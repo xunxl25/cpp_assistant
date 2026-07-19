@@ -3,3 +3,7 @@ python-dotenv>=1.0
 openai>=1.0
 pytest>=8.0
 plotly>=5.0
+pandas
+streamlit-aggrid
+markitdown[pdf]>=0.0.1
+pymupdf

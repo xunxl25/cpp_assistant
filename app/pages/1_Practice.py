@@ -136,7 +136,7 @@ def main():
         else:
             st.warning("没有符合条件的题目")
     else:
-        st.info("👈 请在侧边栏选择筛选条件，然后点击"开始刷题"")
+        st.info('👈 请在侧边栏选择筛选条件，然后点击"开始刷题"')
 
 
 if __name__ == "__main__":

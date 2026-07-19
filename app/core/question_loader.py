@@ -1,4 +1,5 @@
 """题目加载模块"""
+import os
 import json
 import sqlite3
 import glob
@@ -22,6 +23,30 @@ def load_questions(file_path: str) -> List[Dict]:
     """
     with open(file_path, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_questions_from_folder(folder_path: str) -> List[Dict]:
+    """
+    从文件夹加载所有 JSON 文件中的题目
+    
+    Args:
+        folder_path: 文件夹路径
+    
+    Returns:
+        合并后的题目列表（平铺，不嵌套）
+    """
+    all_questions = []
+    
+    # 获取文件夹中所有 .json 文件
+    json_pattern = os.path.join(folder_path, "*.json")
+    json_files = glob.glob(json_pattern)
+    
+    # 遍历每个文件，加载并合并
+    for file_path in json_files:
+        questions = load_questions(file_path)
+        all_questions.extend(questions)  # 平铺合并，不是 append
+    
+    return all_questions
 
 
 def get_questions_by_knowledge_point(questions: List[Dict], knowledge_point: str) -> List[Dict]:
@@ -252,69 +277,81 @@ def get_questions_by_filter(
     knowledge_points: List[str] = None,
     question_bank_dir: str = "question_bank"
 ) -> List[Dict]:
-    """
-    根据筛选条件获取题目
-
-    Args:
-        exam_types: 考试类型列表（如 ["GESP", "CSP"]）
-        exam_levels: 级别列表（如 ["4", "5"]）
-        frequency: 考察频次（"必考"/"常考"/"其他"）
-        knowledge_points: 知识点列表
-        question_bank_dir: 题库目录路径
-
-    Returns:
-        符合条件的题目列表
-    """
-    ensure_index_exists(question_bank_dir)
-
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
-
-    # 构建 SQL 查询
-    conditions = []
-    params = []
-
-    if exam_types:
-        placeholders = ",".join(["?"] * len(exam_types))
-        conditions.append(f"exam_type IN ({placeholders})")
-        params.extend(exam_types)
-
-    if exam_levels:
-        placeholders = ",".join(["?"] * len(exam_levels))
-        conditions.append(f"exam_level IN ({placeholders})")
-        params.extend(exam_levels)
-
-    if frequency:
-        conditions.append("frequency = ?")
-        params.append(frequency)
-
-    if knowledge_points:
-        # 用 OR 条件匹配知识点（任一知识点匹配即可）
-        kp_conditions = []
-        for _ in knowledge_points:
-            kp_conditions.append("knowledge_points LIKE ?")
-            params.append(f'%"{kp}"%')
-        conditions.append(f"({' OR '.join(kp_conditions)})")
-
-    query = "SELECT source_file, question_index FROM question_index"
-    if conditions:
-        query += " WHERE " + " AND ".join(conditions)
-
-    cursor.execute(query, params)
-    results = cursor.fetchall()
-    conn.close()
-
-    # 根据 source_file 和 question_index 加载题目
-    questions = []
-    for source_file, question_index in results:
-        try:
-            file_questions = load_questions(source_file)
-            if question_index < len(file_questions):
-                questions.append(file_questions[question_index])
-        except Exception as e:
-            print(f"警告: 无法加载题目 {source_file}:{question_index}: {e}")
-
-    return questions
+    """根据筛选条件获取题目"""
+    import logging
+    import traceback
+    import os
+    
+    # 确保日志目录存在
+    log_dir = os.path.dirname(os.path.abspath(__file__))
+    log_file = os.path.join(log_dir, 'question_loader_errors.log')
+    
+    logging.basicConfig(
+        filename=log_file,
+        level=logging.ERROR,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
+    
+    try:
+        ensure_index_exists(question_bank_dir)
+        conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
+        cursor = conn.cursor()
+        
+        # 构建 SQL 查询
+        conditions = []
+        params = []
+        
+        if exam_types:
+            placeholders = ",".join(["?"] * len(exam_types))
+            conditions.append(f"exam_type IN ({placeholders})")
+            params.extend(exam_types)
+        
+        if exam_levels:
+            placeholders = ",".join(["?"] * len(exam_levels))
+            conditions.append(f"exam_level IN ({placeholders})")
+            params.extend(exam_levels)
+        
+        if frequency:
+            conditions.append("frequency = ?")
+            params.append(frequency)
+        
+        if knowledge_points:
+            # 使用正确的变量名 current_kp（不是 kp）
+            kp_conditions = []
+            for current_kp in knowledge_points:  # ← 使用 current_kp 而不是 kp
+                kp_conditions.append("knowledge_points LIKE ?")
+                params.append(f'%"{current_kp}"%')
+            conditions.append(f"({' OR '.join(kp_conditions)})")
+        
+        query = "SELECT source_file, question_index FROM question_index"
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+        
+        cursor.execute(query, params)
+        results = cursor.fetchall()
+        conn.close()
+        
+        # 根据 source_file 和 question_index 加载题目
+        questions = []
+        for source_file, question_index in results:
+            try:
+                file_questions = load_questions(source_file)
+                if question_index < len(file_questions):
+                    questions.append(file_questions[question_index])
+            except Exception as e:
+                error_msg = f"无法加载题目 {source_file}:{question_index}: {e}"
+                logging.error(error_msg)
+                logging.error(traceback.format_exc())
+                print(error_msg)
+        
+        return questions
+        
+    except Exception as e:
+        error_msg = f"get_questions_by_filter 发生错误: {e}"
+        logging.error(error_msg)
+        logging.error(traceback.format_exc())
+        print(error_msg)
+        raise
 
 
 def get_all_exam_types(question_bank_dir: str = "question_bank") -> List[str]:
@@ -394,3 +431,148 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
         freq: sorted(list(kps))
         for freq, kps in frequency_groups.items()
     }
+
+
+# 单题搜索 / 更新（题库管理单题编辑用）
+
+REQUIRED_FIELDS = ["id", "knowledge_points", "type", "question", "answer", "explanation"]
+VALID_TYPES = {"single_choice", "true_false"}
+
+
+def search_questions(questions: List[Dict], keyword: str) -> List[Dict]:
+    """
+    根据 ID 或题目内容搜索题目（兼容新旧知识点格式）
+
+    Args:
+        questions: 题目列表
+        keyword: 搜索关键字（ID 或题目内容）
+
+    Returns:
+        匹配的题目列表
+    """
+    if not keyword:
+        return []
+    results = []
+    keyword_lower = keyword.lower()
+
+    for q in questions:
+        # 精确匹配 ID
+        if q.get("id", "").lower() == keyword_lower:
+            results.append(q)
+            continue
+
+        # 模糊匹配题目内容
+        question_text = q.get("question", "")
+        if keyword_lower in question_text.lower():
+            results.append(q)
+            continue
+
+        # 匹配知识点（新旧格式）
+        kps = q.get("knowledge_points", [])
+        if not kps:
+            kp = q.get("knowledge_point", "")
+            kps = [kp] if kp else []
+        for kp in kps:
+            if keyword_lower in str(kp).lower():
+                results.append(q)
+                break
+
+    return results
+
+
+def validate_question(q: Dict) -> Tuple[bool, str]:
+    """
+    校验单道题目格式
+
+    Returns:
+        (是否有效, 错误信息)
+    """
+    for field in REQUIRED_FIELDS:
+        if field not in q:
+            return False, f"缺少字段: {field}"
+
+    if not isinstance(q.get("knowledge_points"), list):
+        return False, "knowledge_points 必须是列表格式"
+
+    if q["type"] not in VALID_TYPES:
+        return False, f'type 必须是 {VALID_TYPES} 之一'
+
+    if q["type"] == "single_choice" and "options" not in q:
+        return False, "选择题缺少 options 字段"
+
+    if q["type"] == "true_false" and q["answer"] not in ("true", "false"):
+        return False, '判断题 answer 必须为 "true" 或 "false"'
+
+    return True, ""
+
+
+def update_question_in_file(file_path: str, updated_question: Dict) -> Tuple[bool, str]:
+    """
+    更新单个题目到 JSON 文件中（保持文件内题目顺序）
+
+    Args:
+        file_path: JSON 文件路径
+        updated_question: 更新后的题目（必须包含 id 字段）
+
+    Returns:
+        (成功/失败, 错误信息)；成功时索引已自动刷新
+    """
+    try:
+        questions = load_questions(file_path)
+
+        ok, err = validate_question(updated_question)
+        if not ok:
+            return False, err
+
+        question_id = updated_question["id"]
+        found = False
+        for idx, q in enumerate(questions):
+            if q["id"] == question_id:
+                questions[idx] = updated_question
+                found = True
+                break
+
+        if not found:
+            return False, f"未找到 ID 为 {question_id} 的题目"
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(questions, f, ensure_ascii=False, indent=2)
+
+        # 刷新索引
+        build_question_bank_index()
+
+        return True, ""
+
+    except json.JSONDecodeError as e:
+        return False, f"JSON 格式错误: {e}"
+    except FileNotFoundError:
+        return False, f"文件不存在: {file_path}"
+    except Exception as e:
+        return False, f"保存失败: {e}"
+
+
+def get_question_by_id_from_all(
+    question_id: str, question_bank_dir: str = "question_bank"
+) -> Tuple[Optional[Dict], Optional[str]]:
+    """
+    在所有题库文件中查找指定 ID 的题目
+
+    Args:
+        question_id: 题目 ID
+        question_bank_dir: 题库目录
+
+    Returns:
+        (题目字典, 文件路径) 或 (None, None)
+    """
+    json_files = glob.glob(str(Path(question_bank_dir) / "*.json"))
+
+    for json_file in json_files:
+        try:
+            questions = load_questions(json_file)
+            for q in questions:
+                if q.get("id") == question_id:
+                    return q, json_file
+        except Exception:
+            continue
+
+    return None, None

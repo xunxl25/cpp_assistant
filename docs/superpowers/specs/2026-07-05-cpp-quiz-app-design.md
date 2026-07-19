@@ -89,7 +89,7 @@ cpp_assistant/
 
 ### 5.1 题目 JSON 结构
 
-文件命名：`question_bank/<exam_type>-<level>-<date>.json`，如 `gesp4-2606.json`。
+文件命名：`question_bank/<exam_type>-<level>-<date>.json`，如 `gesp-4-2606.json`。
 
 每个文件是一个数组，元素为一道题：
 
