@@ -143,7 +143,7 @@ python test_app.py
 
 ```cmd
 set PYTHONPATH=D:\Projects\cpp_assistant
-streamlit run app/app.py
+streamlit run app/0_Overview.py
 ```
 
 ### AI 功能不可用

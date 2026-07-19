@@ -4,12 +4,15 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
+tests/
 
 # 环境配置
 .env
+nul
 
-# 数据库（个人练习数据，不入库）
+# 数据库（个人练习数据，题库，不入库）
 data/*.db
+*json
 
 # Streamlit
 .streamlit/secrets.toml
@@ -20,3 +23,4 @@ Thumbs.db
 
 # 历年试卷 PDF（不提交）
 past_exam/*.pdf
+pdf_from_CCF/
