@@ -3,14 +3,14 @@ import sys
 import os
 from pathlib import Path
 
+# ========== 先添加项目根目录到 Python 路径 ==========
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+# ========== 然后再导入 app 模块 ==========
+
 import importlib
 import app.core.question_loader
 importlib.reload(app.core.question_loader)
-
-
-# 添加项目根目录到 Python 路径
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
 
 import streamlit as st
 import pandas as pd
@@ -94,7 +94,7 @@ def main():
         barmode="group",
         title="知识点题目数量与完成情况"
     )
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
     # 显示正确率
     st.write("### 知识点正确率")
@@ -105,7 +105,7 @@ def main():
         title="各知识点正确率",
         range_y=[0, 1]
     )
-    st.plotly_chart(accuracy_chart, use_container_width=True)
+    st.plotly_chart(accuracy_chart, width='stretch')
 
     # 统计卡片
     st.divider()

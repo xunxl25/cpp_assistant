@@ -42,6 +42,7 @@ PAST_EXAM_DIR = "past_exam"
 TEMP_DIR = "temp"
 
 
+@st.cache_data
 def load_all_questions(bank_dir: str = QUESTION_BANK_DIR):
     """加载题库目录下所有 JSON 题目（合并为一个列表）"""
     all_questions = []
@@ -95,7 +96,7 @@ def main():
                 for r in rows
             ]
             if index_data:
-                st.dataframe(index_data, use_container_width=True, hide_index=True)
+                st.dataframe(index_data, width='stretch', hide_index=True)
             else:
                 st.info("索引为空，请点击刷新按钮构建索引。")
         else:
@@ -118,7 +119,7 @@ def main():
             "题目": display_question
         })
     if df_data:
-        st.dataframe(df_data, use_container_width=True, hide_index=True)
+        st.dataframe(df_data, width='stretch', hide_index=True)
     else:
         st.warning("题库为空")
 
@@ -139,7 +140,7 @@ def main():
     with sc2:
         st.write("")  # 占位对齐
         st.write("")
-        if st.button("🔍 搜索", use_container_width=True):
+        if st.button("🔍 搜索", width='stretch'):
             if search_kw.strip():
                 results = search_questions(all_questions, search_kw.strip())
                 st.session_state.edit_results = results
@@ -157,7 +158,7 @@ def main():
     with ic2:
         st.write("")
         st.write("")
-        if st.button("📂 加载", use_container_width=True):
+        if st.button("📂 加载", width='stretch'):
             q, _path = get_question_by_id_from_all(load_id.strip())
             if q:
                 st.session_state.edit_results = [q]
@@ -262,49 +263,78 @@ def main():
             if not uploaded:
                 st.warning("请先选择 PDF 文件")
             else:
+                # ===== 新增：初始化日志文件 =====
+                with open("debug.log", "w", encoding="utf-8") as logf:
+                    logf.write("开始解析元数据...\n")
+                
                 Path(TEMP_DIR).mkdir(exist_ok=True)
                 meta_list = []
+                
                 for f in uploaded:
+                    # ===== 新增：记录当前处理的文件 =====
+                    with open("debug.log", "a", encoding="utf-8") as logf:
+                        logf.write(f"\n正在处理文件: {f.name}\n")
+                    
                     # 保存到 temp
                     temp_path = Path(TEMP_DIR) / f.name
                     with open(temp_path, "wb") as out:
                         out.write(f.getbuffer() if hasattr(f, "getbuffer") else f.read())
+                        
                     try:
                         md = pdf_to_markdown(temp_path)
+                        # ===== 新增：记录 markdown 转换成功 =====
+                        with open("debug.log", "a", encoding="utf-8") as logf:
+                            logf.write(f"PDF 转 Markdown 成功，前 100 字符: {md[:100]}\n")
                     except Exception as e:
+                        with open("debug.log", "a", encoding="utf-8") as logf:
+                            logf.write(f"❌ PDF 转 Markdown 失败: {e}\n")
                         meta_list.append({
                             "orig": f.name, "type": "", "level": "", "date": "",
-                            "status": "❌ 解析失败", "stem": "", "markdown": "",
-                            "temp_path": str(temp_path)
+                            "status": "❌ 解析失败", "stem": "", "markdown": "", "temp_path": str(temp_path)
                         })
                         continue
-                    md_meta = parse_pdf_metadata(md)
+                        
+                    try:
+                        md_meta = parse_pdf_metadata(md)
+                        # ===== 新增：记录 LLM 返回的元数据 =====
+                        with open("debug.log", "a", encoding="utf-8") as logf:
+                            logf.write(f"parse_pdf_metadata 返回: {md_meta}\n")
+                    except Exception as e:
+                        with open("debug.log", "a", encoding="utf-8") as logf:
+                            logf.write(f"❌ parse_pdf_metadata 抛出异常: {e}\n")
+                        md_meta = {}
+
                     t, l, d = md_meta.get("type", ""), md_meta.get("level", ""), md_meta.get("date", "")
                     ok, err = validate_metadata(t, l, d)
                     stem = generate_filename(t, l, d) if ok else ""
+                    
                     if not ok:
                         status = f"❌ {err}"
                     elif check_duplicate(t, l, d):
                         status = "⚠️ 已存在"
                     else:
                         status = "✅ 新题"
+                        
                     meta_list.append({
                         "orig": f.name, "type": t, "level": l, "date": d,
-                        "status": status, "stem": stem, "markdown": md,
-                        "temp_path": str(temp_path)
+                        "status": status, "stem": stem, "markdown": md, "temp_path": str(temp_path)
                     })
+
                 st.session_state.upload_meta = meta_list
                 st.session_state.upload_results = {}
                 st.session_state.upload_report = None
                 st.rerun()
     with uc2:
-        if st.button("🗑️ 清空"):
+        if st.button("🗑️ 清空", key="clear_pdf_upload"):
             st.session_state.upload_meta = []
             st.session_state.upload_results = {}
             st.session_state.upload_report = None
             st.rerun()
 
     meta = st.session_state.upload_meta
+    # 显示调试信息
+    if "debug_meta" in st.session_state:
+        st.warning(st.session_state["debug_meta"])
     if meta:
         st.subheader("元数据解析结果（可编辑）")
         # 表头
@@ -328,24 +358,51 @@ def main():
                 m["status"] = f"❌ {err}"
             rc[4].write(m["status"])
 
-        # 解析题目
-        if st.button("✅ 确认无误，开始解析题目", type="primary"):
-            results = {}
-            new_files = [m for m in meta if m["status"] == "✅ 新题"]
-            progress = st.progress(0.0)
+    # 解析题目
+    if st.button("✅ 确认无误，开始解析题目", type="primary"):
+        results = {}
+        new_files = [m for m in meta if m["status"] == "✅ 新题"]
+        progress = st.progress(0.0)
+        
+        # === 新增：初始化/追加日志 ===
+        # 使用 "a" 模式 append，保留元数据解析的日志，方便对比
+        with open("debug.log", "a", encoding="utf-8") as logf:
+            logf.write(f"\n{'='*20} 开始解析题目 {'='*20}\n")
+            logf.write(f"待解析文件数: {len(new_files)}\n")
+            
             for i, m in enumerate(new_files):
                 progress.progress((i) / max(len(new_files), 1), text=f"正在解析 {i+1}/{len(new_files)}：{m['orig']}")
-                qs = parse_pdf_questions(m["markdown"], {
-                    "type": m["type"], "level": m["level"], "date": m["date"]
-                })
-                if qs:
-                    results[m["stem"]] = qs
-                    m["status"] = "✅ 已解析"
-                else:
-                    m["status"] = "❌ 解析失败"
-            progress.progress(1.0, text="解析完成")
-            st.session_state.upload_results = results
-            st.rerun()
+                
+                # === 新增：记录进入循环 ===
+                logf.write(f"[{i+1}] 正在处理: {m['orig']}\n")
+                logf.flush() # 强制立即写入磁盘，防止程序崩溃丢失日志
+                
+                try:
+                    # 调用解析函数
+                    qs = parse_pdf_questions(m["markdown"], {
+                        "type": m["type"],
+                        "level": m["level"],
+                        "date": m["date"]
+                    })
+                    
+                    # === 新增：记录结果状态 ===
+                    if qs:
+                        logf.write(f"[{i+1}] 解析成功，题目数: {len(qs)}\n")
+                        results[m["stem"]] = qs
+                        m["status"] = "✅ 已解析"
+                    else:
+                        logf.write(f"[{i+1}] 解析失败：返回为空\n")
+                        m["status"] = "❌ 解析失败"
+                        
+                except Exception as e:
+                    logf.write(f"[{i+1}] 解析异常: {e}\n")
+                    m["status"] = f"❌ 异常"
+            
+            logf.write(f"解析流程结束\n")
+
+        progress.progress(1.0, text="解析完成")
+        st.session_state.upload_results = results
+        st.rerun()
 
         # JSON 预览
         if st.session_state.upload_results:
@@ -447,7 +504,7 @@ def main():
                 st.session_state.json_upload = parsed
                 st.rerun()
     with jc2:
-        if st.button("🗑️ 清空"):
+        if st.button("🗑️ 清空", key="clear_json_upload"):
             st.session_state.json_upload = {}
             st.rerun()
 
@@ -463,7 +520,7 @@ def main():
                     "⚠️ 部分无效" if info["valid"] else "❌ 全部无效"
                 )
             })
-        st.dataframe(rows, use_container_width=True, hide_index=True)
+        st.dataframe(rows, width='stretch', hide_index=True)
 
         # 错误详情
         all_errors = []

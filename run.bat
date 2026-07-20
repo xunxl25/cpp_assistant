@@ -9,6 +9,8 @@ REM Clear Streamlit cache
 echo Clearing Streamlit cache...
 rd /s /q "%USERPROFILE%\.streamlit\cache" 2>nul
 
+call venv\Scripts\activate.bat
+
 echo Checking dependencies...
 pip install -q -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 

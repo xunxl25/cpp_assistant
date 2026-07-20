@@ -98,7 +98,7 @@ def main():
     st.header("错题列表")
     if mistakes:
         df = pd.DataFrame(mistakes)
-        st.dataframe(df, use_container_width=True)
+        st.dataframe(df, width='stretch')
 
         # 题目复习
         st.divider()
