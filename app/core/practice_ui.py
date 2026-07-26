@@ -40,23 +40,30 @@ def render_practice_ui(
 
     # 显示题目
     st.subheader(f"题目 {current_index + 1} / {len(questions)}")
-    st.write(current_question["question"])
+    # 将字符串中的 \n 替换为 HTML 的 <br> 标签
+    # st.write(current_question["question"].replace("\n", "<br>"))
+    st.markdown(current_question["question"].replace("\n", "<br>"), unsafe_allow_html=True)
 
     # 显示选项（选择题）
     if current_question["type"] == "single_choice":
         options = current_question["options"]
         user_answer = st.radio(
-            "",
+            "选择你的答案",
             list(options.keys()),
             format_func=lambda x: f"**{x}.** {options[x]}",
-            key=f"answer_{current_question['id']}"
+            key=f"answer_{current_question['id']}",
+            label_visibility="collapsed"  # 隐藏标签
         )
 
     # 判断题
     elif current_question["type"] == "true_false":
-        user_answer = st.radio("", ["true", "false"],
-                               format_func=lambda x: "正确" if x == "true" else "错误",
-                               key=f"answer_tf_{current_question['id']}")
+        user_answer = st.radio(
+            "选择你的答案", 
+            ["true", "false"],
+            format_func=lambda x: "正确" if x == "true" else "错误",
+            key=f"answer_tf_{current_question['id']}",
+            label_visibility="collapsed"  # 隐藏标签
+        )
 
     else:
         st.error("未知题目类型")
