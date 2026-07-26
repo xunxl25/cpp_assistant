@@ -73,7 +73,7 @@ def main():
 
     # 3. 考察频次（单选）
     st.sidebar.subheader("3. 考察频次")
-    frequency_options = ["全部", "必考", "常考", "其他"]
+    frequency_options = ["全部", "常考", "其他"]
     selected_frequency = st.sidebar.radio(
         "选择考察频次",
         frequency_options

@@ -181,9 +181,7 @@ def build_question_bank_index(question_bank_dir: str = "question_bank") -> None:
     total_questions = sum(knowledge_point_counts.values())
 
     def get_frequency(ratio: float) -> str:
-        if ratio > 0.8:
-            return "必考"
-        elif 0.4 <= ratio <= 0.8:
+        if ratio > 0.05:
             return "常考"
         else:
             return "其他"
@@ -404,7 +402,7 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
         question_bank_dir: 题库目录路径
 
     Returns:
-        字典：{"必考": [...], "常考": [...], "其他": [...]}
+        字典：{"常考": [...], "其他": [...]}
     """
     ensure_index_exists(question_bank_dir)
 
@@ -415,7 +413,7 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
     conn.close()
 
     # 按频次分组
-    frequency_groups = {"必考": set(), "常考": set(), "其他": set()}
+    frequency_groups = {"常考": set(), "其他": set()}
 
     for kp_json, freq in results:
         try:
