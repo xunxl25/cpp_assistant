@@ -24,3 +24,8 @@ Thumbs.db
 # 历年试卷 PDF（不提交）
 past_exam/*.pdf
 pdf_from_CCF/
+
+# 调试用
+*patch
+temp*
+*.log

@@ -347,7 +347,7 @@ def validate_question(q: Dict) -> Tuple[bool, str]:
     if q["type"] == "single_choice" and "options" not in q:
         return False, "选择题缺少 options 字段"
 
-    if q["type"] == "true_false" and q["answer"] not in ("true", "false"):
-        return False, '判断题 answer 必须为 "true" 或 "false"'
+    if q["type"] == "true_false" and q["answer"] not in ("true", "false", "T", "F"):
+        return False, '判断题 answer 必须为 "true"/"false" 或 "T"/"F"'
 
     return True, ""

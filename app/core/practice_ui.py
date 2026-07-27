@@ -48,6 +48,7 @@ def render_practice_ui(
     # 显示选项（选择题）
     if current_question["type"] == "single_choice":
         options = current_question["options"]
+        correct_answer = current_question["answer"]
         user_answer = st.radio(
             "选择你的答案",
             list(options.keys()),
@@ -58,8 +59,18 @@ def render_practice_ui(
 
     # 判断题
     elif current_question["type"] == "true_false":
+        raw_answer = current_question.get("answer", "")
+        # 兼容 T/F 和 true/false 两种格式，统一归一化到 true/false
+        answer_map = {"T": "true", "F": "false", "true": "true", "false": "false"}
+        correct_answer = answer_map.get(raw_answer, raw_answer)
+        if correct_answer not in ("true", "false"):
+            st.warning(
+                f"⚠️ 题目数据异常：判断题答案应为 T/F 或 true/false，"
+                f"实际为「{raw_answer}」。"
+                f"请检查题库 JSON 文件中此题（ID: {current_question['id']}）的 answer 字段。"
+            )
         user_answer = st.radio(
-            "选择你的答案", 
+            "选择你的答案",
             ["true", "false"],
             format_func=lambda x: "正确" if x == "true" else "错误",
             key=f"answer_tf_{current_question['id']}",
@@ -74,14 +85,14 @@ def render_practice_ui(
     submit_col, next_col = st.columns([1, 1])
     with submit_col:
         if st.button("提交答案", key=f"submit_{current_question['id']}"):
-            is_correct = user_answer == current_question["answer"]
+            is_correct = user_answer == correct_answer
 
             # 记录答案
             record_answer(
                 db_path,
                 current_question["id"],
                 user_answer,
-                current_question["answer"],
+                correct_answer,
                 is_correct,
                 knowledge_points_json
             )
@@ -101,7 +112,12 @@ def render_practice_ui(
                         if st.button("再练一次", key=f"stay_{current_question['id']}"):
                             return {'action': 'stay', 'next_index': current_index}
             else:
-                st.error(f"❌ 回答错误！正确答案是: {current_question['answer']}")
+                # 判断题显示中文，选择题显示字母
+                if current_question["type"] == "true_false":
+                    display = "正确" if correct_answer == "true" else "错误"
+                else:
+                    display = correct_answer
+                st.error(f"❌ 回答错误！正确答案是: {display}")
 
             # 显示解析
             st.info(current_question["explanation"])
@@ -122,7 +138,7 @@ def render_practice_ui(
     context = {
         "question": current_question["question"],
         "user_answer": user_answer if 'user_answer' in locals() else "",
-        "correct_answer": current_question["answer"]
+        "correct_answer": correct_answer
     }
 
     # 用户输入
