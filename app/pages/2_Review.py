@@ -62,7 +62,7 @@ def main():
     for log in mistake_logs:
         question = get_question_by_id(questions, log["question_id"])
         if question:
-            # 获取知识点（兼容新旧格式）
+            # 获取知识点（兼容新旧格式），取第一个用于表格展示
             kps = question.get("knowledge_points", [])
             if not kps:
                 kp = question.get("knowledge_point", "")
@@ -74,7 +74,9 @@ def main():
                 "题目内容": question["question"][:50] + "...",
                 "错误次数": log["wrong_count"],
                 "正确次数": log["correct_count"],
-                "正确率": round(log["correct_count"] / (log["correct_count"] + log["wrong_count"]), 2) if (log["correct_count"] + log["wrong_count"]) > 0 else 0
+                "正确率": round(log["correct_count"] / (log["correct_count"] + log["wrong_count"]), 2) if (log["correct_count"] + log["wrong_count"]) > 0 else 0,
+                "最后答案": log.get("user_answer", ""),
+                "正确答案": log.get("correct_answer", "")
             })
 
     # 筛选模式

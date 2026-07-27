@@ -1,6 +1,7 @@
 """总览页 - 只显示知识点统计"""
 import sys
 import os
+import json
 from pathlib import Path
 
 # ========== 先添加项目根目录到 Python 路径 ==========
@@ -59,7 +60,15 @@ def main():
     # 计算每个知识点的完成度
     completion = {}
     for kp in knowledge_points:
-        kp_logs = [log for log in practice_logs if log["knowledge_point"] == kp]
+        # 从 practice_log 中匹配包含该知识点的记录
+        kp_logs = []
+        for log in practice_logs:
+            try:
+                log_kps = json.loads(log.get("knowledge_points", "[]"))
+            except (json.JSONDecodeError, TypeError):
+                log_kps = []
+            if kp in log_kps:
+                kp_logs.append(log)
         practiced_count = len(kp_logs)
 
         if len(kp_logs) > 0:

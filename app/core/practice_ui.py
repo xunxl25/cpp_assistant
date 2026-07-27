@@ -1,4 +1,5 @@
 """做题界面组件 - 复用逻辑"""
+import json
 from typing import List, Dict, Optional, Callable
 import streamlit as st
 from pathlib import Path
@@ -31,12 +32,12 @@ def render_practice_ui(
 
     current_question = questions[current_index]
 
-    # 获取知识点（兼容新旧格式）
+    # 获取知识点（兼容新旧格式），转为 JSON 数组字符串存入 DB
     kps = current_question.get("knowledge_points", [])
     if not kps:
         kp = current_question.get("knowledge_point", "")
         kps = [kp] if kp else ["未知"]
-    knowledge_point = kps[0] if kps else "未知"
+    knowledge_points_json = json.dumps(kps, ensure_ascii=False)
 
     # 显示题目
     st.subheader(f"题目 {current_index + 1} / {len(questions)}")
@@ -82,7 +83,7 @@ def render_practice_ui(
                 user_answer,
                 current_question["answer"],
                 is_correct,
-                knowledge_point
+                knowledge_points_json
             )
 
             # 显示结果
