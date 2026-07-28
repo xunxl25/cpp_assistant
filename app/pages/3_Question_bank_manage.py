@@ -358,34 +358,28 @@ def main():
                 m["status"] = f"❌ {err}"
             rc[4].write(m["status"])
 
-    # 解析题目
+    # ========== 解析题目 ==========
     if st.button("✅ 确认无误，开始解析题目", type="primary"):
         results = {}
         new_files = [m for m in meta if m["status"] == "✅ 新题"]
         progress = st.progress(0.0)
         
-        # === 新增：初始化/追加日志 ===
-        # 使用 "a" 模式 append，保留元数据解析的日志，方便对比
         with open("debug.log", "a", encoding="utf-8") as logf:
             logf.write(f"\n{'='*20} 开始解析题目 {'='*20}\n")
             logf.write(f"待解析文件数: {len(new_files)}\n")
             
             for i, m in enumerate(new_files):
                 progress.progress((i) / max(len(new_files), 1), text=f"正在解析 {i+1}/{len(new_files)}：{m['orig']}")
-                
-                # === 新增：记录进入循环 ===
                 logf.write(f"[{i+1}] 正在处理: {m['orig']}\n")
-                logf.flush() # 强制立即写入磁盘，防止程序崩溃丢失日志
+                logf.flush()
                 
                 try:
-                    # 调用解析函数
                     qs = parse_pdf_questions(m["markdown"], {
                         "type": m["type"],
                         "level": m["level"],
                         "date": m["date"]
                     })
                     
-                    # === 新增：记录结果状态 ===
                     if qs:
                         logf.write(f"[{i+1}] 解析成功，题目数: {len(qs)}\n")
                         results[m["stem"]] = qs
@@ -399,64 +393,61 @@ def main():
                     m["status"] = f"❌ 异常"
             
             logf.write(f"解析流程结束\n")
-
+        
         progress.progress(1.0, text="解析完成")
         st.session_state.upload_results = results
         st.rerun()
 
-        # JSON 预览
-        if st.session_state.upload_results:
-            st.subheader("JSON 预览（新题）")
-            preview = []
-            for stem, qs in st.session_state.upload_results.items():
-                preview.extend(qs)
-            st.text_area(
-                "预览",
-                value=json.dumps(preview, ensure_ascii=False, indent=2),
-                height=300,
-                key="upload_preview"
-            )
+    # ========== JSON 预览 + 保存 ==========
+    if st.session_state.upload_results:
+        st.subheader("JSON 预览（新题）")
+        preview = []
+        for stem, qs in st.session_state.upload_results.items():
+            preview.extend(qs)
+        st.text_area(
+            "预览",
+            value=json.dumps(preview, ensure_ascii=False, indent=2),
+            height=300,
+            key="upload_preview"
+        )
 
-            if st.button("💾 保存所有新题", type="primary"):
-                Path(PAST_EXAM_DIR).mkdir(exist_ok=True)
-                Path(QUESTION_BANK_DIR).mkdir(exist_ok=True)
-                saved, skipped, failed = 0, 0, 0
-                for m in meta:
-                    if m["status"] != "✅ 已解析":
-                        if m["status"] == "⚠️ 已存在":
-                            skipped += 1
-                        else:
-                            failed += 1
-                        continue
-                    stem = m["stem"]
-                    qs = st.session_state.upload_results.get(stem, [])
-                    try:
-                        # 保存 JSON
-                        with open(Path(QUESTION_BANK_DIR) / f"{stem}.json", "w", encoding="utf-8") as f:
-                            json.dump(qs, f, ensure_ascii=False, indent=2)
-                        # 复制 PDF 到 past_exam
-                        src = Path(m["temp_path"])
-                        dst = Path(PAST_EXAM_DIR) / f"{stem}.pdf"
-                        src.replace(dst)
-                        saved += 1
-                    except Exception as e:
-                        st.error(f"保存 {m['orig']} 失败: {e}")
+        if st.button("💾 保存所有新题", type="primary"):
+            Path(PAST_EXAM_DIR).mkdir(exist_ok=True)
+            Path(QUESTION_BANK_DIR).mkdir(exist_ok=True)
+            saved, skipped, failed = 0, 0, 0
+            for m in meta:
+                if m["status"] != "✅ 已解析":
+                    if m["status"] == "⚠️ 已存在":
+                        skipped += 1
+                    else:
                         failed += 1
-
-                # 刷新索引
+                    continue
+                stem = m["stem"]
+                qs = st.session_state.upload_results.get(stem, [])
                 try:
-                    build_question_bank_index()
+                    with open(Path(QUESTION_BANK_DIR) / f"{stem}.json", "w", encoding="utf-8") as f:
+                        json.dump(qs, f, ensure_ascii=False, indent=2)
+                    src = Path(m["temp_path"])
+                    dst = Path(PAST_EXAM_DIR) / f"{stem}.pdf"
+                    src.replace(dst)
+                    saved += 1
                 except Exception as e:
-                    st.warning(f"索引刷新失败，请手动点击刷新: {e}")
+                    st.error(f"保存 {m['orig']} 失败: {e}")
+                    failed += 1
+            try:
+                build_question_bank_index()
+            except Exception as e:
+                st.warning(f"索引刷新失败，请手动点击刷新: {e}")
+            st.session_state.upload_report = {
+                "saved": saved, "skipped": skipped, "failed": failed
+            }
+            st.session_state.upload_results = {}
+            st.rerun()
 
-                st.session_state.upload_report = {
-                    "saved": saved, "skipped": skipped, "failed": failed
-                }
-                st.rerun()
-
-        if st.session_state.upload_report:
-            r = st.session_state.upload_report
-            st.info(f"处理报告：✅ 成功 {r['saved']} 个，⚠️ 跳过 {r['skipped']} 个，❌ 失败 {r['failed']} 个")
+    # ========== 处理报告 ==========
+    if st.session_state.upload_report:
+        r = st.session_state.upload_report
+        st.info(f"处理报告：✅ 成功 {r['saved']} 个，⚠️ 跳过 {r['skipped']} 个，❌ 失败 {r['failed']} 个")
 
     # ---------- 5. 直接上传 JSON ----------
     st.divider()
