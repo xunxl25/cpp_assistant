@@ -60,7 +60,7 @@ try:
         user_answer="A",
         correct_answer="A",
         is_correct=True,
-        knowledge_point="变量与数据类型"
+        knowledge_points="变量与数据类型"
     )
     logs = tracker.get_all_logs()
     assert len(logs) == 1
