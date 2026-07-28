@@ -81,23 +81,36 @@ def render_practice_ui(
         st.error("未知题目类型")
         return {'action': 'stay', 'next_index': current_index}
 
-    # 提交按钮
+    # 提交状态跟踪（防止重复提交：同一道题提交一次后按钮消失，结果持久展示）
+    submit_key = f"submitted_{current_question['id']}"
+    already_submitted = st.session_state.get(submit_key, False)
+
+    # 提交按钮 + 下一题按钮
     submit_col, next_col = st.columns([1, 1])
     with submit_col:
-        if st.button("提交答案", key=f"submit_{current_question['id']}"):
-            is_correct = user_answer == correct_answer
+        if not already_submitted:
+            # 未提交：显示提交按钮
+            if st.button("提交答案", key=f"submit_{current_question['id']}"):
+                is_correct = user_answer == correct_answer
 
-            # 记录答案
-            record_answer(
-                db_path,
-                current_question["id"],
-                user_answer,
-                correct_answer,
-                is_correct,
-                knowledge_points_json
-            )
+                # 记录答案
+                record_answer(
+                    db_path,
+                    current_question["id"],
+                    user_answer,
+                    correct_answer,
+                    is_correct,
+                    knowledge_points_json
+                )
 
-            # 显示结果
+                # 标记已提交，存储结果，rerun 后走 else 分支持久展示
+                st.session_state[submit_key] = True
+                st.session_state[f"result_{current_question['id']}"] = is_correct
+                st.rerun()
+        else:
+            # 已提交：持久展示结果（不受 rerun 影响）
+            is_correct = st.session_state.get(f"result_{current_question['id']}", False)
+
             if is_correct:
                 st.success("✅ 回答正确！")
 
@@ -110,6 +123,9 @@ def render_practice_ui(
                             return {'action': 'remove', 'next_index': current_index + 1}
                     with stay_col:
                         if st.button("再练一次", key=f"stay_{current_question['id']}"):
+                            # 重置提交状态，允许重新作答
+                            if submit_key in st.session_state:
+                                del st.session_state[submit_key]
                             return {'action': 'stay', 'next_index': current_index}
             else:
                 # 判断题显示中文，选择题显示字母
