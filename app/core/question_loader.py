@@ -3,6 +3,7 @@ import os
 import json
 import sqlite3
 import glob
+from collections import defaultdict
 from typing import List, Dict, Optional, Set, Tuple
 from pathlib import Path
 
@@ -329,19 +330,24 @@ def get_questions_by_filter(
         results = cursor.fetchall()
         conn.close()
         
-        # 根据 source_file 和 question_index 加载题目
-        questions = []
+        # 按 source_file 分组，每个文件只加载一次
+        file_to_indices = defaultdict(list)
         for source_file, question_index in results:
+            file_to_indices[source_file].append(question_index)
+
+        questions = []
+        for source_file, indices in file_to_indices.items():
             try:
                 file_questions = load_questions(source_file)
-                if question_index < len(file_questions):
-                    questions.append(file_questions[question_index])
+                for qi in indices:
+                    if qi < len(file_questions):
+                        questions.append(file_questions[qi])
             except Exception as e:
-                error_msg = f"无法加载题目 {source_file}:{question_index}: {e}"
+                error_msg = f"无法加载题目 {source_file}: {e}"
                 logging.error(error_msg)
                 logging.error(traceback.format_exc())
                 print(error_msg)
-        
+
         return questions
         
     except Exception as e:
