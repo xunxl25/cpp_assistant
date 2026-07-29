@@ -9,9 +9,9 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 # ========== 然后再导入 app 模块 ==========
 
-import importlib
-import app.core.question_loader
-importlib.reload(app.core.question_loader)
+# import importlib
+# import app.core.question_loader
+# importlib.reload(app.core.question_loader)
 
 import streamlit as st
 import pandas as pd
