@@ -7,11 +7,13 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 import streamlit as st
+from app.core.cache import (
+    get_exam_types,
+    get_exam_levels,
+    get_knowledge_points_with_frequency,
+)
 from app.core.question_loader import (
     get_questions_by_filter,
-    get_all_exam_types,
-    get_all_exam_levels,
-    get_all_knowledge_points_with_frequency,
     build_question_bank_index
 )
 from app.core.practice_ui import render_practice_ui
@@ -49,13 +51,14 @@ def main():
         with st.sidebar:
             with st.spinner("正在构建索引..."):
                 build_question_bank_index()
+                st.cache_data.clear()
                 st.success("索引已刷新")
 
     st.sidebar.divider()
 
     # 1. 考试类型（多选）
     st.sidebar.subheader("1. 考试类型")
-    all_exam_types = get_all_exam_types()
+    all_exam_types = get_exam_types()
     selected_exam_types = st.sidebar.multiselect(
         "选择考试类型",
         all_exam_types,
@@ -64,7 +67,7 @@ def main():
 
     # 2. 级别（多选）
     st.sidebar.subheader("2. 级别")
-    all_exam_levels = get_all_exam_levels()
+    all_exam_levels = get_exam_levels()
     selected_exam_levels = st.sidebar.multiselect(
         "选择级别",
         all_exam_levels,
@@ -81,7 +84,7 @@ def main():
 
     # 4. 知识点（多选，根据频次动态加载）
     st.sidebar.subheader("4. 知识点")
-    all_kps = get_all_knowledge_points_with_frequency()
+    all_kps = get_knowledge_points_with_frequency()
 
     # 根据选择的频次过滤知识点
     if selected_frequency == "全部":

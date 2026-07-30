@@ -2,7 +2,6 @@
 import sys
 import sqlite3
 import json
-import glob
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -26,6 +25,7 @@ from app.core.question_loader import (
     update_question_in_file,
     get_question_by_id_from_all,
 )
+from app.core.cache import get_all_questions
 from app.core.pdf_parser import (
     pdf_to_markdown,
     parse_pdf_metadata,
@@ -42,18 +42,6 @@ PAST_EXAM_DIR = "past_exam"
 TEMP_DIR = "temp"
 
 
-@st.cache_data
-def load_all_questions(bank_dir: str = QUESTION_BANK_DIR):
-    """加载题库目录下所有 JSON 题目（合并为一个列表）"""
-    all_questions = []
-    for json_file in glob.glob(str(Path(bank_dir) / "*.json")):
-        try:
-            all_questions.extend(load_questions(json_file))
-        except Exception:
-            continue
-    return all_questions
-
-
 def main():
     """题库管理页面"""
     st.title("📚 题库管理")
@@ -66,10 +54,11 @@ def main():
         if st.button("刷新题库索引"):
             with st.spinner("正在构建索引..."):
                 build_question_bank_index()
+                st.cache_data.clear()
             st.success("索引已刷新")
             st.rerun()
 
-    all_questions = load_all_questions()
+    all_questions = get_all_questions(QUESTION_BANK_DIR)
 
     # 统计知识点（兼容新旧格式）
     all_kps = set()
@@ -229,6 +218,7 @@ def main():
                     else:
                         ok, err = update_question_in_file(file_path, updated_q)
                         if ok:
+                            st.cache_data.clear()
                             st.success(f"✅ 已保存到 {file_path}，索引已刷新")
                             # 刷新结果列表中的对应题
                             st.session_state.edit_results[st.session_state.edit_sel_idx] = updated_q
@@ -436,6 +426,7 @@ def main():
                     failed += 1
             try:
                 build_question_bank_index()
+                st.cache_data.clear()
             except Exception as e:
                 st.warning(f"索引刷新失败，请手动点击刷新: {e}")
             st.session_state.upload_report = {
@@ -546,6 +537,7 @@ def main():
                         failed += 1
                 try:
                     build_question_bank_index()
+                    st.cache_data.clear()
                 except Exception as e:
                     st.warning(f"索引刷新失败，请手动刷新: {e}")
                 st.success(f"✅ 入库 {saved} 个文件，失败 {failed} 个，索引已刷新")

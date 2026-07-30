@@ -9,8 +9,8 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import random
-# from app.core.question_loader import load_questions, get_question_by_id
-from app.core.question_loader import load_questions_from_folder, get_question_by_id
+from app.core.cache import get_all_questions
+from app.core.question_loader import get_question_by_id
 from app.core.practice_tracker import get_mistake_questions, PracticeTracker
 from app.core.practice_ui import render_practice_ui
 
@@ -49,8 +49,8 @@ def main():
     """错题本页面"""
     st.title("📝 错题本")
 
-    # 加载数据 (使用之前修改的动态加载文件夹)
-    questions = load_questions_from_folder(QUESTION_BANK_PATH)
+    # 加载数据
+    questions = get_all_questions(QUESTION_BANK_PATH)
     mistake_logs = get_mistake_questions(DB_PATH)
 
     if not mistake_logs:

@@ -16,9 +16,8 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from app.core.cache import get_all_questions
 from app.core.question_loader import (
-    load_questions,
-    load_questions_from_folder,
     get_knowledge_points,
     get_knowledge_point_frequency
 )
@@ -44,8 +43,7 @@ def main():
     st.title("📊 学习总览")
 
     # 加载数据
-    # questions = load_questions(QUESTION_BANK_PATH)
-    questions = load_questions_from_folder(QUESTION_BANK_PATH)
+    questions = get_all_questions(QUESTION_BANK_PATH)
     practice_logs = get_practice_log(str(DB_PATH))
 
     if not questions:
