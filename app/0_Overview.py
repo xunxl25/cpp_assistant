@@ -55,21 +55,23 @@ def main():
     freq = get_knowledge_point_frequency(questions)
     knowledge_points = get_knowledge_points(questions)
 
+    # 预处理：解析每条日志的知识点，按知识点分组（O(L) 一次扫完）
+    kp_logs_map = {}  # {kp: [log, ...]}
+    for log in practice_logs:
+        try:
+            log_kps = json.loads(log.get("knowledge_points", "[]"))
+        except (json.JSONDecodeError, TypeError):
+            log_kps = []
+        for kp in log_kps:
+            kp_logs_map.setdefault(kp, []).append(log)
+
     # 计算每个知识点的完成度
     completion = {}
     for kp in knowledge_points:
-        # 从 practice_log 中匹配包含该知识点的记录
-        kp_logs = []
-        for log in practice_logs:
-            try:
-                log_kps = json.loads(log.get("knowledge_points", "[]"))
-            except (json.JSONDecodeError, TypeError):
-                log_kps = []
-            if kp in log_kps:
-                kp_logs.append(log)
+        kp_logs = kp_logs_map.get(kp, [])
         practiced_count = len(kp_logs)
 
-        if len(kp_logs) > 0:
+        if kp_logs:
             correct_attempts = sum(log["correct_count"] for log in kp_logs)
             total_attempts = sum(log["correct_count"] + log["wrong_count"] for log in kp_logs)
             accuracy = correct_attempts / total_attempts if total_attempts > 0 else 0
