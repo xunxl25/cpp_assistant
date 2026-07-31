@@ -49,10 +49,12 @@ def render_practice_ui(
     if current_question["type"] == "single_choice":
         options = current_question["options"]
         correct_answer = current_question["answer"]
+        # 固定在最后追加"不会"选项
+        choice_keys = list(options.keys()) + ["__unknown__"]
         user_answer = st.radio(
             "选择你的答案",
-            list(options.keys()),
-            format_func=lambda x: f"**{x}.** {options[x]}",
+            choice_keys,
+            format_func=lambda x: "不会" if x == "__unknown__" else f"**{x}.** {options[x]}",
             key=f"answer_{current_question['id']}",
             label_visibility="collapsed"  # 隐藏标签
         )
@@ -69,10 +71,11 @@ def render_practice_ui(
                 f"实际为「{raw_answer}」。"
                 f"请检查题库 JSON 文件中此题（ID: {current_question['id']}）的 answer 字段。"
             )
+        # 固定在最后追加"不会"选项
         user_answer = st.radio(
             "选择你的答案",
-            ["true", "false"],
-            format_func=lambda x: "正确" if x == "true" else "错误",
+            ["true", "false", "__unknown__"],
+            format_func=lambda x: "不会" if x == "__unknown__" else ("正确" if x == "true" else "错误"),
             key=f"answer_tf_{current_question['id']}",
             label_visibility="collapsed"  # 隐藏标签
         )
@@ -91,13 +94,19 @@ def render_practice_ui(
         if not already_submitted:
             # 未提交：显示提交按钮
             if st.button("提交答案", key=f"submit_{current_question['id']}"):
-                is_correct = user_answer == correct_answer
+                # "不会"视为答错，user_answer 记录为"不会"
+                if user_answer == "__unknown__":
+                    is_correct = False
+                    recorded_answer = "不会"
+                else:
+                    is_correct = user_answer == correct_answer
+                    recorded_answer = user_answer
 
                 # 记录答案
                 record_answer(
                     db_path,
                     current_question["id"],
-                    user_answer,
+                    recorded_answer,
                     correct_answer,
                     is_correct,
                     knowledge_points_json
