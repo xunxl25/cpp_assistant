@@ -10,7 +10,6 @@ import streamlit as st
 import pandas as pd
 import random
 from app.core.cache import get_all_questions
-from app.core.question_loader import get_question_by_id
 from app.core.practice_tracker import get_mistake_questions, PracticeTracker
 from app.core.practice_ui import render_practice_ui
 
@@ -57,10 +56,13 @@ def main():
         st.info("🎉 暂无错题！")
         return
 
+    # 构建 {id: question} 查找表，避免 O(M×N) 重复线性扫描
+    question_map = {q["id"]: q for q in questions}
+
     # 获取错题详细信息
     mistakes = []
     for log in mistake_logs:
-        question = get_question_by_id(questions, log["question_id"])
+        question = question_map.get(log["question_id"])
         if question:
             # 获取知识点（兼容新旧格式），取第一个用于表格展示
             kps = question.get("knowledge_points", [])
@@ -109,7 +111,7 @@ def main():
         # 加载当前筛选条件下的完整题目列表
         questions_to_practice = []
         for m in mistakes:
-            q = get_question_by_id(questions, m["题目ID"])
+            q = question_map.get(m["题目ID"])
             if q:
                 questions_to_practice.append(q)
                 
