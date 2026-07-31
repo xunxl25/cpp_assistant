@@ -1,4 +1,4 @@
-"""按知识点刷题页"""
+"""刷题页"""
 import sys
 from pathlib import Path
 
@@ -11,15 +11,17 @@ from app.core.cache import (
     get_exam_types,
     get_exam_levels,
     get_knowledge_points_with_frequency,
+    get_exam_dates_cached,
 )
 from app.core.question_loader import (
     get_questions_by_filter,
+    get_questions_by_exam_date,
     build_question_bank_index
 )
 from app.core.practice_ui import render_practice_ui
 
 st.set_page_config(
-    page_title="按知识点刷题 - C++ 做题助手",
+    page_title="刷题 - C++ 做题助手",
     page_icon="📝",
     layout="wide"
 )
@@ -40,8 +42,8 @@ def remove_from_mistake(question_id: str):
 
 
 def main():
-    """按知识点刷题页面"""
-    st.title("📝 按知识点刷题")
+    """刷题页面"""
+    st.title("📝 刷题")
 
     # 侧边栏：筛选条件
     st.sidebar.header("筛选条件")
@@ -74,49 +76,80 @@ def main():
         default=all_exam_levels
     )
 
-    # 3. 考察频次（单选）
-    st.sidebar.subheader("3. 考察频次")
-    frequency_options = ["全部", "常考", "其他"]
-    selected_frequency = st.sidebar.radio(
-        "选择考察频次",
-        frequency_options
+    # 3. 刷题模式（单选）
+    st.sidebar.subheader("3. 刷题模式")
+    practice_mode = st.sidebar.radio(
+        "选择刷题模式",
+        ["按知识点", "按真题卷"]
     )
 
-    # 4. 知识点（多选，根据频次动态加载）
-    st.sidebar.subheader("4. 知识点")
-    all_kps = get_knowledge_points_with_frequency()
+    if practice_mode == "按知识点":
+        # 4. 考察频次（单选）
+        st.sidebar.subheader("4. 考察频次")
+        frequency_options = ["全部", "常考", "其他"]
+        selected_frequency = st.sidebar.radio(
+            "选择考察频次",
+            frequency_options
+        )
 
-    # 根据选择的频次过滤知识点
-    if selected_frequency == "全部":
-        available_kps = []
-        for kp_list in all_kps.values():
-            available_kps.extend(kp_list)
-        available_kps = sorted(list(set(available_kps)))
+        # 5. 知识点（多选，根据频次动态加载）
+        st.sidebar.subheader("5. 知识点")
+        all_kps = get_knowledge_points_with_frequency()
+
+        if selected_frequency == "全部":
+            available_kps = []
+            for kp_list in all_kps.values():
+                available_kps.extend(kp_list)
+            available_kps = sorted(list(set(available_kps)))
+        else:
+            available_kps = all_kps.get(selected_frequency, [])
+
+        selected_knowledge_points = st.sidebar.multiselect(
+            "选择知识点",
+            available_kps,
+            default=available_kps
+        )
     else:
-        available_kps = all_kps.get(selected_frequency, [])
-
-    selected_knowledge_points = st.sidebar.multiselect(
-        "选择知识点",
-        available_kps,
-        default=available_kps
-    )
+        # 按真题卷：下拉框显示日期（受考试类型/级别筛选约束）
+        st.sidebar.subheader("4. 考试日期")
+        exam_dates = get_exam_dates_cached(
+            exam_types=tuple(selected_exam_types) if selected_exam_types else None,
+            exam_levels=tuple(selected_exam_levels) if selected_exam_levels else None,
+        )
+        if not exam_dates:
+            st.sidebar.warning("没有符合条件的考试日期")
+            selected_exam_date = None
+        else:
+            selected_exam_date = st.sidebar.selectbox(
+                "选择考试日期",
+                exam_dates
+            )
 
     # 开始按钮
     st.sidebar.divider()
     if st.sidebar.button("开始刷题", type="primary"):
-        # 构建筛选条件
         exam_types = selected_exam_types if selected_exam_types else None
         exam_levels = selected_exam_levels if selected_exam_levels else None
-        frequency = selected_frequency if selected_frequency != "全部" else None
-        knowledge_points = selected_knowledge_points if selected_knowledge_points else None
 
-        # 查询题目
-        questions = get_questions_by_filter(
-            exam_types=exam_types,
-            exam_levels=exam_levels,
-            frequency=frequency,
-            knowledge_points=knowledge_points
-        )
+        if practice_mode == "按知识点":
+            frequency = selected_frequency if selected_frequency != "全部" else None
+            knowledge_points = selected_knowledge_points if selected_knowledge_points else None
+            questions = get_questions_by_filter(
+                exam_types=exam_types,
+                exam_levels=exam_levels,
+                frequency=frequency,
+                knowledge_points=knowledge_points
+            )
+        else:
+            # 按真题卷
+            if selected_exam_date:
+                questions = get_questions_by_exam_date(
+                    exam_date=selected_exam_date,
+                    exam_types=exam_types,
+                    exam_levels=exam_levels
+                )
+            else:
+                questions = []
 
         st.session_state.filtered_questions = questions
         st.session_state.current_index = 0

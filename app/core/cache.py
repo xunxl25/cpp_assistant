@@ -13,6 +13,7 @@ from app.core.question_loader import (
     get_all_exam_types,
     get_all_exam_levels,
     get_all_knowledge_points_with_frequency,
+    get_exam_dates,
 )
 
 
@@ -38,3 +39,15 @@ def get_exam_levels(question_bank_dir: str = "question_bank"):
 def get_knowledge_points_with_frequency(question_bank_dir: str = "question_bank"):
     """缓存获取知识点（按频次分组）"""
     return get_all_knowledge_points_with_frequency(question_bank_dir)
+
+
+@st.cache_data(ttl=300)
+def get_exam_dates_cached(
+    exam_types: tuple = None,
+    exam_levels: tuple = None,
+    question_bank_dir: str = "question_bank"
+):
+    """缓存获取考试日期（参数需为 tuple 以便 hash）"""
+    et = list(exam_types) if exam_types else None
+    el = list(exam_levels) if exam_levels else None
+    return get_exam_dates(exam_types=et, exam_levels=el, question_bank_dir=question_bank_dir)

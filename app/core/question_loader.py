@@ -437,6 +437,110 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
     }
 
 
+def get_exam_dates(
+    exam_types: List[str] = None,
+    exam_levels: List[str] = None,
+    question_bank_dir: str = "question_bank"
+) -> List[str]:
+    """
+    获取符合条件的所有考试日期（去重、降序）
+
+    Args:
+        exam_types: 考试类型筛选（None 表示不限）
+        exam_levels: 级别筛选（None 表示不限）
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        日期列表（降序，如 ["2026-06", "2025-12", ...]）
+    """
+    ensure_index_exists(question_bank_dir)
+
+    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
+    cursor = conn.cursor()
+
+    conditions = []
+    params = []
+    if exam_types:
+        placeholders = ",".join(["?"] * len(exam_types))
+        conditions.append(f"exam_type IN ({placeholders})")
+        params.extend(exam_types)
+    if exam_levels:
+        placeholders = ",".join(["?"] * len(exam_levels))
+        conditions.append(f"exam_level IN ({placeholders})")
+        params.extend(exam_levels)
+
+    query = "SELECT DISTINCT exam_date FROM question_index"
+    if conditions:
+        query += " WHERE " + " AND ".join(conditions)
+    query += " ORDER BY exam_date DESC"
+
+    cursor.execute(query, params)
+    results = cursor.fetchall()
+    conn.close()
+
+    return [row[0] for row in results]
+
+
+def get_questions_by_exam_date(
+    exam_date: str,
+    exam_types: List[str] = None,
+    exam_levels: List[str] = None,
+    question_bank_dir: str = "question_bank"
+) -> List[Dict]:
+    """
+    按考试日期获取题目（可同时按考试类型/级别过滤）
+
+    Args:
+        exam_date: 考试日期（如 "2026-06"）
+        exam_types: 考试类型筛选（None 表示不限）
+        exam_levels: 级别筛选（None 表示不限）
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        题目列表
+    """
+    ensure_index_exists(question_bank_dir)
+
+    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
+    cursor = conn.cursor()
+
+    conditions = ["exam_date = ?"]
+    params = [exam_date]
+    if exam_types:
+        placeholders = ",".join(["?"] * len(exam_types))
+        conditions.append(f"exam_type IN ({placeholders})")
+        params.extend(exam_types)
+    if exam_levels:
+        placeholders = ",".join(["?"] * len(exam_levels))
+        conditions.append(f"exam_level IN ({placeholders})")
+        params.extend(exam_levels)
+
+    query = "SELECT source_file, question_index FROM question_index"
+    query += " WHERE " + " AND ".join(conditions)
+    query += " ORDER BY source_file, question_index"
+
+    cursor.execute(query, params)
+    results = cursor.fetchall()
+    conn.close()
+
+    # 按 source_file 分组，每个文件只加载一次
+    file_to_indices = defaultdict(list)
+    for source_file, question_index in results:
+        file_to_indices[source_file].append(question_index)
+
+    questions = []
+    for source_file, indices in file_to_indices.items():
+        try:
+            file_questions = load_questions(source_file)
+            for qi in indices:
+                if qi < len(file_questions):
+                    questions.append(file_questions[qi])
+        except Exception as e:
+            print(f"警告: 无法加载题目 {source_file}: {e}")
+
+    return questions
+
+
 # 单题搜索 / 更新（题库管理单题编辑用）
 
 REQUIRED_FIELDS = ["id", "knowledge_points", "type", "question", "answer", "explanation"]
