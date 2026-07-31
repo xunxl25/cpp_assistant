@@ -54,6 +54,7 @@ def render_practice_ui(
         user_answer = st.radio(
             "选择你的答案",
             choice_keys,
+            index=None,
             format_func=lambda x: "不会" if x == "__unknown__" else f"**{x}.** {options[x]}",
             key=f"answer_{current_question['id']}",
             label_visibility="collapsed"  # 隐藏标签
@@ -75,6 +76,7 @@ def render_practice_ui(
         user_answer = st.radio(
             "选择你的答案",
             ["true", "false", "__unknown__"],
+            index=None,
             format_func=lambda x: "不会" if x == "__unknown__" else ("正确" if x == "true" else "错误"),
             key=f"answer_tf_{current_question['id']}",
             label_visibility="collapsed"  # 隐藏标签
@@ -94,28 +96,30 @@ def render_practice_ui(
         if not already_submitted:
             # 未提交：显示提交按钮
             if st.button("提交答案", key=f"submit_{current_question['id']}"):
-                # "不会"视为答错，user_answer 记录为"不会"
-                if user_answer == "__unknown__":
-                    is_correct = False
-                    recorded_answer = "不会"
+                if user_answer is None:
+                    st.warning("请先选择一个选项")
                 else:
-                    is_correct = user_answer == correct_answer
-                    recorded_answer = user_answer
+                    if user_answer == "__unknown__":
+                        is_correct = False
+                        recorded_answer = "不会"
+                    else:
+                        is_correct = user_answer == correct_answer
+                        recorded_answer = user_answer
 
-                # 记录答案
-                record_answer(
-                    db_path,
-                    current_question["id"],
-                    recorded_answer,
-                    correct_answer,
-                    is_correct,
-                    knowledge_points_json
-                )
+                    # 记录答案
+                    record_answer(
+                        db_path,
+                        current_question["id"],
+                        recorded_answer,
+                        correct_answer,
+                        is_correct,
+                        knowledge_points_json
+                    )
 
-                # 标记已提交，存储结果，rerun 后走 else 分支持久展示
-                st.session_state[submit_key] = True
-                st.session_state[f"result_{current_question['id']}"] = is_correct
-                st.rerun()
+                    # 标记已提交，存储结果，rerun 后走 else 分支持久展示
+                    st.session_state[submit_key] = True
+                    st.session_state[f"result_{current_question['id']}"] = is_correct
+                    st.rerun()
         else:
             # 已提交：持久展示结果（不受 rerun 影响）
             is_correct = st.session_state.get(f"result_{current_question['id']}", False)
