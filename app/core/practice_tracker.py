@@ -8,6 +8,8 @@ from datetime import datetime
 class PracticeTracker:
     """练习记录跟踪器"""
 
+    _initialized_dbs: set = set()
+
     def __init__(self, db_path: str):
         """
         初始化练习记录跟踪器
@@ -16,7 +18,10 @@ class PracticeTracker:
             db_path: SQLite 数据库文件路径
         """
         self.db_path = db_path
-        self._init_db()
+        # 只在首次访问该 DB 时跑初始化+迁移，后续直接跳过
+        if db_path not in PracticeTracker._initialized_dbs:
+            self._init_db()
+            PracticeTracker._initialized_dbs.add(db_path)
 
     def _init_db(self):
         """初始化数据库表（含旧表迁移）"""
@@ -77,7 +82,7 @@ class PracticeTracker:
         knowledge_points: str
     ):
         """
-        添加或更新练习记录
+        添加或更新练习记录（UPSERT：单条 SQL 完成）
 
         Args:
             question_id: 题目 ID
@@ -90,44 +95,24 @@ class PracticeTracker:
         cursor = conn.cursor()
         now = datetime.now().isoformat()
 
-        cursor.execute(
-            "SELECT question_id FROM practice_log WHERE question_id = ?",
-            (question_id,)
-        )
-        exists = cursor.fetchone()
+        correct_count = 1 if is_correct else 0
+        wrong_count = 0 if is_correct else 1
 
-        if exists:
-            # 更新已有记录：累加计数，覆盖最后一次的答案
-            if is_correct:
-                cursor.execute("""
-                    UPDATE practice_log
-                    SET correct_count = correct_count + 1,
-                        last_attempt_time = ?,
-                        user_answer = ?,
-                        correct_answer = ?
-                    WHERE question_id = ?
-                """, (now, user_answer, correct_answer, question_id))
-            else:
-                cursor.execute("""
-                    UPDATE practice_log
-                    SET wrong_count = wrong_count + 1,
-                        last_attempt_time = ?,
-                        user_answer = ?,
-                        correct_answer = ?
-                    WHERE question_id = ?
-                """, (now, user_answer, correct_answer, question_id))
-        else:
-            # 插入新记录
-            correct_count = 1 if is_correct else 0
-            wrong_count = 0 if is_correct else 1
-            cursor.execute("""
-                INSERT INTO practice_log (
-                    question_id, knowledge_points, first_attempt_time,
-                    last_attempt_time, correct_count, wrong_count,
-                    user_answer, correct_answer
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """, (question_id, knowledge_points, now, now,
-                  correct_count, wrong_count, user_answer, correct_answer))
+        # UPSERT：新记录直接插入，已有记录累加计数并覆盖答案
+        cursor.execute("""
+            INSERT INTO practice_log (
+                question_id, knowledge_points, first_attempt_time,
+                last_attempt_time, correct_count, wrong_count,
+                user_answer, correct_answer
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(question_id) DO UPDATE SET
+                last_attempt_time = excluded.last_attempt_time,
+                correct_count = practice_log.correct_count + excluded.correct_count,
+                wrong_count = practice_log.wrong_count + excluded.wrong_count,
+                user_answer = excluded.user_answer,
+                correct_answer = excluded.correct_answer
+        """, (question_id, knowledge_points, now, now,
+              correct_count, wrong_count, user_answer, correct_answer))
 
         conn.commit()
         conn.close()
@@ -234,7 +219,6 @@ def get_question_stats(db_path: str, question_id: str) -> Optional[Dict]:
     Returns:
         统计信息字典，未找到时返回 None
     """
-    tracker = PracticeTracker(db_path)
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute("""
@@ -271,18 +255,18 @@ def get_mistake_stats(db_path: str) -> Dict:
     """
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM practice_log")
-    total_questions = cursor.fetchone()[0]
     cursor.execute("""
-        SELECT COUNT(*) FROM practice_log
-        WHERE wrong_count > 0 AND mastered = 0
+        SELECT
+            COUNT(*),
+            SUM(CASE WHEN wrong_count > 0 AND mastered = 0 THEN 1 ELSE 0 END)
+        FROM practice_log
     """)
-    mistake_questions = cursor.fetchone()[0]
+    row = cursor.fetchone()
     conn.close()
 
     return {
-        "total_questions": total_questions,
-        "mistake_questions": mistake_questions
+        "total_questions": row[0],
+        "mistake_questions": row[1] or 0
     }
 
 
