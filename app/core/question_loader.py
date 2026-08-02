@@ -426,7 +426,7 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
             for kp in kps:
                 if freq in frequency_groups:
                     frequency_groups[freq].add(kp)
-        except:
+        except Exception:
             pass
 
     # 转换为排序列表

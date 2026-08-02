@@ -54,6 +54,10 @@ def render_practice_ui(
 
     current_question = questions[current_index]
 
+    # 初始化答案变量（防御性：避免 if/elif 分支未命中时 NameError）
+    user_answer = None
+    correct_answer = None
+
     # 获取知识点（兼容新旧格式），转为 JSON 数组字符串存入 DB
     kps = current_question.get("knowledge_points", [])
     if not kps:
