@@ -132,6 +132,6 @@ def ask_question(question: str, context: Optional[Dict] = None) -> str:
     messages.append({"role": "user", "content": question})
 
     try:
-        return _chat_create(client, model, messages, temperature=0.7, max_tokens=500)
+        return _chat_create(client, model, messages, temperature=0.4, max_tokens=500)
     except Exception as e:
         return f"AI 回答出错：{str(e)}"
