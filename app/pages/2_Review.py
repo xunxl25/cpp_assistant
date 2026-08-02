@@ -9,8 +9,8 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import random
-from app.core.cache import get_all_questions
-from app.core.practice_tracker import get_mistake_questions, PracticeTracker
+from app.core.cache import get_all_questions, get_mistake_questions_cached
+from app.core.practice_tracker import PracticeTracker
 from app.core.practice_ui import render_practice_ui
 
 st.set_page_config(
@@ -37,6 +37,8 @@ def remove_from_mistake(question_id: str):
     """移出错题本"""
     tracker = PracticeTracker(DB_PATH)
     tracker.mark_mastered(question_id)
+    # 清除练习记录缓存（practice_log 变更后需刷新）
+    st.cache_data.clear()
     # 从当前错题列表中移除
     st.session_state.mistake_questions = [
         q for q in st.session_state.mistake_questions
@@ -50,7 +52,7 @@ def main():
 
     # 加载数据
     questions = get_all_questions(QUESTION_BANK_PATH)
-    mistake_logs = get_mistake_questions(DB_PATH)
+    mistake_logs = get_mistake_questions_cached(DB_PATH)
 
     if not mistake_logs:
         st.info("🎉 暂无错题！")

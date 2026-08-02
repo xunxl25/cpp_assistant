@@ -6,6 +6,7 @@
 缓存失效策略：
 - TTL 300 秒自动过期
 - 题库变更（编辑/上传/刷新索引）后调用 st.cache_data.clear() 手动清除
+- 练习记录变更（答题/移出错题本）后同样调 st.cache_data.clear()
 """
 import streamlit as st
 from app.core.question_loader import (
@@ -14,6 +15,11 @@ from app.core.question_loader import (
     get_all_exam_levels,
     get_all_knowledge_points_with_frequency,
     get_exam_dates,
+)
+from app.core.practice_tracker import (
+    get_practice_log as _get_practice_log,
+    get_mistake_questions as _get_mistake_questions,
+    get_mistake_stats as _get_mistake_stats,
 )
 
 
@@ -51,3 +57,21 @@ def get_exam_dates_cached(
     et = list(exam_types) if exam_types else None
     el = list(exam_levels) if exam_levels else None
     return get_exam_dates(exam_types=et, exam_levels=el, question_bank_dir=question_bank_dir)
+
+
+@st.cache_data(ttl=300)
+def get_practice_log_cached(db_path: str = "data/practice_log.db"):
+    """缓存加载全部练习记录（答题/移出错题本后自动清缓存）"""
+    return _get_practice_log(db_path)
+
+
+@st.cache_data(ttl=300)
+def get_mistake_questions_cached(db_path: str = "data/practice_log.db"):
+    """缓存加载错题列表（答题/移出错题本后自动清缓存）"""
+    return _get_mistake_questions(db_path)
+
+
+@st.cache_data(ttl=300)
+def get_mistake_stats_cached(db_path: str = "data/practice_log.db"):
+    """缓存获取错题统计（答题/移出错题本后自动清缓存）"""
+    return _get_mistake_stats(db_path)

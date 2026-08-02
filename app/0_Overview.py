@@ -16,12 +16,11 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from app.core.cache import get_all_questions
+from app.core.cache import get_all_questions, get_practice_log_cached
 from app.core.question_loader import (
     get_knowledge_points,
     get_knowledge_point_frequency
 )
-from app.core.practice_tracker import get_practice_log
 
 
 st.set_page_config(
@@ -44,7 +43,7 @@ def main():
 
     # 加载数据
     questions = get_all_questions(QUESTION_BANK_PATH)
-    practice_logs = get_practice_log(str(DB_PATH))
+    practice_logs = get_practice_log_cached(str(DB_PATH))
 
     if not questions:
         st.warning("没有题目数据")

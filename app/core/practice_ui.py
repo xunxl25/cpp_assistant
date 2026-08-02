@@ -115,6 +115,8 @@ def render_practice_ui(
                         is_correct,
                         knowledge_points_json
                     )
+                    # 清除练习记录缓存（practice_log 变更后需刷新）
+                    st.cache_data.clear()
 
                     # 标记已提交，存储结果，rerun 后走 else 分支持久展示
                     st.session_state[submit_key] = True
