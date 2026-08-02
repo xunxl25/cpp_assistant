@@ -124,6 +124,7 @@ def main():
     if "edit_results" not in st.session_state:
         st.session_state.edit_results = []
         st.session_state.edit_sel_idx = 0
+        st.session_state.edit_source_files = []
 
     # 方式1：关键字搜索
     sc1, sc2 = st.columns([4, 1])
@@ -137,6 +138,7 @@ def main():
                 results = search_questions(all_questions, search_kw.strip())
                 st.session_state.edit_results = results
                 st.session_state.edit_sel_idx = 0
+                st.session_state.edit_source_files = []  # 搜索路径无 source_file
                 if not results:
                     st.warning("未找到匹配的题目，请尝试其他关键字")
             else:
@@ -151,10 +153,11 @@ def main():
         st.write("")
         st.write("")
         if st.button("📂 加载", width='stretch'):
-            q, _path = get_question_by_id_from_all(load_id.strip())
+            q, path = get_question_by_id_from_all(load_id.strip())
             if q:
                 st.session_state.edit_results = [q]
                 st.session_state.edit_sel_idx = 0
+                st.session_state.edit_source_files = [path]
             else:
                 st.warning(f"未找到 ID 为 {load_id.strip()} 的题目")
             st.rerun()
@@ -212,10 +215,15 @@ def main():
                 except json.JSONDecodeError as e:
                     st.error(f"❌ JSON 格式错误: {e}")
                 else:
-                    # 定位源文件
-                    _q, file_path = get_question_by_id_from_all(updated_q.get("id", ""))
-                    if not file_path:
-                        file_path = None  # 新 ID 无源文件
+                    # 优先用加载时缓存的源文件路径，避免重复查索引
+                    source_files = st.session_state.get("edit_source_files", [])
+                    sel_idx = st.session_state.edit_sel_idx
+                    file_path = source_files[sel_idx] if sel_idx < len(source_files) else None
+
+                    # ID 被修改或搜索路径加载时，fallback 查索引
+                    if not file_path or updated_q.get("id") != current_q.get("id"):
+                        _q, file_path = get_question_by_id_from_all(updated_q.get("id", ""))
+
                     if not file_path:
                         st.error("无法定位题目所在文件（可能 ID 已被修改且原 ID 不存在）")
                     else:
