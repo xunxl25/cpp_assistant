@@ -3,6 +3,7 @@ import sys
 import sqlite3
 import json
 import logging
+from contextlib import closing
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -74,14 +75,13 @@ def main():
     # 展示索引表概览
     try:
         if Path(QUESTION_BANK_INDEX_PATH).exists():
-            conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-            cursor = conn.cursor()
-            cursor.execute("""
-                SELECT DISTINCT exam_type, exam_level, exam_date, source_file
-                FROM question_index
-            """)
-            rows = cursor.fetchall()
-            conn.close()
+            with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                    SELECT DISTINCT exam_type, exam_level, exam_date, source_file
+                    FROM question_index
+                """)
+                rows = cursor.fetchall()
 
             index_data = [
                 {"考试类型": r[0], "级别": r[1], "日期": r[2], "源文件": r[3]}

@@ -4,6 +4,7 @@ import json
 import sqlite3
 import glob
 from collections import defaultdict
+from contextlib import closing
 from typing import List, Dict, Optional, Set, Tuple
 from pathlib import Path
 
@@ -193,66 +194,65 @@ def build_question_bank_index(question_bank_dir: str = "question_bank") -> None:
     }
 
     # 创建索引表
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
 
-    # 删除旧表
-    cursor.execute("DROP TABLE IF EXISTS question_index")
+        # 删除旧表
+        cursor.execute("DROP TABLE IF EXISTS question_index")
 
-    # 创建新表
-    cursor.execute("""
-        CREATE TABLE question_index (
-            question_id TEXT PRIMARY KEY,
-            exam_type TEXT NOT NULL,
-            exam_level TEXT NOT NULL,
-            exam_date TEXT NOT NULL,
-            knowledge_points TEXT NOT NULL,
-            frequency TEXT NOT NULL,
-            source_file TEXT NOT NULL,
-            question_index INTEGER NOT NULL
-        )
-    """)
+        # 创建新表
+        cursor.execute("""
+            CREATE TABLE question_index (
+                question_id TEXT PRIMARY KEY,
+                exam_type TEXT NOT NULL,
+                exam_level TEXT NOT NULL,
+                exam_date TEXT NOT NULL,
+                knowledge_points TEXT NOT NULL,
+                frequency TEXT NOT NULL,
+                source_file TEXT NOT NULL,
+                question_index INTEGER NOT NULL
+            )
+        """)
 
-    # 插入索引数据
-    for json_file in json_files:
-        try:
-            questions = load_questions(json_file)
+        # 插入索引数据
+        for json_file in json_files:
+            try:
+                questions = load_questions(json_file)
 
-            for idx, question in enumerate(questions):
-                exam = question.get("exam", {"type": "GESP", "level": 1, "date": "2026-06"})
+                for idx, question in enumerate(questions):
+                    exam = question.get("exam", {"type": "GESP", "level": 1, "date": "2026-06"})
 
-                # 获取知识点
-                kps = question.get("knowledge_points", [])
-                if not kps:
-                    kp = question.get("knowledge_point", "")
-                    kps = [kp] if kp else ["其他"]
+                    # 获取知识点
+                    kps = question.get("knowledge_points", [])
+                    if not kps:
+                        kp = question.get("knowledge_point", "")
+                        kps = [kp] if kp else ["其他"]
 
-                # 获取考察频次（取主知识点的频次）
-                main_kp = kps[0] if kps else "其他"
-                frequency = question.get("frequency", knowledge_point_frequency.get(main_kp, "其他"))
+                    # 获取考察频次（取主知识点的频次）
+                    main_kp = kps[0] if kps else "其他"
+                    frequency = question.get("frequency", knowledge_point_frequency.get(main_kp, "其他"))
 
-                cursor.execute("""
-                    INSERT INTO question_index VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    question["id"],
-                    exam.get("type", "GESP"),
-                    str(exam.get("level", 1)),
-                    exam.get("date", "2026-06"),
-                    json.dumps(kps, ensure_ascii=False),
-                    frequency,
-                    json_file,
-                    idx
-                ))
-        except Exception as e:
-            print(f"警告: 无法索引 {json_file}: {e}")
+                    cursor.execute("""
+                        INSERT INTO question_index VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        question["id"],
+                        exam.get("type", "GESP"),
+                        str(exam.get("level", 1)),
+                        exam.get("date", "2026-06"),
+                        json.dumps(kps, ensure_ascii=False),
+                        frequency,
+                        json_file,
+                        idx
+                    ))
+            except Exception as e:
+                print(f"警告: 无法索引 {json_file}: {e}")
 
-    # 创建索引
-    cursor.execute("CREATE INDEX idx_exam_type ON question_index(exam_type)")
-    cursor.execute("CREATE INDEX idx_exam_level ON question_index(exam_level)")
-    cursor.execute("CREATE INDEX idx_frequency ON question_index(frequency)")
+        # 创建索引
+        cursor.execute("CREATE INDEX idx_exam_type ON question_index(exam_type)")
+        cursor.execute("CREATE INDEX idx_exam_level ON question_index(exam_level)")
+        cursor.execute("CREATE INDEX idx_frequency ON question_index(frequency)")
 
-    conn.commit()
-    conn.close()
+        conn.commit()
 
     print(f"题库索引已构建，共 {len(json_files)} 个文件")
 
@@ -293,42 +293,42 @@ def get_questions_by_filter(
     
     try:
         ensure_index_exists(question_bank_dir)
-        conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-        cursor = conn.cursor()
-        
-        # 构建 SQL 查询
-        conditions = []
-        params = []
-        
-        if exam_types:
-            placeholders = ",".join(["?"] * len(exam_types))
-            conditions.append(f"exam_type IN ({placeholders})")
-            params.extend(exam_types)
-        
-        if exam_levels:
-            placeholders = ",".join(["?"] * len(exam_levels))
-            conditions.append(f"exam_level IN ({placeholders})")
-            params.extend(exam_levels)
-        
-        if frequency:
-            conditions.append("frequency = ?")
-            params.append(frequency)
-        
-        if knowledge_points:
-            # 使用正确的变量名 current_kp（不是 kp）
-            kp_conditions = []
-            for current_kp in knowledge_points:  # ← 使用 current_kp 而不是 kp
-                kp_conditions.append("knowledge_points LIKE ?")
-                params.append(f'%"{current_kp}"%')
-            conditions.append(f"({' OR '.join(kp_conditions)})")
-        
-        query = "SELECT source_file, question_index FROM question_index"
-        if conditions:
-            query += " WHERE " + " AND ".join(conditions)
-        
-        cursor.execute(query, params)
-        results = cursor.fetchall()
-        conn.close()
+
+        with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+            cursor = conn.cursor()
+
+            # 构建 SQL 查询
+            conditions = []
+            params = []
+
+            if exam_types:
+                placeholders = ",".join(["?"] * len(exam_types))
+                conditions.append(f"exam_type IN ({placeholders})")
+                params.extend(exam_types)
+
+            if exam_levels:
+                placeholders = ",".join(["?"] * len(exam_levels))
+                conditions.append(f"exam_level IN ({placeholders})")
+                params.extend(exam_levels)
+
+            if frequency:
+                conditions.append("frequency = ?")
+                params.append(frequency)
+
+            if knowledge_points:
+                # 使用正确的变量名 current_kp（不是 kp）
+                kp_conditions = []
+                for current_kp in knowledge_points:  # ← 使用 current_kp 而不是 kp
+                    kp_conditions.append("knowledge_points LIKE ?")
+                    params.append(f'%"{current_kp}"%')
+                conditions.append(f"({' OR '.join(kp_conditions)})")
+
+            query = "SELECT source_file, question_index FROM question_index"
+            if conditions:
+                query += " WHERE " + " AND ".join(conditions)
+
+            cursor.execute(query, params)
+            results = cursor.fetchall()
         
         # 按 source_file 分组，每个文件只加载一次
         file_to_indices = defaultdict(list)
@@ -370,11 +370,10 @@ def get_all_exam_types(question_bank_dir: str = "question_bank") -> List[str]:
     """
     ensure_index_exists(question_bank_dir)
 
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT exam_type FROM question_index ORDER BY exam_type")
-    results = cursor.fetchall()
-    conn.close()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT DISTINCT exam_type FROM question_index ORDER BY exam_type")
+        results = cursor.fetchall()
 
     return [row[0] for row in results]
 
@@ -391,11 +390,10 @@ def get_all_exam_levels(question_bank_dir: str = "question_bank") -> List[str]:
     """
     ensure_index_exists(question_bank_dir)
 
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT exam_level FROM question_index ORDER BY exam_level")
-    results = cursor.fetchall()
-    conn.close()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT DISTINCT exam_level FROM question_index ORDER BY exam_level")
+        results = cursor.fetchall()
 
     return [row[0] for row in results]
 
@@ -412,11 +410,10 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
     """
     ensure_index_exists(question_bank_dir)
 
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
-    cursor.execute("SELECT DISTINCT knowledge_points, frequency FROM question_index")
-    results = cursor.fetchall()
-    conn.close()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT DISTINCT knowledge_points, frequency FROM question_index")
+        results = cursor.fetchall()
 
     # 按频次分组
     frequency_groups = {"常考": set(), "其他": set()}
@@ -455,28 +452,27 @@ def get_exam_dates(
     """
     ensure_index_exists(question_bank_dir)
 
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
 
-    conditions = []
-    params = []
-    if exam_types:
-        placeholders = ",".join(["?"] * len(exam_types))
-        conditions.append(f"exam_type IN ({placeholders})")
-        params.extend(exam_types)
-    if exam_levels:
-        placeholders = ",".join(["?"] * len(exam_levels))
-        conditions.append(f"exam_level IN ({placeholders})")
-        params.extend(exam_levels)
+        conditions = []
+        params = []
+        if exam_types:
+            placeholders = ",".join(["?"] * len(exam_types))
+            conditions.append(f"exam_type IN ({placeholders})")
+            params.extend(exam_types)
+        if exam_levels:
+            placeholders = ",".join(["?"] * len(exam_levels))
+            conditions.append(f"exam_level IN ({placeholders})")
+            params.extend(exam_levels)
 
-    query = "SELECT DISTINCT exam_date FROM question_index"
-    if conditions:
-        query += " WHERE " + " AND ".join(conditions)
-    query += " ORDER BY exam_date DESC"
+        query = "SELECT DISTINCT exam_date FROM question_index"
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+        query += " ORDER BY exam_date DESC"
 
-    cursor.execute(query, params)
-    results = cursor.fetchall()
-    conn.close()
+        cursor.execute(query, params)
+        results = cursor.fetchall()
 
     return [row[0] for row in results]
 
@@ -501,27 +497,26 @@ def get_questions_by_exam_date(
     """
     ensure_index_exists(question_bank_dir)
 
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
 
-    conditions = ["exam_date = ?"]
-    params = [exam_date]
-    if exam_types:
-        placeholders = ",".join(["?"] * len(exam_types))
-        conditions.append(f"exam_type IN ({placeholders})")
-        params.extend(exam_types)
-    if exam_levels:
-        placeholders = ",".join(["?"] * len(exam_levels))
-        conditions.append(f"exam_level IN ({placeholders})")
-        params.extend(exam_levels)
+        conditions = ["exam_date = ?"]
+        params = [exam_date]
+        if exam_types:
+            placeholders = ",".join(["?"] * len(exam_types))
+            conditions.append(f"exam_type IN ({placeholders})")
+            params.extend(exam_types)
+        if exam_levels:
+            placeholders = ",".join(["?"] * len(exam_levels))
+            conditions.append(f"exam_level IN ({placeholders})")
+            params.extend(exam_levels)
 
-    query = "SELECT source_file, question_index FROM question_index"
-    query += " WHERE " + " AND ".join(conditions)
-    query += " ORDER BY source_file, question_index"
+        query = "SELECT source_file, question_index FROM question_index"
+        query += " WHERE " + " AND ".join(conditions)
+        query += " ORDER BY source_file, question_index"
 
-    cursor.execute(query, params)
-    results = cursor.fetchall()
-    conn.close()
+        cursor.execute(query, params)
+        results = cursor.fetchall()
 
     # 按 source_file 分组，每个文件只加载一次
     file_to_indices = defaultdict(list)
@@ -674,14 +669,13 @@ def get_question_by_id_from_all(
     """
     ensure_index_exists(question_bank_dir)
 
-    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
-    cursor = conn.cursor()
-    cursor.execute(
-        "SELECT source_file, question_index FROM question_index WHERE question_id = ?",
-        (question_id,)
-    )
-    row = cursor.fetchone()
-    conn.close()
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT source_file, question_index FROM question_index WHERE question_id = ?",
+            (question_id,)
+        )
+        row = cursor.fetchone()
 
     if row is None:
         return None, None

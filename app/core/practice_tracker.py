@@ -1,6 +1,7 @@
 """练习记录跟踪模块"""
 import json
 import sqlite3
+from contextlib import closing
 from typing import List, Dict, Optional
 from datetime import datetime
 
@@ -25,53 +26,52 @@ class PracticeTracker:
 
     def _init_db(self):
         """初始化数据库表（含旧表迁移）"""
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+        with closing(sqlite3.connect(self.db_path)) as conn:
+            cursor = conn.cursor()
 
-        # 新建表（若不存在）
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS practice_log (
-                question_id TEXT PRIMARY KEY,
-                knowledge_points TEXT NOT NULL,
-                first_attempt_time TEXT NOT NULL,
-                last_attempt_time TEXT NOT NULL,
-                correct_count INTEGER DEFAULT 0,
-                wrong_count INTEGER DEFAULT 0,
-                mastered INTEGER DEFAULT 0,
-                user_answer TEXT,
-                correct_answer TEXT
-            )
-        """)
-
-        # 迁移：检查旧表结构，按需升级
-        cursor.execute("PRAGMA table_info(practice_log)")
-        columns = {row[1] for row in cursor.fetchall()}
-
-        # 旧列 knowledge_point → knowledge_points
-        if "knowledge_point" in columns and "knowledge_points" not in columns:
-            cursor.execute(
-                "ALTER TABLE practice_log RENAME COLUMN knowledge_point TO knowledge_points"
-            )
-            # 将旧的单值字符串转为 JSON 数组格式
-            cursor.execute(
-                "SELECT question_id, knowledge_points FROM practice_log "
-                "WHERE knowledge_points NOT LIKE '[%'"
-            )
-            for qid, kp_val in cursor.fetchall():
-                json_val = json.dumps([kp_val], ensure_ascii=False)
-                cursor.execute(
-                    "UPDATE practice_log SET knowledge_points = ? WHERE question_id = ?",
-                    (json_val, qid),
+            # 新建表（若不存在）
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS practice_log (
+                    question_id TEXT PRIMARY KEY,
+                    knowledge_points TEXT NOT NULL,
+                    first_attempt_time TEXT NOT NULL,
+                    last_attempt_time TEXT NOT NULL,
+                    correct_count INTEGER DEFAULT 0,
+                    wrong_count INTEGER DEFAULT 0,
+                    mastered INTEGER DEFAULT 0,
+                    user_answer TEXT,
+                    correct_answer TEXT
                 )
+            """)
 
-        # 新增 user_answer / correct_answer 列
-        if "user_answer" not in columns:
-            cursor.execute("ALTER TABLE practice_log ADD COLUMN user_answer TEXT")
-        if "correct_answer" not in columns:
-            cursor.execute("ALTER TABLE practice_log ADD COLUMN correct_answer TEXT")
+            # 迁移：检查旧表结构，按需升级
+            cursor.execute("PRAGMA table_info(practice_log)")
+            columns = {row[1] for row in cursor.fetchall()}
 
-        conn.commit()
-        conn.close()
+            # 旧列 knowledge_point → knowledge_points
+            if "knowledge_point" in columns and "knowledge_points" not in columns:
+                cursor.execute(
+                    "ALTER TABLE practice_log RENAME COLUMN knowledge_point TO knowledge_points"
+                )
+                # 将旧的单值字符串转为 JSON 数组格式
+                cursor.execute(
+                    "SELECT question_id, knowledge_points FROM practice_log "
+                    "WHERE knowledge_points NOT LIKE '[%'"
+                )
+                for qid, kp_val in cursor.fetchall():
+                    json_val = json.dumps([kp_val], ensure_ascii=False)
+                    cursor.execute(
+                        "UPDATE practice_log SET knowledge_points = ? WHERE question_id = ?",
+                        (json_val, qid),
+                    )
+
+            # 新增 user_answer / correct_answer 列
+            if "user_answer" not in columns:
+                cursor.execute("ALTER TABLE practice_log ADD COLUMN user_answer TEXT")
+            if "correct_answer" not in columns:
+                cursor.execute("ALTER TABLE practice_log ADD COLUMN correct_answer TEXT")
+
+            conn.commit()
 
     def add_practice_log(
         self,
@@ -91,31 +91,30 @@ class PracticeTracker:
             is_correct: 是否正确
             knowledge_points: 知识点 JSON 数组字符串，如 '["数组", "循环"]'
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-        now = datetime.now().isoformat()
+        with closing(sqlite3.connect(self.db_path)) as conn:
+            cursor = conn.cursor()
+            now = datetime.now().isoformat()
 
-        correct_count = 1 if is_correct else 0
-        wrong_count = 0 if is_correct else 1
+            correct_count = 1 if is_correct else 0
+            wrong_count = 0 if is_correct else 1
 
-        # UPSERT：新记录直接插入，已有记录累加计数并覆盖答案
-        cursor.execute("""
-            INSERT INTO practice_log (
-                question_id, knowledge_points, first_attempt_time,
-                last_attempt_time, correct_count, wrong_count,
-                user_answer, correct_answer
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(question_id) DO UPDATE SET
-                last_attempt_time = excluded.last_attempt_time,
-                correct_count = practice_log.correct_count + excluded.correct_count,
-                wrong_count = practice_log.wrong_count + excluded.wrong_count,
-                user_answer = excluded.user_answer,
-                correct_answer = excluded.correct_answer
-        """, (question_id, knowledge_points, now, now,
-              correct_count, wrong_count, user_answer, correct_answer))
+            # UPSERT：新记录直接插入，已有记录累加计数并覆盖答案
+            cursor.execute("""
+                INSERT INTO practice_log (
+                    question_id, knowledge_points, first_attempt_time,
+                    last_attempt_time, correct_count, wrong_count,
+                    user_answer, correct_answer
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(question_id) DO UPDATE SET
+                    last_attempt_time = excluded.last_attempt_time,
+                    correct_count = practice_log.correct_count + excluded.correct_count,
+                    wrong_count = practice_log.wrong_count + excluded.wrong_count,
+                    user_answer = excluded.user_answer,
+                    correct_answer = excluded.correct_answer
+            """, (question_id, knowledge_points, now, now,
+                  correct_count, wrong_count, user_answer, correct_answer))
 
-        conn.commit()
-        conn.close()
+            conn.commit()
 
     def mark_mastered(self, question_id: str):
         """
@@ -124,15 +123,14 @@ class PracticeTracker:
         Args:
             question_id: 题目 ID
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-        cursor.execute("""
-            UPDATE practice_log
-            SET mastered = 1
-            WHERE question_id = ?
-        """, (question_id,))
-        conn.commit()
-        conn.close()
+        with closing(sqlite3.connect(self.db_path)) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                UPDATE practice_log
+                SET mastered = 1
+                WHERE question_id = ?
+            """, (question_id,))
+            conn.commit()
 
     def get_all_logs(self) -> List[Dict]:
         """
@@ -141,16 +139,15 @@ class PracticeTracker:
         Returns:
             练习记录列表
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-        cursor.execute("""
-            SELECT question_id, knowledge_points, first_attempt_time,
-                   last_attempt_time, correct_count, wrong_count, mastered,
-                   user_answer, correct_answer
-            FROM practice_log
-        """)
-        rows = cursor.fetchall()
-        conn.close()
+        with closing(sqlite3.connect(self.db_path)) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT question_id, knowledge_points, first_attempt_time,
+                       last_attempt_time, correct_count, wrong_count, mastered,
+                       user_answer, correct_answer
+                FROM practice_log
+            """)
+            rows = cursor.fetchall()
 
         return [
             {
@@ -219,13 +216,12 @@ def get_question_stats(db_path: str, question_id: str) -> Optional[Dict]:
     Returns:
         统计信息字典，未找到时返回 None
     """
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT correct_count, wrong_count FROM practice_log WHERE question_id = ?
-    """, (question_id,))
-    row = cursor.fetchone()
-    conn.close()
+    with closing(sqlite3.connect(db_path)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT correct_count, wrong_count FROM practice_log WHERE question_id = ?
+        """, (question_id,))
+        row = cursor.fetchone()
 
     if row is None:
         return None
@@ -253,16 +249,15 @@ def get_mistake_stats(db_path: str) -> Dict:
     Returns:
         错题统计信息
     """
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT
-            COUNT(*),
-            SUM(CASE WHEN wrong_count > 0 AND mastered = 0 THEN 1 ELSE 0 END)
-        FROM practice_log
-    """)
-    row = cursor.fetchone()
-    conn.close()
+    with closing(sqlite3.connect(db_path)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT
+                COUNT(*),
+                SUM(CASE WHEN wrong_count > 0 AND mastered = 0 THEN 1 ELSE 0 END)
+            FROM practice_log
+        """)
+        row = cursor.fetchone()
 
     return {
         "total_questions": row[0],
@@ -280,16 +275,15 @@ def get_mistake_questions(db_path: str) -> List[Dict]:
     Returns:
         错题列表
     """
-    conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT question_id, knowledge_points, correct_count, wrong_count,
-               user_answer, correct_answer
-        FROM practice_log
-        WHERE wrong_count > 0 AND mastered = 0
-    """)
-    rows = cursor.fetchall()
-    conn.close()
+    with closing(sqlite3.connect(db_path)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT question_id, knowledge_points, correct_count, wrong_count,
+                   user_answer, correct_answer
+            FROM practice_log
+            WHERE wrong_count > 0 AND mastered = 0
+        """)
+        rows = cursor.fetchall()
 
     return [
         {
