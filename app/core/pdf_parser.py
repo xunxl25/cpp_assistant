@@ -11,12 +11,15 @@ LLM 调用复用 app.core.ai_chat.call_llm（同样的 LLM_API_KEY / LLM_BASE_UR
 """
 
 import json
+import logging
 import re
 from typing import Dict, List, Tuple
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from app.core.ai_chat import call_llm
+
+logger = logging.getLogger(__name__)
 
 # 目录常量（与 question_loader.py 保持一致的相对路径风格）
 PAST_EXAM_DIR = "past_exam"
@@ -38,23 +41,6 @@ def pdf_to_markdown(pdf_path) -> str:
         Exception: markitdown 转换失败时抛出，由调用方捕获标记失败
     """
     from markitdown import MarkItDown
-    
-    # ===== 新增调试 =====
-    import sys
-    with open("debug.log", "a", encoding="utf-8") as logf:
-        logf.write(f"\n[pdf_to_markdown] Python 路径: {sys.executable}\n")
-        try:
-            import pdfminer
-            logf.write(f"[pdf_to_markdown] pdfminer 可用: {pdfminer.__version__}\n")
-        except ImportError as e:
-            logf.write(f"[pdf_to_markdown] pdfminer 不可用: {e}\n")
-        try:
-            from markitdown.converters import PdfConverter
-            logf.write(f"[pdf_to_markdown] PdfConverter 可用\n")
-        except Exception as e:
-            logf.write(f"[pdf_to_markdown] PdfConverter 不可用: {e}\n")
-    # ===== 调试结束 =====
-    
     md_converter = MarkItDown()
     result = md_converter.convert(str(pdf_path))
     return result.text_content
@@ -177,11 +163,8 @@ def split_by_questions(lines: List[str], max_chars: int = 4000) -> List[str]:
 
 def _process_segment(segment: str, seg_idx: int, total_segs: int) -> List[Dict]:
     """处理单个文本段，调用 LLM 提取题目"""
-    
-    # 1. 调试日志：记录输入
-    import sys
-    with open("debug.log", "a", encoding="utf-8") as logf:
-        logf.write(f"    [Segment {seg_idx+1}] 输入文本长度: {len(segment)}\n")
+
+    logger.debug("[Segment %d] 输入文本长度: %d", seg_idx + 1, len(segment))
 
     # 2. 构造严格的 Prompt
     json_example = """
@@ -210,35 +193,26 @@ def _process_segment(segment: str, seg_idx: int, total_segs: int) -> List[Dict]:
     )
 
     # 3. 调用 LLM
-    with open("debug.log", "a", encoding="utf-8") as logf:
-        logf.write(f"    [Segment {seg_idx+1}] 开始调用 LLM...\n")
-        
-        try:
-            raw = call_llm(
-                prompt,
-                system="You are a JSON API. You only output valid JSON arrays. No other text.", # 更严格的 System Prompt
-                max_tokens=4000,
-            )
-            
-            # 4. 增强日志：同时打印 开头 和 结尾
-            logf.write(f"    [Segment {seg_idx+1}] LLM 返回长度: {len(raw)}\n")
-            # 打印开头（看是否有废话）
-            logf.write(f"    [Segment {seg_idx+1}] 内容开头: {raw[:100]}\n")
-            # 打印结尾（看 JSON 是否完整）
-            logf.write(f"    [Segment {seg_idx+1}] 内容结尾: ...{raw[-300:]}\n")
-            
-        except Exception as e:
-            logf.write(f"    [Segment {seg_idx+1}] ❌ LLM 调用异常: {e}\n")
-            return [] 
+    logger.debug("[Segment %d] 开始调用 LLM...", seg_idx + 1)
+    try:
+        raw = call_llm(
+            prompt,
+            system="You are a JSON API. You only output valid JSON arrays. No other text.",
+            max_tokens=4000,
+        )
+        logger.debug("[Segment %d] LLM 返回长度: %d, 开头: %s, 结尾: ...%s",
+                     seg_idx + 1, len(raw), raw[:100], raw[-300:])
+    except Exception as e:
+        logger.warning("[Segment %d] LLM 调用异常: %s", seg_idx + 1, e)
+        return []
 
-        # 5. 解析 JSON
-        questions = _extract_json(raw)
-        
-        if questions is None:
-            logf.write(f"    [Segment {seg_idx+1}] ❌ JSON 解析失败\n")
-        else:
-            logf.write(f"    [Segment {seg_idx+1}] ✅ 成功解析题目数: {len(questions)}\n")
-            
+    # 5. 解析 JSON
+    questions = _extract_json(raw)
+    if questions is None:
+        logger.warning("[Segment %d] JSON 解析失败", seg_idx + 1)
+    else:
+        logger.debug("[Segment %d] 成功解析题目数: %d", seg_idx + 1, len(questions))
+
     return questions if isinstance(questions, list) else []
 
 

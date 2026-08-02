@@ -2,6 +2,7 @@
 import sys
 import sqlite3
 import json
+import logging
 from pathlib import Path
 
 # 添加项目根目录到 Python 路径
@@ -9,6 +10,8 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 import streamlit as st
+
+logger = logging.getLogger(__name__)
 
 st.set_page_config(
     page_title="题库管理 - C++ 做题助手",
@@ -253,45 +256,35 @@ def main():
             if not uploaded:
                 st.warning("请先选择 PDF 文件")
             else:
-                # ===== 新增：初始化日志文件 =====
-                with open("debug.log", "w", encoding="utf-8") as logf:
-                    logf.write("开始解析元数据...\n")
-                
+                logger.info("开始解析元数据...")
+
                 Path(TEMP_DIR).mkdir(exist_ok=True)
                 meta_list = []
-                
+
                 for f in uploaded:
-                    # ===== 新增：记录当前处理的文件 =====
-                    with open("debug.log", "a", encoding="utf-8") as logf:
-                        logf.write(f"\n正在处理文件: {f.name}\n")
-                    
+                    logger.info("正在处理文件: %s", f.name)
+
                     # 保存到 temp
                     temp_path = Path(TEMP_DIR) / f.name
                     with open(temp_path, "wb") as out:
                         out.write(f.getbuffer() if hasattr(f, "getbuffer") else f.read())
-                        
+
                     try:
                         md = pdf_to_markdown(temp_path)
-                        # ===== 新增：记录 markdown 转换成功 =====
-                        with open("debug.log", "a", encoding="utf-8") as logf:
-                            logf.write(f"PDF 转 Markdown 成功，前 100 字符: {md[:100]}\n")
+                        logger.debug("PDF 转 Markdown 成功，前 100 字符: %s", md[:100])
                     except Exception as e:
-                        with open("debug.log", "a", encoding="utf-8") as logf:
-                            logf.write(f"❌ PDF 转 Markdown 失败: {e}\n")
+                        logger.warning("PDF 转 Markdown 失败: %s", e)
                         meta_list.append({
                             "orig": f.name, "type": "", "level": "", "date": "",
                             "status": "❌ 解析失败", "stem": "", "markdown": "", "temp_path": str(temp_path)
                         })
                         continue
-                        
+
                     try:
                         md_meta = parse_pdf_metadata(md)
-                        # ===== 新增：记录 LLM 返回的元数据 =====
-                        with open("debug.log", "a", encoding="utf-8") as logf:
-                            logf.write(f"parse_pdf_metadata 返回: {md_meta}\n")
+                        logger.debug("parse_pdf_metadata 返回: %s", md_meta)
                     except Exception as e:
-                        with open("debug.log", "a", encoding="utf-8") as logf:
-                            logf.write(f"❌ parse_pdf_metadata 抛出异常: {e}\n")
+                        logger.warning("parse_pdf_metadata 抛出异常: %s", e)
                         md_meta = {}
 
                     t, l, d = md_meta.get("type", ""), md_meta.get("level", ""), md_meta.get("date", "")
@@ -354,35 +347,32 @@ def main():
         new_files = [m for m in meta if m["status"] == "✅ 新题"]
         progress = st.progress(0.0)
         
-        with open("debug.log", "a", encoding="utf-8") as logf:
-            logf.write(f"\n{'='*20} 开始解析题目 {'='*20}\n")
-            logf.write(f"待解析文件数: {len(new_files)}\n")
-            
-            for i, m in enumerate(new_files):
-                progress.progress((i) / max(len(new_files), 1), text=f"正在解析 {i+1}/{len(new_files)}：{m['orig']}")
-                logf.write(f"[{i+1}] 正在处理: {m['orig']}\n")
-                logf.flush()
-                
-                try:
-                    qs = parse_pdf_questions(m["markdown"], {
-                        "type": m["type"],
-                        "level": m["level"],
-                        "date": m["date"]
-                    })
-                    
-                    if qs:
-                        logf.write(f"[{i+1}] 解析成功，题目数: {len(qs)}\n")
-                        results[m["stem"]] = qs
-                        m["status"] = "✅ 已解析"
-                    else:
-                        logf.write(f"[{i+1}] 解析失败：返回为空\n")
-                        m["status"] = "❌ 解析失败"
-                        
-                except Exception as e:
-                    logf.write(f"[{i+1}] 解析异常: {e}\n")
-                    m["status"] = f"❌ 异常"
-            
-            logf.write(f"解析流程结束\n")
+        logger.info("开始解析题目，待解析文件数: %d", len(new_files))
+
+        for i, m in enumerate(new_files):
+            progress.progress((i) / max(len(new_files), 1), text=f"正在解析 {i+1}/{len(new_files)}：{m['orig']}")
+            logger.info("[%d] 正在处理: %s", i + 1, m["orig"])
+
+            try:
+                qs = parse_pdf_questions(m["markdown"], {
+                    "type": m["type"],
+                    "level": m["level"],
+                    "date": m["date"]
+                })
+
+                if qs:
+                    logger.info("[%d] 解析成功，题目数: %d", i + 1, len(qs))
+                    results[m["stem"]] = qs
+                    m["status"] = "✅ 已解析"
+                else:
+                    logger.warning("[%d] 解析失败：返回为空", i + 1)
+                    m["status"] = "❌ 解析失败"
+
+            except Exception as e:
+                logger.warning("[%d] 解析异常: %s", i + 1, e)
+                m["status"] = f"❌ 异常"
+
+        logger.info("解析流程结束")
         
         progress.progress(1.0, text="解析完成")
         st.session_state.upload_results = results
