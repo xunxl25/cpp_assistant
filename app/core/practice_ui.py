@@ -41,9 +41,7 @@ def render_practice_ui(
 
     # 显示题目
     st.subheader(f"题目 {current_index + 1} / {len(questions)}")
-    # 将字符串中的 \n 替换为 HTML 的 <br> 标签
-    # st.write(current_question["question"].replace("\n", "<br>"))
-    st.markdown(current_question["question"].replace("\n", "<br>"), unsafe_allow_html=True)
+    st.markdown(current_question["question"])
 
     # 显示选项（选择题）
     if current_question["type"] == "single_choice":
