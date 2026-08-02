@@ -29,7 +29,11 @@ from app.core.question_loader import (
     update_question_in_file,
     get_question_by_id_from_all,
 )
-from app.core.cache import get_all_questions
+from app.core.cache import (
+    get_all_questions,
+    get_total_question_count_cached,
+    get_kp_frequency_cached,
+)
 from app.core.pdf_parser import (
     pdf_to_markdown,
     parse_pdf_metadata,
@@ -62,15 +66,11 @@ def main():
             st.success("索引已刷新")
             st.rerun()
 
-    all_questions = get_all_questions(QUESTION_BANK_DIR)
-
-    # 统计知识点（兼容新旧格式）
-    all_kps = set()
-    for q in all_questions:
-        kps = q.get("knowledge_points", [])
-        all_kps.update(kps)
-    col1.metric("总题目数", len(all_questions))
-    col2.metric("知识点数量", len(all_kps))
+    # 概览数字从索引 DB 查（不加载 JSON 文件）
+    total_count = get_total_question_count_cached(QUESTION_BANK_DIR)
+    kp_freq = get_kp_frequency_cached(QUESTION_BANK_DIR)
+    col1.metric("总题目数", total_count)
+    col2.metric("知识点数量", len(kp_freq))
 
     # 展示索引表概览
     try:
@@ -98,6 +98,7 @@ def main():
 
     # ---------- 2. 题目列表 ----------
     st.header("题目列表")
+    all_questions = get_all_questions(QUESTION_BANK_DIR)
     df_data = []
     for q in all_questions:
         kps = q.get("knowledge_points", [])
