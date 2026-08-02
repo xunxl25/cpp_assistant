@@ -663,7 +663,7 @@ def get_question_by_id_from_all(
     question_id: str, question_bank_dir: str = "question_bank"
 ) -> Tuple[Optional[Dict], Optional[str]]:
     """
-    在所有题库文件中查找指定 ID 的题目
+    在所有题库文件中查找指定 ID 的题目（走索引，O(1) 定位）
 
     Args:
         question_id: 题目 ID
@@ -672,15 +672,26 @@ def get_question_by_id_from_all(
     Returns:
         (题目字典, 文件路径) 或 (None, None)
     """
-    json_files = glob.glob(str(Path(question_bank_dir) / "*.json"))
+    ensure_index_exists(question_bank_dir)
 
-    for json_file in json_files:
-        try:
-            questions = load_questions(json_file)
-            for q in questions:
-                if q.get("id") == question_id:
-                    return q, json_file
-        except Exception:
-            continue
+    conn = sqlite3.connect(QUESTION_BANK_INDEX_PATH)
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT source_file, question_index FROM question_index WHERE question_id = ?",
+        (question_id,)
+    )
+    row = cursor.fetchone()
+    conn.close()
+
+    if row is None:
+        return None, None
+
+    source_file, qi = row
+    try:
+        file_questions = load_questions(source_file)
+        if qi < len(file_questions):
+            return file_questions[qi], source_file
+    except Exception:
+        pass
 
     return None, None
