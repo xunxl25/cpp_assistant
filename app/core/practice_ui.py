@@ -163,18 +163,17 @@ def render_practice_ui(
     st.divider()
     st.header("💬 AI 问答助手")
 
-    # 获取当前题目的上下文
-    context = {
-        "question": current_question["question"],
-        "user_answer": user_answer if 'user_answer' in locals() else "",
-        "correct_answer": correct_answer
-    }
-
     # 用户输入
     user_input = st.text_input("向 AI 提问（关于当前题目）", placeholder="例如：为什么我的答案错了？")
 
     if st.button("发送问题", key=f"ask_{current_question['id']}"):
         if user_input:
+            # 只在点击发送时构建 context，避免每次渲染都创建
+            context = {
+                "question": current_question["question"],
+                "user_answer": user_answer,
+                "correct_answer": correct_answer
+            }
             response = ask_question(user_input, context=context)
             st.info(response)
         else:
