@@ -16,10 +16,10 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from app.core.cache import get_all_questions, get_practice_log_cached
-from app.core.question_loader import (
-    get_knowledge_points,
-    get_knowledge_point_frequency
+from app.core.cache import (
+    get_practice_log_cached,
+    get_kp_frequency_cached,
+    get_total_question_count_cached,
 )
 
 
@@ -41,18 +41,18 @@ def main():
     """总览页面"""
     st.title("📊 学习总览")
 
-    # 加载数据
-    questions = get_all_questions(QUESTION_BANK_PATH)
+    # 加载数据（全部从索引 DB 查，不加载 JSON 文件）
+    total_questions = get_total_question_count_cached(QUESTION_BANK_PATH)
+    freq = get_kp_frequency_cached(QUESTION_BANK_PATH)
     practice_logs = get_practice_log_cached(str(DB_PATH))
 
-    if not questions:
+    if total_questions == 0:
         st.warning("没有题目数据")
         return
 
     # 知识点概览
     st.header("知识点概览")
-    freq = get_knowledge_point_frequency(questions)
-    knowledge_points = get_knowledge_points(questions)
+    knowledge_points = sorted(freq.keys())
 
     # 预处理：解析每条日志的知识点，按知识点分组（O(L) 一次扫完）
     kp_logs_map = {}  # {kp: [log, ...]}
@@ -128,7 +128,7 @@ def main():
     )
     overall_accuracy = total_correct / total_attempts if total_attempts > 0 else 0
 
-    col1.metric("总题目数", len(questions))
+    col1.metric("总题目数", total_questions)
     col2.metric("已练习题目", total_practiced)
     col3.metric("总作答次数", total_attempts)
     col4.metric("总体正确率", f"{overall_accuracy:.1%}")

@@ -9,7 +9,7 @@ sys.path.insert(0, str(project_root))
 import streamlit as st
 import pandas as pd
 import random
-from app.core.cache import get_all_questions, get_mistake_questions_cached
+from app.core.cache import get_mistake_questions_cached, get_questions_by_ids_cached
 from app.core.practice_tracker import PracticeTracker
 from app.core.practice_ui import render_practice_ui
 
@@ -50,15 +50,18 @@ def main():
     """错题本页面"""
     st.title("📝 错题本")
 
-    # 加载数据
-    questions = get_all_questions(QUESTION_BANK_PATH)
+    # 加载数据（只加载错题对应的题目，不加载全量题库）
     mistake_logs = get_mistake_questions_cached(DB_PATH)
 
     if not mistake_logs:
         st.info("🎉 暂无错题！")
         return
 
-    # 构建 {id: question} 查找表，避免 O(M×N) 重复线性扫描
+    # 按错题 ID 批量加载题目（走索引，只读命中的文件）
+    mistake_ids = tuple(log["question_id"] for log in mistake_logs)
+    questions = get_questions_by_ids_cached(mistake_ids)
+
+    # 构建 {id: question} 查找表
     question_map = {q["id"]: q for q in questions}
 
     # 获取错题详细信息

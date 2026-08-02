@@ -436,6 +436,113 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
     }
 
 
+def get_kp_frequency_from_index(
+    question_bank_dir: str = "question_bank"
+) -> Dict[str, int]:
+    """
+    从索引 DB 统计各知识点的题目数量（无需加载 JSON 文件）
+
+    Args:
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        {知识点: 题目数量}
+    """
+    ensure_index_exists(question_bank_dir)
+
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT knowledge_points FROM question_index")
+        rows = cursor.fetchall()
+
+    freq = {}
+    for (kp_json,) in rows:
+        try:
+            kps = json.loads(kp_json)
+            for kp in kps:
+                freq[kp] = freq.get(kp, 0) + 1
+        except Exception:
+            pass
+
+    return freq
+
+
+def get_total_question_count(
+    question_bank_dir: str = "question_bank"
+) -> int:
+    """
+    从索引 DB 获取题目总数（无需加载 JSON 文件）
+
+    Args:
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        题目总数
+    """
+    ensure_index_exists(question_bank_dir)
+
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM question_index")
+        return cursor.fetchone()[0]
+
+
+def get_questions_by_ids(
+    question_ids: List[str],
+    question_bank_dir: str = "question_bank"
+) -> List[Dict]:
+    """
+    按 ID 列表批量加载题目（走索引，只读命中的文件）
+
+    Args:
+        question_ids: 题目 ID 列表
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        题目列表（顺序与输入一致，未找到的跳过）
+    """
+    if not question_ids:
+        return []
+
+    ensure_index_exists(question_bank_dir)
+
+    # 从索引查 source_file + question_index
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        placeholders = ",".join(["?"] * len(question_ids))
+        cursor.execute(
+            f"SELECT question_id, source_file, question_index "
+            f"FROM question_index WHERE question_id IN ({placeholders})",
+            question_ids
+        )
+        index_rows = {row[0]: (row[1], row[2]) for row in cursor.fetchall()}
+
+    # 按 source_file 分组，每个文件只加载一次
+    file_to_indices = defaultdict(list)
+    for qid in question_ids:
+        if qid in index_rows:
+            source_file, qi = index_rows[qid]
+            file_to_indices[(source_file, qid)] = qi
+
+    # 按文件分组加载
+    file_to_qids = defaultdict(list)
+    for qid, (source_file, qi) in index_rows.items():
+        file_to_qids[source_file].append((qid, qi))
+
+    result_map = {}
+    for source_file, qid_qi_list in file_to_qids.items():
+        try:
+            file_questions = load_questions(source_file)
+            for qid, qi in qid_qi_list:
+                if qi < len(file_questions):
+                    result_map[qid] = file_questions[qi]
+        except Exception as e:
+            print(f"警告: 无法加载 {source_file}: {e}")
+
+    # 按输入顺序返回
+    return [result_map[qid] for qid in question_ids if qid in result_map]
+
+
 def get_exam_dates(
     exam_types: List[str] = None,
     exam_levels: List[str] = None,

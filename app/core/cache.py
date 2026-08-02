@@ -15,6 +15,9 @@ from app.core.question_loader import (
     get_all_exam_levels,
     get_all_knowledge_points_with_frequency,
     get_exam_dates,
+    get_kp_frequency_from_index,
+    get_total_question_count,
+    get_questions_by_ids,
 )
 from app.core.practice_tracker import (
     get_practice_log as _get_practice_log,
@@ -75,3 +78,24 @@ def get_mistake_questions_cached(db_path: str = "data/practice_log.db"):
 def get_mistake_stats_cached(db_path: str = "data/practice_log.db"):
     """缓存获取错题统计（答题/移出错题本后自动清缓存）"""
     return _get_mistake_stats(db_path)
+
+
+@st.cache_data(ttl=300)
+def get_kp_frequency_cached(question_bank_dir: str = "question_bank"):
+    """缓存从索引 DB 获取知识点频次"""
+    return get_kp_frequency_from_index(question_bank_dir)
+
+
+@st.cache_data(ttl=300)
+def get_total_question_count_cached(question_bank_dir: str = "question_bank"):
+    """缓存从索引 DB 获取题目总数"""
+    return get_total_question_count(question_bank_dir)
+
+
+@st.cache_data(ttl=300)
+def get_questions_by_ids_cached(
+    question_ids: tuple,
+    question_bank_dir: str = "question_bank"
+):
+    """缓存按 ID 列表批量加载题目（参数需为 tuple 以便 hash）"""
+    return get_questions_by_ids(list(question_ids), question_bank_dir)
