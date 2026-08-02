@@ -7,6 +7,28 @@ from app.core.practice_tracker import record_answer
 from app.core.ai_chat import ask_question
 
 
+@st.dialog("🎉 做题完成")
+def _show_completion_dialog(total: int, correct: int, skipped: int):
+    """完成所有题目后弹出统计"""
+    answered = total - skipped
+    accuracy = correct / answered if answered > 0 else 0
+    st.markdown(f"""
+    **本次做题统计**
+
+    | 项目 | 数量 |
+    |------|------|
+    | 总题目数 | {total} |
+    | 实际作答 | {answered} |
+    | 跳过未答 | {skipped} |
+    | 答对 | {correct} |
+    | 答错 | {answered - correct} |
+
+    ### 正确率：{accuracy:.1%}
+    """)
+    if st.button("好的", type="primary"):
+        pass
+
+
 def render_practice_ui(
     questions: List[Dict],
     current_index: int,
@@ -90,6 +112,11 @@ def render_practice_ui(
     submit_key = f"submitted_{current_question['id']}"
     already_submitted = st.session_state.get(submit_key, False)
 
+    # session 级答题统计（key 按题目列表 ID 隔离，避免不同批次混计）
+    session_key = f"session_stats_{id(questions)}"
+    if session_key not in st.session_state:
+        st.session_state[session_key] = {"total": len(questions), "answered": 0, "correct": 0}
+
     # 提交按钮 + 下一题按钮
     submit_col, next_col = st.columns([1, 1])
     with submit_col:
@@ -117,6 +144,11 @@ def render_practice_ui(
                     )
                     # 清除练习记录缓存（practice_log 变更后需刷新）
                     st.cache_data.clear()
+
+                    # 累计 session 统计
+                    st.session_state[session_key]["answered"] += 1
+                    if is_correct:
+                        st.session_state[session_key]["correct"] += 1
 
                     # 标记已提交，存储结果，rerun 后走 else 分支持久展示
                     st.session_state[submit_key] = True
@@ -159,7 +191,14 @@ def render_practice_ui(
             if current_index + 1 < len(questions):
                 return {'action': 'next', 'next_index': current_index + 1}
             else:
-                st.success("🎉 已完成所有题目！")
+                # 最后一题：弹出统计
+                stats = st.session_state.get(session_key, {"total": len(questions), "answered": 0, "correct": 0})
+                skipped = stats["total"] - stats["answered"]
+                _show_completion_dialog(
+                    total=stats["total"],
+                    correct=stats["correct"],
+                    skipped=skipped
+                )
 
     # AI 问答区域
     st.divider()
