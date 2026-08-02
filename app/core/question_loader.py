@@ -13,6 +13,9 @@ def load_questions(file_path: str) -> List[Dict]:
     """
     从 JSON 文件加载题目
 
+    加载时自动将判断题 answer 归一化为 "true"/"false"，
+    下游代码无需再处理 T/F 格式。
+
     Args:
         file_path: JSON 文件路径
 
@@ -24,7 +27,16 @@ def load_questions(file_path: str) -> List[Dict]:
         json.JSONDecodeError: JSON 格式错误时抛出
     """
     with open(file_path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        questions = json.load(f)
+
+    # 归一化判断题答案：T/F → true/false
+    for q in questions:
+        if q.get("type") == "true_false":
+            raw = q.get("answer", "")
+            if raw in ("T", "F"):
+                q["answer"] = "true" if raw == "T" else "false"
+
+    return questions
 
 
 def load_questions_from_folder(folder_path: str) -> List[Dict]:

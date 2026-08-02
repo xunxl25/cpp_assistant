@@ -88,14 +88,13 @@ def render_practice_ui(
 
     # 判断题
     elif current_question["type"] == "true_false":
-        raw_answer = current_question.get("answer", "")
-        # 兼容 T/F 和 true/false 两种格式，统一归一化到 true/false
-        answer_map = {"T": "true", "F": "false", "true": "true", "false": "false"}
-        correct_answer = answer_map.get(raw_answer, raw_answer)
+        correct_answer = current_question.get("answer", "")
+        # load_questions 已在加载时归一化 T/F → true/false，
+        # 这里仅做防御性校验
         if correct_answer not in ("true", "false"):
             st.warning(
-                f"⚠️ 题目数据异常：判断题答案应为 T/F 或 true/false，"
-                f"实际为「{raw_answer}」。"
+                f"⚠️ 题目数据异常：判断题答案应为 true/false，"
+                f"实际为「{correct_answer}」。"
                 f"请检查题库 JSON 文件中此题（ID: {current_question['id']}）的 answer 字段。"
             )
         # 固定在最后追加"不会"选项
