@@ -158,12 +158,16 @@ def build_question_bank_index(question_bank_dir: str = "question_bank") -> None:
     # 统计知识点频次
     knowledge_point_counts = {}
 
-    # 扫描所有 JSON 文件
+    # 扫描所有 JSON 文件，只加载一次
     json_files = glob.glob(str(Path(question_bank_dir) / "*.json"))
+
+    # file_questions: [(json_file, questions), ...] 保存供后续写索引复用
+    file_questions_list = []
 
     for json_file in json_files:
         try:
             questions = load_questions(json_file)
+            file_questions_list.append((json_file, questions))
 
             for question in questions:
                 # 统计知识点频次
@@ -214,11 +218,9 @@ def build_question_bank_index(question_bank_dir: str = "question_bank") -> None:
             )
         """)
 
-        # 插入索引数据
-        for json_file in json_files:
+        # 插入索引数据（复用已加载的题目，不再二次读盘）
+        for json_file, questions in file_questions_list:
             try:
-                questions = load_questions(json_file)
-
                 for idx, question in enumerate(questions):
                     exam = question.get("exam", {"type": "GESP", "level": 1, "date": "2026-06"})
 
