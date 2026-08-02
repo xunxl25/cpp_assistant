@@ -3,10 +3,13 @@ import os
 import json
 import sqlite3
 import glob
+import logging
 from collections import defaultdict
 from contextlib import closing
 from typing import List, Dict, Optional, Set, Tuple
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 
 def load_questions(file_path: str) -> List[Dict]:
@@ -291,20 +294,6 @@ def get_questions_by_filter(
     question_bank_dir: str = "question_bank"
 ) -> List[Dict]:
     """根据筛选条件获取题目"""
-    import logging
-    import traceback
-    import os
-    
-    # 确保日志目录存在
-    log_dir = os.path.dirname(os.path.abspath(__file__))
-    log_file = os.path.join(log_dir, 'question_loader_errors.log')
-    
-    logging.basicConfig(
-        filename=log_file,
-        level=logging.ERROR,
-        format='%(asctime)s - %(levelname)s - %(message)s'
-    )
-    
     try:
         ensure_index_exists(question_bank_dir)
 
@@ -330,9 +319,8 @@ def get_questions_by_filter(
                 params.append(frequency)
 
             if knowledge_points:
-                # 使用正确的变量名 current_kp（不是 kp）
                 kp_conditions = []
-                for current_kp in knowledge_points:  # ← 使用 current_kp 而不是 kp
+                for current_kp in knowledge_points:
                     kp_conditions.append("knowledge_points LIKE ?")
                     params.append(f'%"{current_kp}"%')
                 conditions.append(f"({' OR '.join(kp_conditions)})")
@@ -343,7 +331,7 @@ def get_questions_by_filter(
 
             cursor.execute(query, params)
             results = cursor.fetchall()
-        
+
         # 按 source_file 分组，每个文件只加载一次
         file_to_indices = defaultdict(list)
         for source_file, question_index in results:
@@ -357,18 +345,12 @@ def get_questions_by_filter(
                     if qi < len(file_questions):
                         questions.append(file_questions[qi])
             except Exception as e:
-                error_msg = f"无法加载题目 {source_file}: {e}"
-                logging.error(error_msg)
-                logging.error(traceback.format_exc())
-                print(error_msg)
+                logger.warning("无法加载题目 %s: %s", source_file, e)
 
         return questions
-        
+
     except Exception as e:
-        error_msg = f"get_questions_by_filter 发生错误: {e}"
-        logging.error(error_msg)
-        logging.error(traceback.format_exc())
-        print(error_msg)
+        logger.error("get_questions_by_filter 发生错误: %s", e, exc_info=True)
         raise
 
 
