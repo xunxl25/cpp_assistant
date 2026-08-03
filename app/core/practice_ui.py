@@ -26,7 +26,7 @@ def _show_completion_dialog(total: int, correct: int, skipped: int):
     ### 正确率：{accuracy:.1%}
     """)
     if st.button("好的", type="primary"):
-        pass
+        st.rerun()
 
 
 def render_practice_ui(
