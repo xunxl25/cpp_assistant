@@ -23,6 +23,7 @@ from app.core.practice_tracker import (
     get_practice_log as _get_practice_log,
     get_mistake_questions as _get_mistake_questions,
     get_mistake_stats as _get_mistake_stats,
+    get_answered_question_ids as _get_answered_question_ids,
 )
 
 
@@ -66,6 +67,12 @@ def get_exam_dates_cached(
 def get_practice_log_cached(db_path: str = "data/practice_log.db"):
     """缓存加载全部练习记录（答题/移出错题本后自动清缓存）"""
     return _get_practice_log(db_path)
+
+
+@st.cache_data(ttl=300)
+def get_answered_question_ids_cached(db_path: str = "data/practice_log.db"):
+    """缓存获取已答 question_id 集合（答题后自动清缓存）"""
+    return _get_answered_question_ids(db_path)
 
 
 @st.cache_data(ttl=300)

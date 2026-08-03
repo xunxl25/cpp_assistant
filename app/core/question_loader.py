@@ -580,6 +580,57 @@ def get_exam_dates(
     return [row[0] for row in results]
 
 
+def get_incomplete_exam_dates(
+    answered_qids: set,
+    exam_types: List[str] = None,
+    exam_levels: List[str] = None,
+    question_bank_dir: str = "question_bank"
+) -> List[str]:
+    """
+    获取未完成（至少有一题未答）的考试日期列表（降序）
+
+    Args:
+        answered_qids: 已答题 ID 集合
+        exam_types: 考试类型筛选（None 表示不限）
+        exam_levels: 级别筛选（None 表示不限）
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        未完成的日期列表（降序）
+    """
+    ensure_index_exists(question_bank_dir)
+
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+
+        conditions = []
+        params = []
+        if exam_types:
+            placeholders = ",".join(["?"] * len(exam_types))
+            conditions.append(f"exam_type IN ({placeholders})")
+            params.extend(exam_types)
+        if exam_levels:
+            placeholders = ",".join(["?"] * len(exam_levels))
+            conditions.append(f"exam_level IN ({placeholders})")
+            params.extend(exam_levels)
+
+        where_clause = " WHERE " + " AND ".join(conditions) if conditions else ""
+
+        cursor.execute(
+            f"SELECT exam_date, question_id FROM question_index{where_clause}",
+            params
+        )
+        date_qids = defaultdict(list)
+        for exam_date, qid in cursor.fetchall():
+            date_qids[exam_date].append(qid)
+
+    incomplete = [
+        date for date, qids in date_qids.items()
+        if not all(qid in answered_qids for qid in qids)
+    ]
+    return sorted(incomplete, reverse=True)
+
+
 def get_questions_by_exam_date(
     exam_date: str,
     exam_types: List[str] = None,

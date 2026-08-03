@@ -12,10 +12,12 @@ from app.core.cache import (
     get_exam_levels,
     get_knowledge_points_with_frequency,
     get_exam_dates_cached,
+    get_answered_question_ids_cached,
 )
 from app.core.question_loader import (
     get_questions_by_filter,
     get_questions_by_exam_date,
+    get_incomplete_exam_dates,
     build_question_bank_index
 )
 from app.core.practice_ui import render_practice_ui
@@ -112,10 +114,30 @@ def main():
     else:
         # 按真题卷：下拉框显示日期（受考试类型/级别筛选约束）
         st.sidebar.subheader("4. 考试日期")
-        exam_dates = get_exam_dates_cached(
-            exam_types=tuple(selected_exam_types) if selected_exam_types else None,
-            exam_levels=tuple(selected_exam_levels) if selected_exam_levels else None,
+
+        # 年份筛选：默认"未完成年份"
+        year_filter = st.sidebar.radio(
+            "年份筛选",
+            ["未完成年份", "所有年份"],
+            index=0
         )
+
+        exam_types_filter = selected_exam_types if selected_exam_types else None
+        exam_levels_filter = selected_exam_levels if selected_exam_levels else None
+
+        if year_filter == "未完成年份":
+            answered_qids = get_answered_question_ids_cached(DB_PATH)
+            exam_dates = get_incomplete_exam_dates(
+                answered_qids,
+                exam_types=exam_types_filter,
+                exam_levels=exam_levels_filter,
+            )
+        else:
+            exam_dates = get_exam_dates_cached(
+                exam_types=tuple(selected_exam_types) if selected_exam_types else None,
+                exam_levels=tuple(selected_exam_levels) if selected_exam_levels else None,
+            )
+
         if not exam_dates:
             st.sidebar.warning("没有符合条件的考试日期")
             selected_exam_date = None

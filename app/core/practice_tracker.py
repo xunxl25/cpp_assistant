@@ -191,6 +191,23 @@ def record_answer(
     )
 
 
+def get_answered_question_ids(db_path: str) -> set:
+    """
+    返回已答过的 question_id 集合
+
+    Args:
+        db_path: 数据库路径
+
+    Returns:
+        已答题 ID 集合（空集表示无记录）
+    """
+    tracker = PracticeTracker(db_path)  # 确保表存在
+    with closing(sqlite3.connect(db_path)) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT question_id FROM practice_log")
+        return {row[0] for row in cursor.fetchall()}
+
+
 def get_practice_log(db_path: str) -> List[Dict]:
     """
     获取练习记录（函数式 API）
