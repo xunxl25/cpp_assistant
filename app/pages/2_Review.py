@@ -34,9 +34,9 @@ if "mistake_questions" not in st.session_state:
 
 
 def remove_from_mistake(question_id: str):
-    """移出错题本"""
+    """移出错题本（隐藏，不影响 mastered；再次答错会自动回来）"""
     tracker = PracticeTracker(DB_PATH)
-    tracker.mark_mastered(question_id)
+    tracker.mark_hidden(question_id)
     # 清除练习记录缓存（practice_log 变更后需刷新）
     st.cache_data.clear()
     # 从当前错题列表中移除

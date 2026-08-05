@@ -12,7 +12,8 @@ from app.core.practice_tracker import (
     get_practice_log,
     get_question_stats,
     get_mistake_stats,
-    get_mistake_questions
+    get_mistake_questions,
+    MASTERY_THRESHOLD,
 )
 
 
@@ -100,18 +101,86 @@ class TestPracticeTracker:
         stored_kps = json.loads(logs[0]["knowledge_points"])
         assert stored_kps == kps
 
-    def test_mark_mastered(self, tracker):
-        """测试标记为已掌握"""
+    def test_mark_hidden(self, tracker):
+        """测试手动移出错题本（hidden = 1，不影响 mastered）"""
         tracker.add_practice_log(
             question_id="1",
-            user_answer="A",
+            user_answer="B",
             correct_answer="A",
-            is_correct=True,
+            is_correct=False,
             knowledge_points=json.dumps(["变量与数据类型"], ensure_ascii=False)
         )
-        tracker.mark_mastered("1")
+        # 答错一次：accuracy = 0/1 = 0 → mastered = 0
         logs = tracker.get_all_logs()
+        assert logs[0]["mastered"] == 0
+        assert logs[0]["hidden"] == 0
+
+        tracker.mark_hidden("1")
+        logs = tracker.get_all_logs()
+        assert logs[0]["hidden"] == 1
+        # mastered 不受影响
+        assert logs[0]["mastered"] == 0
+
+    def test_mastered_auto_on_high_accuracy(self, tracker):
+        """accuracy >= 75% 时 mastered 自动置 1"""
+        # 1 错 3 对 → accuracy = 0.75 → mastered = 1
+        tracker.add_practice_log("1", "B", "A", False,
+                                 json.dumps(["循环"], ensure_ascii=False))
+        tracker.add_practice_log("1", "A", "A", True,
+                                 json.dumps(["循环"], ensure_ascii=False))
+        tracker.add_practice_log("1", "A", "A", True,
+                                 json.dumps(["循环"], ensure_ascii=False))
+        tracker.add_practice_log("1", "A", "A", True,
+                                 json.dumps(["循环"], ensure_ascii=False))
+        logs = tracker.get_all_logs()
+        assert logs[0]["correct_count"] == 3
+        assert logs[0]["wrong_count"] == 1
         assert logs[0]["mastered"] == 1
+
+    def test_mastered_reset_on_low_accuracy(self, tracker):
+        """mastered=1 后再次答错导致 accuracy < 75% → mastered 重置为 0"""
+        # 先达到 75%：1 错 3 对
+        for _ in range(3):
+            tracker.add_practice_log("1", "A", "A", True,
+                                     json.dumps(["循环"], ensure_ascii=False))
+        tracker.add_practice_log("1", "B", "A", False,
+                                 json.dumps(["循环"], ensure_ascii=False))
+        assert tracker.get_all_logs()[0]["mastered"] == 1
+
+        # 再答错一次 → 1 对 + ... 实际 3 对 2 错 = 60% → mastered = 0
+        tracker.add_practice_log("1", "C", "A", False,
+                                 json.dumps(["循环"], ensure_ascii=False))
+        logs = tracker.get_all_logs()
+        assert logs[0]["mastered"] == 0
+
+    def test_hidden_cleared_on_wrong_answer(self, db_path):
+        """手动隐藏后再次答错 → hidden 清除，题回到错题本"""
+        record_answer(db_path, "1", "B", "A", False,
+                      json.dumps(["循环"], ensure_ascii=False))
+        tracker = PracticeTracker(db_path)
+        tracker.mark_hidden("1")
+        # 隐藏后不在错题列表
+        assert len(get_mistake_questions(db_path)) == 0
+
+        # 再次答错 → hidden 清除
+        record_answer(db_path, "1", "C", "A", False,
+                      json.dumps(["循环"], ensure_ascii=False))
+        mistakes = get_mistake_questions(db_path)
+        assert len(mistakes) == 1
+        assert mistakes[0]["question_id"] == "1"
+
+    def test_hidden_not_cleared_on_correct_answer(self, db_path):
+        """手动隐藏后答对 → hidden 保持（不会因为答对就回来）"""
+        record_answer(db_path, "1", "B", "A", False,
+                      json.dumps(["循环"], ensure_ascii=False))
+        tracker = PracticeTracker(db_path)
+        tracker.mark_hidden("1")
+
+        # 答对 → hidden 不清除
+        record_answer(db_path, "1", "A", "A", True,
+                      json.dumps(["循环"], ensure_ascii=False))
+        logs = get_practice_log(db_path)
+        assert logs[0]["hidden"] == 1
 
 
 class TestFunctionalAPI:

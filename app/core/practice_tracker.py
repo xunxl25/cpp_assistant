@@ -5,6 +5,9 @@ from contextlib import closing
 from typing import List, Dict, Optional
 from datetime import datetime
 
+# accuracy >= 此阈值时自动标记 mastered = 1
+MASTERY_THRESHOLD = 0.75
+
 
 class PracticeTracker:
     """练习记录跟踪器"""
@@ -40,7 +43,8 @@ class PracticeTracker:
                     wrong_count INTEGER DEFAULT 0,
                     mastered INTEGER DEFAULT 0,
                     user_answer TEXT,
-                    correct_answer TEXT
+                    correct_answer TEXT,
+                    hidden INTEGER DEFAULT 0
                 )
             """)
 
@@ -65,11 +69,28 @@ class PracticeTracker:
                         (json_val, qid),
                     )
 
-            # 新增 user_answer / correct_answer 列
+            # 新增 user_answer / correct_answer / hidden 列
             if "user_answer" not in columns:
                 cursor.execute("ALTER TABLE practice_log ADD COLUMN user_answer TEXT")
             if "correct_answer" not in columns:
                 cursor.execute("ALTER TABLE practice_log ADD COLUMN correct_answer TEXT")
+            if "hidden" not in columns:
+                cursor.execute("ALTER TABLE practice_log ADD COLUMN hidden INTEGER DEFAULT 0")
+
+            # 一次性数据迁移（仅 hidden 列刚加时执行）：
+            # 1. 旧 mastered=1 的记录 → hidden=1（保留用户"移出错题本"意图）
+            # 2. 所有记录按 accuracy 重算 mastered
+            if "hidden" not in columns:
+                cursor.execute("""
+                    UPDATE practice_log SET hidden = 1 WHERE mastered = 1
+                """)
+                cursor.execute("""
+                    UPDATE practice_log
+                    SET mastered = CASE
+                        WHEN (correct_count + wrong_count) > 0
+                         AND correct_count * 1.0 / (correct_count + wrong_count) >= ?
+                        THEN 1 ELSE 0 END
+                """, (MASTERY_THRESHOLD,))
 
             conn.commit()
 
@@ -83,6 +104,12 @@ class PracticeTracker:
     ):
         """
         添加或更新练习记录（UPSERT：单条 SQL 完成）
+
+        每次作答后自动重算 mastered：
+        - accuracy >= 0.75 → mastered = 1
+        - accuracy < 0.75  → mastered = 0
+
+        答错时同时清除 hidden 标记，让题目回到错题本视野。
 
         Args:
             question_id: 题目 ID
@@ -114,11 +141,36 @@ class PracticeTracker:
             """, (question_id, knowledge_points, now, now,
                   correct_count, wrong_count, user_answer, correct_answer))
 
+            # 重算 accuracy / mastered
+            cursor.execute(
+                "SELECT correct_count, wrong_count FROM practice_log WHERE question_id = ?",
+                (question_id,),
+            )
+            row = cursor.fetchone()
+            total = (row[0] + row[1]) if row else 0
+            accuracy = (row[0] / total) if total > 0 else 0.0
+            new_mastered = 1 if accuracy >= MASTERY_THRESHOLD else 0
+
+            # 答错时清掉 hidden（让题重新进入错题本视野）
+            if is_correct:
+                cursor.execute(
+                    "UPDATE practice_log SET mastered = ? WHERE question_id = ?",
+                    (new_mastered, question_id),
+                )
+            else:
+                cursor.execute(
+                    "UPDATE practice_log SET mastered = ?, hidden = 0 WHERE question_id = ?",
+                    (new_mastered, question_id),
+                )
+
             conn.commit()
 
-    def mark_mastered(self, question_id: str):
+    def mark_hidden(self, question_id: str):
         """
-        标记题目为已掌握
+        手动将题目移出错题本视野（hidden = 1）。
+
+        不影响 mastered（由 accuracy 自动计算）。
+        若之后再次答错，add_practice_log 会自动清除 hidden，让题回到错题本。
 
         Args:
             question_id: 题目 ID
@@ -127,10 +179,13 @@ class PracticeTracker:
             cursor = conn.cursor()
             cursor.execute("""
                 UPDATE practice_log
-                SET mastered = 1
+                SET hidden = 1
                 WHERE question_id = ?
             """, (question_id,))
             conn.commit()
+
+    # 向后兼容别名（旧代码可能调用 mark_mastered）
+    mark_mastered = mark_hidden
 
     def get_all_logs(self) -> List[Dict]:
         """
@@ -144,7 +199,7 @@ class PracticeTracker:
             cursor.execute("""
                 SELECT question_id, knowledge_points, first_attempt_time,
                        last_attempt_time, correct_count, wrong_count, mastered,
-                       user_answer, correct_answer
+                       user_answer, correct_answer, hidden
                 FROM practice_log
             """)
             rows = cursor.fetchall()
@@ -159,7 +214,8 @@ class PracticeTracker:
                 "wrong_count": row[5],
                 "mastered": row[6],
                 "user_answer": row[7],
-                "correct_answer": row[8]
+                "correct_answer": row[8],
+                "hidden": row[9]
             }
             for row in rows
         ]
@@ -271,7 +327,7 @@ def get_mistake_stats(db_path: str) -> Dict:
         cursor.execute("""
             SELECT
                 COUNT(*),
-                SUM(CASE WHEN wrong_count > 0 AND mastered = 0 THEN 1 ELSE 0 END)
+                SUM(CASE WHEN wrong_count > 0 AND mastered = 0 AND hidden = 0 THEN 1 ELSE 0 END)
             FROM practice_log
         """)
         row = cursor.fetchone()
@@ -284,7 +340,7 @@ def get_mistake_stats(db_path: str) -> Dict:
 
 def get_mistake_questions(db_path: str) -> List[Dict]:
     """
-    获取错题列表（未掌握且有过错误）
+    获取错题列表（未掌握、有过错误、未被手动隐藏）
 
     Args:
         db_path: 数据库路径
@@ -298,7 +354,7 @@ def get_mistake_questions(db_path: str) -> List[Dict]:
             SELECT question_id, knowledge_points, correct_count, wrong_count,
                    user_answer, correct_answer
             FROM practice_log
-            WHERE wrong_count > 0 AND mastered = 0
+            WHERE wrong_count > 0 AND mastered = 0 AND hidden = 0
         """)
         rows = cursor.fetchall()
 
