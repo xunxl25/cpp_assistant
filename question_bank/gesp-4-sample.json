@@ -1,0 +1,508 @@
+[
+  {
+    "id": "gesp-4-sample-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，指针变量的大小（单位：字节）是（）。",
+    "options": {
+      "A": "2",
+      "B": "4",
+      "C": "8",
+      "D": "与编译器有关"
+    },
+    "answer": "D",
+    "explanation": "指针变量的大小取决于编译器和目标平台的数据模型。例如，在32位系统中指针通常占4字节，而在64位系统中通常占8字节，因此大小与编译器有关。"
+  },
+  {
+    "id": "gesp-4-sample-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个选项能正确定义一个二维数组（）。",
+    "options": {
+      "A": "inta[][];",
+      "B": "charb[][4];",
+      "C": "doublec[3][];",
+      "D": "boold[3][4];"
+    },
+    "answer": "D",
+    "explanation": "定义二维数组时，必须指定列的大小，行的大小可以省略（由初始化列表决定）。选项D正确指定了行数和列数；选项B虽然语法上可能通过，但缺少存储类型说明符（如extern）直接定义是不完整的；选项A和C列数未指定，错误。严格来说D是最标准的定义。"
+  },
+  {
+    "id": "gesp-4-sample-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，以下哪种方式不能用于向函数传递参数（）。",
+    "options": {
+      "A": "值传递",
+      "B": "引用传递",
+      "C": "指针传递",
+      "D": "模板传递"
+    },
+    "answer": "D",
+    "explanation": "值传递、引用传递和指针传递是C++函数参数传递的三种主要方式。模板是C++的泛型编程机制，用于生成函数或类，不是一种参数传递方式。"
+  },
+  {
+    "id": "gesp-4-sample-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "以下关于C++函数的形参和实参的叙述，正确的是（）。",
+    "options": {
+      "A": "形参是实参的别名",
+      "B": "实参是形参的别名",
+      "C": "形参和实参是完全相同的",
+      "D": "形参用于函数声明，实参用于函数调用"
+    },
+    "answer": "D",
+    "explanation": "形参是函数定义时声明的参数，实参是调用函数时传递的具体值。A、B、C的描述都不准确，只有D正确描述了它们的基本用途。"
+  },
+  {
+    "id": "gesp-4-sample-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "single_choice",
+    "question": "排序算法的稳定性是指（）。",
+    "options": {
+      "A": "相同元素在排序后的相对顺序保持不变",
+      "B": "排序算法的性能稳定",
+      "C": "排序算法对任意输入都有较好的效果",
+      "D": "排序算法容易实现"
+    },
+    "answer": "A",
+    "explanation": "排序算法的稳定性定义：如果排序前后，相等元素的相对顺序保持不变，则该算法是稳定的。这是算法理论中的标准定义。"
+  },
+  {
+    "id": "gesp-4-sample-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "如果有如下二维数组定义，则a[0][3]的值为（）。\nint a[2][2]={{0,1},{2,3}};",
+    "options": {
+      "A": "编译出错",
+      "B": "1",
+      "C": "3",
+      "D": "0"
+    },
+    "answer": "D",
+    "explanation": "数组定义为2行2列，索引范围是0-1。访问a[0][3]越界。但在C++中，数组越界访问不会直接导致编译错误，而是访问越界处的内存。根据内存布局（行优先），a[0][3]的位置实际上是a[1][1]的位置，其值为3。但题目选项中有D且答案为D，可能是题目预设了越界情况下的特定行为或打印错误，一般考试中视为越界错误，此处按官方答案D解释。"
+  },
+  {
+    "id": "gesp-4-sample-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个选项能正确访问二维数组array的元素（）。",
+    "options": {
+      "A": "array[1,2]",
+      "B": "array(1)(2)",
+      "C": "array[1][2]",
+      "D": "array{1}{2}"
+    },
+    "answer": "C",
+    "explanation": "C++中访问二维数组元素的标准语法是使用双下标运算符，即array[行][列]。选项A是逗号表达式，选项B是函数调用语法，选项D不是标准语法。"
+  },
+  {
+    "id": "gesp-4-sample-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个选项是C++中正确的指针变量声明（）。",
+    "options": {
+      "A": "int*p;",
+      "B": "intp*;",
+      "C": "*intp;",
+      "D": "int*p*;"
+    },
+    "answer": "A",
+    "explanation": "声明指针变量的正确语法是 类型 *变量名。选项A符合此语法。选项B写法错误，选项C写法错误，选项D声明了指向指针的指针但语法有误且题目意图考察基础声明。"
+  },
+  {
+    "id": "gesp-4-sample-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，以下哪个关键字或符号用于声明引用（）。",
+    "options": {
+      "A": "pointer",
+      "B": "&",
+      "C": "*",
+      "D": "reference"
+    },
+    "answer": "B",
+    "explanation": "在C++中，引用使用符号 & 进行声明。例如 int &r = a;。"
+  },
+  {
+    "id": "gesp-4-sample-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个递推关系式表示斐波那契数列（）。",
+    "options": {
+      "A": "F(n)=F(n-1)+F(n-2)+F(n-3)",
+      "B": "F(n)=F(n-1)+F(n-2)",
+      "C": "F(n)=F(n-1)*F(n-2)",
+      "D": "F(n)=F(n-1)/F(n-2)"
+    },
+    "answer": "B",
+    "explanation": "斐波那契数列的经典定义是每一项等于前两项之和，即 F(n) = F(n-1) + F(n-2)。"
+  },
+  {
+    "id": "gesp-4-sample-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组",
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个函数声明在调用时可以传递二维数组的名字作为参数？",
+    "options": {
+      "A": "void BubbleSort(int a[3][4]);",
+      "B": "void BubbleSort(int a[][]);",
+      "C": "void BubbleSort(int *a[]);",
+      "D": "void BubbleSort(int **a);"
+    },
+    "answer": "A",
+    "explanation": "传递二维数组给函数时，必须指定第二维（列）的大小。选项A正确指定了列大小为4。选项B缺少列大小，选项C和D是指针数组或二级指针，不能直接接受静态二维数组名。"
+  },
+  {
+    "id": "gesp-4-sample-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，以下哪个关键字用来捕获异常（）。",
+    "options": {
+      "A": "throw",
+      "B": "catch",
+      "C": "try",
+      "D": "finally"
+    },
+    "answer": "B",
+    "explanation": "try块用于检测异常，throw用于抛出异常，catch用于捕获并处理异常。C++标准中没有finally关键字。"
+  },
+  {
+    "id": "gesp-4-sample-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "在下列代码的横线处填写（），可以使得输出是“2010”。\n#include<iostream>\nusing namespace std;\nvoid xchg(________________){//在此处填入代码\n    int t=x;\n    x=y;\n    y=t;\n}\nint main(){\n    int a=10,b=20;\n    xchg(a,b);\n    cout<<a<<\" \"<<b<<endl;\n    return 0;\n}",
+    "options": {
+      "A": "int x, int y",
+      "B": "int &x, int &y",
+      "C": "int a, int b",
+      "D": "int &a, int &b"
+    },
+    "answer": "B",
+    "explanation": "要交换main函数中a和b的值，xchg函数需要通过引用或指针来修改实参。选项B使用了引用传递，形参x、y是实参a、b的别名，交换x、y即交换了a、b。注意形参名应与函数体中使用的变量名一致。"
+  },
+  {
+    "id": "gesp-4-sample-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "在下列代码的横线处填写（），可以使得输出是“21”。\n#include<iostream>\nusing namespace std;\nint main(){\n    int a[5];\n    a[0]=1;\n    for(int i=1;i<5;i++)\n        a[i]=a[i–1]*2;\n    int sum=0;\n    for(int i=0;i<5;________)//在此处填入代码\n        sum+=a[i];\n\n    cout<<sum<<endl;\n    return 0;\n}",
+    "options": {
+      "A": "i++",
+      "B": "i+=2",
+      "C": "i+=3",
+      "D": "i|=2"
+    },
+    "answer": "B",
+    "explanation": "数组a初始化为{1, 2, 4, 8, 16}。若输出21，即1+4+16=21，也就是累加a[0], a[2], a[4]。因此循环步长应为2，横线处应填i+=2。"
+  },
+  {
+    "id": "gesp-4-sample-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "在下列代码的横线处填写（），完成对有n个int类型元素的数组array由小到大排序。\nvoid BubbleSort(int array[],int n){\n    for(int i=n;i>1;i--)\n        for(____________________)//在此处填入代码\n            if(array[j]>array[j+1]){\n                int t=array[j];\n                array[j]=array[j+1];\n                array[j+1]=t;\n            }\n}",
+    "options": {
+      "A": "int j=i–2;j>=0;j--",
+      "B": "int j=i-1;j>=0;j--",
+      "C": "int j=0;j<i-1;j++",
+      "D": "int j=0;j<i;j++"
+    },
+    "answer": "C",
+    "explanation": "这是冒泡排序的标准实现。外层循环控制无序区的末尾边界i（从n递减到2）。内层循环需要遍历无序区进行比较，范围是从0到i-2（即j < i-1），比较array[j]和array[j+1]。选项C正确表达了这一逻辑。"
+  },
+  {
+    "id": "gesp-4-sample-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "C++语言中的指针变量可以指向任何类型的数据。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "C++是一种强类型语言，指针变量必须指向特定类型的数据（如int*, char*等），但通过void*指针或强制类型转换，指针可以指向任何类型的数据对象。题目表述“可以指向”在广义上被认为是正确的。"
+  },
+  {
+    "id": "gesp-4-sample-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，函数的参数默认以地址传递方式进行传递。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "在C++中，函数参数默认的传递方式是值传递，即实参的值被复制给形参。地址传递（指针传递）或引用传递需要显式声明。"
+  },
+  {
+    "id": "gesp-4-sample-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "true_false",
+    "question": "C++语言中的全局变量在整个程序的生命周期内都是有效的。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "全局变量具有静态存储期，它们在程序开始执行前分配内存，在程序结束时释放，因此在整个程序生命周期内都是有效的。"
+  },
+  {
+    "id": "gesp-4-sample-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "true_false",
+    "question": "递推算法通常有初始值。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "递推算法是根据递推关系式，从已知项推导出未知项的过程。已知的项就是初始值，如果没有初始值，递推无法开始。"
+  },
+  {
+    "id": "gesp-4-sample-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "true_false",
+    "question": "冒泡排序是一种稳定的排序算法。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "冒泡排序在比较相邻元素时，如果相等通常不交换位置（或者设置交换条件为大于才交换），这样可以保证相等元素的相对顺序不变，因此是稳定的排序算法。"
+  },
+  {
+    "id": "gesp-4-sample-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "true_false",
+    "question": "C++语言中，如果异常发生，但没有处理异常的代码，则程序会由于一直等待处理而死机。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "如果异常发生且没有被捕获处理，程序会立即调用std::terminate终止运行，而不是死机或无限等待。"
+  },
+  {
+    "id": "gesp-4-sample-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "true_false",
+    "question": "C++语言中的局部变量在函数调用结束后会被销毁。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "局部变量存储在栈上，具有自动存储期。当函数调用结束，栈帧释放，局部变量随之销毁（执行析构函数，内存回收）。"
+  },
+  {
+    "id": "gesp-4-sample-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "&和&&都是C++语言的运算符，*和**也都是。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "&是取地址/按位与运算符，&&是逻辑与运算符；*是指针解引用/乘法运算符。但**不是C++语言中独立的运算符，它通常用于表示指向指针的指针或二级指针解引用（两次*操作）。题目表述“都是运算符”不准确。"
+  },
+  {
+    "id": "gesp-4-sample-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "如果希望设计一个函数xchg，实现交换两个int变量的值，则它的声明可以写为void xchg(int a,int b);。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "该声明使用的是值传递。函数内部修改的是形参a和b的副本，不会影响实参的值，因此无法实现交换。应使用引用传递或指针传递。"
+  },
+  {
+    "id": "gesp-4-sample-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "sample"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "已知数组a定义为int a[100];，则赋值语句a['0']=3;会导致编译错误。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "字符'0'的ASCII码值是48，是一个整数。a['0']等价于a[48]，在数组有效索引范围内，该语句在编译和运行上都是合法的（逻辑上可能不符合预期，但不是编译错误）。"
+  }
+]

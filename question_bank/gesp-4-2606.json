@@ -1,0 +1,507 @@
+[
+  {
+    "id": "gesp-4-202606-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "小杨正在编写一个“数字交换器”程序，他希望通过函数交换两个变量的值。请问运行以下代码后，屏幕上输出的是（ ）。\nvoid exchange(int *a, int &b) {\n    int t = *a;\n    *a = b;\n    b = t;\n}\nint main() {\n    int x = 100, y = 200;\n    exchange(&x, y);\n    cout << x << \" \" << y;\n    return 0;\n}",
+    "options": {
+      "A": "100 200",
+      "B": "200 100",
+      "C": "200 200",
+      "D": "编译错误"
+    },
+    "answer": "B",
+    "explanation": "函数exchange接收一个指针a和一个引用b。*a表示x的值（100），b表示y的引用。交换过程：t=*a=100，*a=b（x变为200），b=t（y变为100）。输出为200 100。"
+  },
+  {
+    "id": "gesp-4-202606-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "single_choice",
+    "question": "下面程序想通过函数计算三门课总分，横线处应填入的是（ ）。\nint sumScore(int a, int b, int c) {\n    return a + b + c;\n}\nint main() {\n    int chinese = 88, math = 95, english = 90;\n    int total = __________;\n    cout << total;\n    return 0;\n}",
+    "options": {
+      "A": "sumScore",
+      "B": "sumScore(chinese, math, english)",
+      "C": "sumScore(int chinese, int math, int english)",
+      "D": "sumScore(a, b, c)"
+    },
+    "answer": "B",
+    "explanation": "函数调用需要使用函数名并传入对应的实参。选项B正确调用了sumScore函数，传入了chinese, math, english三个变量的值。"
+  },
+  {
+    "id": "gesp-4-202606-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "下面程序输出结果是（ ）。\nint addOne(int x) {\n    return x + 1;\n}\nint main() {\n    int a = 6;\n    cout << addOne(a) + addOne(3);\n    return 0;\n}",
+    "options": {
+      "A": "9",
+      "B": "10",
+      "C": "11",
+      "D": "12"
+    },
+    "answer": "C",
+    "explanation": "addOne(a)计算6+1=7，addOne(3)计算3+1=4。输出7+4=11。"
+  },
+  {
+    "id": "gesp-4-202606-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "关于下面程序，说法正确的是（ ）。\nvoid show() {\n    int stars = 5;\n}\nint main() {\n    cout << stars;\n    return 0;\n}",
+    "options": {
+      "A": "程序输出 5",
+      "B": "程序可以通过编译，但输出随机值",
+      "C": "程序不能通过编译，因为 stars 只在 show 函数中有效",
+      "D": "程序不能通过编译，因为 cout 不能输出变量"
+    },
+    "answer": "C",
+    "explanation": "变量stars在show函数内部定义，是局部变量，作用域仅限于show函数。在main函数中无法访问stars，会导致编译错误。"
+  },
+  {
+    "id": "gesp-4-202606-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "小杨在调试一个“等级提升”系统，代码逻辑如下，执行后 *p 的值是（ ）。\nint lv = 5, next_lv = 6;\nint *p = &lv;\n*p = *p + 1;\np = &next_lv;",
+    "options": {
+      "A": "5",
+      "B": "6",
+      "C": "lv 的地址",
+      "D": "next_lv 的地址"
+    },
+    "answer": "B",
+    "explanation": "p指向lv，执行*p = *p + 1后，lv的值变为6。接着p指向next_lv，但题目问的是*p的值，即p当前指向的内存的值（next_lv的值，为6）。"
+  },
+  {
+    "id": "gesp-4-202606-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "小杨正在开发一款名为“星际网格”的游戏，他用二维数组 int map[5][4]; 来表示地图。已知 int 占 4 字节，如果 map 的内存地址是 0x2000，则表达式 &map + 1 的地址值是（ ）。",
+    "options": {
+      "A": "0x204c",
+      "B": "0x205c",
+      "C": "0x2050",
+      "D": "0x2058"
+    },
+    "answer": "C",
+    "explanation": "&map是二维数组的地址，类型为int (*)[5][4]。&map + 1移动整个数组的大小，即5*4*4=80字节。0x2000 + 0x50 (80的十六进制) = 0x2050。但这里题目问的是表达式&map+1，由于map是二维数组，&map是指向整个数组的指针，加1跳过整个数组。0x2000 + 5*4*4 = 0x2000 + 80 = 0x2050。"
+  },
+  {
+    "id": "gesp-4-202606-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "执行完下面代码后，变量 val 的值是（ ）。\nint data[] = {10, 20, 30, 40, 50};\nint *ptr = data + 2;\nint val = *(ptr - 1) + *(ptr + 1);",
+    "options": {
+      "A": "50",
+      "B": "60",
+      "C": "70",
+      "D": "80"
+    },
+    "answer": "B",
+    "explanation": "ptr指向data[2]即30。*(ptr-1)是data[1]即20，*(ptr+1)是data[3]即40。val = 20 + 40 = 60。"
+  },
+  {
+    "id": "gesp-4-202606-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "某班 3 个小组、每组 4 名同学的分数存入下面的二维数组 score，则 score[1][2] 的值是（ ）。\nint score[3][4] = {\n    {80, 81, 82, 83},\n    {90, 91, 92, 93},\n    {70, 71, 72, 73}\n};",
+    "options": {
+      "A": "81",
+      "B": "90",
+      "C": "92",
+      "D": "72"
+    },
+    "answer": "C",
+    "explanation": "score[1][2]表示第2行（索引1）第3列（索引2）的元素，即92。"
+  },
+  {
+    "id": "gesp-4-202606-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "小杨定义了一个结构体 Hero 来表示游戏角色，下面哪种初始化方式会由于语法错误导致编译失败？（ ）。\nstruct Hero {\n    string name;\n    int hp;\n};",
+    "options": {
+      "A": "Hero h = {\"Arthur\", 100};",
+      "B": "Hero h; h.name = \"Arthur\"; h.hp = 100;",
+      "C": "Hero h = new Hero{\"Arthur\", 100};",
+      "D": "Hero *p = new Hero{\"Arthur\", 100};"
+    },
+    "answer": "C",
+    "explanation": "选项C中，h是Hero类型的对象，不是指针，不能用new赋值。正确的动态分配应该是Hero *h = new Hero{\"Arthur\", 100};。"
+  },
+  {
+    "id": "gesp-4-202606-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "下面程序输出结果是（ ）。\nstruct Book {\n    string title;\n    int pages;\n};\nint main() {\n    Book books[2] = {{\"Math\", 120}, {\"Science\", 150}};\n    cout << books[1].title;\n    return 0;\n}",
+    "options": {
+      "A": "Math",
+      "B": "Science",
+      "C": "120",
+      "D": "150"
+    },
+    "answer": "B",
+    "explanation": "books[1].title表示数组第二个元素的title成员，即\"Science\"。"
+  },
+  {
+    "id": "gesp-4-202606-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "single_choice",
+    "question": "小杨在对“能量晶石”按亮度进行排序。如果两块晶石亮度相同，他希望保持它们在原始序列中的相对顺序。下列关于排序算法稳定性的说法，错误的是（ ）。",
+    "options": {
+      "A": "冒泡排序是稳定的，因为只有在左边比右边大时才交换。",
+      "B": "插入排序是稳定的，因为它将元素插入到相等元素的右侧。",
+      "C": "选择排序是稳定的，因为它每次选出最小元素放在前面。",
+      "D": "稳定性是指排序后相等元素的相对位置不发生改变。"
+    },
+    "answer": "C",
+    "explanation": "选择排序是不稳定的。例如序列[5, 5, 3]，第一次选出3与第一个5交换，两个5的相对顺序改变了。"
+  },
+  {
+    "id": "gesp-4-202606-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "小杨的机器人正在能量踏板上跳跃，踏板编号为 1, 2, ...。跳到第 n 块踏板的方案数满足递推式 f(n) = f(n-1) + f(n-2)。若 f(1)=1, f(2)=2，则运行以下代码计算 jump(5) 的结果是（ ）。\nint jump(int n) {\n    if (n <= 2)\n        return n;\n    int a = 1, b = 2, c = 0;\n    for (int i = 3; i <= n; i++) {\n        c = a + b;\n        a = b;\n        b = c;\n    }\n    return c;\n}",
+    "options": {
+      "A": "5",
+      "B": "8",
+      "C": "13",
+      "D": "21"
+    },
+    "answer": "B",
+    "explanation": "这是一个斐波那契数列的变种，f(1)=1, f(2)=2。f(3)=3, f(4)=5, f(5)=8。程序计算jump(5)返回8。"
+  },
+  {
+    "id": "gesp-4-202606-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "single_choice",
+    "question": "在“模拟实验室”程序中，为了防止除以 0 导致崩溃，小杨使用了异常处理机制。执行以下代码将输出（ ）。\ntry {\n    int x = 10, y = 0;\n    if (y == 0) throw \"Zero Error\";\n    cout << x / y;\n} catch (int e) {\n    cout << \"Error Code: \" << e;\n} catch (const char* msg) {\n    cout << \"Caught: \" << msg;\n}",
+    "options": {
+      "A": "0",
+      "B": "Error Code: 0",
+      "C": "Caught: Zero Error",
+      "D": "程序直接崩溃"
+    },
+    "answer": "C",
+    "explanation": "y为0，抛出字符串异常\"Zero Error\"。被catch(const char* msg)捕获，输出\"Caught: Zero Error\"。"
+  },
+  {
+    "id": "gesp-4-202606-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "下面代码使用某种排序算法，将数组中的元素按从小到大排序。这段代码使用的排序算法是（ ）。\nvoid mystery_sort(double arr[], int n) {\n    for (int i = 0; i < n - 1; i++) {\n        int minPos = i;\n        for (int j = i + 1; j < n; j++) {\n            if (arr[j] < arr[minPos]) {\n                minPos = j;\n            }\n        }\n        double temp = arr[i];\n        arr[i] = arr[minPos];\n        arr[minPos] = temp;\n    }\n}",
+    "options": {
+      "A": "冒泡排序",
+      "B": "插入排序",
+      "C": "选择排序",
+      "D": "非典型排序"
+    },
+    "answer": "C",
+    "explanation": "该算法每次从未排序部分选出最小元素（minPos），然后与当前位置i交换，这是典型的选择排序。"
+  },
+  {
+    "id": "gesp-4-202606-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "小杨正在读取“冒险日志”文件 quest.txt。若文件内容为 Level 10，执行以下程序后输出为（ ）。\nifstream fin(\"quest.txt\");\nstring s;\nint v;\nfin >> s >> v;\ncout << s.length() * v;",
+    "options": {
+      "A": "50",
+      "B": "15",
+      "C": "70",
+      "D": "5"
+    },
+    "answer": "A",
+    "explanation": "fin读取字符串\"Level\"到s，整数10到v。s.length()为5（\"Level\"的长度）。输出5 * 10 = 50。"
+  },
+  {
+    "id": "gesp-4-202606-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "指针作为函数参数"
+    ],
+    "type": "true_false",
+    "question": "运行以下程序后，变量 a 的值最终会变为 20。\nvoid modify(int *p) {\n    *p = *p + 10;\n}\nint main() {\n    int a = 10;\n    modify(&a);\n    return 0;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "modify函数接收a的地址，通过指针p修改a的值。a初始为10，加10后变为20。"
+  },
+  {
+    "id": "gesp-4-202606-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "在 C++ 中，引用一旦初始化并绑定到某个变量后，可以通过赋值语句将其重新绑定到另一个变量。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "引用在初始化后绑定到变量，之后不能改变绑定。对引用的赋值是修改绑定变量的值，而不是改变引用的绑定对象。"
+  },
+  {
+    "id": "gesp-4-202606-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "true_false",
+    "question": "下面程序可以正确计算并输出 3 名学生的平均成绩。\nstruct Student {\n    int id;\n    int score;\n};\nint main() {\n    Student students[3] = {\n        {1, 90},\n        {2, 80},\n        {3, 100}\n    };\n    int sum = 0;\n    for (int i = 0; i < 3; i++) {\n        sum += students[i].score;\n    }\n    double average = sum / 3.0;\n    cout << average << endl;\n    return 0;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "程序正确计算了3名学生的总分并除以3.0得到平均分，逻辑正确。"
+  },
+  {
+    "id": "gesp-4-202606-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "true_false",
+    "question": "选择排序算法在寻找每一轮最小值时，如果遇到相等的元素不进行交换，则选择排序是一种稳定的排序算法。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "即使不交换相等元素，选择排序在后面的交换中仍可能改变相等元素的相对顺序。例如[5, 5, 3]，第一轮选出3与第一个5交换，顺序改变。因此选择排序是不稳定的。"
+  },
+  {
+    "id": "gesp-4-202606-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "如果使用带 flag 的冒泡排序，且待排序数组一开始就是有序的，那么算法只需一轮扫描即可结束，时间复杂度为 O(n)。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "带标志的冒泡排序在每轮扫描如果没有发生交换，说明数组已有序，可以提前结束。对于有序数组，只需一轮扫描，时间复杂度为O(n)。"
+  },
+  {
+    "id": "gesp-4-202606-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "在 C++ 中定义二维数组并初始化时，可以省略第一维，但不能省略第二维。因此 int a[][2] = {{1, 2}, {3, 4}}; 是合法的，而 int a[][] = {{1, 2}, {3, 4}}; 是不合法的。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "C++中定义二维数组时，如果初始化了，可以省略第一维的大小，但不能省略第二维。编译器需要第二维的大小来计算内存偏移。"
+  },
+  {
+    "id": "gesp-4-202606-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算"
+    ],
+    "type": "true_false",
+    "question": "下面代码的时间复杂度是 O(n)。\nint cnt = 0;\nfor (int i = 1; i <= n; i++) {\n    for (int j = 1; j <= i; j++) {\n        cnt++;\n    }\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "这是一个双重循环，内层循环次数从1加到n，总次数为1+2+...+n = n(n+1)/2。时间复杂度为O(n^2)。"
+  },
+  {
+    "id": "gesp-4-202606-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "true_false",
+    "question": "假设文件 output.txt 能正常打开，下面代码通过 rdbuf 将 cout 的输出重定向到了文件中。\nofstream fout(\"output.txt\");\nstreambuf* old_buf = cout.rdbuf();\ncout.rdbuf(fout.rdbuf());\ncout << \"GESP Exam\";\ncout.rdbuf(old_buf);",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "代码使用rdbuf将cout的流缓冲区重定向到fout文件的缓冲区，输出\"GESP Exam\"会写入文件，最后恢复cout的缓冲区。"
+  },
+  {
+    "id": "gesp-4-202606-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "小杨想通过下面程序给饭卡充值，程序会输出 70。\nvoid recharge(int money) {\n    money += 20;\n}\nint main() {\n    int card = 50;\n    recharge(card);\n    cout << card;\n    return 0;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "recharge函数是值传递，修改的是形参money，不会影响实参card。card的值仍为50，输出50。"
+  },
+  {
+    "id": "gesp-4-202606-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "下面代码可以通过编译。\nint a[5];\na++;",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "数组名a是一个常量指针，不能修改。a++试图修改数组名的值，会导致编译错误。"
+  }
+]

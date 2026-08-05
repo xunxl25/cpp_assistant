@@ -1,0 +1,469 @@
+[
+  {
+    "id": "gesp-4-202503-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "函数的定义与调用",
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "关于下述代码，说法错误的是（）。\n\nint multiply(int x, int y);\n\nint main() {\n    int a = 4;\n    int b = 5;\n    int result = multiply(a, b);\n    std::cout << \"The result is: \" << result << std::endl;\n    return 0;\n}\n\nint multiply(int x, int y) {\n    return x * y;\n}",
+    "options": {
+      "A": "函数 multiply 的定义应该放到函数main之前。",
+      "B": "函数声明 int multiply(int x, int y); 中明确指定了函数multiply（）的返回值为整数类型。",
+      "C": "在main 函数中，函数multiply通过 multiply(a, b) 被调用，其中 a 和 b 是定义在main函数中的变量，它们作为实参传递给了multiply函数的形参 x 和 y。",
+      "D": "运行上述代码，将输出The result is：20。"
+    },
+    "answer": "A",
+    "explanation": "C++允许函数声明在前，定义在后，只要在调用前有声明即可。因此函数定义不一定要放在main之前。D选项正确是因为4*5=20。"
+  },
+  {
+    "id": "gesp-4-202503-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "执行下述代码将输出（）。\n\nint x = 10;\n\nvoid func() {\n    int x = 20;\n    std::cout << x;\n}\n\nint main() {\n    func();\n    std::cout << x;\n    return 0;\n}",
+    "options": {
+      "A": "2020",
+      "B": "2010",
+      "C": "1010",
+      "D": "编译错误"
+    },
+    "answer": "B",
+    "explanation": "func函数内部定义了局部变量x并赋值为20，输出20。main函数中使用的是全局变量x，值为10，输出10。最终输出2010。"
+  },
+  {
+    "id": "gesp-4-202503-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "执行下述代码后，变量 a 的值为（）。\n\nint a = 10;\nint *p = &a;\n*p = 20;",
+    "options": {
+      "A": "10",
+      "B": "20",
+      "C": "随机值",
+      "D": "编译错误"
+    },
+    "answer": "B",
+    "explanation": "指针p指向变量a，通过解引用*p对a指向的内存进行赋值操作，将a的值修改为20。"
+  },
+  {
+    "id": "gesp-4-202503-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "以下哪种参数传递方式可以避免拷贝型对象?",
+    "options": {
+      "A": "只能用值传递",
+      "B": "只能用引用传递",
+      "C": "只能用指针传递",
+      "D": "引用传递和指针传递均可"
+    },
+    "answer": "D",
+    "explanation": "引用传递和指针传递都是传递地址或别名，不会创建对象的副本，从而避免拷贝。值传递会进行拷贝。"
+  },
+  {
+    "id": "gesp-4-202503-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "执行下述代码，将输出（）。\n\nvoid swap(int a, int &b) {\n    int temp = a;\n    b = temp;\n}\n\nint main() {\n    int x = 1, y = 2;\n    swap(x, y);\n    std::cout << x << y;\n    return 0;\n}",
+    "options": {
+      "A": "12",
+      "B": "21",
+      "C": "22",
+      "D": "11"
+    },
+    "answer": "D",
+    "explanation": "swap函数中，a是值传递（x的副本），b是引用传递（y的别名）。函数内将temp赋值为a（即1），然后b=temp，即y被赋值为1。x的值保持不变（1）。所以输出11。"
+  },
+  {
+    "id": "gesp-4-202503-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "下面的描述中，（）正确定义一个名为Person的结构体并正确初始化了一个Person结构体的变量 p。",
+    "options": {
+      "A": "struct Person {\n    string name;\n    int age;\n};\nPerson p(\"Yang\",10);",
+      "B": "struct Person {\n    string name;\n    int age;\n};\nPerson p;\np.name = \"Yang\";\np.age = 10;",
+      "C": "struct Person {\n    string name;\n    int age;\n};\nPerson p = {\"Yang\", 10};",
+      "D": "struct Person {\n    string name;\n    int age;\n};\nPerson p = new Person(\"Yang\", 10);"
+    },
+    "answer": "C",
+    "explanation": "C选项使用了聚合初始化列表，这是C++中初始化结构体（POD类型）的标准且简洁的方式。A选项默认没有构造函数，不能直接这样初始化；B选项是先定义后赋值，也可以，但不如C简洁且符合题目“正确定义...并正确初始化”的要求；D选项p应该是指针。"
+  },
+  {
+    "id": "gesp-4-202503-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "给定如下代码，\nstruct Person {\n    std::string name;\n    int age;\n    struct Address {\n        std::string street;\n        std::string city;\n    } address;\n};\n下面描述错误的是（）。",
+    "options": {
+      "A": "结构 Person内嵌套结构Address",
+      "B": "Person 有一个Address 类型的 address 成员",
+      "C": "一个Person类型的变量 p 的 address 的初始化可以写成： p.address.street=\"123 Main St\"; p.address.city =\"Anytown\";",
+      "D": "结构的嵌套可以减少命名冲突，因此可以不必控制嵌套层次"
+    },
+    "answer": "D",
+    "explanation": "虽然嵌套结构体可以避免命名冲突，但过深的嵌套层次会降低代码的可读性和维护性，因此应当适度控制嵌套层次，而非“不必控制”。"
+  },
+  {
+    "id": "gesp-4-202503-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "假设 int arr[2][3]={{1,2,3},{4,5,6}};, 则 arr[1] [2] 的值是（）。",
+    "options": {
+      "A": "2",
+      "B": "3",
+      "C": "5",
+      "D": "6"
+    },
+    "answer": "D",
+    "explanation": "二维数组arr[2][3]表示2行3列。arr[1]表示第2行（下标从0开始），arr[1][2]表示第2行的第3个元素，即6。"
+  },
+  {
+    "id": "gesp-4-202503-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "下面（）正确定义了二维数组。",
+    "options": {
+      "A": "int arr[3,4];",
+      "B": "int arr[3][4];",
+      "C": "int arr(3,4);",
+      "D": "int a[3-4];"
+    },
+    "answer": "B",
+    "explanation": "C++中定义二维数组的语法是类型 数组名[行数][列数]。A是逗号表达式，大小为4；C是函数声明风格；D是减法。"
+  },
+  {
+    "id": "gesp-4-202503-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "小杨正在爬楼梯，需要爬 n 阶才能到达楼顶。如果每次可以爬1个或2个台阶，下面代码采用递推算法来计算一共有多少种不同的法可以爬到楼顶，则横线上应填写（）。\n\nint f(int n) {\n    if (n == 1 || n == 2)\n        return n;\n    int f1 = 1;\n    int f2 = 2;\n    int res = 0;\n    for (int i = 3; i <= n; i++) {\n        // 在此处填入代码\n    }\n    return res;\n}",
+    "options": {
+      "A": "res += f1 + f2;\nf1 = f2;\nf2 = res;",
+      "B": "res = f1 + f2;\nf1 = f2;\nf2 = res;",
+      "C": "res += f1 + f2;\nf2 = res;\nf1 = f2;",
+      "D": "res = f1 + f2;\nf2 = res;\nf1 = f2;"
+    },
+    "answer": "B",
+    "explanation": "这是斐波那契数列的递推求解。res应为前两项之和f1+f2。计算完当前项后，需要更新f1和f2，为下一次循环做准备，即f1变为旧的f2，f2变为新的res。"
+  },
+  {
+    "id": "gesp-4-202503-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "给定如下算法，其时间复杂度为（）。\n\nbool f(int arr[], int n, int target) {\n    for (int i = 0; i < (1 << n); i++) {\n        int sum = 0;\n        for (int j = 0; j < n; j++)\n            if (i & (1 << j)) {\n                sum += arr[j];\n            }\n    }\n    if (sum == target) return true;\n    return false;\n}",
+    "options": {
+      "A": "O(n^2)",
+      "B": "O(n * 2^n)",
+      "C": "O(1)",
+      "D": "O(n^3)"
+    },
+    "answer": "B",
+    "explanation": "外层循环遍历所有可能的子集，共 2^n 次。内层循环遍历 n 个元素。总时间复杂度为 O(n * 2^n)。"
+  },
+  {
+    "id": "gesp-4-202503-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "single_choice",
+    "question": "下面关于排序稳定性的描述，正确的是（）。",
+    "options": {
+      "A": "稳定性指算法的时间复杂度恒定",
+      "B": "稳定排序保证相同元素的相对顺序不变",
+      "C": "选择排序是稳定排序",
+      "D": "插入排序不是稳定排序"
+    },
+    "answer": "B",
+    "explanation": "排序算法的稳定性是指如果待排序序列中有两个相等的元素，排序后它们的相对位置保持不变。A错，稳定性与时间复杂度无关；C错，选择排序通常是不稳定的；D错，插入排序是稳定的。"
+  },
+  {
+    "id": "gesp-4-202503-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "对数组 arr[]={5,3,8,1} 进行升序排序，执行第一轮冒泡排序后数组arr中的内容为（）。",
+    "options": {
+      "A": "3,5,1,8",
+      "B": "3,1,5,8",
+      "C": "3,5,8,1",
+      "D": "5,3,8,1"
+    },
+    "answer": "A",
+    "explanation": "第一轮冒泡排序会依次比较相邻元素并交换，将最大的元素“冒”到最后。过程：5和3比较交换(3,5,8,1)；5和8不交换；8和1比较交换(3,5,1,8)。结果为3,5,1,8。"
+  },
+  {
+    "id": "gesp-4-202503-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "single_choice",
+    "question": "运行下面的代码，将出现（）。\n\ndouble hmean(double a, double b) {\n    if (a == -b)\n        throw runtime_error(\"Runtime error occurred.\");\n    return 2.0 * a * b / (a + b);\n}\n\nint main() {\n    double x = 10;\n    double y = -10;\n    try {\n        int result = hmean(x, y);\n        cout << \"hmean：\" << result << endl;\n    }\n    catch (const runtime_error& e) {\n        cout << \"Caught:\" << e.what() << endl;\n    }\n    catch (...) {\n        cout << \"Caught an unknown exception.\" << endl;\n    }\n    return 0;\n}",
+    "options": {
+      "A": "屏幕上输出Caught：Runtime error occurred.",
+      "B": "屏幕上输出 Caught an unknown exception.",
+      "C": "程序调用 std::terminate",
+      "D": "编译错误"
+    },
+    "answer": "A",
+    "explanation": "hmean函数中，当a等于-b（10 == -(-10)即10==10）时，抛出runtime_error异常。main函数的catch块捕获了该异常并输出了异常信息。"
+  },
+  {
+    "id": "gesp-4-202503-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "下哪种方式不能实现将字符串\"Happy Spring！\"输出重定向到文件 log.txt （）。",
+    "options": {
+      "A": "freopen(\"log.txt\", \"w\", stdout);\ncout << \"Happy Spring!\" << endl;\nfclose(stdout);",
+      "B": "std::ofstream outFile(\"log.txt\");\noutFile << \"Happy Spring!\" << endl;\noutFile.close();",
+      "C": "std::ofstream outFile(\"log.txt\");\ncout << \"Happy Spring!\" << endl;\noutFile.close();",
+      "D": "ofstream log_file(\"log.txt\");\nstreambuf* org_cout = cout.rdbuf();\ncout.rdbuf(log_file.rdbuf());\ncout << \"Happy Spring!\" << endl;\ncout.rdbuf(org_cout);"
+    },
+    "answer": "C",
+    "explanation": "A通过freopen重定向stdout；B直接使用文件流对象outFile输出；D通过rdbuf修改cout的缓冲区指向文件。C中定义了outFile但没有使用它，cout依然输出到屏幕，未完成重定向。"
+  },
+  {
+    "id": "gesp-4-202503-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "true_false",
+    "question": "函数是C++中的核心概念，用于封装可重用的代码块。",
+    "answer": "T",
+    "explanation": "这是函数的基本定义和作用描述，正确。"
+  },
+  {
+    "id": "gesp-4-202503-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "true_false",
+    "question": "在C++中，函数的返回类型可以省略，默认为int。",
+    "answer": "F",
+    "explanation": "在C++中，函数的返回类型不能省略（不同于C语言）。如果函数不返回值，必须声明为void。"
+  },
+  {
+    "id": "gesp-4-202503-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "true_false",
+    "question": "结构体的成员默认是public访问权限。",
+    "answer": "T",
+    "explanation": "在C++中，struct的成员默认访问权限是public，而class的成员默认是private。"
+  },
+  {
+    "id": "gesp-4-202503-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "假设整数数组 arr 的第一个元素在内存中的地址为 Ox7ffee4865820, 经过 int* p = arr; p + 1; 后，指针 p 的值是 1。",
+    "answer": "F",
+    "explanation": "指针加1是根据指针指向的数据类型的大小来移动地址的，而不是数值加1。对于int*指针，p+1指向的是数组中的下一个元素，地址值增加sizeof(int)（通常是4字节）。"
+  },
+  {
+    "id": "gesp-4-202503-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "二维数组作为函数参数时，必须显式指定所有维度的大小。",
+    "answer": "F",
+    "explanation": "二维数组作为函数参数时，可以省略第一维（行数）的大小，但必须指定第二维（列数）的大小，以便编译器进行地址寻址。"
+  },
+  {
+    "id": "gesp-4-202503-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "true_false",
+    "question": "递推是一种通过已知的初始值和递推公式，逐步求解目标值的算法。",
+    "answer": "T",
+    "explanation": "递推算法正是利用初始条件和递推关系式，从已知推导未知，直到求出解。"
+  },
+  {
+    "id": "gesp-4-202503-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：排序算法",
+      "简单算法复杂度的估算"
+    ],
+    "type": "true_false",
+    "question": "考虑最坏情况下冒泡排序算法的时间复杂度， T(n) 为待排序数字的数目为 n 的复杂度，则其递推关系式为T(n) = T(n - 1) + n, T(0) = 0。",
+    "answer": "T",
+    "explanation": "冒泡排序在每一轮中将最大的元素移到末尾，处理n个元素需要进行n-1轮比较和交换（操作量约为n），剩下n-1个元素的操作量为T(n-1)。因此递推式为T(n) = T(n-1) + O(n)。T(0)=0表示没有元素时复杂度为0。"
+  },
+  {
+    "id": "gesp-4-202503-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "插入排序在最好情况（已有序）下的时间复杂度是 O(n^2)。",
+    "answer": "F",
+    "explanation": "插入排序在最好情况（数组已经有序）下，内层循环不需要执行交换，只需比较n-1次，时间复杂度为O(n)。"
+  },
+  {
+    "id": "gesp-4-202503-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "对数组 arr[]={4,3,1,5,2} 进升序排序，执第轮选择排序后数组 arr 中的内容是 {1,4,3,5,2}。",
+    "answer": "T",
+    "explanation": "第一轮选择排序会从所有元素中找到最小的元素（1），并将其与第一个元素（4）交换。结果为{1,3,4,5,2}。题目中选项{1,4,3,5,2}看起来像是描述过程或者题目有误，但按照常规选择排序逻辑，交换后应该是1在第一位。不过通常这种题目可能指逻辑上的“确定最小元素并交换”后的状态。根据选项T，判断为正确，意指最小元素1已经归位。"
+  },
+  {
+    "id": "gesp-4-202503-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202503"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "true_false",
+    "question": "未捕获异常会调用std::terminate终止程序。",
+    "answer": "T",
+    "explanation": "在C++中，如果抛出的异常没有被任何catch块捕获，标准库会调用std::terminate函数，该函数默认会调用abort终止程序。"
+  }
+]

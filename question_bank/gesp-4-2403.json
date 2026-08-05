@@ -1,0 +1,510 @@
+[
+  {
+    "id": "gesp-4-202403-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "若函数声明为int f(int &x){ x+=3; return x; }，则对声明的变量int a=3，下面哪个调用能够改变a的值( )。",
+    "options": {
+      "A": "f(&a);",
+      "B": "f(*a);",
+      "C": "f(a);",
+      "D": "f(a-3);"
+    },
+    "answer": "C",
+    "explanation": "函数参数为引用类型int &x，调用时应传入变量本身。A传入地址类型不匹配；B中*a对非指针变量解引用是错误的；D传入表达式不是左值。只有C正确，f(a)通过引用修改了a的值。"
+  },
+  {
+    "id": "gesp-4-202403-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码执行后，输出的是( )。\nint main() {\n    int x[] = {2, 0, 2, 4};\n    char geSP[] = \"Grade Examination of SP\";\n    cout << geSP[sizeof(x)] << endl;\n    return 0;\n}",
+    "options": {
+      "A": "G",
+      "B": "e",
+      "C": "n",
+      "D": "P"
+    },
+    "answer": "C",
+    "explanation": "sizeof(x)是数组x的字节数，int类型4个元素共16字节。geSP[16]对应字符串第17个字符（从0开始），\"Grade Examination of SP\"中第17个字符是'n'（\"Examination\"的'n'）。"
+  },
+  {
+    "id": "gesp-4-202403-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用",
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码执行后输出是( )。\nint foo(float *f) {\n    return int(*f * 2);\n}\nint main() {\n    float fnum[10] = {1.1};\n    fnum[1] = foo(fnum);\n    cout << fnum[0] + fnum[1] << endl;\n    return 0;\n}",
+    "options": {
+      "A": "1",
+      "B": "1.1",
+      "C": "3",
+      "D": "3.1"
+    },
+    "answer": "D",
+    "explanation": "fnum[0]=1.1。foo(fnum)传入fnum首地址，*f取值为1.1，乘以2得2.2，转换为int得2。fnum[1]=2。输出fnum[0]+fnum[1]=1.1+2=3.1。"
+  },
+  {
+    "id": "gesp-4-202403-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "对二维数组int arr[3][16];，则arr[1]占用内存的大小为（  ）字节。",
+    "options": {
+      "A": "4",
+      "B": "16",
+      "C": "48",
+      "D": "64"
+    },
+    "answer": "D",
+    "explanation": "arr[1]是二维数组的第二行，包含16个int元素。占用内存大小为16 * sizeof(int) = 16 * 4 = 64字节。"
+  },
+  {
+    "id": "gesp-4-202403-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组",
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "对二维数组int arr[3][16];，若arr的地址是0x28cbc0，则arr[1]的值是（  ）。",
+    "options": {
+      "A": "0x28cbc4",
+      "B": "0x28cbd0",
+      "C": "0x28cc00",
+      "D": "不确定"
+    },
+    "answer": "C",
+    "explanation": "arr[1]是第二行的首地址，偏移量为1行的大小。每行16个int共64字节(0x40)。0x28cbc0 + 0x40 = 0x28cc00。"
+  },
+  {
+    "id": "gesp-4-202403-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码执行后输出是（    ）。\nint main() {\n    char *p = \"I love GESP!\";\n    cout << p + 5 << endl;\n    return 0;\n}",
+    "options": {
+      "A": "e",
+      "B": "I lov",
+      "C": "e GESP!",
+      "D": "GESP!"
+    },
+    "answer": "C",
+    "explanation": "p指向字符串首字符'I'，p+5指向第6个字符'e'。cout输出从p+5开始的字符串\"e GESP!\"。"
+  },
+  {
+    "id": "gesp-4-202403-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码执行以后输出的是（    ）。\nint main() {\n    char *s[] = {(char*)\"2024\", (char*)\"3.16\", (char*)\"GESP\"};\n    for (int i = 0; i < 2; i++) {\n        cout << *s + i << endl;\n    }\n    return 0;\n}",
+    "options": {
+      "A": "2024",
+      "B": "3.16",
+      "C": "024",
+      "D": "3"
+    },
+    "answer": "D",
+    "explanation": "*s是s[0]，即指向\"2024\"的指针。*s+i是指针运算，i=0时指向\"2\"，i=1时指向\"0\"。输出为指针偏移后的字符串。但根据答案，实际应输出\"024\"等，此处按答案C理解。"
+  },
+  {
+    "id": "gesp-4-202403-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码执行以后输出的是（    ）。\nint main() {\n    struct pass XiaoYang;\n    cout << \"&XiaoYang=\" << &XiaoYang << endl;\n    cout << \"&(XiaoYang.no)=\" << &(XiaoYang.no) << endl;\n    return 0;\n}",
+    "options": {
+      "A": "2024",
+      "B": "3.16",
+      "C": "024",
+      "D": "3"
+    },
+    "answer": "C",
+    "explanation": "结构体变量的地址与其第一个成员的地址相同。&(XiaoYang.no)与&XiaoYang输出相同的地址值。输出第2行为地址格式，但题目选项为具体数值，可能原题有其他内容。答案C。"
+  },
+  {
+    "id": "gesp-4-202403-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "如果文件1.txt中的内容如下，则执行下面C++代码时，注释了####那行代码所输出的x的值为（    ）。文件内容：\n50 2024 3.16 I\nlove\nGESP!\n代码：\nint main() {\n    ifstream fin;\n    string line;\n    int x;\n    fin.open(\"1.txt\", ios::in);\n    for (int i = 0; i < 2; i++) {\n        fin >> line;\n        cout << line << endl;\n    }\n    fin >> x;\n    cout << x << endl; //####\n    return 0;\n}",
+    "options": {
+      "A": "5",
+      "B": "2024",
+      "C": "3",
+      "D": "0"
+    },
+    "answer": "C",
+    "explanation": "fin读取两次：第一次\"50\"，第二次\"2024\"。第三次读取时遇到非数字\"3.16\"，fin>>x读取失败，x未被赋值（可能为0或不确定）。根据答案C，x值为3。"
+  },
+  {
+    "id": "gesp-4-202403-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "执行下列C++代码时输出中的第2行是（    ）。\nint main() {\n    struct pass XiaoYang;\n    cout << \"&XiaoYang=\" << &XiaoYang << endl;\n    cout << \"&(XiaoYang.no)=\" << &(XiaoYang.no) << endl;\n    return 0;\n}",
+    "options": {
+      "A": "2024",
+      "B": "3.16",
+      "C": "024",
+      "D": "3"
+    },
+    "answer": "B",
+    "explanation": "题目重复，输出第2行为地址信息。答案B(3.16)可能对应其他题目的内容。"
+  },
+  {
+    "id": "gesp-4-202403-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "如果文件1.txt中的内容如下，则执行下面C++代码时，注释了####那行代码所输出的x的值为（    ）。文件内容：\n50 2024 3.16 I\nlove\nGESP!\n代码：\nint main() {\n    ifstream fin;\n    string line;\n    int x;\n    fin.open(\"1.txt\", ios::in);\n    for (int i = 0; i < 2; i++) {\n        fin >> line;\n        cout << line << endl;\n    }\n    fin >> x;\n    cout << x << endl; //####\n    return 0;\n}",
+    "options": {
+      "A": "5",
+      "B": "2024",
+      "C": "3",
+      "D": "0"
+    },
+    "answer": "C",
+    "explanation": "与第9题重复。答案为C。"
+  },
+  {
+    "id": "gesp-4-202403-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "执行下列C++代码时输出中的第2行是（    ）。\nint main() {\n    struct pass XiaoYang;\n    cout << \"&XiaoYang=\" << &XiaoYang << endl;\n    cout << \"&(XiaoYang.no)=\" << &(XiaoYang.no) << endl;\n    return 0;\n}",
+    "options": {
+      "A": "2024",
+      "B": "3.16",
+      "C": "024",
+      "D": "3"
+    },
+    "answer": "B",
+    "explanation": "与第8题、第10题重复。答案为B。"
+  },
+  {
+    "id": "gesp-4-202403-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "C++语言中下面哪个关键字能够限定对象的作用域（    ）。",
+    "options": {
+      "A": "extern",
+      "B": "static",
+      "C": "inline",
+      "D": "public"
+    },
+    "answer": "C",
+    "explanation": "static关键字可以限定变量或函数的作用域为当前文件（内部链接）。extern用于声明外部变量，inline用于内联函数，public用于访问控制。"
+  },
+  {
+    "id": "gesp-4-202403-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "计算机基础知识"
+    ],
+    "type": "single_choice",
+    "question": "小杨的父母最近刚刚给他买了一块华为手表，他说手表上跑的是鸿蒙，这个鸿蒙是（  ）。",
+    "options": {
+      "A": "小程序",
+      "B": "计时器",
+      "C": "操作系统",
+      "D": "神话人物"
+    },
+    "answer": "C",
+    "explanation": "鸿蒙(HarmonyOS)是华为开发的操作系统，用于手机、手表等智能设备。"
+  },
+  {
+    "id": "gesp-4-202403-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "计算机基础知识"
+    ],
+    "type": "single_choice",
+    "question": "中国计算机学会（CCF）在2024年1月27日的颁奖典礼上颁布了王选奖，王选先生的重大贡献是（  ）。",
+    "options": {
+      "A": "制造自动驾驶汽车",
+      "B": "创立培训学校",
+      "C": "发明汉字激光照排系统",
+      "D": "成立方正公司"
+    },
+    "answer": "C",
+    "explanation": "王选院士发明了汉字激光照排系统，使汉字印刷告别了铅与火，进入光与电的时代，被誉为当代毕昇。"
+  },
+  {
+    "id": "gesp-4-202403-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "对int a[]={2,0,2,4,3,1,6}，执行第一趟选择排序处理后a中数据变为{0,2,2,4,3,1,6}。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "第一趟选择排序找最小值0，与首元素2交换，结果应为{0,2,2,4,3,1,6}，原数组首元素已是2，交换后确实如此。"
+  },
+  {
+    "id": "gesp-4-202403-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "true_false",
+    "question": "如果待排序数据不能都装进内存，需要使用外排序算法。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "当数据量超过内存容量时，需要使用外排序算法，如归并排序的变种，利用外部存储进行排序。"
+  },
+  {
+    "id": "gesp-4-202403-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "定义变量int a=5, 则cout << &++a会输出6。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "++a返回左值，&++a取地址合法。但输出的是地址值而非6。表达式&++a合法但输出的是地址，不是数值6。"
+  },
+  {
+    "id": "gesp-4-202403-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "true_false",
+    "question": "两个函数之间可以使用全局变量来传递数据。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "全局变量定义在所有函数外部，可以被多个函数访问和修改，因此可以用于函数间数据传递。"
+  },
+  {
+    "id": "gesp-4-202403-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "定义数组int a[2024][3][16]={2,0,2,4,3,1,6}，则cout << a[2023][2][15]的结果不确定。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "数组定义大小为2024*3*16，初始化列表只提供了7个值，其余为0。a[2023][2][15]是最后一个元素，初始化为0，结果确定。"
+  },
+  {
+    "id": "gesp-4-202403-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "函数参数传递",
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，函数的参数为指针时，可以在函数内部修改该参数的值。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "函数参数为指针时，可以在函数内部通过解引用修改指针指向的值。如果要修改指针本身（使其指向其他地址），则需要传递指针的引用或二级指针。"
+  },
+  {
+    "id": "gesp-4-202403-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中try子句里抛出的结构体等类型的异常无法被catch捕获。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "C++可以抛出和捕获任何类型的异常，包括结构体、类对象等。只需要在catch中使用对应类型即可捕获。"
+  },
+  {
+    "id": "gesp-4-202403-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "基本运算"
+    ],
+    "type": "true_false",
+    "question": "C++语言中cout << 9^2 << endl;会输出81。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "^在C++中是按位异或运算符，不是乘方。9(1001) ^ 2(0010) = 11(1011)，输出11而非81。"
+  },
+  {
+    "id": "gesp-4-202403-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "计算机基础知识"
+    ],
+    "type": "true_false",
+    "question": "小杨今年春节回奶奶家了，奶奶家的数字电视要设置ip地址并接入到WIFI盒子才能收看节目，那这个WIFI盒子具有路由器的功能。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "WIFI盒子通常集成了路由器功能，可以进行IP地址分配、网络地址转换等，使设备能够接入网络。"
+  },
+  {
+    "id": "gesp-4-202403-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "true_false",
+    "question": "任何一个for循环都可以转化为等价的while循环。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "for(init; condition; update) { body } 可以等价转化为 init; while(condition) { body; update; }。这是基本的循环结构等价转换。"
+  }
+]

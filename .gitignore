@@ -3,16 +3,16 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
-venv/
-tests/
+# venv/
+# tests/
 
 # 环境配置
 .env
 nul
 
 # 数据库（个人练习数据，题库，不入库）
-data/*.db
-*json
+# data/*.db
+# *json
 
 # Streamlit
 .streamlit/secrets.toml
@@ -22,10 +22,12 @@ Thumbs.db
 .DS_Store
 
 # 历年试卷 PDF（不提交）
-past_exam/*.pdf
-pdf_from_CCF/
+# past_exam/*.pdf
+# pdf_from_CCF/
 
 # 调试用
 *patch
-temp*
+# temp*
 *.log
+practice_log.csv
+db_2_csv.py

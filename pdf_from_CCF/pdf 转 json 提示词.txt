@@ -1,0 +1,80 @@
+PDF 是一份 GESP 4级考试真题。包含选择、判断、编程，提取选择和判断题到 json 文件
+
+json 文件需求
+1. json 结构： List[Dict]（列表嵌套字典）
+
+2. 每个元素都是一个独立的字典，结构统一为：id、exam、knowledge_points、type、question、options（判断题无此字段）、answer、explanation。
+
+单选题 id 样例：gesp-4-2606-sc-1
+判断题 id 样例：gesp-4-2606-tf-1
+
+knowledge_points 和 explanation 需要LLM辅助， 其余均来自原文。
+
+knowledge_points 根据题目的考察点， 匹配到如下列表:
+函数的定义与调用
+形参与实参、作用域
+指针类型的概念及基本应用
+函数参数传递
+结构体
+二维数组与多维数组
+算法：递推
+算法：排序概念和稳定性
+算法：排序算法
+简单算法复杂度的估算
+文件重定向与文件读写操作
+异常处理
+
+question 字段不包含选项
+
+question 字段中包含的 C++ 代码，因为提取原因丢失了缩进和换行。请帮我恢复成标准的、可编译的 C++ 代码格式
+（比如换行、缩进）
+
+判断题的正确答案是对号和叉号，answer 字段取 T 或者 F， 需要和正确答案匹配
+
+4. 生成的 json 文件命名方式为 type-level-date.json
+date 用 yyyymm 格式。 
+
+
+输出 json 样例，假设 pdf 中有两道题目， 一道单选题， 一道判断题
+[
+  {
+    "id": "gesp-4-202606-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "参数传递方式"
+    ],
+    "type": "single_choice",
+    "question": "小杨正在编写一个“数字交换器”程序，他希望通过函数交换两个变量的值。请问运行以下代码后，屏幕上输出的是（ ）。\nvoid exchange(int *a, int &b) {\n int t = *a;\n *a = b;\n b = t;\n}\nint main() {\n int x = 100, y = 200;\n exchange(&x, y);\n cout << x << \" \" << y;\n return 0;\n}",
+    "options": {
+      "A": "100 200",
+      "B": "200 100",
+      "C": "200 200",
+      "D": "编译错误"
+    },
+    "answer": "B",
+    "explanation": "在exchange函数中，a是指向x的指针，b是y的引用。t=*a=100，然后*a=b即将x赋值为200，最后b=t即将y赋值为100。因此输出200 100。"
+  },
+  {
+    "id": "gesp-4-202606-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202606"
+    },
+    "knowledge_points": [
+      "指针作为函数参数"
+    ],
+    "type": "true_false",
+    "question": "运行以下程序后，变量 a 的值最终会变为 20。\nvoid modify(int *p) {\n *p = *p + 10;\n}\nint main() {\n int a = 10;\n modify(&a);\n return 0;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "将a的地址传给指针p，在函数内修改*p会直接修改a的值，10+10=20。"
+  }
+]

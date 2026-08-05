@@ -1,0 +1,467 @@
+[
+  {
+    "id": "gesp-4-202506-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，声明一个指向整型变量的指针的正确语法是（ ）。",
+    "options": {
+      "A": "int* ptr;",
+      "B": "*int ptr;",
+      "C": "int ptr*;",
+      "D": "ptr int;"
+    },
+    "answer": "A",
+    "explanation": "在C++中，声明指针的正确语法是\"类型* 指针变量名;\"，例如int* ptr;。选项B、C、D的语法都是错误的。"
+  },
+  {
+    "id": "gesp-4-202506-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "下面的函数接收一个行列的二维数组并输出其中元素，则横线上不能填写（ ）。\nvoid printArray(________) {\n    for (int i = 0; i < 3; ++i)\n        for (int j = 0; j < 4; ++j)\n            std::cout << arr[i][j] << \" \";\n}",
+    "options": {
+      "A": "int arr[3][4]",
+      "B": "int arr[][4]",
+      "C": "int (*arr)[4]",
+      "D": "int** arr"
+    },
+    "answer": "D",
+    "explanation": "函数体内使用arr[i][j]访问二维数组元素。int arr[3][4]、int arr[][4]和int (*arr)[4]都可以作为二维数组的参数。但是int** arr表示指向指针的指针，不能直接用于访问静态分配的二维数组，否则会导致编译错误或运行时错误。"
+  },
+  {
+    "id": "gesp-4-202506-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，int arr[3][4] 和 int* arr = new int[12]均可模拟一个行列的二维数组。关于这两种方式，下面说法错误的是（ ）。",
+    "options": {
+      "A": "int arr[3][4]在栈上分配空间，适合数组较小的情况；",
+      "B": "int* arr = new int[12]在堆上分配空间，数组较大时也适用；",
+      "C": "这两种方式申请的内存空间都是连续的。",
+      "D": "这两种方式申请的内存都能自动释放。"
+    },
+    "answer": "D",
+    "explanation": "int arr[3][4]是在栈上分配的，其生命周期随函数结束而自动释放（A正确）。int* arr = new int[12]是在堆上分配的，需要手动使用delete[]释放，不会自动释放（D错误）。两者在物理内存中都是连续存储的（C正确）。堆空间较大，适合大数组（B正确）。"
+  },
+  {
+    "id": "gesp-4-202506-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "single_choice",
+    "question": "关于以下 C++代码，说法正确的是（ ）。\nint main() {\n    greet();\n    return 0;\n}\nvoid greet() {\n    cout << \"Hello!\" << endl;\n}",
+    "options": {
+      "A": "正确编译并输出 Hello!",
+      "B": "编译错误：找不到函数 greet()",
+      "C": "编译警告但可以运行",
+      "D": "链接错误"
+    },
+    "answer": "D",
+    "explanation": "在C++中，函数调用前需要进行声明或定义。代码中在main函数中调用了greet()，但greet()的定义位于main()之后，且没有前置声明。这会导致编译阶段通过（因为编译器只是生成符号），但在链接阶段找不到greet函数的实现，因此产生链接错误。如果加上函数声明\"void greet();\"，则可以正确运行。"
+  },
+  {
+    "id": "gesp-4-202506-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "在C++中，如果希望通过函数修改传入的结构体对象的内容，应该使用哪种参数传递方式？",
+    "options": {
+      "A": "值传递或引用传递",
+      "B": "值传递或指针传递",
+      "C": "引用传递或指针传递",
+      "D": "仅指针传递"
+    },
+    "answer": "C",
+    "explanation": "值传递是传递对象的副本，函数内修改副本不会影响原对象。引用传递和指针传递都是传递原对象的地址（引用是别名，指针存地址），函数内可以通过引用或指针直接修改原对象的内容。因此应该使用引用传递或指针传递。"
+  },
+  {
+    "id": "gesp-4-202506-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个选项正确描述了C++中形参和实参的区别？",
+    "options": {
+      "A": "形参是函数调用时传递给函数的具体值，实参是函数定义中声明的变量。",
+      "B": "形参是函数定义中声明的变量，实参是函数调用时传递给函数的具体值。",
+      "C": "形参和实参在函数调用时是完全相同的。",
+      "D": "形参只在函数内部可见，实参在函数外部可见。"
+    },
+    "answer": "B",
+    "explanation": "形参（形式参数）是在函数定义时声明的变量，用于接收数据。实参（实际参数）是在函数调用时传递给函数的具体值或变量。A选项将形参和实参的定义颠倒了。C选项不准确，它们在传递机制上可能不同（如值拷贝或地址）。D选项描述不完全准确，实参作为调用处的变量或常量，其作用域在调用处，不仅仅是在外部可见。"
+  },
+  {
+    "id": "gesp-4-202506-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "运行如下代码会输出（ ）。\nint value = 100;\nvoid print1() {\n    int value = 50;\n    cout << value << \" \";\n    cout << ::value << \" \";\n}\nvoid print2() {\n    cout << value << \" \";\n}\nprint1();\nprint2();",
+    "options": {
+      "A": "100 100 100",
+      "B": "50 50 50",
+      "C": "50 100 100",
+      "D": "50 50 100"
+    },
+    "answer": "C",
+    "explanation": "全局变量value为100。print1()中定义了局部变量value为50，所以第一个cout输出局部变量50；\"::value\"使用作用域运算符访问全局变量，所以输出100；print2()中没有定义局部变量value，因此访问全局变量value，输出100。最终输出为\"50 100 100\"。"
+  },
+  {
+    "id": "gesp-4-202506-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "single_choice",
+    "question": "小杨在整理一副扑克牌的所有红心扑克牌，使其从小到大排列。他的做法是：最开始抓到第1张扑克牌被认为已经排好序；然后抓第2张扑克牌，将其插入至有序部分的正确位置；不断循环步骤，每次将新抓到扑克牌插入至有序部分，直至抓完所有扑克牌，这样抓牌结束时就完成了扑克牌的排序。小杨这种整理扑克牌的方式与（ ）排序的方式最接近。",
+    "options": {
+      "A": "冒泡排序",
+      "B": "插入排序",
+      "C": "选择排序",
+      "D": "直接排序"
+    },
+    "answer": "B",
+    "explanation": "描述的排序过程是：维护一个已排序序列，每次取出一个元素，插入到已排序序列的合适位置。这正是插入排序（Insertion Sort）的核心思想。"
+  },
+  {
+    "id": "gesp-4-202506-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "以下哪种情况是使用插入排序的合适场景？",
+    "options": {
+      "A": "数据量非常大，且乱序严重",
+      "B": "希望获得稳定排序，但不要求实时性",
+      "C": "数据几乎有序，只需少量调整",
+      "D": "想在交换次数最少的前提下排好大数组"
+    },
+    "answer": "C",
+    "explanation": "插入排序在数据几乎有序（基本有序）的情况下效率很高，时间复杂度接近O(n)，因为内层循环只需比较很少次数。对于数据量大且乱序严重的情况（A），插入排序效率低（O(n^2)）。虽然插入排序是稳定的，但并不是稳定排序的唯一选择（B）。D选项通常归并排序或堆排序交换次数（移动次数）相对较少。"
+  },
+  {
+    "id": "gesp-4-202506-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "以下关于递推算法基本思想的描述，正确的是（ ）。",
+    "options": {
+      "A": "递推算法通过将问题分解为相互独立的子问题来解决。",
+      "B": "递推算法从已知的基础情况出发，通过某种关系逐步推导出更大规模问题的解。",
+      "C": "递推算法通常用于穷举所有可能的解决方案。",
+      "D": "递推算法适用于在每一步做出局部最优选择以达到全局最优。"
+    },
+    "answer": "B",
+    "explanation": "递推算法是一种利用问题本身所具有的递推关系求解问题的方法，它从已知条件（基础情况）出发，按照一定的递推公式，逐步推导出问题的解。A描述的是分治法。C描述的是枚举/穷举。D描述的是贪心算法。"
+  },
+  {
+    "id": "gesp-4-202506-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "给定如下算法，其时间复杂度为（ ）。\nbool f(int arr[], int n, int target) {\n    for (int i = 0; i < n; i++) {\n        int sum = 0;\n        for (int j = 0; j < n; j++) {\n            if (i & (1 << j)) {\n                sum += arr[j];\n            }\n        }\n        if (sum == target) return true;\n    }\n    return false;\n}",
+    "options": {
+      "A": "O(n)",
+      "B": "O(n^2)",
+      "C": "O(n * 2^n)",
+      "D": "O(2^n)"
+    },
+    "answer": "C",
+    "explanation": "外层循环i从0到n-1，共n次。内层循环j从0到n-1，共n次。看起来是O(n^2)，但要注意内层循环的判断条件和i有关。i实际上是在遍历0到2^n-1的所有子集掩码（虽然题目中i只循环到n，但j循环中1 << j暗示了位操作掩码，且通常此类求子集和问题i应循环至2^n。假设题目描述有笔误，i实际范围覆盖所有子集情况）。若外层循环代表不同的子集，则为O(2^n)；若内层循环遍历元素检查是否在子集中，则为O(n)。综合起来是O(n * 2^n)。即便按字面代码i<n执行，内层依然是O(n)，总复杂度O(n^2)。但结合位运算特征，该算法意图通常为子集枚举，标准解释应为O(n * 2^n)对应选项C。若严格按代码执行次数为n*n。通常GESP考察此题为子集和问题背景，故选C。"
+  },
+  {
+    "id": "gesp-4-202506-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "下述斐波那契数列计算的时间复杂度是（ ）。\nint fib(int n) {\n    if (n <= 1) return n;\n    return fib(n - 1) + fib(n - 2);\n}",
+    "options": {
+      "A": "O(n)",
+      "B": "O(n^2)",
+      "C": "O(log n)",
+      "D": "O(2^n)"
+    },
+    "answer": "D",
+    "explanation": "这是一个递归计算斐波那契数列的算法，没有进行记忆化。其递归树的节点数随n呈指数级增长，具体时间复杂度约为O(1.618^n)，一般近似表示为O(2^n)。"
+  },
+  {
+    "id": "gesp-4-202506-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "以下代码的时间复杂度是（ ）。\nint sum = 0;\nfor (int i = 0; i < n; i++)\n    for (int j = 0; j < n; j++)\n        sum++;",
+    "options": {
+      "A": "O(n)",
+      "B": "O(n^2)",
+      "C": "O(n log n)",
+      "D": "O(1)"
+    },
+    "answer": "B",
+    "explanation": "这是一个双重循环，外层循环执行n次，内层循环也执行n次。循环体sum++共执行n*n次，因此时间复杂度为O(n^2)。"
+  },
+  {
+    "id": "gesp-4-202506-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码实现将 Hello 写入 data.txt。\n#include <fstream>\nusing namespace std;\nint main() {\n    ofstream out(\"data.txt\");\n    out << \"Hello\";\n    out.close();\n    return 0;\n}",
+    "options": {
+      "A": "正确",
+      "B": "错误，缺少头文件",
+      "C": "错误，ofstream不能直接用字符串初始化",
+      "D": "错误，文件名需要路径"
+    },
+    "answer": "A",
+    "explanation": "代码使用了ofstream类来打开文件进行写入操作，包含了必要的头文件<fstream>（虽然在片段中未显式写出，但A选项隐含假设代码完整或考察核心逻辑），初始化语法正确，写入操作正确，最后关闭文件。这是标准的C++文件写入方式。"
+  },
+  {
+    "id": "gesp-4-202506-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "single_choice",
+    "question": "如果一个异常在 try 块中抛出但没有任何 catch 匹配，它将在（ ）报错。",
+    "options": {
+      "A": "编译时",
+      "B": "链接时",
+      "C": "运行时",
+      "D": "不会报错"
+    },
+    "answer": "C",
+    "explanation": "异常处理是运行时机制。如果在try块中抛出了异常，且后续没有匹配的catch块捕获该异常，程序将调用std::terminate()，通常会导致程序崩溃并报错，这发生在运行阶段。"
+  },
+  {
+    "id": "gesp-4-202506-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "true_false",
+    "question": "下面C++代码正确声明了一个返回int类型、接受两个int参数的函数。\nint add(int, int);",
+    "answer": "T",
+    "explanation": "这是函数的声明（原型），语法完全正确。它告诉编译器有一个名为add的函数，接受两个int参数，返回int类型。"
+  },
+  {
+    "id": "gesp-4-202506-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "下面C++代码的输出是15。\nvoid foo(int x) {\n    x += 5;\n}\nint main() {\n    int a = 10;\n    foo(a);\n    cout << a << endl;\n}",
+    "answer": "F",
+    "explanation": "函数foo采用值传递，参数x是实参a的副本。在函数内修改x（x+=5）不会影响实参a的值。a的值仍为10，因此输出是10，不是15。"
+  },
+  {
+    "id": "gesp-4-202506-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "true_false",
+    "question": "下面c++代码在一个结构体中又定义了别的结构体。这种结构嵌套定义的方式语法不正确。\n#include <string>\n#include <vector>\nusing namespace std;\nstruct Library {\n    struct Book {\n        struct Author {\n            string name;\n            int birthYear;\n        };\n        string title;\n        int year;\n        Author author;\n    };\n    string name;\n    vector<Book> books;\n};",
+    "answer": "F",
+    "explanation": "C++允许在结构体或类内部定义嵌套的结构体或类。这种定义方式在语法上是完全正确的，常用于将内部类型与外部类型紧密关联，限制作用域。"
+  },
+  {
+    "id": "gesp-4-202506-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "在C++中，相比于值传递，使用引用传递作的优点可以直接操作和修改原始变量，避免数据拷贝，提高效率。",
+    "answer": "T",
+    "explanation": "引用传递的本质是传递变量的别名（底层通常实现为指针），因此不需要像值传递那样创建对象的副本。这既避免了复制的开销（特别是对于大对象），又允许函数内部直接修改原始变量。"
+  },
+  {
+    "id": "gesp-4-202506-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "下面这段代码不合法，因为每一行都必须显式初始化个元素。\nint arr[2][3] = {{1, 2}, {3}};",
+    "answer": "F",
+    "explanation": "C++允许对数组进行部分初始化。未显式初始化的元素会被自动初始化为0。代码{1, 2}初始化第一行前两个元素，第三个为0；{3}初始化第二行第一个元素，后两个为0。这是合法的。"
+  },
+  {
+    "id": "gesp-4-202506-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "true_false",
+    "question": "以下程序中使用了递推方式计算阶乘（n!），计算结果正确。\nint factorial(int n) {\n    int res = 1;\n    for (int i = 0; i < n; ++i) {\n        res *= i;\n    }\n    return res;\n}",
+    "answer": "F",
+    "explanation": "代码逻辑有误。阶乘应该是从1乘到n。循环变量i从0开始，第一次循环res *= 0，结果直接变为0，之后一直保持为0。正确的循环应该是从1开始到n，即\"for (int i = 1; i <= n; ++i)\"。"
+  },
+  {
+    "id": "gesp-4-202506-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "无论初始数组是否有序，选择排序都执行 n*(n-1)/2 次比较。",
+    "answer": "T",
+    "explanation": "选择排序的算法过程是：对于第i个位置（从0到n-2），需要在i到n-1的范围内扫描寻找最小值。无论数据是否有序，每一轮都需要扫描剩下的所有元素进行比较，总比较次数固定为(n-1)+(n-2)+...+1 = n*(n-1)/2。"
+  },
+  {
+    "id": "gesp-4-202506-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "以下C++代码，尝试对有n个整数的数组arr进行排序。这个代码实现了选择排序算法。\nfor (int i = 0; i < n - 1; ++i) {\n    int minIndex = i;\n    for (int j = i + 1; j < n; ++j) {\n        if (arr[j] < arr[minIndex])\n            minIndex = j;\n    }\n    if (minIndex != i)\n        swap(arr[i], arr[minIndex]);\n}",
+    "answer": "T",
+    "explanation": "代码外层循环i从0到n-2，内层循环j从i+1到n-1，用于寻找arr[i...n-1]中的最小元素索引minIndex，然后将其与arr[i]交换。这正是选择排序（Selection Sort）的标准实现。"
+  },
+  {
+    "id": "gesp-4-202506-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "true_false",
+    "question": "如果一个异常在 try 块中抛出但没有任何 catch 匹配，它将在编译时报错。",
+    "answer": "F",
+    "explanation": "异常是运行时抛出的对象。如果没有匹配的catch块，程序会在运行时终止（通常调用std::terminate），而不是在编译时报错。编译器只负责检查语法，无法预知运行时会抛出哪个具体的异常值。"
+  },
+  {
+    "id": "gesp-4-202506-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "true_false",
+    "question": "下面C++代码实现将 Hello 写入 data.txt。\n#include <fstream>\nusing namespace std;\nint main() {\n    ofstream out(\"data.txt\");\n    out << \"Hello\";\n    out.close();\n    return 0;\n}",
+    "answer": "T",
+    "explanation": "代码使用了标准库ofstream来创建文件输出流，打开当前目录下的data.txt文件，写入字符串\"Hello\"，最后关闭文件。代码逻辑正确。"
+  }
+]

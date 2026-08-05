@@ -1,0 +1,510 @@
+[
+  {
+    "id": "gesp-4-202603-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "single_choice",
+    "question": "执行下面程序后，输出为（）。\nint f(int x=2) {\n    return x * 3;\n}\nint main() {\n    cout << f() << \" \" << f(4);\n}",
+    "options": {
+      "A": "2 12",
+      "B": "6 12",
+      "C": "6 4",
+      "D": "12 6"
+    },
+    "answer": "B",
+    "explanation": "函数f带有默认参数x=2。调用f()时使用默认值2，返回2*3=6；调用f(4)时传入参数4，返回4*3=12。因此输出6 12。"
+  },
+  {
+    "id": "gesp-4-202603-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "执行下面代码后，输出为（）。\nint main() {\n    int a = 5;\n    int* p = &a;\n    int** q = &p;\n    cout << a << \" \" << *p;\n}",
+    "options": {
+      "A": "5 5",
+      "B": "12 12",
+      "C": "12 5",
+      "D": "5 12"
+    },
+    "answer": "A",
+    "explanation": "p指向a，*p解引用得到a的值5。q是指向p的二级指针，但题目只输出a和*p，都是5。"
+  },
+  {
+    "id": "gesp-4-202603-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组",
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "已知：\nint a[3][4] = {\n    {1, 2, 3, 4},\n    {5, 6, 7, 8},\n    {9, 10, 11, 12}\n};\nint (*p)[4] = a;\n则表达式*(*(p+2)+1)的值为（）。",
+    "options": {
+      "A": "6",
+      "B": "10",
+      "C": "9",
+      "D": "11"
+    },
+    "answer": "B",
+    "explanation": "p是指向二维数组a的行指针。p+2指向第2行（下标为2），*(p+2)是第2行首元素地址，*(p+2)+1是第2行第1列元素地址，*(*(p+2)+1)就是a[2][1]，值为10。"
+  },
+  {
+    "id": "gesp-4-202603-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "执行下面程序后，输出为（）。\nvoid fun(int a, int &b, int *c) {\n    a += 1;\n    b += 2;\n    *c += 3;\n}\nint main() {\n    int x = 1, y = 1, z = 1;\n    fun(x, y, &z);\n    cout << x << \" \" << y << \" \" << z;\n}",
+    "options": {
+      "A": "2 3 4",
+      "B": "1 3 4",
+      "C": "2 1 4",
+      "D": "1 1 1"
+    },
+    "answer": "B",
+    "explanation": "参数a是值传递，函数内修改不影响实参x；b是引用传递，修改会影响实参y；c是指针传递，通过解引用修改会影响实参z。因此x不变为1，y变为3，z变为4。"
+  },
+  {
+    "id": "gesp-4-202603-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "执行下面程序后输出为（）。\nint x = 3;\nvoid f(int& x) {\n    x = 10;\n}\nint main() {\n    f(x);\n    cout << x << \" \" << 5;\n}",
+    "options": {
+      "A": "12 3",
+      "B": "10 5",
+      "C": "12 5",
+      "D": "10 3"
+    },
+    "answer": "B",
+    "explanation": "全局变量x通过引用传递给函数f，在函数内被修改为10。main函数输出x和常量5，即10 5。"
+  },
+  {
+    "id": "gesp-4-202603-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "single_choice",
+    "question": "下列关于结构体初始化的写法，正确的是（）。",
+    "options": {
+      "A": "struct Point { int x, y; };\nPoint p = (1, 2);",
+      "B": "struct Point { int x, y; };\nPoint p = {1, 2};",
+      "C": "struct Point { int x, y; };\nPoint p = new Point(1, 2);",
+      "D": "struct Point { int x, y; };\nPoint p = <1, 2>;"
+    },
+    "answer": "B",
+    "explanation": "C++中结构体可以使用花括号{}进行初始化列表初始化。选项A用小括号错误，选项C中new返回指针，选项D语法不支持。"
+  },
+  {
+    "id": "gesp-4-202603-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "结构体",
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "执行下面代码后输出为（）。\nvoid g(S s) { s.a += 10; }\nvoid h(S& s) { s.b += 10; }\nint main() {\n    S s = {1, 2};\n    g(s);\n    h(s);\n    cout << s.a << \" \" << s.b;\n}",
+    "options": {
+      "A": "11 12",
+      "B": "1 12",
+      "C": "11 2",
+      "D": "1 2"
+    },
+    "answer": "B",
+    "explanation": "函数g采用值传递，修改的是副本，不影响原结构体s.a的值；函数h采用引用传递，直接修改s.b的值。因此s.a仍为1，s.b变为12。"
+  },
+  {
+    "id": "gesp-4-202603-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "关于递推算法的描述，正确的是（）。",
+    "options": {
+      "A": "递推表现为函数自己调用自己",
+      "B": "递推从已知初值出发，利用递推关系逐步推出后续结果",
+      "C": "递推只能用于指数复杂度问题",
+      "D": "递推一定需要回溯"
+    },
+    "answer": "B",
+    "explanation": "递推算法的定义就是从已知初始条件出发，按照递推关系式逐步推导出后续结果。选项A描述的是递归，选项C和D都是错误的，递推不限于指数复杂度，也不需要回溯。"
+  },
+  {
+    "id": "gesp-4-202603-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "single_choice",
+    "question": "执行climb(6)的返回值为（）。\nint climb(int n) {\n    if (n <= 2) return n;\n    int a = 1, b = 2, c = 0;\n    for (int i = 3; i <= n; i++) {\n        c = a + b;\n        a = b;\n        b = c;\n    }\n    return c;\n}",
+    "options": {
+      "A": "8",
+      "B": "13",
+      "C": "5",
+      "D": "10"
+    },
+    "answer": "B",
+    "explanation": "这是一个递推计算斐波那契数列的函数。climb(1)=1, climb(2)=2，之后每项是前两项之和：climb(3)=3, climb(4)=5, climb(5)=8, climb(6)=13。"
+  },
+  {
+    "id": "gesp-4-202603-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "single_choice",
+    "question": "某排序算法对如下数据排序（按score升序），则下关于该排序算法稳定性的描述中，说法正确的是（)。\n初始：(90,'A'), (90,'B'), (80,'C'), (90,'D')\n排序后：(80,'C'), (90,'A'), (90,'B'), (90,'D')",
+    "options": {
+      "A": "不稳定，因为出现了相同分数",
+      "B": "稳定，因为相同score的相对顺序保持为A在B前、B在D前",
+      "C": "不稳定，因为C跑到前面了",
+      "D": "无法判断"
+    },
+    "answer": "B",
+    "explanation": "稳定性是指排序前后相同元素的相对顺序是否保持不变。排序前A、B、D的顺序是A在B前、B在D前，排序后仍保持这个顺序，因此该排序算法是稳定的。C跑到前面是因为它的分数最小，这是正常的排序结果，与稳定性无关。"
+  },
+  {
+    "id": "gesp-4-202603-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "下面代码试图把数组按升序进行“插入排序”，横线处应填写（）。\nvoid ins(int a[], int n) {\n    for (int i = 1; i < n; i++) {\n        int key = a[i];\n        int j = i - 1;\n        while (j >= 0 && ________) {\n            a[j+1] = a[j];\n            j--;\n        }\n        a[j+1] = key;\n    }\n}",
+    "options": {
+      "A": "a[j] < key",
+      "B": "a[j] > key",
+      "C": "a[j+1] > key",
+      "D": "a[j] == key"
+    },
+    "answer": "B",
+    "explanation": "插入排序升序排列时，需要将比key大的元素向后移动。因此while条件应为a[j] > key，当左边元素大于key时继续移动。"
+  },
+  {
+    "id": "gesp-4-202603-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "下列代码段的时间复杂度为（）。\nint cnt = 0;\nfor (int i = 0; i < n; i++) {\n    for (int j = 0; j < n; j++) {\n        if ((i+j) % 3 == 0) cnt++;\n    }\n}",
+    "options": {
+      "A": "O(n)",
+      "B": "O(n log n)",
+      "C": "O(n²)",
+      "D": "O(2ⁿ)"
+    },
+    "answer": "C",
+    "explanation": "这是一个嵌套循环，外层循环n次，内层循环n次，无论if条件如何，总循环次数为n*n次，因此时间复杂度为O(n²)。"
+  },
+  {
+    "id": "gesp-4-202603-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "single_choice",
+    "question": "下面哪种方式不能实现将字符串Welcome to 2026!输出重定向到文件Log.txt（）。",
+    "options": {
+      "A": "freopen(\"log.txt\", \"w\", stdout);\ncout << \"Welcome to 2026!\" << endl;\nfclose(stdout);",
+      "B": "std::ofstream outFile(\"Log.txt\");\ncout << \"Welcome to 2026!\" << endl;\noutFile.close();",
+      "C": "ofstream log_file(\"Log.txt\");\nstreambuf* org_cout = cout.rdbuf();\ncout.rdbuf(log_file.rdbuf());\ncout << \"Welcome to 2026!\" << endl;\ncout.rdbuf(org_cout);",
+      "D": "std::ofstream outFile(\"Log.txt\");\noutFile << \"Welcome to 2026!\" << endl;\noutFile.close();"
+    },
+    "answer": "B",
+    "explanation": "选项B只是创建了一个输出文件流outFile，但后续使用cout输出，cout默认输出到屏幕而非文件，因此无法实现重定向到Log.txt。选项A用freopen重定向stdout，选项C用rdbuf重定向流缓冲区，选项D直接用文件流输出，都能实现写入文件。"
+  },
+  {
+    "id": "gesp-4-202603-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "single_choice",
+    "question": "执行下面程序，输出结果是（）。\nint divi(int a, int b) {\n    if (b == 0) throw 0;\n    return a / b;\n}\nint main() {\n    try {\n        cout << divi(10, 0);\n    } catch (const char* msg) {\n        cout << \"A\";\n    } catch (int) {\n        cout << \"B\";\n    }\n}",
+    "options": {
+      "A": "A",
+      "B": "B",
+      "C": "程序崩溃",
+      "D": "无输出"
+    },
+    "answer": "B",
+    "explanation": "divi(10, 0)中b为0，抛出异常throw 0（int类型）。catch(const char* msg)无法匹配int类型异常，继续匹配catch(int)成功，输出B。"
+  },
+  {
+    "id": "gesp-4-202603-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "下列函数实现排行榜中单个元素的位置调整（类似插入排序的相邻搬移）。当某玩家分数增加，需将其向前移动时，while循环的条件应为（）。\nstruct Player { int score; };\nvoid up(Player players[], int n, int idx) {\n    Player cur = players[idx];\n    int i = idx;\n    while (__________) {\n        players[i] = players[i-1];\n        i--;\n    }\n    players[i] = cur;\n}",
+    "options": {
+      "A": "i > 0 && cur.score > players[i-1].score",
+      "B": "i > 0 && cur.score < players[i-1].score",
+      "C": "i < n-1 && cur.score > players[i+1].score",
+      "D": "i < n-1 && cur.score < players[i+1].score"
+    },
+    "answer": "A",
+    "explanation": "玩家分数增加需要向前移动（向数组前端移动），意味着要比前面的玩家分数高。向前移动时，当前分数应大于前一个位置玩家的分数才继续移动，即cur.score > players[i-1].score，同时要保证i > 0不越界。"
+  },
+  {
+    "id": "gesp-4-202603-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "下面代码执行结束时，变量a的值变成15。\nvoid add10(int x) {\n    x += 10;\n}\nint main() {\n    int a = 5;\n    add10(a);\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "函数add10采用值传递，修改的是形参x的副本，不会影响实参a的值。a仍然是5，不是15。"
+  },
+  {
+    "id": "gesp-4-202603-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "true_false",
+    "question": "引用一旦绑定某个变量，就不能再绑定其他变量。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "引用是变量的别名，初始化后就必须绑定到一个变量，且绑定后不能更改绑定的目标，这是引用的基本特性。"
+  },
+  {
+    "id": "gesp-4-202603-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "执行下面代码，输出结果为5。\nint main() {\n    int a[2][3];\n    cout << sizeof(a);\n    return 0;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "a是2行3列的int数组，共有6个int元素。在大多数系统中sizeof(int)=4，因此sizeof(a)=6*4=24字节，不是5。"
+  },
+  {
+    "id": "gesp-4-202603-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "true_false",
+    "question": "下面程序可以正常编译并输出10。\nint calc(int x, int y = 10);\nint calc(int x) { return x * 2; }\nint calc(int x, int y) { return x * y; }\nint main() {\n    cout << calc(5);\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "调用calc(5)时，既可以用默认参数匹配calc(int, int y=10)，也可以匹配calc(int)，存在二义性，编译器无法确定调用哪个函数，会导致编译错误。"
+  },
+  {
+    "id": "gesp-4-202603-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "true_false",
+    "question": "下面程序执行后输出20 10。\nint x = 10;\nvoid f() {\n    int x = 20;\n    cout << x;\n}\nint main() {\n    f();\n    cout << x;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "函数f内的x是局部变量，覆盖了全局变量x，输出20。main函数中输出的是全局变量x，值为10。因此输出20 10。"
+  },
+  {
+    "id": "gesp-4-202603-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "在C++中，如果声明了一个指针变量但没有显式初始化，该指针会自动被初始化为nullptr。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "在C++中，未初始化的局部指针变量不会自动初始化为nullptr，其值是未定义的（野指针）。只有全局指针或静态指针会被零初始化为nullptr。"
+  },
+  {
+    "id": "gesp-4-202603-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "true_false",
+    "question": "下面代码没有语法错误。\nstruct GameCharacter {\n    string name;\n    int level;\n    float position_x;\n    float position_y;\n    struct Equipment {\n        string weapon;\n        int attack_bonus;\n        int defense_bonus;\n    } equipment;\n    struct Skill {\n        string name;\n        int damage;\n    } skills[8];\n    int skill_count;\n};",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "C++允许在结构体内部定义嵌套结构体类型，并同时声明该类型的成员变量。Equipment和Skill都是嵌套结构体类型，equipment和skills分别是它们的实例，语法正确。"
+  },
+  {
+    "id": "gesp-4-202603-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "true_false",
+    "question": "下面程序能够把Hello写入data.txt文件中。\nofstream fout(\"data.txt\");\ncout << \"Hello\";\nfout.close();",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "程序打开了文件流fout，但使用cout输出到标准输出（屏幕），而不是用fout输出到文件。要写入文件应该使用fout << \"Hello\"。"
+  },
+  {
+    "id": "gesp-4-202603-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "由于选择排序和插入排序的时间复杂度均为O(n²)，在任何实际场景下两者的性能表现几乎相同，可以互相替代。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "虽然两者最坏时间复杂度都是O(n²)，但实际性能差异很大。插入排序对于近乎有序的数组效率很高，接近O(n)；而选择排序无论数据如何都要进行O(n²)次比较。两者不能简单互相替代。"
+  },
+  {
+    "id": "gesp-4-202603-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202603"
+    },
+    "knowledge_points": [
+      "算法：递推",
+      "简单算法复杂度的估算"
+    ],
+    "type": "true_false",
+    "question": "下面用递推方式计算斐波那契数列第n项的程序，时间复杂度是O(2^n)。\nint fib(int n) {\n    if (n <= 1) return n;\n    int f0 = 0, f1 = 1, cur = 0;\n    for (int i = 2; i <= n; i++) {\n        cur = f0 + f1;\n        f0 = f1;\n        f1 = cur;\n    }\n    return cur;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "这是一个递推（迭代）实现，使用单层循环从2到n，时间复杂度是O(n)。O(2^n)是递归实现（不带记忆化）的复杂度。"
+  }
+]

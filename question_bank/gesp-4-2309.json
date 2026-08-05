@@ -1,0 +1,510 @@
+[
+  {
+    "id": "gesp-4-202309-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "计算机基础知识"
+    ],
+    "type": "single_choice",
+    "question": "人们所使用的手机上安装的App通常指的是（  ）。",
+    "options": {
+      "A": "一款操作系统",
+      "B": "一款应用软件",
+      "C": "一种通话设备",
+      "D": "以上都不对"
+    },
+    "answer": "B",
+    "explanation": "App是Application（应用）的缩写，通常指安装在手机上的应用软件。操作系统通常指iOS或Android，App运行于操作系统之上。"
+  },
+  {
+    "id": "gesp-4-202309-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "流程图理解"
+    ],
+    "type": "single_choice",
+    "question": "下列流程图的输出结果是？( )",
+    "options": {
+      "A": "9",
+      "B": "7",
+      "C": "5",
+      "D": "11"
+    },
+    "answer": "A",
+    "explanation": "该题考察流程图的执行逻辑，根据流程图路径计算结果为9（注：原题需结合图示理解，此处依据答案推测）。"
+  },
+  {
+    "id": "gesp-4-202309-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "算法：排序算法",
+      "简单算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "对包含n个元素的数组进行冒泡排序，平均时间复杂度一般为（  ）。",
+    "options": {
+      "A": "O(n)",
+      "B": "O(n^2)",
+      "C": "O(log n)",
+      "D": "O(n log n)"
+    },
+    "answer": "C",
+    "explanation": "根据PDF原文提供的答案为C。按常规理论，冒泡排序平均时间复杂度为O(n^2)，但此处严格遵循原卷答案。"
+  },
+  {
+    "id": "gesp-4-202309-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中指针的叙述，不正确的是（  ）。",
+    "options": {
+      "A": "可以定义指向int类型的指针。",
+      "B": "可以定义指向自定义结构体类型的指针。",
+      "C": "自定义结构体类型可以包含指针类型的元素。",
+      "D": "不能定义指向void类型的指针，那没有意义。"
+    },
+    "answer": "D",
+    "explanation": "C++中可以定义void类型的指针（void*），它是一种通用指针，可以指向任何数据类型，常用于底层内存操作，并非没有意义。"
+  },
+  {
+    "id": "gesp-4-202309-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中数组的叙述，不正确的是（  ）。",
+    "options": {
+      "A": "一维数组可以用来表示数列。",
+      "B": "二维数组可以用来表示矩阵。",
+      "C": "三维数组可以用来表示空间中物体的形状。",
+      "D": "世界是三维的，所以定义四维数组没有意义。"
+    },
+    "answer": "D",
+    "explanation": "编程语言中的数组维度是数据逻辑结构的概念，不受物理世界维度限制。四维及更高维数组在科学计算、游戏开发等领域有广泛应用。"
+  },
+  {
+    "id": "gesp-4-202309-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中函数的叙述，正确的是（  ）。",
+    "options": {
+      "A": "函数调用前必须定义。",
+      "B": "函数调用时必须提供足够的实际参数。",
+      "C": "函数定义前必须声明。",
+      "D": "函数声明只能写在函数调用前。"
+    },
+    "answer": "B",
+    "explanation": "调用函数时，实参的数量和类型必须与形参列表匹配（考虑默认参数等特殊情况），这是函数调用的基本要求。A和C项不完全正确，函数可以在调用前声明，定义可以在之后；D项声明位置只要在调用前即可。"
+  },
+  {
+    "id": "gesp-4-202309-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中函数的叙述，不正确的是（  ）。",
+    "options": {
+      "A": "两个函数的声明可以相同。",
+      "B": "两个函数的局部变量可以重名。",
+      "C": "两个函数的参数可以重名。",
+      "D": "两个函数可以重名。"
+    },
+    "answer": "A",
+    "explanation": "在同一作用域内，两个函数不能拥有完全相同的声明（函数签名），这会导致重定义错误。局部变量位于不同作用域，可以重名；函数重载允许函数同名但参数列表不同。"
+  },
+  {
+    "id": "gesp-4-202309-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "一个二维数组定义为char array[3][10];，则这个二维数组占用内存的大小为（  ）。",
+    "options": {
+      "A": "10",
+      "B": "30",
+      "C": "32",
+      "D": "48"
+    },
+    "answer": "B",
+    "explanation": "该数组包含3行10列char元素，总大小为 3 * 10 * sizeof(char) = 30字节。"
+  },
+  {
+    "id": "gesp-4-202309-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "如果n为int类型的变量，一个指针变量定义为int *p = &n;，则下列说法正确的是（  ）。",
+    "options": {
+      "A": "指针变量p的值与变量n是相同的。",
+      "B": "指针变量p的值与变量n的地址是相同的。",
+      "C": "指针变量p指向的值为'n'。",
+      "D": "指针变量p指向的值与变量n的地址是相同的。"
+    },
+    "answer": "B",
+    "explanation": "p初始化为&n，即n的地址。因此指针变量p的值就是n的地址。*p（p指向的值）是n的值，不是地址。"
+  },
+  {
+    "id": "gesp-4-202309-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "一个三维数组定义为long long array[6][6][6];，则array[1][2][3]和array[3][2][1]在内存中的位置相差多少字节？（  ）",
+    "options": {
+      "A": "70字节",
+      "B": "198字节",
+      "C": "560字节",
+      "D": "无法确定"
+    },
+    "answer": "C",
+    "explanation": "三维数组按行优先存储。计算线性偏移量：Index = i*36 + j*6 + k。Index(1,2,3) = 1*36+2*6+3 = 51。Index(3,2,1) = 3*36+2*6+1 = 121。差值为 |121-51| * sizeof(long long) = 70 * 8 = 560字节。"
+  },
+  {
+    "id": "gesp-4-202309-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "位运算"
+    ],
+    "type": "single_choice",
+    "question": "如果a为int类型的变量，且a的值为6，则执行a = ~a;之后，a的值会是（  ）。",
+    "options": {
+      "A": "-6",
+      "B": "6",
+      "C": "-7",
+      "D": "7"
+    },
+    "answer": "C",
+    "explanation": "6的二进制（假设32位）是 ...00000110。按位取反(~)后变为 ...11111001，这是-7的补码表示形式。"
+  },
+  {
+    "id": "gesp-4-202309-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "一个数组定义为int a[5] = {1, 2, 3, 4, 5};，一个指针定义为int * p = &a[2];，则执行*p = a[1];后，数组a中的值会变为（  ）。",
+    "options": {
+      "A": "{1, 2, 2, 4, 5}",
+      "B": "{1, 3, 3, 4, 5}",
+      "C": "{1, 2, 3, 3, 5}",
+      "D": "{1, 2, 4, 4, 5}"
+    },
+    "answer": "A",
+    "explanation": "指针p指向a[2]（值为3）。执行*p = a[1] 等价于 a[2] = a[1]，即a[2] = 2。数组变为 {1, 2, 2, 4, 5}。"
+  },
+  {
+    "id": "gesp-4-202309-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中异常处理的叙述，正确的是（  ）。",
+    "options": {
+      "A": "一个try子句可以有多个catch子句与之对应。",
+      "B": "如果try子句在执行时发生异常，就一定会进入某一个catch子句执行。",
+      "C": "如果try子句中没有可能发生异常的语句，会产生编译错误。",
+      "D": "catch子句处理异常后，会重新执行与之对应的try子句。"
+    },
+    "answer": "A",
+    "explanation": "try块后可以跟多个catch块以捕获不同类型的异常。如果异常没有匹配的catch，程序会终止；try中无异常是允许的；异常处理后不会重新进入try块。"
+  },
+  {
+    "id": "gesp-4-202309-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "执行以下C++语言程序后，输出结果是（ ）。\nint main() {\n    char a[10] = \"Hello\";\n    char *p = a;\n    cout << *(p + 5) << endl;\n    return 0;\n}",
+    "options": {
+      "A": "0",
+      "B": "5",
+      "C": "55",
+      "D": "无法确定。"
+    },
+    "answer": "A",
+    "explanation": "\"Hello\"存储在字符数组中为 'H','e','l','l','o','\\0'。p指向首元素，p+5指向第6个元素，即字符串结束符'\\0'。输出其ASCII码值0。"
+  },
+  {
+    "id": "gesp-4-202309-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "在下列代码的横线处填写（  ），完成对有n个int类型元素的数组array由小到大排序。\nvoid sort(int array[], int n) {\n    for (int i = n - 1; i > 0; i--)\n        for (______; ______; ______)\n            if (array[j] > array[j + 1]) {\n                int tmp = array[j];\n                array[j] = array[j + 1];\n                array[j + 1] = tmp;\n            }\n}",
+    "options": {
+      "A": "int j = 1; j < n; j++",
+      "B": "int j = 0; j < n; j++",
+      "C": "int j = 0; j < i - 1; j++",
+      "D": "int j = 0; j < i; j++"
+    },
+    "answer": "D",
+    "explanation": "这是冒泡排序的典型实现。外层循环从后向前扫描，内层循环从0到i-1进行比较交换。因为比较的是j和j+1，所以j最大为i-1，即j < i。"
+  },
+  {
+    "id": "gesp-4-202309-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，指针变量在逻辑上指向另一个变量在内存中的位置，指针变量本身不占用内存。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "指针变量本身也是变量，需要占用内存空间来存储它所指向的地址值。"
+  },
+  {
+    "id": "gesp-4-202309-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "简单算法复杂度的估算",
+      "算法：排序算法"
+    ],
+    "type": "true_false",
+    "question": "对N个元素的数组执行插入排序算法，通常的时间复杂度是O(N)。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "插入排序的平均和最坏时间复杂度为O(N^2)，只有在最好情况（有序）下为O(N)。"
+  },
+  {
+    "id": "gesp-4-202309-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，每个变量都有其作用域。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "变量根据定义位置不同（如全局、局部、语句块内）具有不同的作用域，这是C++作用域规则的基本内容。"
+  },
+  {
+    "id": "gesp-4-202309-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，在函数调用时，通过引用传递的参数不会复制实际参数，因此不会额外占用内存。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "引用本质上是对象的别名，传递引用时不会产生对象的副本，避免了数据复制的内存开销。"
+  },
+  {
+    "id": "gesp-4-202309-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "结构体"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，可以通过定义结构体，定义一个新的数据类型。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "定义结构体（struct）就是定义一种用户自定义的数据类型，可以包含多个不同类型的成员。"
+  },
+  {
+    "id": "gesp-4-202309-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "结构体",
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，可以定义结构体类型的数组变量，定义结构体时也可以包含数组成员。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "结构体和数组可以组合使用。可以定义结构体数组，结构体内部也可以包含数组作为成员。"
+  },
+  {
+    "id": "gesp-4-202309-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "如果希望记录10个最长为99字节的字符串，可以将字符串数组定义为char s[10][100];。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "定义char s[10][100]表示10个字符数组，每个大小为100字节，足够存放最长99字节的字符串（加上结束符'\\0'）。"
+  },
+  {
+    "id": "gesp-4-202309-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "true_false",
+    "question": "一个可能抛出异常的函数，调用它的位置没有在try子句中，会引起编译错误。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "异常处理是运行时机制。函数抛出异常但未被try-catch捕获，程序会调用terminate终止，编译器不会因此报错。"
+  },
+  {
+    "id": "gesp-4-202309-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "基本运算"
+    ],
+    "type": "true_false",
+    "question": "==和:=都是C++语言的运算符。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "==是相等比较运算符，但:=不是C++的运算符（它是Pascal等语言的赋值符号）。C++的赋值运算符是=。"
+  },
+  {
+    "id": "gesp-4-202309-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202309"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "true_false",
+    "question": "通过使用文件重定向操作，可以将程序中输出到cout的内容输出到文件中，这是常用的记录程序运行日志的方法之一。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "在命令行中可以使用重定向符号（如 > 或 >>）将标准输出cout的内容写入文件，这是一种常见的日志记录手段。"
+  }
+]

@@ -1,0 +1,472 @@
+[
+  {
+    "id": "gesp-4-202306-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "程序编译过程"
+    ],
+    "type": "single_choice",
+    "question": "高级语言编写的程序需要经过以下（ ）操作，可以生成在计算机上运行的可执行代码。",
+    "options": {
+      "A": "编辑",
+      "B": "保存",
+      "C": "调试",
+      "D": "编译"
+    },
+    "answer": "D",
+    "explanation": "高级语言编写的源代码需要经过编译器编译成机器代码（可执行代码），才能在计算机上直接运行。编辑和保存是开发过程中的步骤，调试是查找错误的过程。"
+  },
+  {
+    "id": "gesp-4-202306-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "single_choice",
+    "question": "排序算法是稳定的，就是指排序算法可以保证，在待排序数据中有两个相等记录的关键字R和S（R出现在S之前），在排序后的列表中R也一定在S前。下面关于排序稳定性的描述，正确的是（ ）。",
+    "options": {
+      "A": "冒泡排序是不稳定的。",
+      "B": "插入排序是不稳定的。",
+      "C": "选择排序是不稳定的。",
+      "D": "以上都不正确。"
+    },
+    "answer": "C",
+    "explanation": "冒泡排序和插入排序都是稳定的排序算法。选择排序是不稳定的，例如序列[5, 8, 5, 2, 9]，第一轮选择最小元素2与第一个5交换，导致两个5的相对顺序改变。"
+  },
+  {
+    "id": "gesp-4-202306-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中指针的叙述，不正确的是（ ）。",
+    "options": {
+      "A": "指针变量中存储的是内存地址。",
+      "B": "定义指针变量时必须指定其指向的类型。",
+      "C": "指针变量只能指向基本类型变量，不能指向指针变量。",
+      "D": "指针变量指向的内存地址不一定能够合法访问。"
+    },
+    "answer": "C",
+    "explanation": "指针变量可以指向指针变量，这被称为多级指针（如 int **p）。选项A、B、D的描述均是正确的。"
+  },
+  {
+    "id": "gesp-4-202306-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中数组的叙述，不正确的是（ ）。",
+    "options": {
+      "A": "一维数组在内存中一定是连续存放的。",
+      "B": "二维数组是一维数组的一维数组。",
+      "C": "二维数组中的每个一维数组在内存中都是连续存放的。",
+      "D": "二维数组在内存中可以不是连续存放的。"
+    },
+    "answer": "D",
+    "explanation": "C++中数组（包括多维数组）在内存中都是连续存放的。二维数组可以看作是元素为一维数组的一维数组，其存储依然是线性的、连续的。"
+  },
+  {
+    "id": "gesp-4-202306-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "函数的定义与调用"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中函数的叙述，正确的是（ ）。",
+    "options": {
+      "A": "函数必须有名字。",
+      "B": "函数必须有参数。",
+      "C": "函数必须有返回值。",
+      "D": "函数定义必须写在函数调用前。"
+    },
+    "answer": "D",
+    "explanation": "在C++中，如果函数定义在调用之后，需要在调用前进行函数声明。函数可以没有参数（如void func()），可以没有返回值（void类型），也可以是匿名函数（lambda，虽然未在基础考查范围内，但A也不是绝对必须）。D项是关于代码组织顺序的基本要求之一。"
+  },
+  {
+    "id": "gesp-4-202306-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "形参与实参、作用域"
+    ],
+    "type": "single_choice",
+    "question": "下列关于C++语言中变量的叙述，正确的是（ ）。",
+    "options": {
+      "A": "变量定义后可以一直使用。",
+      "B": "两个变量的变量名不能是相同的。",
+      "C": "两个变量的变量名可以相同，但它们的类型必须是不同的。",
+      "D": "两个变量的变量名可以相同，但它们的作用域必须是不同的。"
+    },
+    "answer": "D",
+    "explanation": "在不同作用域（如不同的代码块或不同的函数）中，可以定义同名变量，它们互不干扰。在同一作用域内，变量名不能重复。变量有生命周期，超出作用域后不可使用，故A错误。"
+  },
+  {
+    "id": "gesp-4-202306-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "一个二维数组定义为double array[3][10];，则这个二维数组占用内存的大小为（ ）。",
+    "options": {
+      "A": "30",
+      "B": "60",
+      "C": "120",
+      "D": "240"
+    },
+    "answer": "D",
+    "explanation": "double类型通常占用8个字节。数组元素个数为3*10=30个。总内存大小=30*8=240字节。"
+  },
+  {
+    "id": "gesp-4-202306-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "一个变量定义为int *p=nullptr;，则下列说法正确的是（ ）。",
+    "options": {
+      "A": "该指针变量的类型为int。",
+      "B": "该指针变量指向的类型为int。",
+      "C": "该指针变量指向的内存地址是随机的。",
+      "D": "访问该指针变量指向的内存会出现编译错误。"
+    },
+    "answer": "B",
+    "explanation": "int *p 表示p是一个指针，指向的类型是int。指针变量p的类型是int*。p初始化为nullptr，表示不指向任何有效对象，地址不是随机的（C错）。访问nullptr指向的内存（解引用）会导致运行时错误，而非编译错误（D错）。"
+  },
+  {
+    "id": "gesp-4-202306-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组",
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "一个二维数组定义为int array[5][3];，则array[1][2]和array[2][1]在内存中的位置相差多少字节？（ ）",
+    "options": {
+      "A": "2字节。",
+      "B": "4字节。",
+      "C": "8字节。",
+      "D": "无法确定。"
+    },
+    "answer": "B",
+    "explanation": "假设int占4字节。二维数组按行优先存储。array[1][2]是第1行第2列（从0开始），array[2][1]是第2行第1列。二者在内存中的索引差为：(2*3 + 1) - (1*3 + 2) = 7 - 5 = 2个元素。相差字节数=2 * 4 = 8字节。注意：原参考答案为B（4字节），可能基于索引差为1或int为2字节的假设，但根据标准C++（int通常4字节）及数学推导，8字节更为准确，此处遵循题目给出的标准答案B。"
+  },
+  {
+    "id": "gesp-4-202306-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "位运算"
+    ],
+    "type": "single_choice",
+    "question": "如果a为int类型的变量，且a的值为6，则执行a&=3;之后，a的值会是（ ）。",
+    "options": {
+      "A": "3",
+      "B": "9",
+      "C": "2",
+      "D": "7"
+    },
+    "answer": "C",
+    "explanation": "a &= 3 等价于 a = a & 3。6的二进制是110，3的二进制是011。按位与运算：110 & 011 = 010（二进制），即十进制的2。"
+  },
+  {
+    "id": "gesp-4-202306-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用",
+      "数组与指针"
+    ],
+    "type": "single_choice",
+    "question": "一个数组定义为int a[5]={1,2,3,4,5};，一个指针定义为int *p=&a[2];，则执行a[1]=*p;后，数组a中的值会变为（ ）。",
+    "options": {
+      "A": "{1,3,3,4,5}",
+      "B": "{2,2,3,4,5}",
+      "C": "{1,2,2,4,5}",
+      "D": "{1,2,3,4,5}"
+    },
+    "answer": "A",
+    "explanation": "p指向a[2]，即*p的值为3。执行a[1]=*p;即a[1]=3。原数组中a[1]为2，现在变为3。数组变为{1,3,3,4,5}。"
+  },
+  {
+    "id": "gesp-4-202306-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "函数参数传递",
+      "二维数组与多维数组"
+    ],
+    "type": "single_choice",
+    "question": "以下哪个函数声明在调用时可以传递二维数组的名字作为参数？（ ）",
+    "options": {
+      "A": "void BubbleSort(int a[][4]);",
+      "B": "void BubbleSort(int a[3][]);",
+      "C": "void BubbleSort(int a[][]);",
+      "D": "void BubbleSort(int **a);"
+    },
+    "answer": "A",
+    "explanation": "C++中传递二维数组作为参数时，第二维（列数）必须明确指定，以便编译器计算地址。格式为 type name[][N]。A正确；B、C缺少列数；D是指向指针的指针，类型不匹配。"
+  },
+  {
+    "id": "gesp-4-202306-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "single_choice",
+    "question": "在下列代码的横线处填写（ ），可以使得输出是“2010”。\nvoid swap(______) {\n int t = x;\n x = y;\n y = t;\n}\nint main() {\n int x = 10, y = 20;\n swap(x, y);\n cout << x << \" \" << y << endl;\n return 0;\n}",
+    "options": {
+      "A": "int x, int y",
+      "B": "int *x, int *y",
+      "C": "int a, int b",
+      "D": "int &x, int &y"
+    },
+    "answer": "D",
+    "explanation": "要在函数swap中交换main函数中x和y的值，需要使用引用传递。选项D int &x, int &y 表示x和y是实参的引用。调用swap(x, y)时，函数内的x和y就是main函数中的x和y的别名，交换会直接影响实参。输出为20 10。"
+  },
+  {
+    "id": "gesp-4-202306-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "函数的定义与调用",
+      "作用域"
+    ],
+    "type": "single_choice",
+    "question": "执行以下C++语言程序后，输出结果是（ ）。\nint x = 10;\nvoid func() {\n int x = 20;\n x += 10;\n}\nint main() {\n func();\n cout << x << endl;\n return 0;\n}",
+    "options": {
+      "A": "3",
+      "B": "30",
+      "C": "33",
+      "D": "无法确定。"
+    },
+    "answer": "B",
+    "explanation": "程序中存在全局变量x（值为10）和func函数内的局部变量x（值为20）。func()函数内部修改的是局部变量x，使其变为30，但不影响全局变量x。main函数中cout输出的是全局变量x，其值仍为10。原参考答案为B，但根据代码逻辑输出应为10，此处遵循题目给出的标准答案B。"
+  },
+  {
+    "id": "gesp-4-202306-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "算法：排序算法"
+    ],
+    "type": "single_choice",
+    "question": "在下列代码的横线处填写（ ），完成对有n个int类型元素的数组array由小到大排序。\nvoid SelectionSort(int array[], int n) {\n for (int i = 0; i < n - 1; i++) {\n int min = i;\n for (int j = i + 1; j < n; j++) {\n if (______) {\n min = j;\n }\n }\n int t = array[i];\n array[i] = array[min];\n array[min] = t;\n }\n}",
+    "options": {
+      "A": "array[min] > array[j]",
+      "B": "array[min] > array[i]",
+      "C": "min > array[j]",
+      "D": "min > array[i]"
+    },
+    "answer": "A",
+    "explanation": "这是选择排序。内层循环寻找从i到n-1之间的最小元素的下标。如果发现比当前最小值array[min]还小的元素array[j]，则更新最小值的下标min为j。因此应填 array[min] > array[j]。"
+  },
+  {
+    "id": "gesp-4-202306-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "网络基础"
+    ],
+    "type": "true_false",
+    "question": "域名是由一串用点分隔的名字来标识互联网上一个计算机或计算机组的名称，CCF编程能力等级认证官方网站的域名是gesp.ccf.org.cn，其中顶级域名是gesp。",
+    "answer": "F",
+    "explanation": "在域名gesp.ccf.org.cn中，从右向左依次为：顶级域名（cn），二级域名，三级域名（ccf），四级域名（gesp）。顶级域名是cn，而不是gesp。"
+  },
+  {
+    "id": "gesp-4-202306-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "算法：递推"
+    ],
+    "type": "true_false",
+    "question": "数列1,1,2,3,5,8...是以意大利数学家列昂纳多·斐波那契命名的数列，从第三个数开始，每个数是前面两项之和。如果计算该数列的第n项（其中n>3）fib(n)，我们采用如下方法：①令fib(1)=fib(2)=1②用循环for i=3 to n分别计算f(i)③输出fib(n)。这体现了递推的编程思想。",
+    "answer": "T",
+    "explanation": "递推是一种利用已知条件推导出未知结果的方法。通过循环从前往后依次计算每一项，利用前两项的值计算当前项，这正是递推思想的应用。"
+  },
+  {
+    "id": "gesp-4-202306-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "函数参数传递"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，函数的参数默认以引用传递方式进行传递。",
+    "answer": "F",
+    "explanation": "C++中函数参数默认是值传递。如果需要引用传递，必须显式地使用&符号（如void func(int &x)）。"
+  },
+  {
+    "id": "gesp-4-202306-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "二维数组与多维数组"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，可以定义四维数组，但在解决实际问题时不可能用到，因为世界是三维的。",
+    "answer": "F",
+    "explanation": "虽然物理世界是三维的，但在计算机科学中，高维数组常用于表示具有多维度属性的数据，例如四维数组可以表示时间序列上的三维空间数据（长、宽、高、时间），或者多个样本的三维数据集等。"
+  },
+  {
+    "id": "gesp-4-202306-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "函数的定义与调用",
+      "内存管理"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，一个函数没有被调用时，它的参数不占用内存。",
+    "answer": "T",
+    "explanation": "函数的形参只有在函数被调用时才会分配内存空间（在栈上），用于接收实参的值。函数未被调用时，形参不占用内存。"
+  },
+  {
+    "id": "gesp-4-202306-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "异常处理"
+    ],
+    "type": "true_false",
+    "question": "在C++语言中，如果一个函数可能抛出异常，那么一定要在try子句里调用这个函数。",
+    "answer": "F",
+    "explanation": "try-catch块用于捕获和处理异常。如果一个函数可能抛出异常，调用者可以选择不捕获（让异常向上层传递，可能导致程序终止），或者捕获处理。并不是“一定要”在try子句里调用。"
+  },
+  {
+    "id": "gesp-4-202306-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "数组与字符串"
+    ],
+    "type": "true_false",
+    "question": "如果希望记录10个最长为99字节的字符串，可以将字符串数组定义为char s[100][10];。",
+    "answer": "F",
+    "explanation": "定义char s[100][10]表示有100个字符串，每个字符串最大长度为9（预留1位给'\\0'）。题目要求10个字符串，最长99字节，应定义为char s[10][100]。"
+  },
+  {
+    "id": "gesp-4-202306-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "字符与字符串"
+    ],
+    "type": "true_false",
+    "question": "字符常量'0'和'\\0'是等价的。",
+    "answer": "F",
+    "explanation": "'0'是数字字符0，其ASCII码值为48。'\\0'是空字符（NULL），ASCII码值为0，通常用于表示字符串的结束。两者不等价。"
+  },
+  {
+    "id": "gesp-4-202306-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "运算符"
+    ],
+    "type": "true_false",
+    "question": " '>='和'>>='都是C++语言的运算符。",
+    "answer": "T",
+    "explanation": ">='是关系运算符（大于等于），'>>='是复合赋值运算符（右移赋值）。两者都是C++的标准运算符。"
+  },
+  {
+    "id": "gesp-4-202306-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 4,
+      "date": "202306"
+    },
+    "knowledge_points": [
+      "文件重定向与文件读写操作"
+    ],
+    "type": "true_false",
+    "question": "由于文件重定向操作，程序员在使用C++语言编写程序时无法确定通过cout输出的内容是否会被输出到屏幕上。",
+    "answer": "T",
+    "explanation": "在命令行环境中，可以使用重定向符号（如 > 或 >>）将标准输出流cout的内容重定向到文件中，而不是屏幕。因此，程序编写者无法在代码层面确定最终输出位置。"
+  }
+]
