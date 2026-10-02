@@ -374,12 +374,16 @@ def get_all_exam_types(question_bank_dir: str = "question_bank") -> List[str]:
     return [row[0] for row in results]
 
 
-def get_all_exam_levels(question_bank_dir: str = "question_bank") -> List[str]:
+def get_all_exam_levels(
+    question_bank_dir: str = "question_bank",
+    exam_type: Optional[str] = None,
+) -> List[str]:
     """
-    获取所有级别
+    获取所有级别（可按考试类型过滤）
 
     Args:
         question_bank_dir: 题库目录路径
+        exam_type: 考试类型，None 表示不限
 
     Returns:
         级别列表（如 ["1", "2", ..., "8"]）
@@ -388,10 +392,69 @@ def get_all_exam_levels(question_bank_dir: str = "question_bank") -> List[str]:
 
     with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT DISTINCT exam_level FROM question_index ORDER BY exam_level")
+        if exam_type:
+            cursor.execute(
+                "SELECT DISTINCT exam_level FROM question_index "
+                "WHERE exam_type = ? ORDER BY exam_level",
+                (exam_type,)
+            )
+        else:
+            cursor.execute(
+                "SELECT DISTINCT exam_level FROM question_index ORDER BY exam_level"
+            )
         results = cursor.fetchall()
 
     return [row[0] for row in results]
+
+
+def _max_exam_level(levels: List[str]) -> Optional[str]:
+    """取数值最大的级别（数字感知，"10" > "9"；非数字级别排最后）"""
+    if not levels:
+        return None
+
+    def sort_key(level: str):
+        return int(level) if level.strip().isdigit() else -1
+
+    return max(levels, key=sort_key)
+
+
+def get_default_exam_selection(
+    overview_type: Optional[str] = None,
+    overview_level: Optional[str] = None,
+    question_bank_dir: str = "question_bank",
+) -> Tuple[Optional[str], Optional[str]]:
+    """
+    计算 Practice/Review 页的考试类型与级别默认值
+
+    优先使用总览页选中的值（"全部" 视为未选）；
+    未选时回退为 GESP（题库没有 GESP 则取第一个类型）+ 该类型下数值最大的级别。
+
+    Args:
+        overview_type: 总览页选中的考试类型
+        overview_level: 总览页选中的级别
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        (默认考试类型, 默认级别)，题库为空时为 (None, None)
+    """
+    all_types = get_all_exam_types(question_bank_dir)
+    if not all_types:
+        return None, None
+
+    if overview_type and overview_type != "全部" and overview_type in all_types:
+        default_type = overview_type
+    elif "GESP" in all_types:
+        default_type = "GESP"
+    else:
+        default_type = all_types[0]
+
+    type_levels = get_all_exam_levels(question_bank_dir, default_type)
+    if overview_level and overview_level != "全部" and overview_level in type_levels:
+        default_level = overview_level
+    else:
+        default_level = _max_exam_level(type_levels)
+
+    return default_type, default_level
 
 
 def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_bank") -> Dict[str, List[str]]:
@@ -430,23 +493,59 @@ def get_all_knowledge_points_with_frequency(question_bank_dir: str = "question_b
     }
 
 
+def _exam_filter_conditions(
+    exam_types: Optional[List[str]] = None,
+    exam_levels: Optional[List[str]] = None,
+) -> Tuple[List[str], List]:
+    """
+    构建 exam_type / exam_level 的 SQL 过滤条件（供索引查询复用）
+
+    Args:
+        exam_types: 考试类型列表，None 或空表示不过滤
+        exam_levels: 级别列表，None 或空表示不过滤
+
+    Returns:
+        (SQL 条件片段列表, 参数列表)
+    """
+    conditions = []
+    params = []
+    if exam_types:
+        placeholders = ",".join(["?"] * len(exam_types))
+        conditions.append(f"exam_type IN ({placeholders})")
+        params.extend(exam_types)
+    if exam_levels:
+        placeholders = ",".join(["?"] * len(exam_levels))
+        conditions.append(f"exam_level IN ({placeholders})")
+        params.extend(exam_levels)
+    return conditions, params
+
+
 def get_kp_frequency_from_index(
-    question_bank_dir: str = "question_bank"
+    question_bank_dir: str = "question_bank",
+    exam_types: Optional[List[str]] = None,
+    exam_levels: Optional[List[str]] = None,
 ) -> Dict[str, int]:
     """
     从索引 DB 统计各知识点的题目数量（无需加载 JSON 文件）
 
     Args:
         question_bank_dir: 题库目录路径
+        exam_types: 考试类型过滤，None 或空表示不过滤
+        exam_levels: 级别过滤，None 或空表示不过滤
 
     Returns:
         {知识点: 题目数量}
     """
     ensure_index_exists(question_bank_dir)
 
+    conditions, params = _exam_filter_conditions(exam_types, exam_levels)
+
     with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT knowledge_points FROM question_index")
+        query = "SELECT knowledge_points FROM question_index"
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+        cursor.execute(query, params)
         rows = cursor.fetchall()
 
     freq = {}
@@ -462,23 +561,69 @@ def get_kp_frequency_from_index(
 
 
 def get_total_question_count(
-    question_bank_dir: str = "question_bank"
+    question_bank_dir: str = "question_bank",
+    exam_types: Optional[List[str]] = None,
+    exam_levels: Optional[List[str]] = None,
 ) -> int:
     """
     从索引 DB 获取题目总数（无需加载 JSON 文件）
 
     Args:
         question_bank_dir: 题库目录路径
+        exam_types: 考试类型过滤，None 或空表示不过滤
+        exam_levels: 级别过滤，None 或空表示不过滤
 
     Returns:
         题目总数
     """
     ensure_index_exists(question_bank_dir)
 
+    conditions, params = _exam_filter_conditions(exam_types, exam_levels)
+
     with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM question_index")
+        query = "SELECT COUNT(*) FROM question_index"
+        if conditions:
+            query += " WHERE " + " AND ".join(conditions)
+        cursor.execute(query, params)
         return cursor.fetchone()[0]
+
+
+def get_exam_info_by_ids(
+    question_ids: List[str],
+    question_bank_dir: str = "question_bank"
+) -> Dict[str, Tuple[str, str]]:
+    """
+    从索引 DB 批量获取题目的考试类型和级别（无需加载 JSON 文件）
+
+    Args:
+        question_ids: 题目 ID 列表
+        question_bank_dir: 题库目录路径
+
+    Returns:
+        {question_id: (exam_type, exam_level)}，索引中不存在的 ID 不包含在结果中
+    """
+    if not question_ids:
+        return {}
+
+    ensure_index_exists(question_bank_dir)
+
+    result = {}
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        cursor = conn.cursor()
+        # SQLite 变量数有上限（默认 999），分批查询
+        for i in range(0, len(question_ids), 500):
+            chunk = question_ids[i:i + 500]
+            placeholders = ",".join(["?"] * len(chunk))
+            cursor.execute(
+                f"SELECT question_id, exam_type, exam_level FROM question_index "
+                f"WHERE question_id IN ({placeholders})",
+                chunk,
+            )
+            for qid, exam_type, exam_level in cursor.fetchall():
+                result[qid] = (exam_type, exam_level)
+
+    return result
 
 
 def get_questions_by_ids(

@@ -18,6 +18,8 @@ from app.core.question_loader import (
     get_kp_frequency_from_index,
     get_total_question_count,
     get_questions_by_ids,
+    get_exam_info_by_ids,
+    get_default_exam_selection,
 )
 from app.core.practice_tracker import (
     get_practice_log as _get_practice_log,
@@ -40,9 +42,19 @@ def get_exam_types(question_bank_dir: str = "question_bank"):
 
 
 @st.cache_data(ttl=300)
-def get_exam_levels(question_bank_dir: str = "question_bank"):
-    """缓存获取级别"""
-    return get_all_exam_levels(question_bank_dir)
+def get_exam_levels(question_bank_dir: str = "question_bank", exam_type: str = None):
+    """缓存获取级别（可按考试类型过滤）"""
+    return get_all_exam_levels(question_bank_dir, exam_type)
+
+
+@st.cache_data(ttl=300)
+def get_default_exam_selection_cached(
+    overview_type: str = None,
+    overview_level: str = None,
+    question_bank_dir: str = "question_bank",
+):
+    """缓存计算 Practice/Review 页的考试类型与级别默认值"""
+    return get_default_exam_selection(overview_type, overview_level, question_bank_dir)
 
 
 @st.cache_data(ttl=300)
@@ -88,15 +100,40 @@ def get_mistake_stats_cached(db_path: str = "data/practice_log.db"):
 
 
 @st.cache_data(ttl=300)
-def get_kp_frequency_cached(question_bank_dir: str = "question_bank"):
-    """缓存从索引 DB 获取知识点频次"""
-    return get_kp_frequency_from_index(question_bank_dir)
+def get_kp_frequency_cached(
+    question_bank_dir: str = "question_bank",
+    exam_types: tuple = None,
+    exam_levels: tuple = None,
+):
+    """缓存从索引 DB 获取知识点频次（支持按考试类型/级别过滤，参数需为 tuple 以便 hash）"""
+    return get_kp_frequency_from_index(
+        question_bank_dir,
+        list(exam_types) if exam_types else None,
+        list(exam_levels) if exam_levels else None,
+    )
 
 
 @st.cache_data(ttl=300)
-def get_total_question_count_cached(question_bank_dir: str = "question_bank"):
-    """缓存从索引 DB 获取题目总数"""
-    return get_total_question_count(question_bank_dir)
+def get_total_question_count_cached(
+    question_bank_dir: str = "question_bank",
+    exam_types: tuple = None,
+    exam_levels: tuple = None,
+):
+    """缓存从索引 DB 获取题目总数（支持按考试类型/级别过滤，参数需为 tuple 以便 hash）"""
+    return get_total_question_count(
+        question_bank_dir,
+        list(exam_types) if exam_types else None,
+        list(exam_levels) if exam_levels else None,
+    )
+
+
+@st.cache_data(ttl=300)
+def get_exam_info_by_ids_cached(
+    question_ids: tuple,
+    question_bank_dir: str = "question_bank"
+):
+    """缓存批量获取题目的考试类型和级别（参数需为 tuple 以便 hash）"""
+    return get_exam_info_by_ids(list(question_ids), question_bank_dir)
 
 
 @st.cache_data(ttl=300)

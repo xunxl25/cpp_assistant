@@ -20,6 +20,9 @@ from app.core.cache import (
     get_practice_log_cached,
     get_kp_frequency_cached,
     get_total_question_count_cached,
+    get_exam_types,
+    get_exam_levels,
+    get_exam_info_by_ids_cached,
 )
 
 
@@ -37,14 +40,65 @@ DB_PATH = Path("data/practice_log.db")
 QUESTION_BANK_PATH = "question_bank"
 
 
+def _log_matches_exam_filter(
+    log: dict,
+    exam_info: dict,
+    exam_types,
+    exam_levels,
+) -> bool:
+    """判断一条练习日志对应的题目是否落在所选考试类型/级别内"""
+    info = exam_info.get(log.get("question_id"))
+    if info is None:
+        # 题目不在索引里（可能已被删除），有筛选时保守地排除
+        return False
+    q_type, q_level = info
+    if exam_types and q_type not in exam_types:
+        return False
+    if exam_levels and q_level not in exam_levels:
+        return False
+    return True
+
+
 def main():
     """总览页面"""
     st.title("📊 学习总览")
 
+    # ===== 顶端：考试类型/级别选择（可选，影响下方所有统计） =====
+    all_types = get_exam_types()
+    all_levels = get_exam_levels()
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.selectbox("考试类型", ["全部"] + all_types, key="overview_exam_type")
+    with col2:
+        st.selectbox("级别", ["全部"] + all_levels, key="overview_exam_level")
+
+    sel_type = st.session_state.get("overview_exam_type", "全部")
+    sel_level = st.session_state.get("overview_exam_level", "全部")
+    exam_types = None if sel_type == "全部" else [sel_type]
+    exam_levels = None if sel_level == "全部" else [sel_level]
+    types_param = tuple(exam_types) if exam_types else None
+    levels_param = tuple(exam_levels) if exam_levels else None
+
     # 加载数据（全部从索引 DB 查，不加载 JSON 文件）
-    total_questions = get_total_question_count_cached(QUESTION_BANK_PATH)
-    freq = get_kp_frequency_cached(QUESTION_BANK_PATH)
+    total_questions = get_total_question_count_cached(
+        QUESTION_BANK_PATH, types_param, levels_param
+    )
+    freq = get_kp_frequency_cached(
+        QUESTION_BANK_PATH, types_param, levels_param
+    )
     practice_logs = get_practice_log_cached(str(DB_PATH))
+
+    # 练习日志按考试类型/级别过滤（日志本身不带 exam 字段，经索引查询题目归属）
+    if exam_types or exam_levels:
+        practiced_ids = list({log["question_id"] for log in practice_logs})
+        exam_info = get_exam_info_by_ids_cached(
+            tuple(practiced_ids), QUESTION_BANK_PATH
+        )
+        practice_logs = [
+            log for log in practice_logs
+            if _log_matches_exam_filter(log, exam_info, exam_types, exam_levels)
+        ]
 
     if total_questions == 0:
         st.warning("没有题目数据")

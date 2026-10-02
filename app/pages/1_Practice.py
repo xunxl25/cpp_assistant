@@ -13,6 +13,7 @@ from app.core.cache import (
     get_knowledge_points_with_frequency,
     get_exam_dates_cached,
     get_answered_question_ids_cached,
+    get_default_exam_selection_cached,
 )
 from app.core.question_loader import (
     get_questions_by_filter,
@@ -63,19 +64,27 @@ def main():
     # 1. 考试类型（多选）
     st.sidebar.subheader("1. 考试类型")
     all_exam_types = get_exam_types()
+
+    # 默认值：总览页选中值 -> 未选则 GESP + 题库最高级别
+    default_type, default_level = get_default_exam_selection_cached(
+        st.session_state.get("overview_exam_type", "全部"),
+        st.session_state.get("overview_exam_level", "全部"),
+    )
+    default_types = [default_type] if default_type in all_exam_types else all_exam_types
     selected_exam_types = st.sidebar.multiselect(
         "选择考试类型",
         all_exam_types,
-        default=all_exam_types
+        default=default_types
     )
 
     # 2. 级别（多选）
     st.sidebar.subheader("2. 级别")
     all_exam_levels = get_exam_levels()
+    default_levels = [default_level] if default_level in all_exam_levels else all_exam_levels
     selected_exam_levels = st.sidebar.multiselect(
         "选择级别",
         all_exam_levels,
-        default=all_exam_levels
+        default=default_levels
     )
 
     # 3. 刷题模式（单选）
