@@ -181,14 +181,24 @@ def _process_segment(segment: str, seg_idx: int, total_segs: int) -> List[Dict]:
 """
 
     # 关键修改：强调 "直接输出 JSON"，"不要解释"，"不要代码块"
+    # 答案与代码规则移植自人工解析 prompt（LLM 自答 + 代码缺失标记）
     prompt = (
-        f"提取文档片段中的题目，转为 JSON 数组。\n"
+        f"提取文档片段中的题目，转为 JSON 数组，并解答每道题。\n"
         f"文档内容：\n{segment}\n\n"
         f"格式要求：\n"
         f"1. 必须输出 JSON 数组，如：{json_example}\n"
         f"2. type 为 single_choice 或 true_false\n"
         f"3. 判断题 answer 为 true/false\n"
-        f"4. 直接输出 JSON 字符串，禁止输出 Markdown 标题、禁止解释、禁止思考过程。\n"
+        f"4. 答案规则（重要）：PDF 转换可能丢失或错乱答案标记（√、×、A/B/C/D），"
+        f"不要照抄原文标记；必须根据题干和代码逻辑自行推理作答：\n"
+        f"   - 选择题：分析各选项后输出 A/B/C/D；\n"
+        f"   - 判断题：分析题干正确性后输出 true/false；\n"
+        f"   - explanation 中给出完整的解题依据。\n"
+        f"5. 代码处理（重要）：\n"
+        f"   - 题干中的 C++ 代码需恢复标准格式（换行、缩进、结构完整可编译，如 int main() {{ ... }}）；\n"
+        f"   - 若代码为图片形式无法提取、内容乱码或明显残缺，则在题干末尾追加\"（参照原PDF代码）\"，"
+        f"并根据题干描述、选项和上下文推断作答，同时在 explanation 中注明\"代码内容缺失，答案基于题干描述推断\"。\n"
+        f"6. 直接输出 JSON 字符串，禁止输出 Markdown 标题、禁止解释、禁止思考过程。\n"
         f"直接输出 JSON："
     )
 
