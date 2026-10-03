@@ -1,10 +1,41 @@
 """做题界面组件 - 复用逻辑"""
 import json
+import os
+import subprocess
+import sys
 from typing import List, Dict, Optional, Callable
 import streamlit as st
 from pathlib import Path
 from app.core.practice_tracker import record_answer
 from app.core.ai_chat import ask_question
+
+# 原始试卷目录（题目前缀 ID 与 PDF 文件同名，仅扩展名不同）
+PAST_EXAM_DIR = Path("past_exam")
+
+
+def _open_source_pdf(question_id: str) -> None:
+    """
+    用系统默认程序打开题目对应的原始 PDF（代码显示异常时备用）。
+
+    题目 ID 形如 gesp-4-202606-sc-3，取前三段（gesp-4-202606）
+    拼出 past_exam/gesp-4-202606.pdf。
+    """
+    prefix = "-".join(question_id.split("-")[:3])
+    pdf_path = PAST_EXAM_DIR / f"{prefix}.pdf"
+
+    if not pdf_path.exists():
+        st.toast(f"未找到原卷：{pdf_path}", icon="⚠️")
+        return
+
+    try:
+        if sys.platform == "win32":
+            os.startfile(pdf_path)  # noqa: S606（本机工具，路径来自题库 ID）
+        elif sys.platform == "darwin":
+            subprocess.Popen(["open", str(pdf_path)])
+        else:
+            subprocess.Popen(["xdg-open", str(pdf_path)])
+    except Exception as e:
+        st.toast(f"打开 PDF 失败：{e}", icon="⚠️")
 
 
 @st.dialog("🎉 做题完成")
@@ -65,8 +96,19 @@ def render_practice_ui(
         kps = [kp] if kp else ["未知"]
     knowledge_points_json = json.dumps(kps, ensure_ascii=False)
 
-    # 显示题目
-    st.subheader(f"题目 {current_index + 1} / {len(questions)}")
+    # 显示题目（标题行右侧放"打开原卷"按钮，点击用系统默认程序打开对应 PDF）
+    title_col, pdf_col = st.columns([4, 1])
+    with title_col:
+        st.subheader(f"题目 {current_index + 1} / {len(questions)}")
+    with pdf_col:
+        st.button(
+            current_question["id"],
+            key=f"pdf_{current_question['id']}",
+            on_click=_open_source_pdf,
+            args=(current_question["id"],),
+            help="打开本题原始 PDF（代码显示异常时备用）",
+            use_container_width=True,
+        )
     # 将字符串中的 \n 替换为 HTML 的 <br> 标签
     # st.write(current_question["question"].replace("\n", "<br>"))
     st.markdown(current_question["question"].replace("\n", "<br>"), unsafe_allow_html=True)
