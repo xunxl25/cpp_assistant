@@ -1,0 +1,302 @@
+[
+  {
+    "id": "gesp-5-202606-sc-1",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["循环链表", "指针类型的概念及基本应用"],
+    "type": "single_choice",
+    "question": "假设 head != nullptr，下面是实现单向循环链表在头节点后插入新节点的代码，横线处应填入（ ）。\nstruct Node {\n    int val;\n    Node* next;\n};\nvoid insertAfterHead(Node* head, int x) {\n    Node* newNode = new Node;\n    newNode->val = x;\n    ______________________ // 在此处填入代码\n}",
+    "options": {
+      "A": "newNode->next = head;\nhead->next = newNode;",
+      "B": "newNode->next = head->next;\nhead->next = newNode;",
+      "C": "head->next = newNode;\nnewNode->next = head->next;",
+      "D": "newNode->next = head->next;\nhead = newNode;"
+    },
+    "answer": "B",
+    "explanation": "在 head 之后插入新结点，应先让 newNode 接上 head 原来的后继（newNode->next = head->next），再让 head 指向新结点（head->next = newNode）。C 选项顺序颠倒，执行后 newNode->next 指向自己，链表断裂；A 选项把 newNode 插到 head 之前（循环意义下等价于尾后），不符合'头节点后插入'；D 选项修改了 head 本身，且未把原后继结点接回链表。"
+  },
+  {
+    "id": "gesp-5-202606-sc-2",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["循环链表", "指针类型的概念及基本应用"],
+    "type": "single_choice",
+    "question": "下面代码遍历并输出一个循环单链表，其中 head 指向链表的第一个节点，横线处应填入的是（ ）。\nstruct Node {\n    int val;\n    Node* next;\n};\nvoid printList(Node* head) {\n    if (head == nullptr) return;\n    Node* p = head;\n    _______________________ // 在此处填入代码\n    cout << endl;\n}",
+    "options": {
+      "A": "while (p != nullptr) {\n    cout << p->val << \" \";\n    p = p->next;\n}",
+      "B": "while (p->next != nullptr) {\n    cout << p->val << \" \";\n    p = p->next;\n}",
+      "C": "do {\n    cout << p->val << \" \";\n    p = p->next;\n} while (p != head);",
+      "D": "for (; p; p = p->next) {\n    cout << p->val << \" \";\n}"
+    },
+    "answer": "C",
+    "explanation": "循环单链表尾结点的 next 指回 head，不存在 nullptr，因此不能用 p != nullptr 作终止条件（会死循环）。正确方式是 do-while：先输出当前结点再前进，直到回到起点 head，恰好遍历一圈。"
+  },
+  {
+    "id": "gesp-5-202606-sc-3",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["双链表", "指针类型的概念及基本应用"],
+    "type": "single_choice",
+    "question": "双链表结点定义如下，若要删除双链表中的中间结点（非首尾节点）p，下面写法正确的是（ ）。\nstruct Node {\n    int val;\n    Node* prev;\n    Node* next;\n};",
+    "options": {
+      "A": "p->prev->next = p->next;\np->next->prev = p->prev;\ndelete p;",
+      "B": "p->next->prev = p->next;\np->prev->next = p->prev;\ndelete p;",
+      "C": "p->prev = p->next;\np->next = p->prev;\ndelete p;",
+      "D": "p->next->next = p->prev;\np->prev->prev = p->next;\ndelete p;"
+    },
+    "answer": "A",
+    "explanation": "删除中间结点 p：让前驱的 next 指向 p 的后继（p->prev->next = p->next），让后继的 prev 指向 p 的前驱（p->next->prev = p->prev），最后释放 p。A 正确；B 把邻居指向 p 自身的相关字段而非互相连接；C 只改了 p 自己的指针；D 修改的是隔一个结点的指针，均错误。"
+  },
+  {
+    "id": "gesp-5-202606-sc-4",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["辗转相除法", "递归"],
+    "type": "single_choice",
+    "question": "使用如下欧几里得算法求 gcd(105, 45) 时，函数 gcd(a, b) 的递归调用序列正确的是（ ）。\nint gcd(int a, int b) {\n    return b == 0 ? a : gcd(b, a % b);\n}",
+    "options": {
+      "A": "gcd(105, 45) -> gcd(45, 60) -> gcd(60, 15) -> gcd(15, 0)",
+      "B": "gcd(105, 45) -> gcd(45, 15) -> gcd(15, 0)",
+      "C": "gcd(105, 45) -> gcd(60, 45) -> gcd(15, 45)",
+      "D": "gcd(105, 45) -> gcd(15, 45) -> gcd(15, 0)"
+    },
+    "answer": "B",
+    "explanation": "按 gcd(b, a % b) 展开：gcd(105,45) → gcd(45, 105%45=15) → gcd(15, 45%15=0) → 返回 15。序列为 B。"
+  },
+  {
+    "id": "gesp-5-202606-sc-5",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["素数表的埃氏筛法和线性筛法"],
+    "type": "single_choice",
+    "question": "下面代码实现线性筛（欧拉筛），以筛选出 n 以内的所有素数。横线处的代码应为（ ）。\nvector<int> sieve(int n) {\n    vector<bool> is_prime(n + 1, true);\n    vector<int> primes;\n    if (n >= 0) is_prime[0] = false;\n    if (n >= 1) is_prime[1] = false;\n    for (int i = 2; i <= n; ++i) {\n        if (is_prime[i]) {\n            primes.push_back(i);\n        }\n        for (int j = 0; j < primes.size() && i * primes[j] <= n; j++) {\n            is_prime[i * primes[j]] = false;\n            if (________________) break; // 在此处填入代码\n        }\n    }\n    return primes;\n}",
+    "options": {
+      "A": "i % primes[j] == 0",
+      "B": "primes[j] % i == 0",
+      "C": "i % primes[j] != 0",
+      "D": "i == primes[j]"
+    },
+    "answer": "A",
+    "explanation": "线性筛的核心：当 primes[j] 是 i 的最小质因子（i % primes[j] == 0）时停止内层循环，保证每个合数 i * primes[j] 只被其最小质因子筛掉一次，达到线性复杂度。"
+  },
+  {
+    "id": "gesp-5-202606-sc-6",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["素数表的埃氏筛法和线性筛法"],
+    "type": "single_choice",
+    "question": "下面关于埃氏筛法的说法正确的是（ ）。",
+    "options": {
+      "A": "每个合数只会被筛掉一次",
+      "B": "从每个素数出发，把它的倍数标记为合数",
+      "C": "只能判断一个数是不是偶数",
+      "D": "不能求出素数表"
+    },
+    "answer": "B",
+    "explanation": "埃氏筛的基本思想：从每个素数出发，把它的所有倍数标记为合数，剩下的即为素数。A 是线性筛的特点，埃氏筛中合数会被其多个质因子重复标记；C、D 显然错误。"
+  },
+  {
+    "id": "gesp-5-202606-sc-7",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["分治算法（归并和快速排序）", "递归"],
+    "type": "single_choice",
+    "question": "下面代码实现了计算 x^n 的快速幂算法，该算法体现的编程思想是（ ）。\nlong long power(long long x, int n) {\n    if (n == 0) return 1;\n    long long res = power(x, n / 2);\n    if (n % 2 == 0) return res * res;\n    else return res * res * x;\n}",
+    "options": {"A": "枚举", "B": "贪心", "C": "分治", "D": "模拟"},
+    "answer": "C",
+    "explanation": "快速幂把 x^n 分解为规模减半的子问题 x^(n/2)，求出子问题解后再合并（平方，奇数时再乘一个 x），体现了'分而治之'的分治思想，复杂度 O(log n)。"
+  },
+  {
+    "id": "gesp-5-202606-sc-8",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["唯一分解定理", "初等数论"],
+    "type": "single_choice",
+    "question": "下面代码用于统计 n 中因子 2 出现了多少次。若 n = 40，输出是（ ）。\nint n = 40;\nint cnt = 0;\nwhile (n % 2 == 0) {\n    cnt++;\n    n /= 2;\n}\ncout << cnt;",
+    "options": {"A": "1", "B": "2", "C": "3", "D": "4"},
+    "answer": "C",
+    "explanation": "40 = 2³ × 5。循环每次除以 2：40→20→10→5，共执行 3 次，输出 3。"
+  },
+  {
+    "id": "gesp-5-202606-sc-9",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["二分枚举法"],
+    "type": "single_choice",
+    "question": "在一个有序数组中查找第一个大于或等于 x 的元素位置，横线处应填写（ ）。\nint lowerBound(vector<int>& a, int x) {\n    int l = 0, r = a.size();\n    while (l < r) {\n        int mid = l + (r - l) / 2;\n        if (a[mid] >= x) ________________; // 在此处填入代码\n        else l = mid + 1;\n    }\n    return l;\n}",
+    "options": {"A": "r = mid + 1", "B": "r = mid - 1", "C": "r = mid", "D": "l = mid"},
+    "answer": "C",
+    "explanation": "查找第一个 >= x 的位置：当 a[mid] >= x 时，mid 可能就是答案，不能排除它，应收缩 r = mid；当 a[mid] < x 时答案必在右侧，l = mid + 1。循环结束时 l 即为结果。这是左闭右开区间 [l, r) 上的标准 lower_bound 写法。"
+  },
+  {
+    "id": "gesp-5-202606-sc-10",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["二分枚举法", "贪心算法"],
+    "type": "single_choice",
+    "question": "有若干根木头，长度存于 wood。每切一刀可以把一段木头分成两段。函数 check(wood, K, x) 返回：用不超过 K 刀，能否使所有木段长度都不超过 x。下面代码使用二分答案查找最小可行的 x，横线处应填（ ）。\nint binary_cut(vector<int>& wood, int K) {\n    int l = 1;\n    int r = 0;\n    for (int len : wood) r = max(r, len);\n    while (l < r) {\n        int mid = l + (r - l) / 2;\n        if (check(wood, K, mid))\n            ________________; // 在此处填入代码\n        else l = mid + 1;\n    }\n    return l;\n}",
+    "options": {"A": "r = mid + 1", "B": "r = mid", "C": "l = mid", "D": "r = mid - 1"},
+    "answer": "B",
+    "explanation": "二分答案求最小可行 x：check(mid) 为真说明 mid 可行但可能不是最小，应收缩右边界 r = mid；check 为假说明 mid 过小，l = mid + 1。循环结束时 l 为最小可行值。"
+  },
+  {
+    "id": "gesp-5-202606-sc-11",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["分治算法（归并和快速排序）"],
+    "type": "single_choice",
+    "question": "下面代码段实现了快速排序的划分操作（以首元素为基准），横线处代码应填入（ ）。\nint partition(vector<int>& arr, int low, int high) {\n    int pivot = arr[low];\n    int i = low, j = high;\n    while (i < j) {\n        while (i < j && arr[j] >= pivot) j--;\n        while (i < j && arr[i] <= pivot) i++;\n        if (i < j) swap(arr[i], arr[j]);\n    }\n    ________________; // 在此处填入代码\n    return i;\n}",
+    "options": {
+      "A": "swap(arr[low], arr[high])",
+      "B": "swap(arr[low], arr[i])",
+      "C": "swap(arr[i], arr[high])",
+      "D": "arr[i] = pivot"
+    },
+    "answer": "B",
+    "explanation": "这是以 arr[low] 为枢轴的 Hoare 交换式划分。循环结束后 i 与 j 相遇，此时 arr[i] 位置右侧元素均不小于枢轴、左侧均不大于枢轴，且 arr[i] 处的值不大于枢轴（最后一步是 j 向左移动到相遇点）。将存放在 arr[low] 的枢轴与 arr[i] 交换，使枢轴归位。"
+  },
+  {
+    "id": "gesp-5-202606-sc-12",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["分治算法（归并和快速排序）"],
+    "type": "single_choice",
+    "question": "下面哪句话最符合归并排序的思想？（ ）",
+    "options": {
+      "A": "每次选择最小元素放到前面",
+      "B": "将数组分成两半分别排序，再合并两个有序部分",
+      "C": "相邻元素两两交换",
+      "D": "从左到右把元素插入有序区"
+    },
+    "answer": "B",
+    "explanation": "归并排序是典型的分治算法：递归地将数组分成两半分别排序，再通过合并操作把两个有序部分合成一个有序数组。A 是选择排序，C 是冒泡排序，D 是插入排序。"
+  },
+  {
+    "id": "gesp-5-202606-sc-13",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["分治算法（归并和快速排序）", "递归", "算法复杂度的估算"],
+    "type": "single_choice",
+    "question": "在对长度为 n（n ≥ 1）的数组进行归并排序的过程中，mergeArray 函数（合并两个有序子数组的操作）被调用的次数是（ ）。\n（mergeSort 代码：if (left >= right) return; 递归排序左半、右半后调用 mergeArray(left, mid, right);）",
+    "options": {"A": "n − 1", "B": "log n", "C": "n log n", "D": "2n"},
+    "answer": "A",
+    "explanation": "mergeSort 对长度大于 1 的区间调用一次 mergeArray，每次 mergeArray 恰好把两个相邻有序段合并为一个、使有序段数量减 1。初始有 n 个长度为 1 的段，最终合成 1 段，共减少 n − 1 个段，故 mergeArray 被调用 n − 1 次。"
+  },
+  {
+    "id": "gesp-5-202606-sc-14",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["贪心算法"],
+    "type": "single_choice",
+    "question": "小杨在学校义卖会上负责打包\"零食盲盒\"。每个盲盒重量不同，快递盒最多承重 limit 克，每个快递盒最多装两个盲盒。为了尽量少用快递盒，他采用如下策略：（1）每次把最轻的盲盒和最重的盲盒尝试放在一起；（2）如果两者重量之和不超过 limit，就一起装；（3）否则，只能让最重的盲盒单独装一盒。下面代码用于计算最少需要多少个快递盒，则横线处应填入的是（ ）。\nint minBoxes(vector<int>& w, int limit) {\n    sort(w.begin(), w.end());\n    int l = 0, r = w.size() - 1;\n    int boxes = 0;\n    while (l <= r) {\n        if (w[l] + w[r] <= limit) {\n            __________; // 在此处填入代码\n        } else {\n            r--;\n        }\n        boxes++;\n    }\n    return boxes;\n}",
+    "options": {
+      "A": "l++;",
+      "B": "r--;",
+      "C": "l++;\nr--;",
+      "D": "boxes--;"
+    },
+    "answer": "C",
+    "explanation": "若最轻与最重可以一起装，则两个盲盒都处理完毕，需 l++ 且 r--（最轻的不会再配别人，最重的已装箱）；若超重，则最重的单独装箱，只需 r--。每轮 boxes++ 统计一个快递盒。"
+  },
+  {
+    "id": "gesp-5-202606-sc-15",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["数组模拟高精度加减乘除"],
+    "type": "single_choice",
+    "question": "高精度减法中，假设两个高精度数按低位在前存储，且已经保证被减数不小于减数。下面处理借位逻辑代码中横线处应填入（ ）。\nif (a[i] < b[i]) {\n    a[i + 1]--;\n    ________________;\n}\nt = a[i] - b[i];",
+    "options": {
+      "A": "a[i] += 10",
+      "B": "a[i] -= 10",
+      "C": "b[i] += 10",
+      "D": "a[i] = a[i+1] + 10"
+    },
+    "answer": "A",
+    "explanation": "当本位 a[i] < b[i] 时需要借位：向高位借 1（a[i+1]--），本位加上 10（a[i] += 10），之后 t = a[i] - b[i] 即为该位结果且不小于 0。"
+  },
+  {
+    "id": "gesp-5-202606-tf-1",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["单链表"],
+    "type": "true_false",
+    "question": "数组的存储空间在物理上通常是连续的，而链表的结点可以存储在不连续的内存空间中。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "数组在内存中占用一段连续空间，通过下标可直接计算地址；链表的每个结点通过指针链接，各结点在内存中可以不连续。说法正确。"
+  },
+  {
+    "id": "gesp-5-202606-tf-2",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["双链表", "循环链表", "指针类型的概念及基本应用"],
+    "type": "true_false",
+    "question": "带哨兵头尾节点的双向循环链表，在表头插入节点 p，以下四步操作无论什么顺序执行结果都正确。\n① p->next = head->next;\n② p->prev = head;\n③ head->next->prev = p;\n④ head->next = p;",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "语句之间存在依赖：④ 会修改 head->next，而 ① 和 ③ 都依赖原来的 head->next。若先执行④再执行①，则 p->next 指向 p 自己；若先④再③，则 head->next->prev 实际是 p->prev = p，都导致错误。只有先①③（或①、③在④之前）再④才正确，因此并非任意顺序都正确。"
+  },
+  {
+    "id": "gesp-5-202606-tf-3",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["辗转相除法", "递归"],
+    "type": "true_false",
+    "question": "对任意正整数 a、b，以下两种写法的 gcd 函数返回值完全相同。\nint gcd1(int a, int b) {\n    return b ? gcd1(b, a % b) : a;\n}\nint gcd2(int a, int b) {\n    while (b) {\n        int t = b;\n        b = a % b;\n        a = t;\n    }\n    return a;\n}",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "两者都是辗转相除法：gcd1 是递归形式，gcd2 是等价的迭代形式，递推关系完全一致（每轮 (a,b) → (b, a%b)，直到 b 为 0 返回 a）。对任意正整数返回值相同。"
+  },
+  {
+    "id": "gesp-5-202606-tf-4",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["分治算法（归并和快速排序）"],
+    "type": "true_false",
+    "question": "在归并排序的合并操作中，如下代码片段可以正确地将两个已排序的子数组 L 和 R 合并回原数组 arr 中。\nvoid merge(int arr[], int left, int mid, int right) {\n    int n1 = mid - left + 1;\n    int n2 = right - mid;\n    vector<int> L(n1), R(n2);\n    for (int i = 0; i < n1; i++) L[i] = arr[left + i];\n    for (int j = 0; j < n2; j++) R[j] = arr[mid + 1 + j];\n    int i = 0, j = 0, k = left;\n    while (i < n1 && j < n2) {\n        if (L[i] <= R[j]) arr[k++] = L[i++];\n        else arr[k++] = R[j++];\n    }\n    while (i < n1) arr[k++] = L[i++];\n    while (j < n2) arr[k++] = R[j++];\n}",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "代码先把左右两个有序子数组复制到 L、R，再用双指针比较逐个放回 arr（取较小者，相等取左，保证稳定性），最后把剩余部分依次补齐。这是标准且正确的归并操作。"
+  },
+  {
+    "id": "gesp-5-202606-tf-5",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["分治算法（归并和快速排序）"],
+    "type": "true_false",
+    "question": "分治法通常将一个规模较大的问题拆分为若干个规模较小、结构相似的子问题，分别求解后再合并子问题的结果。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "这正是分治法的定义：分解（Divide）、解决（Conquer）、合并（Combine），子问题与原问题结构相同、规模更小。说法正确。"
+  },
+  {
+    "id": "gesp-5-202606-tf-6",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["贪心算法"],
+    "type": "true_false",
+    "question": "贪心算法只要每一步选择当前最优解，就一定能得到全局最优解。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "局部最优不一定导致全局最优。贪心算法只有在问题具有贪心选择性质和最优子结构时才能保证最优（如活动选择问题）；对于 0-1 背包、任意面值找零等问题，贪心可能得到次优解。"
+  },
+  {
+    "id": "gesp-5-202606-tf-7",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["二分枚举法", "单链表"],
+    "type": "true_false",
+    "question": "二分查找不仅可以应用于有序数组，也可以在不增加时间复杂度的情况下应用于有序的单链表，因为链表也支持 O(1) 时间内的随机访问。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "单链表不支持 O(1) 随机访问，访问中间结点必须从头遍历，O(n) 时间。即使数据有序，在链表上二分每取一个 mid 都要 O(n) 遍历，总体退化为 O(n log n) 甚至更高，无法保持数组的 O(log n) 复杂度，前提'链表支持 O(1) 随机访问'本身就是错误的。"
+  },
+  {
+    "id": "gesp-5-202606-tf-8",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["算法复杂度的估算", "递归"],
+    "type": "true_false",
+    "question": "以下函数 f1 的时间复杂度比函数 f2 的更高。\nvoid f1(int n) {\n    for (int i = 1; i < n; i *= 2);\n}\nvoid f2(int n) {\n    if (n <= 1) return;\n    f2(n - 1);\n    f2(n - 1);\n}",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "f1 中 i 每次翻倍，循环约 log n 次，复杂度 O(log n)。f2 每次调用产生两次规模减 1 的子调用，调用总数约 2^n，复杂度 O(2^n)。显然 O(2^n) 远高于 O(log n)，f2 更高，说法错误。"
+  },
+  {
+    "id": "gesp-5-202606-tf-9",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["唯一分解定理", "初等数论"],
+    "type": "true_false",
+    "question": "唯一分解定理表明，任何一个大于 1 的自然数都可以唯一地分解为若干个质数的乘积，如果不考虑质因数的顺序，这种分解方式是唯一的。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "这就是算术基本定理（唯一分解定理）：任何大于 1 的整数都能写成质数幂的乘积，且在不计质因数顺序的情况下分解方式唯一，例如 12 = 2² × 3。说法正确。"
+  },
+  {
+    "id": "gesp-5-202606-tf-10",
+    "exam": {"type": "GESP", "level": 5, "date": "202606"},
+    "knowledge_points": ["算法：排序概念和稳定性", "算法：排序算法", "分治算法（归并和快速排序）"],
+    "type": "true_false",
+    "question": "归并排序和快速排序在平均情况下的时间复杂度均为 O(n log n)。但在稳定性方面，归并排序通常是不稳定的，而快速排序是稳定的。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "前半句正确：两者平均时间复杂度都是 O(n log n)。但稳定性说反了：归并排序在合并时相等元素优先取左侧，是稳定排序；快速排序在分区交换过程中会打乱相等元素的相对顺序，是不稳定排序。"
+  }
+]

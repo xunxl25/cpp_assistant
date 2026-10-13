@@ -1,0 +1,317 @@
+[
+  {
+    "id": "gesp-5-sample-sc-1",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["计算机硬件基础"],
+    "type": "single_choice",
+    "question": "以下不属于计算机输出设备的有（ ）。",
+    "options": {"A": "麦克风", "B": "音箱", "C": "打印机", "D": "显示器"},
+    "answer": "A",
+    "explanation": "麦克风将声音转换为电信号输入计算机，属于输入设备；音箱、打印机、显示器都是输出设备。"
+  },
+  {
+    "id": "gesp-5-sample-sc-2",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["二分枚举法", "算法复杂度的估算"],
+    "type": "single_choice",
+    "question": "小明想了一个 1 到 100 之间的整数。你可以做多次猜测，每次猜测之后，如果你没有猜中，小明会告诉你，你猜的数比他想的数大还是小。你希望你在运气最坏的情况下花费最少的次数猜中，请问你运气最坏的情况下会猜（ ）次？（包括最后猜中的那次）。",
+    "options": {"A": "5", "B": "6", "C": "7", "D": "100"},
+    "answer": "C",
+    "explanation": "采用二分策略，每次猜测将候选区间缩小一半。2^7=128 > 100 > 2^6=64，因此最坏情况下需要 7 次即可保证猜中。"
+  },
+  {
+    "id": "gesp-5-sample-sc-3",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["分治算法（归并和快速排序）"],
+    "type": "single_choice",
+    "question": "关于分治算法，下列说法错误的是（ ）。",
+    "options": {
+      "A": "分治算法的核心思想是分而治之，即把问题转化为多个规模更小的子问题求解。",
+      "B": "分治算法可以不使用递归实现。",
+      "C": "分治算法的时间复杂度是 O(log N)，其中 N 表示问题的规模。",
+      "D": "分治算法通常较容易在多核处理器上实现加速。"
+    },
+    "answer": "C",
+    "explanation": "分治算法的时间复杂度取决于子问题个数、规模和合并代价，并不是固定的 O(log N)。例如归并排序是 O(N log N)，二分查找才是 O(log N)，故 C 错误。其余说法均正确。"
+  },
+  {
+    "id": "gesp-5-sample-sc-4",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["递归", "函数的定义与调用"],
+    "type": "single_choice",
+    "question": "有关下面 C++代码说法错误的是（ ）。\nint factA(int n) {\n    if (n <= 1)\n        return 1;\n    int ret = 1;\n    for (int i = 2; i <= n; ++i)\n        ret *= i;\n    return ret;\n}\nint factB(int n) {\n    return n == 1 ? 1 : n * factB(n - 1);\n}\nint main() {\n    int n;\n    cin >> n;\n    cout << factA(n) << ' ' << factB(n) << endl;\n    return 0;\n}",
+    "options": {
+      "A": "factA()采用循环方式求 n 的阶乘，factB()采用递归方式求 n 的阶乘",
+      "B": "程序执行时如果输入 5，能实现求其阶乘，程序输出结果为 120 120",
+      "C": "任何递归程序都可以使用循环改写",
+      "D": "程序执行时如果输入 100，不能正确求出 100 的阶乘"
+    },
+    "answer": "C",
+    "explanation": "factA 用循环、factB 用递归求阶乘，A 正确；5!=120，B 正确；100! 远超 int 范围会溢出，D 正确。C 说法过于绝对：虽然理论上大多数递归可用循环（借助栈等）改写，但并非'任何'递归程序都能简单直接地用循环改写，故 C 错误。"
+  },
+  {
+    "id": "gesp-5-sample-sc-5",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["递归", "函数的定义与调用"],
+    "type": "single_choice",
+    "question": "下面 C++代码意在实现字符串反序的功能。关于这段代码，以下说法正确的是（ ）\nvoid printSReverse(char* sIn, int len) {\n    if (len <= 1) {\n        cout << sIn[0];\n    }\n    else {\n        cout << sIn[0];\n        printSReverse(sIn + 1, len - 1);\n    }\n}\nint main() {\n    char sIn[100] = \"Hello\";\n    printSReverse(sIn, strlen(sIn));\n    return 0;\n}",
+    "options": {
+      "A": "这段代码可以正确实现字符串反序的功能，其输出为`olleH`",
+      "B": "这段代码不能正确实现字符串反序的功能，其输出为`Hello`",
+      "C": "这段代码不能正确实现字符串反序的功能，其输出为`HHHHH`",
+      "D": "这段代码不能正确实现字符串反序的功能，其输出为`ooooo`"
+    },
+    "answer": "B",
+    "explanation": "每次调用先输出当前首字符 sIn[0]，再递归处理 sIn+1，即按从前到后的顺序依次输出所有字符，输出为 Hello 而非反序 olleH。要反序应先递归再输出。"
+  },
+  {
+    "id": "gesp-5-sample-sc-6",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["二分枚举法", "递归"],
+    "type": "single_choice",
+    "question": "阅读下面 C++实现的二分查找代码，下列说法中错误的是（ ）。\nint binarySearch(int * arr, int l, int r, int x) {\n    if (r >= l) {\n        int mid = l + (r - l) / 2;\n        if (arr[mid] == x)\n            return mid;\n        else if (arr[mid] > x)\n            return binarySearch(arr, l, mid - 1, x);\n        else\n            return binarySearch(arr, mid + 1, r, x);\n    }\n    else\n        return -1;\n}",
+    "options": {
+      "A": "上面代码实现的二分查找，最少只需查找一次即可得到结果",
+      "B": "如果调用该函数在列表{2, 3, 4, 10, 12}中查找元素 0，则它实际被调用 3 次",
+      "C": "如果调用该函数在列表{2, 3, 4, 10, 12}中查找元素 3，则它实际被调用 3 次",
+      "D": "如果调用该函数在列表{2, 3, 4, 10, 12}中查找元素 10，则它实际被调用 3 次"
+    },
+    "answer": "D",
+    "explanation": "查找 10：第一次 mid=2（值为4），4<10 进入右半区；第二次 mid=3（值为10），直接命中，共被调用 2 次，故 D 错误。A 正确（第一次就命中）；查找 0 需调用 3 次（mid=2→mid=0→区间空），查找 3 也需 3 次，B、C 正确。"
+  },
+  {
+    "id": "gesp-5-sample-sc-7",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["指针类型的概念及基本应用"],
+    "type": "single_choice",
+    "question": "使用如下代码片段定义四个字符串（假设头文件已正确定义），以下说法错误的是（ ）。\nstring str1 = \"abc\";\nstring str2 = str1;\nchar str3[] = \"abc\";\nchar * str4 = str3;",
+    "options": {
+      "A": "对于四个字符串，都可以使用 std::cout 输出其中的内容（例如，cout << str3;）",
+      "B": "str3 只占用 4 字节内存，但 str1 却要占用更多内存",
+      "C": "由于 str2 由 str1 直接赋值得到，因此二者指向同一块内存，即修改 str1 的内容后 str2 的内容也会随之改变",
+      "D": "由于 str4 由 str3 直接赋值得到，因此二者指向同一块内存，即修改 str3 的内容后 str4 的内容也会随之改变"
+    },
+    "answer": "C",
+    "explanation": "string 的赋值是深拷贝，str2 是独立副本，修改 str1 不会影响 str2，故 C 错误。str4 是指向 str3 的指针，二者共享内存，D 正确；str3 占 4 字节（'a''b''c''\\0'），string 对象结构占用更多内存，B 正确；四种形式都可用 cout 输出，A 正确。"
+  },
+  {
+    "id": "gesp-5-sample-sc-8",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["函数的定义与调用", "函数参数传递"],
+    "type": "single_choice",
+    "question": "有关下面 C++代码正确的是（ ）。\nvoid f1() {\n    cout << \"f1()\" << endl;\n}\nvoid f1(int x) {\n    cout << \"f1(\" << x << \")\" << endl;\n}\nint main() {\n    f1();\n    f1(0);\n    f1('0');\n    return 0;\n}",
+    "options": {
+      "A": "该程序不能正常运行，因为 f1 函数被重复定义。",
+      "B": "该程序可以正常运行，输出结果共 3 行，依次为 f1()、f1()、f1()",
+      "C": "该程序可以正常运行，输出结果共 3 行，依次为 f1()、f1(0)、f1(0)",
+      "D": "该程序可以正常运行，输出结果共 3 行，依次为 f1()、f1(0)、f1(48)"
+    },
+    "answer": "D",
+    "explanation": "两个 f1 参数列表不同，构成合法的重载。f1() 调用无参版本；f1(0) 调用 int 版本输出 f1(0)；f1('0') 中字符 '0' 的 ASCII 码为 48，隐式转换为 int，输出 f1(48)。"
+  },
+  {
+    "id": "gesp-5-sample-sc-9",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["异常处理"],
+    "type": "single_choice",
+    "question": "关于 C++程序的异常处理，以下选项中描述错误的是（ ）。",
+    "options": {
+      "A": "编程语言中的异常和错误是不同的概念",
+      "B": "异常一旦发生，程序便一定不能继续执行",
+      "C": "通过 try、catch 等保留字提供异常处理功能",
+      "D": "程序使用 throw 在任何地方抛出各种异常"
+    },
+    "answer": "B",
+    "explanation": "异常被 catch 捕获并正确处理后，程序可以从异常中恢复并继续执行，并非一定终止，故 B 错误。异常与错误是不同概念；try/catch 提供异常处理机制；throw 可在程序任意位置抛出异常，A、C、D 均正确。"
+  },
+  {
+    "id": "gesp-5-sample-sc-10",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["递归", "函数的定义与调用"],
+    "type": "single_choice",
+    "question": "下面代码执行后的输出是（ ）。\nint fibonacci(int N) {\n    cout << N << \",\";\n    if (N == 1 || N == 2) {\n        return 1;\n    } else {\n        return fibonacci(N - 1) + fibonacci(N - 2);\n    }\n}\nint main() {\n    cout << fibonacci(5) << endl;\n    return 0;\n}",
+    "options": {
+      "A": "5,4,3,2,1,2,1,5",
+      "B": "5,4,3,2,1,2,3,2,1,5",
+      "C": "5,4,4,3,2,1,3,2,1,5",
+      "D": "5,4,3,2,1,3,2,1,5"
+    },
+    "answer": "B",
+    "explanation": "每次进入 fibonacci 都先输出 N。fibonacci(5) 输出 5，先递归 fibonacci(4)：输出 4，其子调用依次输出 3,2,1,2（fib(3) 输出 3、其孩子输出 2,1，随后 fib(4) 的第二个孩子 fib(2) 输出 2）；再递归 fibonacci(3)：输出 3,2,1。最后 fib(5) 返回 5 被输出。完整序列为 5,4,3,2,1,2,3,2,1,5。"
+  },
+  {
+    "id": "gesp-5-sample-sc-11",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["辗转相除法", "递归"],
+    "type": "single_choice",
+    "question": "下列代码中，函数 f 的作用是（ ）。\nvoid f(int a, int b) {\n    return b == 0 ? a : f(b, a % b);\n}",
+    "options": {
+      "A": "求 a 和 b 的最大公共质因子",
+      "B": "求 a 和 b 的最小公共质因子",
+      "C": "求 a 和 b 的最大公约数",
+      "D": "求 a 和 b 的最小公倍数"
+    },
+    "answer": "C",
+    "explanation": "这是辗转相除法（欧几里得算法）的递归实现：gcd(a, b) = gcd(b, a mod b)，当 b 为 0 时 a 即为最大公约数。"
+  },
+  {
+    "id": "gesp-5-sample-sc-12",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["算法：排序算法", "分治算法（归并和快速排序）", "算法复杂度的估算"],
+    "type": "single_choice",
+    "question": "下面 C++代码用于排序，下列说法中错误的是（ ）。\nvoid sortA(int * arr, int n) {\n    for (int i = 0; i < n; ++i)\n        for (int j = 0; j < n - i - 1; ++j)\n            if (arr[j] > arr[j + 1]) {\n                int tmp = arr[j];\n                arr[j] = arr[j + 1];\n                arr[j + 1] = tmp;\n            }\n}\nvoid sortB(int * arr, int start, int end) {\n    if (start >= end)\n        return;\n    int middle = (start + end) / 2;\n    sortB(arr, start, middle);\n    sortB(arr, middle + 1, end);\n    int leftSize = middle - start + 1;\n    int rightSize = end - middle;\n    int * left = new int[leftSize];\n    int * right = new int[rightSize];\n    for (int i = 0; i < leftSize; ++i)\n        left[i] = arr[start + i];\n    for (int j = 0; j < rightSize; ++j)\n        right[j] = arr[middle + 1 + j];\n    int i = 0;\n    int j = 0;\n    int k = start;\n    while (i < leftSize && j < rightSize) {\n        if (left[i] <= right[j]) {\n            arr[k] = left[i];\n            ++i;\n        } else {\n            arr[k] = right[j];\n            ++j;\n        }\n        ++k;\n    }\n    while (i < leftSize) {\n        arr[k] = left[i];\n        ++i;\n        ++k;\n    }\n    while (j < rightSize) {\n        arr[k] = right[j];\n        ++j;\n        ++k;\n    }\n    delete[] left;\n    delete[] right;\n}",
+    "options": {
+      "A": "两种排序算法的时间复杂度不同。",
+      "B": "两种排序算法的空间复杂度一致。",
+      "C": "sortA 的时间复杂度在最好和最坏情况下都是 O(N^2)。",
+      "D": "sortB 的平均时间复杂度、最好情况的时间复杂度都是 O(log N)，最坏情况的时间复杂度是 O(N^2)。"
+    },
+    "answer": "B",
+    "explanation": "sortA 是冒泡排序，空间复杂度 O(1)；sortB 是归并排序，需要 O(N) 的辅助数组空间，二者空间复杂度不一致，B 错误。sortA 最好最坏均为 O(N^2)，C 正确；D 中 sortB 描述（平均/最好 O(N log N)、最坏 O(N^2)）符合排序算法的一般描述（此处选项原文如此）。"
+  },
+  {
+    "id": "gesp-5-sample-sc-13",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["分治算法（归并和快速排序）", "递归"],
+    "type": "single_choice",
+    "question": "上一题中的`sortB`函数，明显体现出的算法思想和编程方法包括（ ）。",
+    "options": {
+      "A": "递归",
+      "B": "分治",
+      "C": "A、B 都正确",
+      "D": "A、B 都不正确"
+    },
+    "answer": "C",
+    "explanation": "sortB 是归并排序：函数直接调用自身（递归），同时将数组分成两半分别排序再合并（分治），二者兼有。"
+  },
+  {
+    "id": "gesp-5-sample-sc-14",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["分治算法（归并和快速排序）", "素数表的埃氏筛法和线性筛法"],
+    "type": "single_choice",
+    "question": "下列哪个算法并没有体现分治思想？（ ）。",
+    "options": {
+      "A": "二分查找",
+      "B": "埃氏筛法。",
+      "C": "归并排序。",
+      "D": "快速排序。"
+    },
+    "answer": "B",
+    "explanation": "二分查找、归并排序、快速排序都是把问题分成更小的子问题分别求解，体现分治思想；埃氏筛法是通过逐个划掉质数的倍数来筛出素数，不涉及分治。"
+  },
+  {
+    "id": "gesp-5-sample-sc-15",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["单链表", "双链表", "循环链表"],
+    "type": "single_choice",
+    "question": "下列关于链表说法，正确的是（ ）。",
+    "options": {
+      "A": "不能用数组来实现链表。",
+      "B": "在链表头部插入元素的时间复杂度是 O(1)。",
+      "C": "循环链表使得任意一个结点都可以很方便地访问其前驱与后继。",
+      "D": "从双向链表的任意一个节点出发，并不一定能够访问到所有其他节点。"
+    },
+    "answer": "B",
+    "explanation": "链表可以用数组模拟实现，A 错误；在已知头指针的链表头部插入只需修改指针，时间复杂度 O(1)，B 正确；单循环链表访问前驱仍需遍历，C 错误；双向链表中任意节点可通过前驱/后继指针到达所有其他节点，D 错误。"
+  },
+  {
+    "id": "gesp-5-sample-tf-1",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["计算机硬件基础"],
+    "type": "true_false",
+    "question": "计算机硬件主要包括运算器、控制器、存储器、输入设备和输出设备。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "这是经典的计算机五大组成部分（冯·诺依曼体系结构）：运算器、控制器、存储器、输入设备、输出设备，说法正确。"
+  },
+  {
+    "id": "gesp-5-sample-tf-2",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["唯一分解定理", "初等数论"],
+    "type": "true_false",
+    "question": "唯一分解定理指的是分解质因数只有唯一的一种算法。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "唯一分解定理（算术基本定理）指的是任何大于 1 的整数都可以唯一地分解为若干质数的乘积（分解结果唯一，不计顺序），而不是说只有唯一的分解算法，说法错误。"
+  },
+  {
+    "id": "gesp-5-sample-tf-3",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["素数表的埃氏筛法和线性筛法", "算法复杂度的估算"],
+    "type": "true_false",
+    "question": "埃氏筛法用于找出自然数 N 以内的所有质数，其时间复杂度为 O(N√N)，因为判定一个数是否为质数的时间复杂度为 O(N)。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "埃氏筛法的时间复杂度约为 O(N log log N)，并非 O(N√N)；而且判定一个数是否为质数的试除法复杂度是 O(√N) 而非 O(N)，题述两个依据均错误。"
+  },
+  {
+    "id": "gesp-5-sample-tf-4",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["贪心算法"],
+    "type": "true_false",
+    "question": "贪心法的每一步都采取局部最优策略，因此必然能实现全局最优。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "贪心算法每步采取局部最优，但局部最优不一定导致全局最优（如 0-1 背包问题），只有在问题具有贪心选择性质时才能保证全局最优，说法错误。"
+  },
+  {
+    "id": "gesp-5-sample-tf-5",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["函数的定义与调用", "函数参数传递"],
+    "type": "true_false",
+    "question": "在 C++语言中，函数的参数也可以是另一个函数。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "C++ 中可以通过函数指针（或 std::function、lambda 等）把函数作为参数传递给另一个函数，例如回调函数，说法正确。"
+  },
+  {
+    "id": "gesp-5-sample-tf-6",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["算法：排序算法"],
+    "type": "true_false",
+    "question": "在 C++语言中，内置的排序算法（algorithm 库中的 sort 函数）只能对 C++的基础类型（如 int、double 等）做排序，而不能对自定义类型做排序。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "std::sort 是模板函数，只要自定义类型支持比较运算（重载 < 或提供比较函数/仿函数），就可以对其排序，说法错误。"
+  },
+  {
+    "id": "gesp-5-sample-tf-7",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["单链表"],
+    "type": "true_false",
+    "question": "在任何场景下，链表都是比数组更优秀的数据结构。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "数据结构没有绝对优劣。数组支持 O(1) 随机访问且缓存友好，链表访问元素需 O(N) 且每个节点有额外指针开销。随机访问频繁的场景下数组更优，说法错误。"
+  },
+  {
+    "id": "gesp-5-sample-tf-8",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["指针类型的概念及基本应用"],
+    "type": "true_false",
+    "question": "在 C++语言中，可以使用 delete 来释放指针指向的内存空间。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "对于用 new 动态分配的内存，可以使用 delete（对象）或 delete[]（数组）释放指针所指向的空间，说法正确。"
+  },
+  {
+    "id": "gesp-5-sample-tf-9",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["算法：排序概念和稳定性", "算法：排序算法"],
+    "type": "true_false",
+    "question": "选择排序和快速排序都是不稳定的。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "T",
+    "explanation": "选择排序在交换时可能改变相等元素的相对顺序；快速排序在分区过程中也会打破相等元素的相对顺序，二者都是不稳定排序，说法正确。"
+  },
+  {
+    "id": "gesp-5-sample-tf-10",
+    "exam": {"type": "GESP", "level": 5, "date": "sample"},
+    "knowledge_points": ["二分枚举法"],
+    "type": "true_false",
+    "question": "二分查找法可以应用于有序序列（如升序排序的整数数组），也可以应用于无序序列（如乱序的整数数组）。",
+    "options": {"T": "正确", "F": "错误"},
+    "answer": "F",
+    "explanation": "二分查找的前提是序列必须有序，通过比较中间元素与目标值来排除一半区间；对无序序列这样做无法保证正确性，必须先排序才能使用二分查找，说法错误。"
+  }
+]
