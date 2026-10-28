@@ -36,7 +36,7 @@
 
 ### 5. 输出格式
 - 返回一个 JSON 数组 List[Dict]。
-- 文件命名：type-level-date.json（如 gesp-4-202403.json）。
+- 文件命名：type-level-date.json（如 gesp-4-2403.json）。
 
 ## 知识点列表（用于匹配）
 函数的定义与调用
