@@ -28,6 +28,9 @@ from app.core.question_loader import (
     search_questions,
     update_question_in_file,
     get_question_by_id_from_all,
+    get_all_exam_types,
+    get_all_exam_levels,
+    get_exam_dates,
 )
 from app.core.cache import (
     get_all_questions,
@@ -37,6 +40,8 @@ from app.core.cache import (
 from app.core.pdf_parser import (
     pdf_to_markdown,
     parse_pdf_metadata,
+    extract_metadata,
+    normalize_metadata,
     validate_metadata,
     check_duplicate,
     generate_filename,
@@ -269,6 +274,7 @@ def main():
 
                 Path(TEMP_DIR).mkdir(exist_ok=True)
                 meta_list = []
+                parse_errors = []  # LLM 失败原因（即使兜底成功也记录，供 UI 提示）
 
                 for f in uploaded:
                     logger.info("正在处理文件: %s", f.name)
@@ -285,33 +291,39 @@ def main():
                         logger.warning("PDF 转 Markdown 失败: %s", e)
                         meta_list.append({
                             "orig": f.name, "type": "", "level": "", "date": "",
-                            "status": "❌ 解析失败", "stem": "", "markdown": "", "temp_path": str(temp_path)
+                            "status": f"❌ PDF 转换失败: {e}", "stem": "", "markdown": "", "temp_path": str(temp_path),
+                            "source": ""
                         })
                         continue
 
-                    try:
-                        md_meta = parse_pdf_metadata(md)
-                        logger.debug("parse_pdf_metadata 返回: %s", md_meta)
-                    except Exception as e:
-                        logger.warning("parse_pdf_metadata 抛出异常: %s", e)
-                        md_meta = {}
+                    md_meta, source, meta_error = extract_metadata(md, f.name)
+                    logger.debug("extract_metadata 返回: %s (source=%s)", md_meta, source)
+                    if meta_error:
+                        parse_errors.append(f"{f.name}：{meta_error}")
 
                     t, l, d = md_meta.get("type", ""), md_meta.get("level", ""), md_meta.get("date", "")
                     ok, err = validate_metadata(t, l, d)
-                    stem = generate_filename(t, l, d) if ok else ""
-                    
-                    if not ok:
-                        status = f"❌ {err}"
-                    elif check_duplicate(t, l, d):
-                        status = "⚠️ 已存在"
+                    if ok:
+                        stem = generate_filename(t, l, d)
+                        suffix = "（按文件名）" if source == "filename" else ""
+                        if check_duplicate(t, l, d):
+                            status = f"⚠️ 已存在{suffix}"
+                        else:
+                            status = f"✅ 新题{suffix}"
                     else:
-                        status = "✅ 新题"
-                        
+                        stem = ""
+                        status = f"❌ {err}"
+
                     meta_list.append({
                         "orig": f.name, "type": t, "level": l, "date": d,
-                        "status": status, "stem": stem, "markdown": md, "temp_path": str(temp_path)
+                        "status": status, "stem": stem, "markdown": md, "temp_path": str(temp_path),
+                        "source": source
                     })
 
+                if parse_errors:
+                    st.session_state.upload_parse_errors = parse_errors
+                else:
+                    st.session_state.upload_parse_errors = []
                 st.session_state.upload_meta = meta_list
                 st.session_state.upload_results = {}
                 st.session_state.upload_report = None
@@ -321,14 +333,29 @@ def main():
             st.session_state.upload_meta = []
             st.session_state.upload_results = {}
             st.session_state.upload_report = None
+            st.session_state.upload_parse_errors = []
             st.rerun()
 
     meta = st.session_state.upload_meta
     # 显示调试信息
     if "debug_meta" in st.session_state:
         st.warning(st.session_state["debug_meta"])
+    # LLM 解析失败原因（含兜底成功的情况，供用户核对）
+    for err in st.session_state.get("upload_parse_errors", []):
+        st.info(err)
     if meta:
         st.subheader("元数据解析结果（可编辑）")
+        # 下拉选项：来自现有题库，也允许直接输入新值
+        type_opts = sorted({t.lower() for t in get_all_exam_types()})
+        level_opts = sorted(
+            set(get_all_exam_levels()) | {str(n) for n in range(1, 9)},
+            key=lambda x: (not x.isdigit(), x),
+        )
+        date_opts = list(get_exam_dates())
+
+        def _select_index(options, value):
+            return options.index(value) if value in options else None
+
         # 表头
         hc = st.columns([3, 1.5, 1, 1.5, 2])
         for col, label in zip(hc, ["原文件名", "Type", "Level", "Date", "状态"]):
@@ -337,10 +364,21 @@ def main():
         for i, m in enumerate(meta):
             rc = st.columns([3, 1.5, 1, 1.5, 2])
             rc[0].write(m["orig"])
-            m["type"] = rc[1].text_input("type", m["type"], key=f"um_t_{i}", label_visibility="collapsed")
-            m["level"] = rc[2].text_input("level", m["level"], key=f"um_l_{i}", label_visibility="collapsed")
-            m["date"] = rc[3].text_input("date", m["date"], key=f"um_d_{i}", label_visibility="collapsed")
-            # 实时重算状态
+            m["type"] = rc[1].selectbox(
+                "type", type_opts, index=_select_index(type_opts, m["type"]),
+                key=f"um_t_{i}", label_visibility="collapsed", accept_new_options=True,
+            )
+            m["level"] = rc[2].selectbox(
+                "level", level_opts, index=_select_index(level_opts, m["level"]),
+                key=f"um_l_{i}", label_visibility="collapsed", accept_new_options=True,
+            )
+            m["date"] = rc[3].selectbox(
+                "date", date_opts, index=_select_index(date_opts, m["date"]),
+                key=f"um_d_{i}", label_visibility="collapsed", accept_new_options=True,
+            )
+            # 实时重算状态（先归一化，手输 GESP/五级/2406 等变体自动纠正）
+            norm = normalize_metadata(m["type"], m["level"], m["date"])
+            m["type"], m["level"], m["date"] = norm["type"], norm["level"], norm["date"]
             ok, err = validate_metadata(m["type"], m["level"], m["date"])
             if ok:
                 m["stem"] = generate_filename(m["type"], m["level"], m["date"])
@@ -353,9 +391,9 @@ def main():
     # ========== 解析题目 ==========
     if st.button("✅ 确认无误，开始解析题目", type="primary"):
         results = {}
-        new_files = [m for m in meta if m["status"] == "✅ 新题"]
+        new_files = [m for m in meta if str(m["status"]).startswith("✅ 新题")]
         progress = st.progress(0.0)
-        
+
         logger.info("开始解析题目，待解析文件数: %d", len(new_files))
 
         for i, m in enumerate(new_files):
@@ -382,7 +420,7 @@ def main():
                 m["status"] = f"❌ 异常"
 
         logger.info("解析流程结束")
-        
+
         progress.progress(1.0, text="解析完成")
         st.session_state.upload_results = results
         st.rerun()

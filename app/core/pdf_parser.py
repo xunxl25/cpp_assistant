@@ -82,8 +82,92 @@ def parse_pdf_metadata(markdown_text: str) -> Dict[str, str]:
     解析 PDF 的基本元数据（基于 Markdown 文本）
     Args: markdown_text, PDF 转换后的 Markdown
     Returns: {"type": "gesp", "level": "4", "date": "202606"}; 解析失败时返回空
-    """
 
+    兼容入口：结果已归一化。需要失败原因/文件名兜底时用 extract_metadata。
+    """
+    try:
+        return _parse_metadata_llm(markdown_text)
+    except Exception:
+        return {}
+
+
+# 中文数字级别（GESP 试卷标题常为 "五级" 形式）
+_CN_NUM = {"一": "1", "二": "2", "三": "3", "四": "4", "五": "5",
+           "六": "6", "七": "7", "八": "8", "九": "9"}
+
+
+def normalize_metadata(type: str, level: str, date: str) -> Dict[str, str]:
+    """
+    将元数据归一化到库内标准格式：
+    - type: 去空格、小写（如 GESP → gesp）
+    - level: 中文数字转阿拉伯（五级 → 5），去 "第/级" 修饰
+    - date: 兼容 202406 / 2406 / 2024年6月 / 2024-06 等变体，统一为 yyyymm；
+            "sample" 原样保留
+    无法识别的 date 原样返回，由 validate_metadata 负责报错。
+    """
+    t = str(type or "").strip().lower()
+
+    lv = str(level or "").strip()
+    lv = lv.lstrip("第").rstrip("级")
+    lv = _CN_NUM.get(lv, lv)
+
+    d = str(date or "").strip()
+    if d.lower() in ("sample", "样题", "样卷"):
+        d = "sample"
+    else:
+        m = re.match(r"^(20\d{2})\s*年\s*(\d{1,2})\s*月?$", d)
+        if not m:
+            m = re.match(r"^(20\d{2})[-/.]\s*(\d{1,2})$", d)
+        if m:
+            d = f"{m.group(1)}{int(m.group(2)):02d}"
+        elif re.fullmatch(r"20\d{4}", d):
+            pass  # 已是 6 位标准
+        elif re.fullmatch(r"\d{4}", d):
+            d = "20" + d  # 4 位 yymm 补全（GESP 起始于 2023 年，2000 年代前缀安全）
+
+    return {"type": t, "level": lv, "date": d}
+
+
+# 文件名两种形态：{type}-{level}-{date}（gesp-5-202406）与 {type}{level} - {date}（gesp5 - 2509）
+_FN_P1 = re.compile(
+    r"^(?P<type>[A-Za-z]{2,})[-_ .]+(?P<level>\d{1,2}|[A-Ca-c])[-_ .]+(?P<date>20\d{4}|\d{4}|sample)$",
+    re.IGNORECASE,
+)
+_FN_P2 = re.compile(
+    r"^(?P<type>[A-Za-z]{2,})(?P<level>\d{1,2}|[A-Ca-c])[-_ .]+(?P<date>20\d{4}|\d{4}|sample)$",
+    re.IGNORECASE,
+)
+
+
+def parse_metadata_from_filename(filename: str) -> Dict[str, str]:
+    """
+    从文件名解析元数据（LLM 解析失败时的兜底）。
+
+    支持的命名（大小写不敏感，日期 6 位标准或 4 位 yymm 自动补全）：
+      - {type}-{level}-{yyyymm|sample}   如 gesp-5-202406.pdf / GESP-4-sample.pdf
+      - {type}{level} - {yymm}           如 gesp5 - 2509.pdf（补全为 202509）
+      - {type}-{level}-{yymm}            如 gesp-5-2509.pdf
+
+    Returns:
+        {"type","level","date"} 三字段齐全返回归一化结果；无法解析返回空 dict
+    """
+    stem = Path(str(filename)).stem.strip()
+    m = _FN_P1.match(stem) or _FN_P2.match(stem)
+    if not m:
+        return {}
+
+    meta = normalize_metadata(
+        m.group("type"), m.group("level") or "", m.group("date")
+    )
+    if meta["type"] and meta["level"] and meta["date"]:
+        return meta
+    return {}
+
+
+def _parse_metadata_llm(markdown_text: str) -> Dict[str, str]:
+    """
+    LLM 解析元数据（内部实现，失败时抛异常并带原因，供上层浮出错误）。
+    """
     header = "\n".join(markdown_text.split("\n")[:20])
 
     prompt = f"""从这份考试文档中提取以下信息：
@@ -96,20 +180,46 @@ def parse_pdf_metadata(markdown_text: str) -> Dict[str, str]:
 
     只返回 JSON，不要额外说明: {{"type": "gesp", "level": "4", "date": "202606"}}
     """
-    try:
-        raw = call_llm(prompt, system="你是一个元数据提取助手，只输出 JSON。", max_tokens=800)
-    except Exception:
-        return {}
+    raw = call_llm(prompt, system="你是一个元数据提取助手，只输出 JSON。", max_tokens=800)
+
+    if not raw or not raw.strip():
+        raise RuntimeError("LLM 返回空响应")
 
     data = _extract_json(raw)
     if not isinstance(data, dict):
-        return {}
+        raise RuntimeError("LLM 返回内容无法解析为 JSON")
 
-    return {
-        "type": str(data.get("type", "")).lower().strip(),
-        "level": str(data.get("level", "")).strip(),
-        "date": str(data.get("date", "")).strip(),
-    }
+    meta = normalize_metadata(data.get("type", ""), data.get("level", ""), data.get("date", ""))
+    if not (meta["type"] and meta["level"] and meta["date"]):
+        raise RuntimeError("LLM 返回的元数据不完整")
+    return meta
+
+
+def extract_metadata(markdown_text: str, filename: str) -> Tuple[Dict[str, str], str, str]:
+    """
+    元数据解析组合入口：LLM 优先，失败时文件名兜底，结果统一归一化。
+
+    Args:
+        markdown_text: PDF 转换后的 Markdown
+        filename: 上传的原始文件名（用于兜底解析）
+
+    Returns:
+        (meta, source, error)
+        - meta: {"type","level","date"}，全部失败时各字段为空字符串
+        - source: "llm" / "filename" / ""
+        - error: LLM 失败原因（成功时为空；兜底成功时保留原因供 UI 提示）
+    """
+    try:
+        return _parse_metadata_llm(markdown_text), "llm", ""
+    except Exception as e:
+        error = f"LLM 元数据解析失败（{e}）"
+
+    by_name = parse_metadata_from_filename(filename)
+    if by_name:
+        return by_name, "filename", error
+
+    return {"type": "", "level": "", "date": ""}, "", f"{error}；文件名 {filename} 无法解析出元数据，请手动填写"
+
 
 def generate_filename(type: str, level: str, date: str) -> str:
     """生成标准文件名（不含扩展名）：{type}-{level}-{date}"""

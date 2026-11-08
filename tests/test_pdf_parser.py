@@ -11,6 +11,9 @@ from app.core.pdf_parser import (
     validate_metadata,
     check_duplicate,
     parse_pdf_metadata,
+    parse_metadata_from_filename,
+    normalize_metadata,
+    extract_metadata,
     parse_pdf_questions,
     validate_question,
     _extract_json,
@@ -27,7 +30,7 @@ class TestGenerateFilename:
 
 class TestValidateMetadata:
     def test_valid(self):
-        ok, err = validate_metadata("gesp", "4", "2606")
+        ok, err = validate_metadata("gesp", "4", "202606")
         assert ok and err == ""
 
     def test_valid_sample(self):
@@ -35,16 +38,17 @@ class TestValidateMetadata:
         assert ok
 
     def test_type_too_short(self):
-        ok, err = validate_metadata("g", "4", "2606")
+        ok, err = validate_metadata("g", "4", "202606")
         assert not ok
         assert "考试类型" in err
 
     def test_empty_level(self):
-        ok, err = validate_metadata("gesp", "", "2606")
+        ok, err = validate_metadata("gesp", "", "202606")
         assert not ok
 
     def test_bad_date(self):
-        ok, err = validate_metadata("gesp", "4", "202606")
+        # 4 位 yymm 已非标准（统一 6 位 yyyymm），应报错提示
+        ok, err = validate_metadata("gesp", "4", "2606")
         assert not ok
         assert "日期" in err
 
@@ -98,7 +102,14 @@ class TestParsePdfMetadata:
         mock_call.return_value = '{"type": "gesp", "level": "4", "date": "2606"}'
         md = "# GESP 四级 2026年6月\n题目..."
         meta = parse_pdf_metadata(md)
-        assert meta == {"type": "gesp", "level": "4", "date": "2606"}
+        # 4 位日期自动归一化为 6 位
+        assert meta == {"type": "gesp", "level": "4", "date": "202606"}
+
+    @patch("app.core.pdf_parser.call_llm")
+    def test_normalizes_variants(self, mock_call):
+        mock_call.return_value = '{"type": "GESP", "level": "五级", "date": "2024年6月"}'
+        meta = parse_pdf_metadata("xxx")
+        assert meta == {"type": "gesp", "level": "5", "date": "202406"}
 
     @patch("app.core.pdf_parser.call_llm")
     def test_failure_returns_empty(self, mock_call):
@@ -109,6 +120,95 @@ class TestParsePdfMetadata:
     def test_llm_error_returns_empty(self, mock_call):
         mock_call.side_effect = RuntimeError("no key")
         assert parse_pdf_metadata("xxx") == {}
+
+    @patch("app.core.pdf_parser.call_llm")
+    def test_empty_response_returns_empty(self, mock_call):
+        mock_call.return_value = ""
+        assert parse_pdf_metadata("xxx") == {}
+
+
+class TestNormalizeMetadata:
+    def test_type_case(self):
+        assert normalize_metadata("GESP", "4", "202406")["type"] == "gesp"
+
+    def test_chinese_level(self):
+        assert normalize_metadata("gesp", "五级", "202406")["level"] == "5"
+        assert normalize_metadata("gesp", "第4级", "202406")["level"] == "4"
+
+    def test_date_variants(self):
+        cases = [
+            ("202406", "202406"),
+            ("2406", "202406"),
+            ("2024年6月", "202406"),
+            ("2024-06", "202406"),
+            ("2024.6", "202406"),
+            ("sample", "sample"),
+            ("样题", "sample"),
+        ]
+        for raw, expect in cases:
+            assert normalize_metadata("gesp", "4", raw)["date"] == expect, raw
+
+    def test_unrecognized_date_kept(self):
+        # 无法识别的日期原样返回，交给 validate_metadata 报错
+        assert normalize_metadata("gesp", "4", "abcd")["date"] == "abcd"
+
+
+class TestParseMetadataFromFilename:
+    def test_standard_six_digit(self):
+        assert parse_metadata_from_filename("gesp-5-202406.pdf") == {
+            "type": "gesp", "level": "5", "date": "202406"
+        }
+
+    def test_case_insensitive(self):
+        assert parse_metadata_from_filename("GESP-4-sample.pdf") == {
+            "type": "gesp", "level": "4", "date": "sample"
+        }
+
+    def test_loose_spacing_four_digit(self):
+        assert parse_metadata_from_filename("gesp5 - 2509.pdf") == {
+            "type": "gesp", "level": "5", "date": "202509"
+        }
+
+    def test_four_digit_suffix(self):
+        assert parse_metadata_from_filename("gesp-5-2509.pdf")["date"] == "202509"
+
+    def test_unparseable(self):
+        assert parse_metadata_from_filename("试卷 final.pdf") == {}
+        assert parse_metadata_from_filename("gesp.pdf") == {}
+        assert parse_metadata_from_filename("scan_001.pdf") == {}
+
+
+class TestExtractMetadata:
+    @patch("app.core.pdf_parser.call_llm")
+    def test_llm_success(self, mock_call):
+        mock_call.return_value = '{"type": "gesp", "level": "5", "date": "202406"}'
+        meta, source, error = extract_metadata("md", "whatever.pdf")
+        assert meta == {"type": "gesp", "level": "5", "date": "202406"}
+        assert source == "llm"
+        assert error == ""
+
+    @patch("app.core.pdf_parser.call_llm")
+    def test_llm_fail_filename_fallback(self, mock_call):
+        mock_call.side_effect = RuntimeError("no key")
+        meta, source, error = extract_metadata("md", "gesp-5-202406.pdf")
+        assert meta == {"type": "gesp", "level": "5", "date": "202406"}
+        assert source == "filename"
+        assert "no key" in error
+
+    @patch("app.core.pdf_parser.call_llm")
+    def test_both_fail(self, mock_call):
+        mock_call.return_value = ""
+        meta, source, error = extract_metadata("md", "试卷 final.pdf")
+        assert meta == {"type": "", "level": "", "date": ""}
+        assert source == ""
+        assert "手动填写" in error
+
+    @patch("app.core.pdf_parser.call_llm")
+    def test_llm_empty_response_fallback(self, mock_call):
+        mock_call.return_value = ""
+        meta, source, error = extract_metadata("md", "gesp-5-2406.pdf")
+        assert meta == {"type": "gesp", "level": "5", "date": "202406"}
+        assert source == "filename"
 
 
 class TestParsePdfQuestions:
