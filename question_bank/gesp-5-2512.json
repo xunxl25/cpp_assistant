@@ -1,8 +1,14 @@
 [
   {
     "id": "gesp-5-202512-sc-1",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["循环链表"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "循环链表"
+    ],
     "type": "single_choice",
     "question": "对如下定义的循环单链表，横线处填写（ ）。\n// 循环单链表的结点\nstruct Node {\n    int data;\n    Node* next;\n    Node(int d) : data(d), next(nullptr) {}\n};\n// 创建一个只有一个结点的循环单链表\nNode* createList(int value) {\n    Node* head = new Node(value);\n    head->next = head;\n    return head;\n}\n// 在循环单链表尾部插入新结点\nvoid insertTail(Node* head, int value) {\n    Node* p = head;\n    while (p->next != head) {\n        p = p->next;\n    }\n    Node* node = new Node(value);\n    node->next = head;\n    p->next = node;\n}\n// 遍历并输出循环单链表\nvoid printList(Node* head) {\n    if (head == nullptr) return;\n    Node* p = head;\n    _______________________ //在此处填入代码\n    cout << endl;\n}",
     "options": {
@@ -16,8 +22,14 @@
   },
   {
     "id": "gesp-5-202512-sc-2",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["单链表"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
     "type": "single_choice",
     "question": "区块链技术是比特币的基础。在区块链中，每个区块指向前一个区块，构成链式列表，新区块只能接在链尾，不允许在中间插入或删除。下面代码实现插入区块添加函数，则横线处填写（ ）。\nstruct Block {\n    int index;\n    string data;\n    Block* prev;\n    Block(int idx, const string& d, Block* p) : index(idx), data(d), prev(p) {}\n};\nstruct Blockchain {\n    Block* tail;\n    void init() {\n        tail = new Block(0, \"Genesis Block\", nullptr);\n    }\n    void addBlock(const string& data) {\n        _______________________ //在此处填入代码\n    }\n    void clear() {\n        Block* cur = tail;\n        while (cur != nullptr) {\n            Block* p = cur->prev;\n            delete cur;\n            cur = p;\n        }\n        tail = nullptr;\n    }\n};",
     "options": {
@@ -31,8 +43,15 @@
   },
   {
     "id": "gesp-5-202512-sc-3",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["单链表", "双链表"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "单链表",
+      "双链表"
+    ],
     "type": "single_choice",
     "question": "下面关于单链表和双链表的描述中，正确的是（ ）。（参照原PDF代码）\n双链表删除指定节点：若 node->prev 存在则 node->prev->next = node->next；若 node->next 存在则 node->next->prev = node->prev；然后 delete node。\n单链表删除指定节点：从头遍历找到 node 的前驱 prev，令 prev->next = node->next，然后 delete node。",
     "options": {
@@ -46,18 +65,37 @@
   },
   {
     "id": "gesp-5-202512-sc-4",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["初等数论"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "初等数论"
+    ],
     "type": "single_choice",
     "question": "假设我们有两个数 a = 38 和 b = 14，它们对模 m 同余，即 a ≡ b (mod m)。以下哪个值不可能是 m？",
-    "options": {"A": "3", "B": "4", "C": "6", "D": "9"},
-    "answer": "A",
+    "options": {
+      "A": "3",
+      "B": "4",
+      "C": "6",
+      "D": "9"
+    },
+    "answer": "D",
     "explanation": "a ≡ b (mod m) 要求 m 整除 a - b = 38 - 14 = 24。24 的因子有 1,2,3,4,6,8,12,24。3 是 24 的因子吗？24/3=8，是因子，3 可能。检查各选项：4|24 成立，6|24 成立，9 不整除 24（24/9 非整数），3 整除 24。再验证：38 mod 3 = 2，14 mod 3 = 2，同余成立。因此不可能是 m 的是 9。答案为 D。"
   },
   {
     "id": "gesp-5-202512-sc-5",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["辗转相除法", "递归", "函数的定义与调用"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "辗转相除法",
+      "递归",
+      "函数的定义与调用"
+    ],
     "type": "single_choice",
     "question": "下面代码实现了欧几里得算法。下面有关说法，错误的是（ ）。\nint gcd1(int a, int b) {\n    return b == 0 ? a : gcd1(b, a % b);\n}\nint gcd2(int a, int b) {\n    while (b != 0) {\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}",
     "options": {
@@ -71,8 +109,15 @@
   },
   {
     "id": "gesp-5-202512-sc-6",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["唯一分解定理", "初等数论"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "唯一分解定理",
+      "初等数论"
+    ],
     "type": "single_choice",
     "question": "唯一分解定理描述的内容是（ ）。",
     "options": {
@@ -86,8 +131,14 @@
   },
   {
     "id": "gesp-5-202512-sc-7",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["素数表的埃氏筛法和线性筛法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
     "type": "single_choice",
     "question": "下述代码实现素数表的线性筛法，筛选出所有小于等于 n 的素数，则横线上应填的代码是（ ）。\nvector<int> linear_sieve(int n) {\n    vector<bool> is_prime(n + 1, true);\n    vector<int> primes;\n    is_prime[0] = is_prime[1] = 0;\n    for (int i = 2; i <= n; ++i) {\n        if (is_prime[i]) {\n            primes.push_back(i);\n        }\n        ________________________________ { // 在此处填入代码\n            is_prime[ i * primes[j] ] = 0;\n            if (i % primes[j] == 0)\n                break;\n        }\n    }\n    return primes;\n}",
     "options": {
@@ -101,8 +152,15 @@
   },
   {
     "id": "gesp-5-202512-sc-8",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["算法：排序概念和稳定性", "算法：排序算法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性",
+      "算法：排序算法"
+    ],
     "type": "single_choice",
     "question": "下列关于排序的说法，正确的是（ ）。",
     "options": {
@@ -116,8 +174,15 @@
   },
   {
     "id": "gesp-5-202512-sc-9",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["分治算法（归并和快速排序）", "算法复杂度的估算"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）",
+      "算法复杂度的估算"
+    ],
     "type": "single_choice",
     "question": "下面代码实现了归并排序。下述关于归并排序的说法中，不正确的是（ ）。（参照原PDF代码：merge 函数合并两个有序子数组到 temp 并回写，mergeSort 递归二分后调用 merge）",
     "options": {
@@ -131,8 +196,15 @@
   },
   {
     "id": "gesp-5-202512-sc-10",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["分治算法（归并和快速排序）", "算法复杂度的估算"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）",
+      "算法复杂度的估算"
+    ],
     "type": "single_choice",
     "question": "下述C++代码实现了快速排序算法，最坏情况的时间复杂度是（ ）。（参照原PDF代码：partition 以首元素为基准进行划分，quickSort 递归排序两侧）",
     "options": {
@@ -146,8 +218,14 @@
   },
   {
     "id": "gesp-5-202512-sc-11",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["二分枚举法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
     "type": "single_choice",
     "question": "下面代码尝试在有序数组中查找第一个大于等于 x 的元素位置。如果没有大于等于 x 的元素，返回 arr.size()。以下说法正确的是（ ）。\nint lower_bound(vector<int>& arr, int x) {\n    int l = 0, r = arr.size();\n    while(l < r) {\n        int mid = l + (r - l) / 2;\n        if(arr[mid] >= x) r = mid;\n        else l = mid + 1;\n    }\n    return l;\n}",
     "options": {
@@ -161,8 +239,14 @@
   },
   {
     "id": "gesp-5-202512-sc-12",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["二分枚举法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
     "type": "single_choice",
     "question": "小杨要把一根长度为 L 的木头切成 K 段，使得每段长度小于等于 x。已知每切一刀只能把一段木头分成两段，他用二分法找到满足条件的最小 x（x 为正整数），则横线处应填写（ ）。\nbool check(int L, int K, int x) {\n    int cuts = (L - 1) / x;\n    return cuts <= K;\n}\nint binary_cut(int L, int K) {\n    int l = 1, r = L;\n    while (l < r) {\n        int mid = l + (r - l) / 2;\n        ________________________________ // 在此处填入代码\n    }\n    return l;\n}",
     "options": {
@@ -176,8 +260,15 @@
   },
   {
     "id": "gesp-5-202512-sc-13",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["递归", "算法复杂度的估算"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "递归",
+      "算法复杂度的估算"
+    ],
     "type": "single_choice",
     "question": "下面给出了阶乘计算的两种方式。以下说法正确的是（ ）。\nint factorial1(int n) {\n    if (n <= 1) return 1;\n    return n * factorial1(n - 1);\n}\nint factorial2(int n) {\n    int acc = 1;\n    while (n > 1) {\n        acc = n * acc;\n        n = n - 1;\n    }\n    return acc;\n}",
     "options": {
@@ -191,8 +282,15 @@
   },
   {
     "id": "gesp-5-202512-sc-14",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["贪心算法", "结构体"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "贪心算法",
+      "结构体"
+    ],
     "type": "single_choice",
     "question": "给定有 n 个任务，每个任务有截止时间和利润，每个任务耗时 1 个时间单位、必须在截止时间前完成，且每个时间槽最多做 1 个任务。为了在规定时间内获得最大利润，可以采用贪心策略，即按利润从高到低排序，尽量安排，则横线处应填写（ ）。（参照原PDF代码：任务按利润降序排序后，对每个任务从其截止时间 t 从后往前寻找空闲时间槽）",
     "options": {
@@ -206,8 +304,14 @@
   },
   {
     "id": "gesp-5-202512-sc-15",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["数组模拟高精度加减乘除"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "数组模拟高精度加减乘除"
+    ],
     "type": "single_choice",
     "question": "下面代码实现了对两个数组表示的正整数的高精度加法（数组低位在前），则横线上应填写（ ）。\nvector<int> add(vector<int> a, vector<int> b) {\n    vector<int> c;\n    int carry = 0;\n    for (int i = 0; i < a.size() || i < b.size(); i++) {\n        if (i < a.size()) carry += a[i];\n        if (i < b.size()) carry += b[i];\n        _______________________ //在此处填入代码\n    }\n    if (carry) c.push_back(carry);\n    return c;\n}",
     "options": {
@@ -221,92 +325,156 @@
   },
   {
     "id": "gesp-5-202512-tf-1",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["单链表"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
     "type": "true_false",
     "question": "数组和链表都是线性表。链表的优点是插入删除不需要移动元素，并且能随机查找。",
-    "answer": "F",
+    "answer": "false",
     "explanation": "链表插入删除确实不需移动元素（已知位置时 O(1)），但链表不支持随机查找：访问第 i 个元素必须从头遍历，为 O(n)。随机访问是数组的优点。"
   },
   {
     "id": "gesp-5-202512-tf-2",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["辗转相除法", "初等数论", "函数的定义与调用"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "辗转相除法",
+      "初等数论",
+      "函数的定义与调用"
+    ],
     "type": "true_false",
     "question": "假设函数 gcd() 函数能正确求两个正整数的最大公约数，则下面的 lcm(a, b) 函数能正确找到两个正整数 a 和 b 的最小公倍数。\nint lcm(int a, int b) {\n    return a / gcd(a, b) * b;\n}",
-    "answer": "T",
+    "answer": "true",
     "explanation": "由公式 lcm(a,b) × gcd(a,b) = a × b，先做除法 a / gcd(a, b) 再乘 b 可避免 a × b 溢出（先除的结果是整数，因为 gcd 整除 a），能正确求出最小公倍数。"
   },
   {
     "id": "gesp-5-202512-tf-3",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["单链表"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
     "type": "true_false",
     "question": "在单链表中，已知指针 p 指向要删除的结点（非尾结点），想在 O(1) 删除 p，可行做法是用 p->next 覆盖 p 的值与 next，然后删除 p->next。",
-    "answer": "T",
+    "answer": "true",
     "explanation": "这是单链表删除结点的经典技巧：将后继结点的数据和 next 复制到 p（p->data = p->next->data; p->next = p->next->next; 等价做法），再删除原后继结点，效果等同于删除 p，且时间 O(1)。该方法要求 p 非尾结点，与题设一致。"
   },
   {
     "id": "gesp-5-202512-tf-4",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["素数表的埃氏筛法和线性筛法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
     "type": "true_false",
     "question": "在求解所有不大于 n 的素数时，线性筛法（欧拉筛）都应当优先于埃氏筛法使用，因为线性筛法的时间复杂度为 O(n)，低于埃氏筛法的 O(n log log n)。",
-    "answer": "F",
+    "answer": "false",
     "explanation": "虽然线性筛理论复杂度 O(n) 优于埃氏筛的 O(n log log n)，但\"都应当优先使用\"的说法过于绝对：O(n log log n) 已非常接近线性，埃氏筛实现更简单、缓存友好，常数可能更小，很多场景下（尤其数据规模不大时）两者实际性能相当甚至埃氏筛更快，应根据场景选择。"
   },
   {
     "id": "gesp-5-202512-tf-5",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["二分枚举法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
     "type": "true_false",
     "question": "二分查找仅适用于有序数据。若输入数据无序，当仅进行一次查找时，为了使用二分而排序通常不划算。",
-    "answer": "T",
+    "answer": "true",
     "explanation": "二分查找要求有序数据。排序代价为 O(n log n)，一次顺序查找仅 O(n)。只查一次时先排序（O(n log n)）再二分（O(log n)）总代价高于直接顺序查找，不划算；只有多次查找时排序的摊销代价才值得。"
   },
   {
     "id": "gesp-5-202512-tf-6",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["分治算法（归并和快速排序）"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
     "type": "true_false",
     "question": "通过在数组的第一个、最中间和最后一个这3个数据中选择中间值作为枢轴（比较基准），快速排序算法可降低落入最坏情况的概率。",
-    "answer": "T",
+    "answer": "true",
     "explanation": "这是三数取中（median-of-three）优化：从首、中、尾三个元素取中位数作枢轴，能有效避免在已有序/逆序数组上选到极值枢轴，显著降低最坏情况 O(n²) 出现的概率，同时改进划分平衡性。"
   },
   {
     "id": "gesp-5-202512-tf-7",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["贪心算法", "分治算法（归并和快速排序）"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "贪心算法",
+      "分治算法（归并和快速排序）"
+    ],
     "type": "true_false",
     "question": "贪心算法在每一步都做出当前看来最优的局部选择，并且一旦做出选择就不再回溯；而分治算法将问题分解为若干子问题分别求解，再将子问题的解合并得到原问题的解。",
-    "answer": "T",
+    "answer": "true",
     "explanation": "这正是贪心算法（贪心选择性质：局部最优且不回溯）与分治算法（分解-求解-合并）的标准定义描述，说法正确。"
   },
   {
     "id": "gesp-5-202512-tf-8",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["递归", "算法复杂度的估算"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "递归",
+      "算法复杂度的估算"
+    ],
     "type": "true_false",
     "question": "以下 fib 函数计算第 n 项斐波那契数（fib(0)=0, fib(1)=1），其时间复杂度为 O(n)。\nint fib(int n) {\n    if (n <= 1) return n;\n    return fib(n-1) + fib(n-2);\n}",
-    "answer": "F",
+    "answer": "false",
     "explanation": "该朴素递归没有记忆化，同一子问题被重复计算，递归调用次数呈指数增长，时间复杂度为 O(φ^n) ≈ O(1.618^n)，即指数级，而非 O(n)。"
   },
   {
     "id": "gesp-5-202512-tf-9",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["递归"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
     "type": "true_false",
     "question": "递归函数一定要有终止条件，否则可能会造成栈溢出。",
-    "answer": "T",
+    "answer": "true",
     "explanation": "没有终止条件（基准情形）的递归会无限调用自身，每层调用消耗栈空间，最终耗尽栈导致栈溢出（stack overflow）。终止条件是递归函数的必要组成部分。"
   },
   {
     "id": "gesp-5-202512-tf-10",
-    "exam": {"type": "GESP", "level": 5, "date": "202512"},
-    "knowledge_points": ["贪心算法"],
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202512"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
     "type": "true_false",
     "question": "使用贪心算法解决问题时，通过对每一步求局部最优解，最终一定能找到全局最优解。",
-    "answer": "F",
+    "answer": "false",
     "explanation": "贪心算法只有当问题具有贪心选择性质（局部最优能导出全局最优）时才能保证得到全局最优解。对不满足该性质的问题（如 0-1 背包问题），贪心的局部最优会导致全局次优。"
   }
 ]
