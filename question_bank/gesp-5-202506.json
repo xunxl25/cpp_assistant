@@ -1,0 +1,510 @@
+[
+  {
+    "id": "gesp-5-202506-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
+    "type": "single_choice",
+    "question": "与数组相比，链表在（　）操作上通常具有更高的效率。",
+    "options": {
+      "A": "随机访问元素",
+      "B": "查找指定元素",
+      "C": "在已知位置插入或删除节点",
+      "D": "遍历所有元素"
+    },
+    "answer": "C",
+    "explanation": "已知位置时链表插删只改指针 O(1)；数组需要移动元素。随机访问、按值查找、遍历都是数组占优或持平。"
+  },
+  {
+    "id": "gesp-5-202506-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "双链表"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码实现双向链表。函数 is_empty() 判断链表是否为空，如链表为空返回 true ，否则返回 false 。横线处**不能**填写（　）。\nstruct Node {\n    int data;\n    Node* prev;\n    Node* next;\n};\nstruct DoubleLink {\n    Node* head;\n    Node* tail;\n    int size;\n    DoubleLink() {\n        head = nullptr;\n        tail = nullptr;\n        size = 0;\n    }\n    ~DoubleLink() {\n        Node* curr = head;\n        while (curr) {\n            Node* next = curr->next;\n            delete curr;\n            curr = next;\n        }\n    }\n    bool is_empty() const {\n        _______________________\n    }\n};",
+    "options": {
+      "A": "return head == nullptr;",
+      "B": "return tail == nullptr;",
+      "C": "return head.data == 0;",
+      "D": "return size == 0;"
+    },
+    "answer": "C",
+    "explanation": "head 是指针，访问成员必须用 -> 而不是 . ，head.data 是语法错误；且“data==0”也不是判空的正确语义。其余三种（判头指针、判尾指针、判计数器）都可行。"
+  },
+  {
+    "id": "gesp-5-202506-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "双链表"
+    ],
+    "type": "single_choice",
+    "question": "基于上题代码正确的前提下，填入相应代码完善 append() ，用于在双向链表尾部增加新节点，横线上应填写（ ）。\nvoid append(int data) {\n    Node* newNode = new Node{data, nullptr, nullptr};\n    if (is_empty()) {\n        head = tail = newNode;\n    } else {\n        ______________________\n    }\n    ++size;\n}",
+    "options": {
+      "A": "tail->next = newNode;",
+      "B": "newNode->prev = tail;\n    tail = newNode;",
+      "C": "tail = newNode;\n    newNode->prev = tail;\n    tail->next = newNode;",
+      "D": "tail->next = newNode;\n    newNode->prev = tail;\n    tail = newNode;"
+    },
+    "answer": "D",
+    "explanation": "尾插三步：旧尾接上新结点（tail->next=newNode）、新结点回指旧尾（newNode->prev=tail）、更新尾指针（tail=newNode）。B 漏了 tail->next=newNode 导致旧尾的 next 断链。"
+  },
+  {
+    "id": "gesp-5-202506-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
+    "type": "single_choice",
+    "question": "下列C++代码用循环链表解决约瑟夫问题，即假设 n 个人围成一圈，从第一个人开始数，每次数到第 k 个的人就出圈，输出最后留下的那个人的编号。横线上应填写（ ）。\nstruct Node {\n    int data;\n    Node* next;\n};\nNode* createCircularList(int n) {\n    Node* head = new Node{1, nullptr};\n    Node* prev = head;\n    for (int i = 2; i <= n; ++i) {\n        Node* node = new Node{i, nullptr};\n        prev->next = node;\n        prev = node;\n    }\n    prev->next = head;\n    return head;\n}\nint fingLastSurvival(int n, int k) {\n    Node* head = createCircularList(n);\n    Node* p = head;\n    Node* prev = nullptr;\n    while (p->next != p) {\n        for (int count = 1; count < k; ++count) {\n            prev = p;\n            p = p->next;\n        }\n        ____________________\n    }\n    cout << \"最后留下的人编号是：\" << p->data << endl;\n    delete p;\n    return 0;\n}",
+    "options": {
+      "A": "prev->next = p->next;\n    delete p;\n    p = prev->next;",
+      "B": "delete p;\n    prev->next = p->next;\n    p = prev->next;",
+      "C": "delete p;\n    p = prev->next;\n    prev->next = p->next;",
+      "D": "prev->next = p->next;\n    p = prev->next;\n    delete p;"
+    },
+    "answer": "A",
+    "explanation": "出圈三步顺序：先把前驱跨过 p（prev->next=p->next）、再释放 p、最后让 p 指向下一个继续数。B/C 先 delete 再解引用 p 是悬空指针；D 让 p 先指向新结点后 delete 的是新位置的结点，删错了对象。"
+  },
+  {
+    "id": "gesp-5-202506-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "初等数论"
+    ],
+    "type": "single_choice",
+    "question": "下列C++代码判断一个正整数是否是质数，说法正确的是( )。\nbool is_prime(int n) {\n    if (n <= 1)\n        return false;\n    if (n == 2 || n == 3 || n == 5)\n        return true;\n    if (n % 2 == 0 || n % 3 == 0 || n % 5 == 0)\n        return false;\n    int i = 7;\n    int step = 4;\n    int finish_number = sqrt(n) + 1;\n    while (i <= finish_number) {\n        if (n % i == 0)\n            return false;\n        i += step;\n        step = 6 - step;\n    }\n    return true;\n}",
+    "options": {
+      "A": "代码存在错误，比如5是质数，但因为 5 % 5 余数是0返回了 false",
+      "B": "finish_number 的值应该是 n / 2，当前写法将导致错误",
+      "C": "当前 while 循环正确的前提是：所有大于3的质数都符合 6k±1 形式",
+      "D": "while 循环修改如下，其执行效果和执行时间相同。\nfor (int i = 2; i < finish_number; i++) {\n    if (n % i == 0)\n        return false;\n}\nreturn true;"
+    },
+    "answer": "C",
+    "explanation": "大于 3 的质数都形如 6k±1（6k、6k±2、6k±3 都能被 2 或 3 整除），代码从 7 开始按 +4/+2 交替步进正好枚举 6k±1 形式的数。A 错：n==5 已提前返回 true；B 错：sqrt(n) 就够；D 错：从 2 逐个枚举明显更慢。"
+  },
+  {
+    "id": "gesp-5-202506-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "辗转相除法",
+      "算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "下列C++代码用两种方式求解两个正整数的最大公约数，说法错误的是( )。\nint gcd0(int big, int small) {\n    if (big < small) {\n        swap(big, small);\n    }\n    if (big % small == 0) {\n        return small;\n    }\n    return gcd0(small, big % small);\n}\nint gcd1(int big, int small) {\n    if (big < small) {\n        swap(big, small);\n    }\n    for (int i = small; i >= 1; --i) {\n        if (big % i == 0 && small % i == 0)\n            return i;\n    }\n    return 1;\n}",
+    "options": {
+      "A": "gcd0() 函数的时间复杂度为 O(log n)",
+      "B": "gcd1() 函数的时间复杂度为 O(n)",
+      "C": "一般说来，gcd0() 的效率高于 gcd1()",
+      "D": "gcd1() 中的代码 for (int i = small; i >= 1; --i) 应该修改为 for (int i = small; i > 1; --i)"
+    },
+    "answer": "D",
+    "explanation": "i>=1 改成 i>1 功能完全等价（找不到公约数时循环外 return 1 兜底），不存在“应该修改”的必要性，D 是错误说法。A/B/C 对：辗转相除 O(log n)，枚举 O(n)，前者更快。"
+  },
+  {
+    "id": "gesp-5-202506-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "single_choice",
+    "question": "下面的代码用于判断整数 n 是否是质数，错误的说法是（ ）。\nbool is_prime(int n) {\n    if (n <= 1) return false;\n    int finish_number = static_cast<int>(sqrt(n)) + 1;\n    for (int i = 2; i < finish_number; ++i) {\n        if (n % i == 0)\n            return false;\n    }\n    return true;\n}",
+    "options": {
+      "A": "埃氏筛算法相对于上面的代码效率更高",
+      "B": "线性筛算法相对于上面的代码效率更高",
+      "C": "上面的代码有很多重复计算，因为不是判断单个数是否为质数，故而导致筛选出连续数中质数的效率不高",
+      "D": "相对而言，埃氏筛算法比上面代码以及线性筛算法效率都高"
+    },
+    "answer": "D",
+    "explanation": "埃氏筛 O(n log log n) 是批量筛法，判断单个数反而不如试除法直接；且它也不如线性筛 O(n)。D 是错误说法。"
+  },
+  {
+    "id": "gesp-5-202506-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "唯一分解定理"
+    ],
+    "type": "single_choice",
+    "question": "唯一分解定理描述了关于正整数的什么性质？",
+    "options": {
+      "A": "任何正整数都可以表示为两个素数的和。",
+      "B": "任何大于1的合数都可以唯一分解为有限个质数的乘积。",
+      "C": "两个正整数的最大公约数总是等于它们的最小公倍数除以它们的乘积。",
+      "D": "所有素数都是奇数。"
+    },
+    "answer": "B",
+    "explanation": "唯一分解（算术基本）定理的标准表述。A 是哥德巴赫猜想（且未完全证明）；2 是偶素数。"
+  },
+  {
+    "id": "gesp-5-202506-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "下面的C++代码，用于求一系列数据中的最大值。有关其算法说法错误的是（　）。\nint find_max_recursive(const vector<int>& nums, int left, int right) {\n    if (left == right)\n        return nums[left];\n    int mid = left + (right - left) / 2;\n    int left_max = find_max_recursive(nums, left, mid);\n    int right_max = find_max_recursive(nums, mid + 1, right);\n    return max(left_max, right_max);\n}\nint find_max(const vector<int>& nums) {\n    if (nums.empty()) {\n        throw invalid_argument(\"输入数组不能为空\");\n    }\n    return find_max_recursive(nums, 0, nums.size() - 1);\n}",
+    "options": {
+      "A": "该算法采用分治算法",
+      "B": "该算法是递归实现",
+      "C": "该算法采用贪心算法",
+      "D": "该算法不是递推算法"
+    },
+    "answer": "C",
+    "explanation": "递归二分求左右最大值再合并，是分治+递归，与贪心无关，C 是错误说法。"
+  },
+  {
+    "id": "gesp-5-202506-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "算法复杂度的估算",
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "下面的C++代码，用于求一系列数据中的最大值。有关其算法说法错误的是（　）。\nint find_max(const vector<int>& nums) {\n    if (nums.empty()) {\n        throw invalid_argument(\"输入数组不能为空\");\n    }\n    int max_value = nums[0];\n    for (int num : nums) {\n        if (num > max_value) {\n            max_value = num;\n        }\n    }\n    return max_value;\n}",
+    "options": {
+      "A": "本题 find_max() 函数采用的是迭代算法",
+      "B": "本题 find_max() 函数的时间复杂度为 O(n)",
+      "C": "和上一题的 find_max() 相比，因为没有递归，所以没有栈的创建和销毁开销",
+      "D": "本题 find_max() 函数和上一题的 find_max() 空间复杂度相同"
+    },
+    "answer": "D",
+    "explanation": "迭代版空间 O(1)，上一题递归版为 O(log n)（递归栈深度），不相同，D 是错误说法。其余三项都正确。"
+  },
+  {
+    "id": "gesp-5-202506-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
+    "type": "single_choice",
+    "question": "下面的 C++ 代码用于在升序数组 lst 中查找目标值 target 最后一次出现的位置。相关说法，正确的是（ ）。\nint binary_search_last_occurrence(const vector<int>& lst, int target) {\n    if (lst.empty()) return -1;\n    int low = 0, high = lst.size() - 1;\n    while (low < high) {\n        int mid = (low + high + 1) / 2;\n        if (lst[mid] <= target) {\n            low = mid;\n        } else {\n            high = mid - 1;\n        }\n    }\n    if (lst[low] == target)\n        return low;\n    else\n        return -1;\n}",
+    "options": {
+      "A": "当 lst 中存在重复的 target 时，该函数总能返回最后一个 target 的位置，即便 lst 全由相同元素组成",
+      "B": "当 target 小于 lst 中所有元素时，该函数会返回 0",
+      "C": "循环条件改为 while (low <= high) 程序执行效果相同，且能提高准确性",
+      "D": "将代码中 (low + high + 1) / 2 修改为 (low + high) / 2 效果相同"
+    },
+    "answer": "A",
+    "explanation": "上取整 mid 配合 low=mid 保证区间只剩两个元素时也向右收缩，最终 low 停在最后一个满足处。B：找不到时返回 -1 而非 0；C：low=mid 在 low==high 时会死循环；D：下取整在两元素区间会卡死。"
+  },
+  {
+    "id": "gesp-5-202506-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
+    "type": "single_choice",
+    "question": "有关下面C++代码的说法，错误的是（ ）。\ndouble sqrt_binary(long long n, double epsilon = 1e-10) {\n    if (n < 0) {\n        throw invalid_argument(\"输入必须为非负整数\");\n    }\n    if (n == 0 || n == 1) return n;\n    long long low = 1, high = n;\n    long long k = 0;\n    while (low <= high) {\n        long long mid = (low + high) / 2;\n        long long mid_sq = mid * mid;\n        if (mid_sq == n) {\n            return mid;\n        } else if (mid_sq < n) {\n            k = mid;\n            low = mid + 1;\n        } else {\n            high = mid - 1;\n        }\n    }\n    long long next_k = k + 1;\n    if (next_k * next_k == n) {\n        return next_k;\n    }\n    double low_d = (double)k;\n    double high_d = (double)(k + 1);\n    double mid;\n    while (high_d - low_d >= epsilon) {\n        mid = (low_d + high_d) / 2;\n        double mid_sq = mid * mid;\n        if (mid_sq < n) {\n            low_d = mid;\n        } else {\n            high_d = mid;\n        }\n    }\n    double result = (low_d + high_d) / 2;\n    long long check_int = (long long)(result + 0.5);\n    if (check_int * check_int == n) {\n        return check_int;\n    }\n    return result;\n}",
+    "options": {
+      "A": "“阶段1”的目标是寻找正整数 n 可能的正完全平方根",
+      "B": "“阶段2”的目标是如果正整数 n 没有正完全平方根，则在可能产生完全平方根附近寻找带小数点的平方根",
+      "C": "代码 check_int = (long long)(result + 0.5) 是检查因浮点误差是否为正完全平方根",
+      "D": "阶段2的二分法中 high_d - low_d >= epsilon 不能用于浮点数比较，会进入死循环"
+    },
+    "answer": "D",
+    "explanation": "浮点数完全可以用 >= epsilon 做区间收敛判断（epsilon 就是为此设计的），每次区间减半，有限步收敛，D 是错误说法。"
+  },
+  {
+    "id": "gesp-5-202506-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "single_choice",
+    "question": "硬币找零问题中要求找给客户最少的硬币。coins 存储可用硬币规格，单位为角，假设规格都小于10角，且一定有1角规格。amount 为要找零的金额，约定必须为1角的整数倍。输出为每种规格及其数量，按规格从大到小输出，如果某种规格不必要，则输出为0。下面是其实现代码，相关说法正确的是（　）。\nint find_coins(const vector<int>& coins, int amount) {\n    sort(coins.begin(), coins.end(), greater<int>());\n    int n = coins.size();\n    for (int i = 0; i < n; ++i) {\n        int coin = coins[i];\n        int num = amount / coin;\n        result[i] = num;\n        amount -= num * coin;\n        if (amount == 0) break;\n    }\n    cout << \"找零方案如下: \" << endl;\n    for (int i = 0; i < n; ++i) {\n        cout << sorted_coins[i] << \"角需要\" << result[i] << \"枚\" << endl;\n    }\n    return 0;\n}",
+    "options": {
+      "A": "上述代码采用贪心算法实现",
+      "B": "针对本题具体要求，上述代码总能找到最优解",
+      "C": "上述代码采用枚举算法",
+      "D": "上述代码采用分治算法"
+    },
+    "answer": "A",
+    "explanation": "从大到小每种面额尽量多拿，是典型的贪心。B 不对：如面值 {1,3,4} 找 6 角，贪心得 4+1+1 三枚，最优是 3+3 两枚——面值不满足贪心选择性质时贪心不保证最优。"
+  },
+  {
+    "id": "gesp-5-202506-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "关于下述C++代码的快速排序算法，说法错误的是（　）。\nint randomPartition(std::vector<int>& arr, int low, int high) {\n    int random = low + rand() % (high - low + 1);\n    std::swap(arr[random], arr[high]);\n    int pivot = arr[high];\n    int i = low - 1;\n    for (int j = low; j < high; j++) {\n        if (arr[j] <= pivot) {\n            i++;\n            std::swap(arr[i], arr[j]);\n        }\n    }\n    std::swap(arr[i + 1], arr[high]);\n    return i + 1;\n}\nvoid quickSort(std::vector<int>& arr, int low, int high) {\n    if (low < high) {\n        int pi = randomPartition(arr, low, high);\n        quickSort(arr, low, pi - 1);\n        quickSort(arr, pi + 1, high);\n    }\n}",
+    "options": {
+      "A": "在 randomPartition 函数中，变量 i 的作用是记录大于基准值的元素的边界",
+      "B": "randomPartition 函数随机选择基准值，可以避免输入数据特定模式导致的最坏情况下时间复杂度 O(n²)",
+      "C": "快速排序平均时间复杂度是 O(n log n)",
+      "D": "快速排序是稳定排序算法"
+    },
+    "answer": "D",
+    "explanation": "快排的跨越交换会打乱相等元素的相对顺序，不稳定。A 对：i 维护的是“≤pivot 段”的右边界；B/C 都正确。"
+  },
+  {
+    "id": "gesp-5-202506-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "数组模拟高精度加减乘除"
+    ],
+    "type": "single_choice",
+    "question": "小杨编写了一个如下代码的高精度除法函数，则横线上应填写的代码为（ ）。\n（div 函数中，把下一位加入余数的分支，横线处应填：）\nfor(int i = a.len - b.len; i >= 0; i--) {\n    if(r.len > 1 || r.d[0] != 0) {\n        for(int j = r.len; j > 0; j--) {\n            r.d[j] = r.d[j-1];\n        }\n        ______________________\n    } else {\n        r.d[0] = a.d[i];\n        r.len = 1;\n    }\n    while(compare(r, b) >= 0) {\n        r = sub(r, b);\n        q.d[i]++;\n    }\n}",
+    "options": {
+      "A": "r.d[0] = a.d[i];\n    r.len++;",
+      "B": "r.d[i] = a.d[i];\n    r.len++;",
+      "C": "r.d[i] = a.d[i];\n    r.len = 1;",
+      "D": "r.d[0] = a.d[i];\n    r.len = 1;"
+    },
+    "answer": "A",
+    "explanation": "整体右移一位后（d[j]=d[j-1]），最低位 d[0] 补上被除数的当前位 a.d[i]，同时长度 +1。与 else 分支（余数为 0 时直接置 d[0] 且 len=1）对照记忆。"
+  },
+  {
+    "id": "gesp-5-202506-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "辗转相除法"
+    ],
+    "type": "true_false",
+    "question": "下面C++代码是用欧几里得算法（辗转相除法）求两个正整数的最大公约数，a 大于 b 还是小于 b 都适用。\nint gcd(int a, int b) {\n    while (b) {\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "若 a<b，第一轮 b=a%b=a、a=原 b，相当于自动交换一次，之后正常迭代，结果不变。"
+  },
+  {
+    "id": "gesp-5-202506-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "辗转相除法",
+      "初等数论"
+    ],
+    "type": "true_false",
+    "question": "假设函数 gcd() 函数能正确求两个正整数的最大公约数，则下面的 lcm() 函数能求相应两数的最小公倍数。\nint lcm(int a, int b) {\n    return a * b / gcd(a, b);\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "lcm(a,b) × gcd(a,b) = a × b，故 a*b/gcd(a,b) 正确（先乘后除能被整除）。"
+  },
+  {
+    "id": "gesp-5-202506-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "唯一分解定理"
+    ],
+    "type": "true_false",
+    "question": "下面的C++代码用于输出每个数对应的质因数列表，输出形如：{5: [5], 6: [2, 3], 7: [7], 8: [2, 2, 2]}。\nint main() {\n    int n, m;\n    cin >> n >> m;\n    if (n > m) swap(n, m);\n    map<int, vector<int>> prime_factor;\n    for (int i = n; i <= m; ++i) {\n        int j = 2, k = i;\n        while (k != 1) {\n            if (k % j == 0) {\n                prime_factor[i] = prime_factor[i] + j;\n                k /= j;\n            } else {\n                ++j;\n            }\n        }\n    }\n    for (auto& p : prime_factor) {\n        cout << p.first << \": \";\n        for (int v : p.second)\n            cout << v << \" \";\n        cout << endl;\n    }\n    return 0;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "prime_factor[i] + j 是 vector<int> 加 int，语法上不合法（应为 push_back），代码无法编译实现所述功能。"
+  },
+  {
+    "id": "gesp-5-202506-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "true_false",
+    "question": "下面的C++代码实现归并排序。代码在执行时，将输出一次 HERE 字符串，因为merge()函数仅被调用一次。\nvoid mergeSort(std::vector<int>& arr, int left, int right) {\n    if (left >= right) {\n        return;\n    }\n    int mid = left + (right - left) / 2;\n    mergeSort(arr, left, mid);\n    mergeSort(arr, mid + 1, right);\n    std::cout << \"HERE\";\n    merge(arr, left, mid, right);\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "每个非叶子递归结点都会打印一次 HERE，n 个元素会调用 merge 共 n-1 次，HERE 输出 n-1 次。"
+  },
+  {
+    "id": "gesp-5-202506-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "true_false",
+    "question": "归并排序的最好、最坏和平均时间复杂度均为 O(n log n)。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "归并的划分数与合并工作量只取决于 n，与数据分布无关。"
+  },
+  {
+    "id": "gesp-5-202506-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
+    "type": "true_false",
+    "question": "查字典这个小学生必备技能，可以把字典视为一个已排序的数组。假设小杨要查找一个首字母为 g 的单词，他首先翻到字典约一半的页数，发现该页的首字母是 m，由于字母表中 g 位于 m 之前，所以排除字典后半部分，查找范围缩小到前半部分；不断重复上述步骤，直至找到首字母为 g 的页码。这种查字典的一系列操作可看作二分查找。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "有序集合 + 每次比较排除一半 = 二分查找的标准模型。"
+  },
+  {
+    "id": "gesp-5-202506-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "true_false",
+    "question": "求解图中A点到D点最短路径。求解这样的问题常用Dijkstra算法，其思路是通过逐步选择当前距离起点最近的节点来求解非负权重图单源最短路径的算法。从该算法的描述可以看出，Dijkstra算法是贪心算法。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "Dijkstra 每一步都取当前距离最小的未确定结点，是贪心策略在图上的应用。"
+  },
+  {
+    "id": "gesp-5-202506-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "true_false",
+    "question": "分治算法将原问题可以分解成规模更小的子问题，使得求解问题的难度降低。但由于分治算法需要将问题进行分解，并且需要将多个子问题的解合并为原问题的解，所以分治算法的效率通常比直接求解原问题的效率低。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "恰恰相反：分治通常把 O(n²) 级问题降到 O(n log n)（如归并、快排），效率通常更高。"
+  },
+  {
+    "id": "gesp-5-202506-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
+    "type": "true_false",
+    "question": "函数 puzzle 定义如下，则调用 puzzle(7) 程序会无限递归。\nint puzzle(int n) {\n    if (n == 1) return 1;\n    if (n % 2 == 0) return puzzle(n / 2);\n    return puzzle(3 * n + 1);\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "7→22→11→34→17→52→26→13→40→20→10→5→16→8→4→2→1，有限步到达 1 终止（Collatz 过程）。"
+  },
+  {
+    "id": "gesp-5-202506-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202506"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "true_false",
+    "question": "如下为线性筛法，用于高效生成素数表，其核心思想是每个合数只被它的最小质因数筛掉一次，时间复杂度为 O(n)。\nvector<int> linearSieve(int n) {\n    vector<bool> is_prime(n + 1, true);\n    vector<int> primes;\n    for (int i = 2; i <= n; ++i) {\n        if (is_prime[i]) {\n            primes.push_back(i);\n        }\n        for (int j = 0; j < primes.size() && i * primes[j] <= n; ++j) {\n            is_prime[i * primes[j]] = false;\n            if (i % primes[j] == 0) {\n                break;\n            }\n        }\n    }\n    return primes;\n}",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "每个合数只被其最小质因数筛一次，配合 i % primes[j] == 0 时 break，总复杂度 O(n)。"
+  }
+]

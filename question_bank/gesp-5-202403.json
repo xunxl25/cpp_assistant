@@ -1,0 +1,512 @@
+[
+  {
+    "id": "gesp-5-202403-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "唯一分解定理"
+    ],
+    "type": "single_choice",
+    "question": "唯一分解定理描述的内容是（）？",
+    "options": {
+      "A": "任意整数都可以分解为素数的乘积",
+      "B": "每个合数都可以唯一分解为一系列素数的乘积",
+      "C": "两个不同的整数可以分解为相同的素数乘积",
+      "D": "以上都不对"
+    },
+    "answer": "B",
+    "explanation": "唯一分解定理：任何大于 1 的合数都可以唯一分解为有限个素数的乘积（不计顺序）。"
+  },
+  {
+    "id": "gesp-5-202403-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "single_choice",
+    "question": "贪心算法的核心思想是（）？",
+    "options": {
+      "A": "在每一步选择中都做当前状态下的最优选择",
+      "B": "在每一步选择中都选择局部最优解",
+      "C": "在每一步选择中都选择全局最优解",
+      "D": "以上都对"
+    },
+    "answer": "A",
+    "explanation": "贪心算法在每一步都做出当前状态下的最优选择，期望最终达到全局最优，但并不保证全局最优。"
+  },
+  {
+    "id": "gesp-5-202403-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "下面的 C++ 代码片段用于计算阶乘。请在横线处填入（），实现正确的阶乘计算。\nint factorial(int n) {\n    if (n == 0 || n == 1) {\n        return 1;\n    } else {\n        _________________________\n    }\n}",
+    "options": {
+      "A": "return n * factorial(n - 1);",
+      "B": "return factorial(n - 1) / n;",
+      "C": "return n * factorial(n);",
+      "D": "return factorial(n / 2) * factorial(n / 2);"
+    },
+    "answer": "A",
+    "explanation": "阶乘的递归定义：n! = n × (n-1)!，即 return n * factorial(n - 1)。"
+  },
+  {
+    "id": "gesp-5-202403-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "双链表",
+      "指针类型的概念及基本应用"
+    ],
+    "type": "single_choice",
+    "question": "下面的代码片段用于在双向链表中删除一个节点。请在横线处填入（），使其能正确实现相应功能。\nvoid deleteNode(DoublyListNode*& head, int value) {\n    DoublyListNode* current = head;\n    while (current != nullptr && current->val != value) {\n        current = current->next;\n    }\n    if (current != nullptr) {\n        if (current->prev != nullptr) {\n            _______________________________\n        } else {\n            head = current->next;\n        }\n        if (current->next != nullptr) {\n            current->next->prev = current->prev;\n        }\n        delete current;\n    }\n}",
+    "options": {
+      "A": "if (current->next != nullptr) current->next->prev = current->prev;",
+      "B": "current->prev->next = current->next;",
+      "C": "delete current->next;",
+      "D": "current->prev = current->next;"
+    },
+    "answer": "B",
+    "explanation": "删除非头节点时需让前驱的 next 越过当前节点指向后继，即 current->prev->next = current->next；后继的 prev 已在下方统一处理。"
+  },
+  {
+    "id": "gesp-5-202403-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "辗转相除法"
+    ],
+    "type": "single_choice",
+    "question": "辗转相除法也被称为（）",
+    "options": {
+      "A": "高斯消元法",
+      "B": "费马定理",
+      "C": "欧几里德算法",
+      "D": "牛顿迭代法"
+    },
+    "answer": "C",
+    "explanation": "辗转相除法求最大公约数源自欧几里德的《几何原本》，又称欧几里德算法。"
+  },
+  {
+    "id": "gesp-5-202403-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "递归",
+      "算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "下面的代码片段用于计算斐波那契数列。该代码的时间复杂度是（ ）？\nint fibonacci(int n) {\n    if (n <= 1) {\n        return n;\n    } else {\n        return fibonacci(n - 1) + fibonacci(n - 2);\n    }\n}",
+    "options": {
+      "A": "O(1)",
+      "B": "O(n)",
+      "C": "O(2ⁿ)",
+      "D": "O(log n)"
+    },
+    "answer": "C",
+    "explanation": "朴素递归斐波那契每层分裂为两个子调用，存在大量重复计算，时间复杂度为指数级 O(2ⁿ)。"
+  },
+  {
+    "id": "gesp-5-202403-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "数组模拟高精度加减乘除"
+    ],
+    "type": "single_choice",
+    "question": "下面的代码片段用于将两个高精度整数进行相加。请在横线处填入（ ），使其能正确实现相应功能。\nstring add(string num1, string num2) {\n    string result;\n    int carry = 0;\n    int i = num1.size() - 1, j = num2.size() - 1;\n    while (i >= 0 || j >= 0 || carry) {\n        int x = (i >= 0) ? num1[i--] - '0' : 0;\n        int y = (j >= 0) ? num2[j--] - '0' : 0;\n        int sum = x + y + carry;\n        carry = sum / 10;\n        ________________________________\n    }\n    return result;\n}",
+    "options": {
+      "A": "result = to_string(sum % 10) + result;",
+      "B": "result = to_string(carry % 10) + result;",
+      "C": "result = to_string(sum / 10) + result;",
+      "D": "result = to_string(sum % 10 + carry) + result;"
+    },
+    "answer": "A",
+    "explanation": "每一位的结果是 sum % 10，进位 carry = sum / 10 已在上一行处理，插入到 result 头部（从低位往高位构造）。"
+  },
+  {
+    "id": "gesp-5-202403-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
+    "type": "single_choice",
+    "question": "给定序列：1，3，6，9，17，31，39，52，61，79，81，90，96。使用以下代码进行二分查找查找元素 82 时，需要循环多少次，即最后输出的 times 值为（ ）。\nint binarySearch(const std::vector<int>& arr, int target) {\n    int left = 0;\n    int right = arr.size() - 1;\n    int times = 0;\n    while (left <= right) {\n        times ++;\n        int mid = left + (right - left) / 2;\n        if (arr[mid] == target) {\n            cout << times << endl;\n            return mid;\n        } else if (arr[mid] < target) {\n            left = mid + 1;\n        } else {\n            right = mid - 1;\n        }\n    }\n    cout << times << endl;\n    return -1;\n}",
+    "options": {
+      "A": "2",
+      "B": "5",
+      "C": "3",
+      "D": "4"
+    },
+    "answer": "D",
+    "explanation": "模拟：第1次 mid=6(39)<82→left=7；第2次 mid=9(79)<82→left=10；第3次 mid=11(90)>82→right=10；第4次 mid=10(81)<82→left=11；随后 left>right 循环条件失败退出（不进入循环体，times 不再自增），输出 4。"
+  },
+  {
+    "id": "gesp-5-202403-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "single_choice",
+    "question": "下面的代码片段用于判断一个正整数是否为素数。请对以下代码进行修改，使其能正确实现相应功能。（ ）\nbool isPrime(int num) {\n    if (num < 2) {\n        return false;\n    }\n    for (int i = 2; i * i < num; ++i) {\n        if (num % i == 0) {\n            return false;\n        }\n    }\n    return true;\n}",
+    "options": {
+      "A": "num < 2 应该改为 num <= 2",
+      "B": "循环条件 i * i < num 应该改为 i * i <= num",
+      "C": "循环条件应该是 i <= num",
+      "D": "循环体中应该是 if (num % i != 0)"
+    },
+    "answer": "B",
+    "explanation": "当 num 恰为完全平方数（如 9=3×3）时，i*i < num 会漏判因子 3，需改为 i*i <= num。"
+  },
+  {
+    "id": "gesp-5-202403-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "single_choice",
+    "question": "在埃拉托斯特尼筛法中，要筛选出不大于 n 的所有素数，最外层循环应该遍历什么范围（ ）？\nvector<int> sieveOfEratosthenes(int n) {\n    std::vector<bool> isPrime(n + 1, true);\n    std::vector<int> primes;\n    ______________________ {\n        if (isPrime[i]) {\n            primes.push_back(i);\n            for (int j = i * i; j <= n; j += i) {\n                isPrime[j] = false;\n            }\n        }\n    }\n    for (int i = sqrt(n) + 1; i <= n; ++i) {\n        if (isPrime[i]) {\n            primes.push_back(i);\n        }\n    }\n    return primes;\n}",
+    "options": {
+      "A": "for (int i = 2; i <= n; ++i)",
+      "B": "for (int i = 1; i < n; ++i)",
+      "C": "for (int i = 2; i <= sqrt(n); ++i)",
+      "D": "for (int i = 1; i <= sqrt(n); ++i)"
+    },
+    "answer": "C",
+    "explanation": "代码后面已有从 sqrt(n)+1 到 n 的补扫循环，所以主筛循环只需遍历 2 到 sqrt(n)，内部从 i*i 开始标记。"
+  },
+  {
+    "id": "gesp-5-202403-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "single_choice",
+    "question": "素数的线性筛法时间复杂度为（ ）。",
+    "options": {
+      "A": "O(n)",
+      "B": "O(n·log log n)",
+      "C": "O(n·log n)",
+      "D": "O(n²)"
+    },
+    "answer": "A",
+    "explanation": "线性筛（欧拉筛）保证每个合数只被其最小质因子筛一次，时间复杂度 O(n)。"
+  },
+  {
+    "id": "gesp-5-202403-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "归并排序的基本思想是（ ）。",
+    "options": {
+      "A": "动态规划",
+      "B": "分治",
+      "C": "贪心算法",
+      "D": "回溯算法"
+    },
+    "answer": "B",
+    "explanation": "归并排序将序列不断二分（分），分别排序（治），再归并（合），是分治思想的典型应用。"
+  },
+  {
+    "id": "gesp-5-202403-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "在快速排序中，选择的主元素（pivot）会影响算法的（ ）。",
+    "options": {
+      "A": "不影响",
+      "B": "时间复杂度",
+      "C": "空间复杂度",
+      "D": "时间复杂度和空间复杂度"
+    },
+    "answer": "B",
+    "explanation": "pivot 决定划分的均衡程度：均衡时平均 O(N log N)，pivot 极端（总选中最值）时退化为 O(N²)。快排是原地排序，辅助空间为 O(log N) 的递归栈（按平均口径），教材中通常只强调 pivot 对时间复杂度的影响。"
+  },
+  {
+    "id": "gesp-5-202403-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "递归函数在调用自身时，必须满足（ ），以避免无限递归?",
+    "options": {
+      "A": "有终止条件",
+      "B": "函数参数递减（或递增）",
+      "C": "函数返回值固定",
+      "D": "以上都对"
+    },
+    "answer": "A",
+    "explanation": "避免无限递归的充要条件是存在终止条件（基例）；参数变化方式不是必须的（如按数据结构递归遍历）。"
+  },
+  {
+    "id": "gesp-5-202403-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
+    "type": "single_choice",
+    "question": "假设给定链表为：1 → 3 → 5 → 7 → nullptr，若调用 searchValue(head, 5)，函数返回值为（ ）。\nint searchValue(ListNode* head, int target) {\n    while (head != nullptr) {\n        if (head->val == target) {\n            return 1;\n        }\n        head = head->next;\n    }\n    return 0;\n}",
+    "options": {
+      "A": "返回 1",
+      "B": "返回 0",
+      "C": "死循环，无法返回",
+      "D": "返回 -1"
+    },
+    "answer": "A",
+    "explanation": "顺序遍历到第三个节点 val=5 命中 target，return 1。"
+  },
+  {
+    "id": "gesp-5-202403-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "辗转相除法"
+    ],
+    "type": "true_false",
+    "question": "辗转相除法用于求两个整数的最大公约数。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "辗转相除法用较大数除以较小数取余，反复迭代直到余数为 0，此时除数即最大公约数。"
+  },
+  {
+    "id": "gesp-5-202403-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性",
+      "算法复杂度的估算"
+    ],
+    "type": "true_false",
+    "question": "插入排序的时间复杂度是 O(N log N)。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "插入排序平均和最坏时间复杂度为 O(N²)，只在序列基本有序时接近 O(N)。"
+  },
+  {
+    "id": "gesp-5-202403-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
+    "type": "true_false",
+    "question": "二分查找要求被搜索的序列是有序的，否则无法保证正确性。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "二分查找依据中间元素与目标的大小关系折半排除区间，序列无序时该排除逻辑不成立。"
+  },
+  {
+    "id": "gesp-5-202403-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "true_false",
+    "question": "使用贪心算法解决问题时，每一步的局部最优解一定会导致全局最优解。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "只有当问题具备贪心选择性质和最优子结构时，局部最优才导出全局最优；一般情况下不保证。"
+  },
+  {
+    "id": "gesp-5-202403-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "true_false",
+    "question": "分治算法的核心思想是将一个大问题分解成多个相同或相似的子问题进行解决，最后合并得到原问题的解。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "分治 = 分解（divide）+ 解决（conquer）+ 合并（combine）。"
+  },
+  {
+    "id": "gesp-5-202403-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）",
+      "算法复杂度的估算"
+    ],
+    "type": "true_false",
+    "question": "分治算法的典型应用之一是归并排序，其时间复杂度为 O(N log N)。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "归并排序是分治的典型应用，共 log N 层、每层 O(N)，总 O(N log N)。"
+  },
+  {
+    "id": "gesp-5-202403-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "true_false",
+    "question": "素数表的埃氏筛法和线性筛法的时间复杂度都是 O(N log log N)。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "埃氏筛为 O(N log log N)，线性筛为 O(N)，两者不同。"
+  },
+  {
+    "id": "gesp-5-202403-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "true_false",
+    "question": "贪心算法是一种可以应用于所有问题的通用解决方案。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "贪心只对具备特定性质的问题有效，并非通用解法。"
+  },
+  {
+    "id": "gesp-5-202403-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "单链表",
+      "双链表"
+    ],
+    "type": "true_false",
+    "question": "单链表和双链表都可以在常数时间内实现在链表头部插入或删除节点的操作。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "在头部插入/删除只需修改头指针和第一个节点的指针域，均为 O(1)。"
+  },
+  {
+    "id": "gesp-5-202403-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202403"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
+    "type": "true_false",
+    "question": "在C语言中，递归的实现方式通常会占用更多的栈空间，可能导致栈溢出。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "每次递归调用都会在调用栈上分配栈帧保存局部变量和返回地址，递归过深会耗尽栈空间。"
+  }
+]

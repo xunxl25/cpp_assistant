@@ -1,0 +1,511 @@
+[
+  {
+    "id": "gesp-5-202406-sc-1",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "递推",
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码用于求斐波那契数列，该数列第1、2项为1，以后各项均是前两项之和。函数fibo()属于( )。\nint fibo(int n) {\n    if (n <= 0)\n        return 0;\n    if (n == 1 || n == 2)\n        return 1;\n\n    int a = 1, b = 1, next;\n    for (int i = 3; i <= n; i++) {\n        next = a + b;\n        a = b;\n        b = next;\n    }\n    return next;\n}",
+    "options": {
+      "A": "枚举算法",
+      "B": "贪心算法",
+      "C": "迭代算法",
+      "D": "递归算法"
+    },
+    "answer": "C",
+    "explanation": "代码用循环从已知的两项不断推出下一项，是迭代（递推）实现，没有函数自调用。"
+  },
+  {
+    "id": "gesp-5-202406-sc-2",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "single_choice",
+    "question": "下面C++代码用于将输入金额换成最少币种组合方案，其实现算法是( )。\nint coins[N_COINS] = {100, 50, 20, 10, 5, 2, 1};\nint coins_used[N_COINS];\n\nvoid find_coins(int money) {\n    for (int i = 0; i < N_COINS; i++) {\n        coins_used[i] = money / coins[i];\n        money = money % coins[i];\n    }\n    return;\n}",
+    "options": {
+      "A": "枚举算法",
+      "B": "贪心算法",
+      "C": "迭代算法",
+      "D": "递归算法"
+    },
+    "answer": "B",
+    "explanation": "每一步都优先选用当前最大面值的币种（局部最优），是典型的贪心策略。"
+  },
+  {
+    "id": "gesp-5-202406-sc-3",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "双链表",
+      "算法复杂度的估算"
+    ],
+    "type": "single_choice",
+    "question": "小杨采用双链表结构保存他喜欢的歌曲列表，在头指针为 head 的双链表中查找某首歌曲，该操作的时间复杂度为（ ）。\nstruct dl_node {\n    string song;\n    dl_node* next;\n    dl_node* prev;\n};\ndl_node* search(dl_node* head, string my_song) {\n    dl_node* temp = head;\n    while (temp != nullptr) {\n        if (temp->song == my_song)\n            return temp;\n        temp = temp->next;\n    }\n    return nullptr;\n}",
+    "options": {
+      "A": "O(1)",
+      "B": "O(n)",
+      "C": "O(log n)",
+      "D": "O(n²)"
+    },
+    "answer": "B",
+    "explanation": "查找需要从头结点开始逐个遍历比较，最坏情况走完整个链表，为 O(n)。"
+  },
+  {
+    "id": "gesp-5-202406-sc-4",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "双链表"
+    ],
+    "type": "single_choice",
+    "question": "小杨想在双向链表中将新歌曲作为链表的第一首歌曲插入，则下面横线上应填入的代码为（ ）。\nvoid insert(dl_node *head, string my_song) {\n    p = new dl_node;\n    p->song = my_song;\n    p->prev = nullptr;\n    p->next = head;\n\n    if (head != nullptr) {\n        _______________________  // 在此处填入代码\n    }\n    head = p;\n}",
+    "options": {
+      "A": "head->next->prev = p;",
+      "B": "head->next = p;",
+      "C": "head->prev = p;",
+      "D": "触发异常，不能对空指针进行操作。"
+    },
+    "answer": "C",
+    "explanation": "头部插入需让原首结点的 prev 指向新结点 p（p->next 已指向原首结点），故填 head->prev = p;。"
+  },
+  {
+    "id": "gesp-5-202406-sc-5",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "辗转相除法"
+    ],
+    "type": "single_choice",
+    "question": "下面是根据欧几里得算法编写的函数，它计算的是 a 与 b 的（ ）。\nint gcd(int a, int b) {\n    while (b != 0) {\n        int temp = b;\n        b = a % b;\n        a = temp;\n    }\n    return a;\n}",
+    "options": {
+      "A": "最小公倍数",
+      "B": "最大公共质因子",
+      "C": "最大公约数",
+      "D": "最小公共质因子"
+    },
+    "answer": "C",
+    "explanation": "辗转相除法（欧几里得算法）求的是最大公约数 gcd(a, b)。"
+  },
+  {
+    "id": "gesp-5-202406-sc-6",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "辗转相除法",
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "欧几里得算法还可以写成递归形式：int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); } 下面有关说法，错误的是（ ）。",
+    "options": {
+      "A": "本题的 gcd() 实现为递归方式。",
+      "B": "本题的 gcd() 代码量少，更容易理解其辗转相除的思想。",
+      "C": "当 a 较大时，本题的 gcd() 实现会多次调用自身，需要较多额外的辅助空间。",
+      "D": "当 a 较大时，相比上题中的 gcd() 的实现，本题的 gcd() 执行效率更高。"
+    },
+    "answer": "D",
+    "explanation": "递归实现有函数调用与栈帧开销，通常不比迭代版本更快，说效率更高是错误的。"
+  },
+  {
+    "id": "gesp-5-202406-sc-7",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "single_choice",
+    "question": "下述代码实现素数表的线性筛法，筛选出所有小于等于 n 的素数，则横线上应填的代码是( )。\nvector<int> linear_sieve(int n) {\n    vector<bool> is_prime(n + 1, true);\n    vector<int> primes;\n    is_prime[0] = is_prime[1] = 0;\n    for (int i = 2; i <= n; ++i) {\n        if (is_prime[i]) {\n            primes.push_back(i);\n        }\n        _____________________________ {\n            is_prime[i * primes[j]] = 0;\n            if (i % primes[j] == 0)\n                break;\n        }\n    }\n    return primes;\n}",
+    "options": {
+      "A": "for (int j = 0; j < primes.size() && i * primes[j] <= n; j++)",
+      "B": "for (int j = 0; j <= sqrt(n) && i * primes[j] <= n; j++)",
+      "C": "for (int j = 0; j <= n; j++)",
+      "D": "for (int j = 1; j <= sqrt(n); j++)"
+    },
+    "answer": "A",
+    "explanation": "线性筛遍历已收集的素数表 primes[j] 去筛合数 i*primes[j]，需限制不超过 n；当 i 能被 primes[j] 整除时 break 保证每个合数只被最小质因子筛一次。"
+  },
+  {
+    "id": "gesp-5-202406-sc-8",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "single_choice",
+    "question": "上题线性筛代码的时间复杂度是（ ）。",
+    "options": {
+      "A": "O(n²)",
+      "B": "O(n log n)",
+      "C": "O(n log log n)",
+      "D": "O(n)"
+    },
+    "answer": "D",
+    "explanation": "线性筛每个合数只被其最小质因子筛一次，总时间复杂度为 O(n)。"
+  },
+  {
+    "id": "gesp-5-202406-sc-9",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "为了正确实现快速排序，下面横线上的代码应为（ ）。\nvoid qsort(vector<int>& arr, int left, int right) {\n    int i, j, mid;\n    int pivot;\n    i = left;\n    j = right;\n    mid = (left + right) / 2;\n    pivot = arr[mid];\n    do {\n        while (arr[i] < pivot) i++;\n        while (arr[j] > pivot) j--;\n        if (i <= j) {\n            swap(arr[i], arr[j]);\n            i++; j--;\n        }\n    } _____________________________;\n    if (left < j) qsort(arr, left, j);\n    if (i < right) qsort(arr, i, right);\n}",
+    "options": {
+      "A": "while (i <= mid)",
+      "B": "while (i < mid)",
+      "C": "while (i < j)",
+      "D": "while (i <= j)"
+    },
+    "answer": "D",
+    "explanation": "do-while 循环需在 i、j 指针交错（i > j）后结束，条件为 while (i <= j)。"
+  },
+  {
+    "id": "gesp-5-202406-sc-10",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "关于分治算法，以下哪个说法正确？",
+    "options": {
+      "A": "分治算法将问题分成子问题，然后分别解决子问题，最后合并结果。",
+      "B": "归并排序不是分治算法的应用。",
+      "C": "分治算法通常用于解决小规模问题。",
+      "D": "分治算法的时间复杂度总是优于 O(n·log(n))。"
+    },
+    "answer": "A",
+    "explanation": "分治=分解+解决+合并；归并排序是分治的典型应用；分治适合大规模问题；复杂度不总优于 O(n log n)。"
+  },
+  {
+    "id": "gesp-5-202406-sc-11",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "二分枚举法"
+    ],
+    "type": "single_choice",
+    "question": "根据二分查找法，在排好序的数组 1, 3, 6, 9, 17, 31, 39, 52, 61, 79, 81, 90, 96 中查找数值 82，和 82 比较的数组元素分别是（ ）。",
+    "options": {
+      "A": "52, 61, 81, 90",
+      "B": "52, 79, 90, 81",
+      "C": "39, 79, 90, 81",
+      "D": "39, 79, 90"
+    },
+    "answer": "C",
+    "explanation": "mid=6→39<82；left=7，mid=9→79<82；left=10，mid=11→90>82；right=10，mid=10→81<82；left=11>right 结束。比较序列为 39, 79, 90, 81。"
+  },
+  {
+    "id": "gesp-5-202406-sc-12",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "数组模拟高精度加减乘除"
+    ],
+    "type": "single_choice",
+    "question": "要实现一个高精度减法函数，则下面代码中横线处应该填写的代码为（ ）。（假设 a 和 b 均为正数，且 a 表示的数比 b 大）\nvector<int> minus(vector<int> a, vector<int> b) {\n    vector<int> c;\n    int len1 = a.size();\n    int len2 = b.size();\n    int i, t;\n    for (i = 0; i < len2; i++) {\n        if (a[i] < b[i]) {   //借位\n            ________________\n        }\n        t = a[i] - b[i];\n        c.push_back(t);\n    }\n    for (; i < len1; i++)\n        c.push_back(a[i]);\n    // ... 去除前导0后返回\n}",
+    "options": {
+      "A": "a[i + 1]--;",
+      "B": "a[i]--;",
+      "C": "b[i + 1]--;",
+      "D": "b[i]--;"
+    },
+    "answer": "A",
+    "explanation": "低位不够减时向高位借位：让被减数的高一位 a[i+1] 减 1，同时当前位加 10（代码下一行 a[i] += 10）。"
+  },
+  {
+    "id": "gesp-5-202406-sc-13",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "single_choice",
+    "question": "设 A 和 B 是两个长度为 n 的有序数组，现将 A 和 B 合并成一个有序数组，归并排序算法在最坏情况下至少要做（ ）次比较。",
+    "options": {
+      "A": "n²",
+      "B": "n log n",
+      "C": "2n − 1",
+      "D": "n"
+    },
+    "answer": "C",
+    "explanation": "最坏情况两个数组交错，每次比较消耗一个元素，最多比较 2n−1 次（一个数组耗尽后剩余部分直接复制）。"
+  },
+  {
+    "id": "gesp-5-202406-sc-14",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "给定函数：int fun(int n) { if (n == 1) return 1; if (n == 2) return 2; return fun(n - 2) - fun(n - 1); } 则当 n = 7 时，函数返回值为（ ）。",
+    "options": {
+      "A": "0",
+      "B": "1",
+      "C": "21",
+      "D": "-11"
+    },
+    "answer": "D",
+    "explanation": "fun(3)=fun(1)-fun(2)=1-2=-1；fun(4)=fun(2)-fun(3)=2-(-1)=3；fun(5)=fun(3)-fun(4)=-1-3=-4；fun(6)=fun(4)-fun(5)=3-(-4)=7；fun(7)=fun(5)-fun(6)=-4-7=-11。"
+  },
+  {
+    "id": "gesp-5-202406-sc-15",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "递归"
+    ],
+    "type": "single_choice",
+    "question": "给定函数（功能同上题，增加输出打印）：int fun(int n) { cout << n << \" \"; if (n == 1) return 1; if (n == 2) return 2; return fun(n - 2) - fun(n - 1); } 则当 n = 4 时，屏幕上输出序列为（　）。",
+    "options": {
+      "A": "4 3 2 1",
+      "B": "1 2 3 4",
+      "C": "4 2 3 1 2",
+      "D": "4 2 3 2 1"
+    },
+    "answer": "C",
+    "explanation": "先输出 4；计算 fun(4)=fun(2)-fun(3)：fun(2) 输出 2 返回 2；fun(3) 输出 3 后计算 fun(1)-fun(2)，依次输出 1、2。完整序列：4 2 3 1 2。"
+  },
+  {
+    "id": "gesp-5-202406-tf-1",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "双链表"
+    ],
+    "type": "true_false",
+    "question": "如果将双向链表的最后一个结点的下一项指针指向第一个结点，第一个结点的前一项指针指向最后一个结点，则该双向链表构成循环链表。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "首尾互相指向即形成环形结构，是循环双向链表。"
+  },
+  {
+    "id": "gesp-5-202406-tf-2",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
+    "type": "true_false",
+    "question": "数组和链表都是线性表，链表的优点是插入删除不需要移动元素，并且能随机查找。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "链表插入删除只需改指针，但不支持随机访问，查找必须从头遍历。"
+  },
+  {
+    "id": "gesp-5-202406-tf-3",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "单链表"
+    ],
+    "type": "true_false",
+    "question": "链表的存储空间物理上可以连续，也可以不连续。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "链表通过指针链接，结点可以分散在任意内存位置，也可以恰好连续。"
+  },
+  {
+    "id": "gesp-5-202406-tf-4",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "素数表的埃氏筛法和线性筛法"
+    ],
+    "type": "true_false",
+    "question": "找出自然数n以内的所有质数，常用算法有埃拉托斯特尼（埃氏）筛法和线性筛法，其中埃氏筛法效率更高。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "线性筛 O(n) 优于埃氏筛 O(n log log n)，线性筛效率更高。"
+  },
+  {
+    "id": "gesp-5-202406-tf-5",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "唯一分解定理"
+    ],
+    "type": "true_false",
+    "question": "唯一分解定理表明任何一个大于1的整数都可以唯一地表示为一系列质数的乘积，即质因数分解是唯一的。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "即算术基本定理：大于 1 的整数（合数）的质因数分解在不计顺序时唯一。"
+  },
+  {
+    "id": "gesp-5-202406-tf-6",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "贪心算法"
+    ],
+    "type": "true_false",
+    "question": "贪心算法通过每一步选择局部最优解来获得全局最优解，但并不一定能找到最优解。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "贪心只在具备贪心选择性质的问题上保证全局最优，一般情况下可能只得到近似解。"
+  },
+  {
+    "id": "gesp-5-202406-tf-7",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性",
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "true_false",
+    "question": "归并排序和快速排序都采用递归实现，也都是不稳定排序。（　）",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "归并排序是稳定排序；快速排序是不稳定排序（交换可能打乱相同元素的相对顺序）。"
+  },
+  {
+    "id": "gesp-5-202406-tf-8",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "算法：排序概念和稳定性"
+    ],
+    "type": "true_false",
+    "question": "插入排序有时比快速排序时间复杂度更低。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "序列基本有序时插入排序接近 O(N)，低于快排平均的 O(N log N)。"
+  },
+  {
+    "id": "gesp-5-202406-tf-9",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "分治算法（归并和快速排序）"
+    ],
+    "type": "true_false",
+    "question": "在进行全国人口普查时，将其分解为对每个省市县乡来进行普查和统计。这是典型的分治策略。",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "T",
+    "explanation": "把大问题分解为多个地域子问题分别统计再汇总，符合分治思想。"
+  },
+  {
+    "id": "gesp-5-202406-tf-10",
+    "exam": {
+      "type": "GESP",
+      "level": 5,
+      "date": "202406"
+    },
+    "knowledge_points": [
+      "指针类型的概念及基本应用"
+    ],
+    "type": "true_false",
+    "question": "在下面C++代码中，由于删除了变量 ptr，因此 ptr 所对应的数据也随之删除，故执行下述代码时，将报错。\nint* ptr = new int(10);\ncout << *ptr << endl;\ndelete ptr;\ncout << ptr << endl;",
+    "options": {
+      "T": "正确",
+      "F": "错误"
+    },
+    "answer": "F",
+    "explanation": "delete 释放的是指针指向的动态内存，指针变量 ptr 本身仍然存在；第 4 行输出的是 ptr 中保存的地址值（悬空指针），不会报错（只是不安全）。"
+  }
+]

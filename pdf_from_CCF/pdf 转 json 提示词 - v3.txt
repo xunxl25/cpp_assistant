@@ -36,7 +36,7 @@
 
 ### 5. 输出格式
 - 返回一个 JSON 数组 List[Dict]。
-- 文件命名：type-level-date.json（如 gesp-4-2403.json）。
+- 文件命名：type-level-date.json（如 gesp-4-202403.json）。
 
 ## 知识点列表（用于匹配）
 函数的定义与调用
@@ -78,7 +78,7 @@
       "date": "202606"
     },
     "knowledge_points": [
-      "参数传递方式"
+      "函数参数传递"
     ],
     "type": "single_choice",
     "question": "小杨正在编写一个"数字交换器"程序，他希望通过函数交换两个变量的值。请问运行以下代码后，屏幕上输出的是（ ）。\nvoid exchange(int *a, int &b) {\n int t = *a;\n *a = b;\n b = t;\n}\nint main() {\n int x = 100, y = 200;\n exchange(&x, y);\n cout << x << " " << y;\n return 0;\n}",
