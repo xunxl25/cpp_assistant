@@ -78,7 +78,7 @@ def render_practice_ui(
         on_remove_from_mistake: 移出错题本的回调函数
 
     Returns:
-        {'action': 'next'/'stay'/'remove', 'next_index': int}
+        {'action': 'next'/'prev'/'stay'/'remove', 'next_index': int}
     """
     if not questions or current_index >= len(questions):
         return {'action': 'stay', 'next_index': current_index}
@@ -162,8 +162,8 @@ def render_practice_ui(
     if session_key not in st.session_state:
         st.session_state[session_key] = {"total": len(questions), "answered": 0, "correct": 0}
 
-    # 提交按钮 + 下一题按钮
-    submit_col, next_col = st.columns([1, 1])
+    # 提交按钮 + 上一题按钮 + 下一题按钮
+    submit_col, prev_col, next_col = st.columns([1.2, 1, 1])
     with submit_col:
         if not already_submitted:
             # 未提交：显示提交按钮
@@ -229,6 +229,15 @@ def render_practice_ui(
 
             # 显示解析
             st.info(current_question["explanation"])
+
+    # 上一题按钮（第一题时禁用；回到已提交的题会直接展示上次结果）
+    with prev_col:
+        if st.button(
+            "上一题",
+            key=f"prev_{current_question['id']}",
+            disabled=current_index == 0,
+        ):
+            return {'action': 'prev', 'next_index': current_index - 1}
 
     # 下一题按钮
     with next_col:

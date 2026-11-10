@@ -218,8 +218,11 @@ def main():
         on_remove_from_mistake=remove_from_mistake
     )
 
-    # 处理组件返回的动作 (支持下一题和移出错题本)
+    # 处理组件返回的动作 (支持上一题/下一题和移出错题本)
     if result['action'] == 'next':
+        st.session_state.review_current_index = result['next_index']
+        st.rerun()
+    elif result['action'] == 'prev':
         st.session_state.review_current_index = result['next_index']
         st.rerun()
     elif result['action'] == 'remove':

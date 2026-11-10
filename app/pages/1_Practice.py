@@ -200,6 +200,9 @@ def main():
             if result['action'] == 'next':
                 st.session_state.current_index = result['next_index']
                 st.rerun()
+            elif result['action'] == 'prev':
+                st.session_state.current_index = result['next_index']
+                st.rerun()
         else:
             st.warning("没有符合条件的题目")
     else:
