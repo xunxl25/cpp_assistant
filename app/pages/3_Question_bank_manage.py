@@ -11,6 +11,7 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 import streamlit as st
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -54,6 +55,30 @@ QUESTION_BANK_DIR = "question_bank"
 PAST_EXAM_DIR = "past_exam"
 TEMP_DIR = "temp"
 
+# 可选依赖：streamlit-aggrid（题目列表列头筛选，类似 R DT 的 filterable）。
+# 未安装时自动回退 st.dataframe，不阻塞使用。
+try:
+    from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
+    HAS_AGGRID = True
+except ImportError:
+    HAS_AGGRID = False
+
+
+def _count_source_files() -> int:
+    """真题卷数量 = 索引中 distinct 源文件数（json 文件个数）"""
+    if not Path(QUESTION_BANK_INDEX_PATH).exists():
+        return 0
+    with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
+        (n,) = conn.execute(
+            "SELECT COUNT(DISTINCT source_file) FROM question_index"
+        ).fetchone()
+    return n
+
+
+def _short_exam_date(d: str) -> str:
+    """日期缩写：202309 → 2309；非 6 位数字（如 sample）原样返回"""
+    return d[2:] if len(d) == 6 and d.isdigit() else d
+
 
 def main():
     """题库管理页面"""
@@ -62,7 +87,7 @@ def main():
     # ---------- 1. 题库概览 ----------
     st.header("题库概览")
 
-    col_refresh, col1, col2 = st.columns([1, 1, 1])
+    col_refresh, col1, col2, col3 = st.columns([0.8, 1, 1, 1])
     with col_refresh:
         if st.button("刷新题库索引"):
             with st.spinner("正在构建索引..."):
@@ -74,26 +99,49 @@ def main():
     # 概览数字从索引 DB 查（不加载 JSON 文件）
     total_count = get_total_question_count_cached(QUESTION_BANK_DIR)
     kp_freq = get_kp_frequency_cached(QUESTION_BANK_DIR)
-    col1.metric("总题目数", total_count)
-    col2.metric("知识点数量", len(kp_freq))
+    col1.metric("真题卷数量", _count_source_files())
+    col2.metric("题目数量", total_count)
+    col3.metric("知识点数量", len(kp_freq))
 
-    # 展示索引表概览
+    # 展示索引表概览（行粒度：考试类型 × 级别；日期折叠进一个单元格，2 位年缩写）
     try:
         if Path(QUESTION_BANK_INDEX_PATH).exists():
             with closing(sqlite3.connect(QUESTION_BANK_INDEX_PATH)) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    SELECT DISTINCT exam_type, exam_level, exam_date, source_file
+                    SELECT exam_type, exam_level, exam_date, source_file
                     FROM question_index
                 """)
                 rows = cursor.fetchall()
 
+            # 聚合：{(类型, 级别): {dates, files}}
+            agg = {}
+            for et, el, ed, sf in rows:
+                cell = agg.setdefault((et, el), {"dates": set(), "files": set()})
+                if ed:
+                    cell["dates"].add(ed)
+                if sf:
+                    cell["files"].add(sf)
+
             index_data = [
-                {"考试类型": r[0], "级别": r[1], "日期": r[2], "源文件": r[3]}
-                for r in rows
+                {
+                    "考试类型": et,
+                    "级别": el,
+                    "真题卷数量": len(v["files"]),
+                    "日期": "、".join(_short_exam_date(d) for d in sorted(v["dates"])),
+                }
+                for (et, el), v in sorted(agg.items())
             ]
             if index_data:
-                st.dataframe(index_data, width='stretch', hide_index=True)
+                st.dataframe(
+                    index_data, width='stretch', hide_index=True,
+                    column_config={
+                        "考试类型": st.column_config.TextColumn(width="small"),
+                        "级别": st.column_config.TextColumn(width="small"),
+                        "真题卷数量": st.column_config.NumberColumn(width="small"),
+                        "日期": st.column_config.TextColumn(width="large"),
+                    },
+                )
             else:
                 st.info("索引为空，请点击刷新按钮构建索引。")
         else:
@@ -117,7 +165,28 @@ def main():
             "题目": display_question
         })
     if df_data:
-        st.dataframe(df_data, width='stretch', hide_index=True)
+        if HAS_AGGRID:
+            # streamlit-aggrid：列头筛选/排序/拖宽（类似 R DT 的 filterable）
+            # 注意：AG Grid 属性名是 filter（不是 filterable，会被静默忽略）；
+            # floatingFilter=True 在列头下方显示常驻筛选输入行
+            df = pd.DataFrame(df_data)
+            gb = GridOptionsBuilder.from_dataframe(df)
+            gb.configure_default_column(
+                filter=True,           # 文本列筛选（数值列 from_dataframe 已自动配 numberColumnFilter）
+                floatingFilter=True,   # 列头下方常驻筛选行
+                sortable=True,
+                resizable=True,
+                minWidth=100,
+            )
+            AgGrid(
+                df,
+                gridOptions=gb.build(),
+                columns_auto_size_mode=ColumnsAutoSizeMode.FIT_CONTENTS,
+                height=420,
+            )
+        else:
+            st.dataframe(df_data, width='stretch', hide_index=True)
+            st.caption("💡 安装 streamlit-aggrid（pip install streamlit-aggrid）可启用列头筛选")
     else:
         st.warning("题库为空")
 
@@ -135,13 +204,15 @@ def main():
     # 方式1：关键字搜索
     sc1, sc2 = st.columns([4, 1])
     with sc1:
-        search_kw = st.text_input("搜索（ID 或题目内容关键字）", key="edit_search_kw")
+        search_kw = st.text_input("搜索题目内容关键字", key="edit_search_kw")
     with sc2:
         st.write("")  # 占位对齐
         st.write("")
         if st.button("🔍 搜索", width='stretch'):
             if search_kw.strip():
-                results = search_questions(all_questions, search_kw.strip())
+                results = search_questions(
+                    all_questions, search_kw.strip(), match_id=False
+                )
                 st.session_state.edit_results = results
                 st.session_state.edit_sel_idx = 0
                 st.session_state.edit_source_files = []  # 搜索路径无 source_file
@@ -159,13 +230,24 @@ def main():
         st.write("")
         st.write("")
         if st.button("📂 加载", width='stretch'):
-            q, path = get_question_by_id_from_all(load_id.strip())
-            if q:
-                st.session_state.edit_results = [q]
-                st.session_state.edit_sel_idx = 0
-                st.session_state.edit_source_files = [path]
+            kw = load_id.strip().lower()
+            if not kw:
+                st.session_state.edit_results = []
             else:
-                st.warning(f"未找到 ID 为 {load_id.strip()} 的题目")
+                # 子串匹配：如 2606-sc-5 同时命中 gesp-4/gesp-5 的题目
+                matched = [
+                    q for q in all_questions if kw in q.get("id", "").lower()
+                ]
+                if matched:
+                    st.session_state.edit_results = matched
+                    st.session_state.edit_sel_idx = 0
+                    # 逐题定位源文件，与结果列表对齐（保存时直接用）
+                    st.session_state.edit_source_files = [
+                        get_question_by_id_from_all(q["id"])[1] for q in matched
+                    ]
+                else:
+                    st.session_state.edit_results = []
+                    st.warning(f"没有 ID 包含 {kw} 的题目")
             st.rerun()
 
     results = st.session_state.edit_results

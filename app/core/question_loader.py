@@ -841,13 +841,16 @@ REQUIRED_FIELDS = ["id", "knowledge_points", "type", "question", "answer", "expl
 VALID_TYPES = {"single_choice", "true_false"}
 
 
-def search_questions(questions: List[Dict], keyword: str) -> List[Dict]:
+def search_questions(
+    questions: List[Dict], keyword: str, match_id: bool = True
+) -> List[Dict]:
     """
     根据 ID 或题目内容搜索题目（兼容新旧知识点格式）
 
     Args:
         questions: 题目列表
         keyword: 搜索关键字（ID 或题目内容）
+        match_id: 是否允许 ID 精确匹配（False 时仅按题目内容搜索，ID 检索由"输入 ID 加载"负责）
 
     Returns:
         匹配的题目列表
@@ -858,8 +861,8 @@ def search_questions(questions: List[Dict], keyword: str) -> List[Dict]:
     keyword_lower = keyword.lower()
 
     for q in questions:
-        # 精确匹配 ID
-        if q.get("id", "").lower() == keyword_lower:
+        # 精确匹配 ID（可选）
+        if match_id and q.get("id", "").lower() == keyword_lower:
             results.append(q)
             continue
 

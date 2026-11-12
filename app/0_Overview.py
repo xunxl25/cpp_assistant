@@ -162,7 +162,7 @@ def main():
         for kp in knowledge_points
     ])
 
-    # 显示柱状图（legend 置于图下方，使绘图区与正确率图等宽）
+    # 显示柱状图（双系列含义由内嵌 title 与配色自明，不显示 legend）
     fig = px.bar(
         chart_data,
         x="知识点",
@@ -171,10 +171,8 @@ def main():
         title="知识点题目数量与完成情况"
     )
     fig.update_xaxes(tickangle=-45, title_text=None)
-    fig.update_layout(
-        legend=dict(orientation="h", yanchor="bottom", y=-0.38, x=0, xanchor="left"),
-        margin=dict(b=160, t=50),
-    )
+    fig.update_yaxes(title_text="数量")
+    fig.update_layout(showlegend=False, margin=dict(b=140, t=50))
     st.plotly_chart(fig, width='stretch')
 
     # 正确率图（柱顶标注做题次数：全错为 0%+n，未做为 0%+0，可区分）
