@@ -65,15 +65,27 @@ def main():
 
     # ===== 顶端：考试类型/级别选择（可选，影响下方所有统计） =====
     all_types = get_exam_types()
-    all_levels = get_exam_levels()
 
     col1, col2 = st.columns(2)
+    type_options = ["全部"] + all_types
+    # 默认选中 GESP（题库暂无该类型时回退"全部"）
+    default_type_index = type_options.index("GESP") if "GESP" in type_options else 0
     with col1:
-        st.selectbox("考试类型", ["全部"] + all_types, key="overview_exam_type")
-    with col2:
-        st.selectbox("级别", ["全部"] + all_levels, key="overview_exam_level")
+        st.selectbox(
+            "考试类型", type_options,
+            index=default_type_index, key="overview_exam_type"
+        )
 
+    # 级别列表随考试类型联动（从索引 DISTINCT(type, level) 动态读取；
+    # 类型切换后当前级别失效时，Streamlit 会自动回退到默认"全部"）
     sel_type = st.session_state.get("overview_exam_type", "全部")
+    if sel_type == "全部":
+        level_list = get_exam_levels()
+    else:
+        level_list = get_exam_levels(exam_type=sel_type)
+    with col2:
+        st.selectbox("级别", ["全部"] + level_list, key="overview_exam_level")
+
     sel_level = st.session_state.get("overview_exam_level", "全部")
     exam_types = None if sel_type == "全部" else [sel_type]
     exam_levels = None if sel_level == "全部" else [sel_level]
@@ -104,8 +116,7 @@ def main():
         st.warning("没有题目数据")
         return
 
-    # 知识点概览
-    st.header("知识点概览")
+    # 知识点图表（标题与图内嵌 title 保留在图上）
     knowledge_points = sorted(freq.keys())
 
     # 预处理：解析每条日志的知识点，按知识点分组（O(L) 一次扫完）
@@ -129,11 +140,13 @@ def main():
             total_attempts = sum(log["correct_count"] + log["wrong_count"] for log in kp_logs)
             accuracy = correct_attempts / total_attempts if total_attempts > 0 else 0
         else:
+            total_attempts = 0
             accuracy = 0
 
         completion[kp] = {
             "total": freq[kp],
             "practiced": practiced_count,
+            "attempts": total_attempts,
             "accuracy": accuracy
         }
 
@@ -143,12 +156,13 @@ def main():
             "知识点": kp,
             "题目数量": completion[kp]["total"],
             "已完成": completion[kp]["practiced"],
+            "做题次数": completion[kp]["attempts"],
             "正确率": completion[kp]["accuracy"]
         }
         for kp in knowledge_points
     ])
 
-    # 显示柱状图
+    # 显示柱状图（legend 置于图下方，使绘图区与正确率图等宽）
     fig = px.bar(
         chart_data,
         x="知识点",
@@ -156,17 +170,26 @@ def main():
         barmode="group",
         title="知识点题目数量与完成情况"
     )
+    fig.update_xaxes(tickangle=-45, title_text=None)
+    fig.update_layout(
+        legend=dict(orientation="h", yanchor="bottom", y=-0.38, x=0, xanchor="left"),
+        margin=dict(b=160, t=50),
+    )
     st.plotly_chart(fig, width='stretch')
 
-    # 显示正确率
-    st.write("### 知识点正确率")
+    # 正确率图（柱顶标注做题次数：全错为 0%+n，未做为 0%+0，可区分）
     accuracy_chart = px.bar(
         chart_data,
         x="知识点",
         y="正确率",
+        text="做题次数",
         title="各知识点正确率",
-        range_y=[0, 1]
+        range_y=[0, 1.1]
     )
+    accuracy_chart.update_traces(textposition="outside")
+    accuracy_chart.update_xaxes(tickangle=-45, title_text=None)
+    accuracy_chart.update_yaxes(dtick=0.25)
+    accuracy_chart.update_layout(margin=dict(b=140, t=50))
     st.plotly_chart(accuracy_chart, width='stretch')
 
     # 统计卡片
