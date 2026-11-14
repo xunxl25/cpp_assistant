@@ -1,0 +1,1247 @@
+[
+    {
+        "id": "gesp-5-mock1-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "单链表"
+        ],
+        "type": "single_choice",
+        "question": "下列关于数组与链表的比较，说法正确的是（　　）。",
+        "options": {
+            "A": "数组必须在内存中连续存放，链表也必须在内存中连续存放",
+            "B": "设链表长度为 n，访问第 k 个元素的时间复杂度为 O(1)",
+            "C": "已知指向单链表中某结点 p 的指针，且 p 的后继存在，则删除 p 的后继结点的时间复杂度为 O(1)",
+            "D": "在数组的第 k 个位置插入一个元素的时间复杂度恒为 O(1)"
+        },
+        "answer": "C",
+        "explanation": "链表只能在 O(n) 内顺序访问第 k 个元素；数组中间插入最坏为 O(n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "单链表",
+            "双链表",
+            "循环链表"
+        ],
+        "type": "single_choice",
+        "question": "设某链表的每个结点均含数据域与指针域。下列关于单链表、双向链表与循环链表的叙述，正确的是（　　）。",
+        "options": {
+            "A": "双向链表中，任意结点的 `prev` 指针一定非空",
+            "B": "若单向循环链表非空，则从任一数据结点出发沿 `next` 指针不断前进，一定能够回到该结点本身",
+            "C": "带哨兵（哑）结点的链表中，不存在数据域为空值的结点",
+            "D": "长度为 n 的单链表中，删除尾结点（仅知头指针）的时间复杂度为 O(1)"
+        },
+        "answer": "B",
+        "explanation": "双向链表头结点的 `prev`（或尾结点的 `next`）常为 `nullptr`；哨兵结点数据域为空；删除单链表尾结点需 O(n) 找前驱。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "双链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "双向链表中每个结点有两个指针域 `prev` 和 `next`，分别指向该结点的前驱及后继结点。设 p 指向链表中的一个结点，其前驱和后继均非空且尚未被删除。要删除结点 p，则下述语句序列中错误的是（　　）。",
+        "options": {
+            "A": "```cpp\np->prev->next = p->next;\np->next->prev = p->prev;\ndelete p;\n```",
+            "B": "```cpp\np->next->prev = p->prev;\np->prev->next = p->next;\ndelete p;\n```",
+            "C": "```cpp\np->prev->next = p->next->next;\np->next->prev = p->prev;\ndelete p;\n```",
+            "D": "```cpp\np->prev->next = p->next;\np->next->prev = p->prev;\ndelete(p);\n```"
+        },
+        "answer": "C",
+        "explanation": "正确的是 prev→next=p→next、p→next→prev=p→prev；C 把 p 的后继也一并\"摘\"出了链表。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "双链表",
+            "循环链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "假设双向循环链表带 `head` 与 `tail` 两个哨兵结点（不存储实际内容）。下面的代码实现了在链表尾部插入一个新结点，横线上应填的最佳代码是（　　）。\n\n```cpp\nstruct ListNode {\n    int data;\n    ListNode* prev;\n    ListNode* next;\n};\n\nstruct DList {\n    ListNode* head;\n    ListNode* tail;\n};\n\nvoid pushBack(DList* L, int x) {\n    ListNode* s = new ListNode{x, nullptr, nullptr};\n    ListNode* last = L->tail->prev;   // 尾部哨兵的前驱即真正的尾结点\n    ______________________________    // 在此处填入代码\n    L->tail->prev = s;\n}\n```",
+        "options": {
+            "A": "`last->next = s;  s->prev = last;  s->next = L->tail;`",
+            "B": "`s->next = L->tail;  s->prev = last;`",
+            "C": "`last->next = s;  s->prev = L->tail;  s->next = L->tail;`",
+            "D": "`s->next = last->next;  last->next = s;  s->prev = s->next;`"
+        },
+        "answer": "A",
+        "explanation": "必须先让尾结点的 `next` 指向 s，否则断开 `last` 与 `s` 的连接。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "单链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "下面的函数用哑结点（dummy）技巧删除单链表中所有值为 x 的结点，横线上应填的最佳代码是（　　）。\n\n```cpp\nstruct Node {\n    int val;\n    Node* next;\n};\n\nNode* removeAll(Node* head, int x) {\n    Node dummy;\n    dummy.next = head;\n    Node* cur = &dummy;\n    while (cur->next != nullptr) {\n        if (cur->next->val == x) {\n            Node* tmp = cur->next;\n            ______________________   // 在此处填入代码\n            delete tmp;\n        } else {\n            cur = cur->next;\n        }\n    }\n    return dummy.next;\n}\n```",
+        "options": {
+            "A": "`cur = cur->next;`",
+            "B": "`cur->next = cur->next->next;`",
+            "C": "`cur->next = cur->next->next;  cur = cur->next;`",
+            "D": "`tmp->next = tmp->next->next;`"
+        },
+        "answer": "B",
+        "explanation": "删除后 `cur` 不能前移，否则会跳过新接上来的结点，可能漏删连续相同的值。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "循环链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "设 `head` 为单向循环链表的头结点（该链表至少含一个数据结点）。要使下面函数按顺序输出链表中所有数据结点的值，横线上应填的代码是（　　）。\n\n```cpp\nvoid printAll(Node* head) {\n    Node* p = head->next;\n    do {\n        cout << p->val << \" \";\n        p = p->next;\n    } while (______________);\n}\n```",
+        "options": {
+            "A": "`p != nullptr`",
+            "B": "`p != head`",
+            "C": "`p->next != nullptr`",
+            "D": "`p != head->next`"
+        },
+        "answer": "B",
+        "explanation": "循环链表中回到头结点即遍历结束。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "单链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "下函数使用快慢指针法（Floyd 判圈算法）判断单链表中是否存在环，横线上应填的代码是（　　）。\n\n```cpp\nbool hasCycle(Node* head) {\n    Node *slow = head, *fast = head;\n    while (fast != nullptr && fast->next != nullptr) {\n        slow = slow->next;\n        fast = fast->next->next;\n        if (______________) return true;\n    }\n    return false;\n}\n```",
+        "options": {
+            "A": "`slow == fast`",
+            "B": "`slow == head`",
+            "C": "`fast == nullptr`",
+            "D": "`slow->next == fast`"
+        },
+        "answer": "A",
+        "explanation": "快慢指针相遇即有环。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "循环链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "设单向循环链表的头结点为 `head`，除指针与数据外无其他辅助信息（如长度计数器）。下面函数的功能是（　　）。\n\n```cpp\nint f(Node* head) {\n    if (head->next == head) return 0;\n    int cnt = 0;\n    Node* p = head->next;\n    while (p != head) {\n        cnt++;\n        p = p->next;\n    }\n    return cnt;\n}\n```",
+        "options": {
+            "A": "判断链表是否为空",
+            "B": "返回链表中数据结点（不含头结点）的个数",
+            "C": "返回链表中结点的总个数（含头结点）",
+            "D": "判断链表中是否存在环"
+        },
+        "answer": "B",
+        "explanation": "从 `head->next` 出发走到 `head` 为止，统计的是不含头结点的数据结点数。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "辗转相除法"
+        ],
+        "type": "single_choice",
+        "question": "用辗转相除法求 gcd(2025,1200) 的过程中，第三步所计算的数对是（　　）。",
+        "options": {
+            "A": "1200 和 825",
+            "B": "825 和 375",
+            "C": "375 和 75",
+            "D": "75 和 0"
+        },
+        "answer": "B",
+        "explanation": "2025→1200→825→375→75→0，第三步是 825 与 375。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "辗转相除法"
+        ],
+        "type": "single_choice",
+        "question": "已知递归求最大公约数的函数为\n\n```cpp\nint gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }\n```\n\n则调用 `gcd(96, 60)` 时，形如 gcd(a_i,b_i) 的递归调用序列（含第一次调用，按先后顺序）及返回值为（　　）。",
+        "options": {
+            "A": "gcd(96,60) → gcd(60,36) → gcd(36,24) → gcd(24,12) → gcd(12,0)，返回 12",
+            "B": "gcd(96,60) → gcd(60,36) → gcd(36,24) → gcd(24,12)，返回 12",
+            "C": "gcd(96,60) → gcd(60,36) → gcd(36,24) → gcd(24,12) → gcd(12,0)，返回 6",
+            "D": "gcd(96,60) → gcd(60,36) → gcd(36,24) → gcd(24,8) → gcd(8,0)，返回 8"
+        },
+        "answer": "A",
+        "explanation": "96→60→36→24→12→0，共 5 次调用，返回 12。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "辗转相除法"
+        ],
+        "type": "single_choice",
+        "question": "设 a,b 均为不超过 10⁹ 的正整数，要使下函数在计算最小公倍数时尽可能避免中间结果超出 64 位整数范围，横线上应填（　　）。\n\n```cpp\nlong long gcd(long long a, long long b) {\n    return b == 0 ? a : gcd(b, a % b);\n}\n\nlong long lcm(long long a, long long b) {\n    return ____________________;   // 在此处填入代码\n}\n```",
+        "options": {
+            "A": "`a / gcd(a, b) * b`",
+            "B": "`a * b / gcd(a, b)`",
+            "C": "`a * b % gcd(a, b)`",
+            "D": "`gcd(a, b) / a * b`"
+        },
+        "answer": "A",
+        "explanation": "lcm=a/gcd× b 先除后乘，中间结果更小。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "唯一分解定理"
+        ],
+        "type": "single_choice",
+        "question": "根据唯一分解定理，下面整数的分解式中正确的是（　　）。",
+        "options": {
+            "A": "360 = 2³ × 3² × 5",
+            "B": "360 = 4 × 90",
+            "C": "360 = 2² × 3² × 10",
+            "D": "360 = 1 × 2³ × 3² × 5"
+        },
+        "answer": "A",
+        "explanation": "360=2³×3²×5，其余分解式中含合数因子或多余因子 1。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "下面的程序用埃氏筛求出不超过 n 的全部素数。内层循环从 j = i × i 开始而不是从 j = 2i 开始，其主要原因是（　　）。\n\n```cpp\nvector<bool> isPrime(n + 1, true);\nisPrime[0] = isPrime[1] = false;\nfor (int i = 2; i * i <= n; i++)\n    if (isPrime[i])\n        for (int j = i * i; j <= n; j += i)\n            isPrime[j] = false;\n```",
+        "options": {
+            "A": "2i 一定是偶数，而偶数中除 2 以外都不是素数，可以跳过",
+            "B": "对任意 1 < k < i，乘积 k · i 必含小于 i 的质因子 p ≤ k，因而它早在质数 p 的倍数标记阶段就已被筛去",
+            "C": "i² 之后的所有整数都不是素数",
+            "D": "这样可以保证每个合数恰好只被标记一次，使总复杂度降为 O(n)"
+        },
+        "answer": "B",
+        "explanation": "小于 i² 的 i 的倍数必含更小的质因子，已被筛过。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "接上题，埃氏筛中每个素数 i ≤ √n 都会把内层循环执行约 n/i 次，因此总操作次数约为 Σ(i ≤ √n..) n/i。该算法的渐近时间复杂度为（　　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log log n)",
+            "C": "O(n log n)",
+            "D": "O(n √n)"
+        },
+        "answer": "B",
+        "explanation": "Σ(p≤ n..) n/p = nlnln n，即 O(nloglog n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "下面的代码实现欧拉筛（线性筛），筛选出所有不超过 n 的素数，横线上应填的最佳代码是（　　）。\n\n```cpp\nvector<int> primes;\nvector<bool> isPrime(n + 1, true);\nfor (int i = 2; i <= n; i++) {\n    if (isPrime[i]) primes.push_back(i);\n    for (int j = 0; ______________________; j++) {   // 在此处填入代码\n        isPrime[i * primes[j]] = false;\n        if (i % primes[j] == 0) break;\n    }\n}\n```",
+        "options": {
+            "A": "`j < primes.size()`",
+            "B": "`i * primes[j] <= n`",
+            "C": "`j < primes.size() && i * primes[j] <= n`",
+            "D": "`j <= primes.size()`"
+        },
+        "answer": "C",
+        "explanation": "需同时保证下标不越界与乘积不超过 n。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-16",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "接上题，语句 `if (i % primes[j] == 0) break;` 的作用是（　　）。",
+        "options": {
+            "A": "保证 i × p_j 总是被它的最小质因子筛去，从而使每个合数在整个过程中被标记且仅被标记一次",
+            "B": "防止下标 j 超出 `primes` 数组的范围",
+            "C": "保证筛出的素数严格递增，从而得到有序的素数表",
+            "D": "提前结束外层循环，以减少循环常数的开销"
+        },
+        "answer": "A",
+        "explanation": "i mod p_j = 0 时 p_j 是 i 的最小质因子，再往后筛会让合数被重复标记。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-17",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "考虑下面这段代码：\n\n```cpp\nfor (int i = 2; i <= n; i++) {\n    if (!vis[i]) primes.push_back(i);\n    for (int j = 0; j < (int)primes.size() && i * primes[j] <= n; j++) {\n        vis[i * primes[j]] = 1;\n        if (i % primes[j] == 0) break;\n    }\n}\n```\n\n当 i 从 2 枚举到 n 时，语句 `vis[i * primes[j]] = 1;` 被执行的总次数处于下列哪一量级？（　　）",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log n)",
+            "C": "O(n log log n)",
+            "D": "O(n √n)"
+        },
+        "answer": "A",
+        "explanation": "每个合数只被标记一次，总次数 O(n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-18",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "在上面的线性筛中，当外层变量 i = 12 且 `primes` 中已存有 2,3,5,7,11 时，内层循环本次共会把下面哪些数标记为合数？（　　）",
+        "options": {
+            "A": "只有 24",
+            "B": "24 与 36",
+            "C": "24、36 与 60",
+            "D": "24、36、60 与 84"
+        },
+        "answer": "A",
+        "explanation": "i=12 时 12\\%2=0，只筛掉 12×2=24 后立即 `break`。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-19",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "下面的函数判断正整数 n 是否为质数，要使循环次数最少且结果正确，横线上应填（　　）。\n\n```cpp\nbool isPrime(int n) {\n    if (n < 2) return false;\n    for (int i = 2; ______________; i++)\n        if (n % i == 0) return false;\n    return true;\n}\n```",
+        "options": {
+            "A": "`i < n`",
+            "B": "`i <= n / 2`",
+            "C": "`i * i <= n`",
+            "D": "`i * i < n`"
+        },
+        "answer": "C",
+        "explanation": "i² ≤ n 等价于 i ≤ √n，是最优写法。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-20",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "初等数论"
+        ],
+        "type": "single_choice",
+        "question": "若正整数 n 的所有真因子（即除自身以外的正因子）之和等于 n，则称 n 为完全数。下面函数判断 n 是否为完全数：\n\n```cpp\nbool isPerfect(int n) {\n    if (n < 2) return false;\n    int sum = 1;\n    for (int i = 2; i * i <= n; i++) {\n        if (n % i == 0) {\n            sum += i;\n            if (i != n / i) sum += n / i;\n        }\n    }\n    return sum == n;\n}\n```\n\n对上述函数，下列说法错误的是（　　）。",
+        "options": {
+            "A": "循环条件写成 i × i ≤ n 而不是 i < n，是为了把因子枚举的复杂度从 O(n) 降到 O(√n)",
+            "B": "`if (i != n / i)` 用于避免 i = n/i（即 i = √n 且为整数）时把同一个因子重复累加",
+            "C": "当 n = 1 时函数返回 `true`，因为 1 的真因子之和恰好等于 1",
+            "D": "当 n = 28 时函数返回 `true`"
+        },
+        "answer": "C",
+        "explanation": "n=1 时函数提前返回 `false`；1 不是完全数。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-21",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "唯一分解定理"
+        ],
+        "type": "single_choice",
+        "question": "设正整数 n = 2³ × 3² × 5，则 n 的正因子个数为（　　）。",
+        "options": {
+            "A": "12",
+            "B": "18",
+            "C": "24",
+            "D": "30"
+        },
+        "answer": "C",
+        "explanation": "因子个数为 (3+1)(2+1)(1+1)=24。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-22",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "不考虑数值溢出，对下面的函数（n 为不超过 10⁵ 的正整数），下列说法正确的是（　　）。\n\n```cpp\nlong long f(int n) {\n    if (n <= 0) return 1;\n    return n * f(n - 1);\n}\n```",
+        "options": {
+            "A": "当 n 很大时，函数会因调用栈深度过大而引发栈空间溢出；若改写为等价的循环实现，辅助空间复杂度可由 O(n) 降为 O(1)",
+            "B": "该函数在任何 n 下都能正常返回，因为编译器一定会自动把它优化成循环",
+            "C": "该函数的空间复杂度为 O(1)，因为函数内部没有定义任何数组",
+            "D": "该函数的时间复杂度为 O(n²)"
+        },
+        "answer": "A",
+        "explanation": "递归深度 n 对应 O(n) 栈帧；改迭代后辅助空间为 O(1)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-23",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "下面两个函数都用于计算 n!：\n\n```cpp\nint factorialA(int n) {\n    if (n <= 1) return 1;\n    return n * factorialA(n - 1);\n}\n\nint factorialB(int n) {\n    int res = 1;\n    for (int i = 2; i <= n; i++) res *= i;\n    return res;\n}\n```\n\n对两个函数进行比较，说法正确的是（　　）。",
+        "options": {
+            "A": "二者的时间复杂度均为 O(n)，但 `factorialA` 的辅助空间复杂度为 O(n)，`factorialB` 的辅助空间复杂度为 O(1)",
+            "B": "二者的时间复杂度与辅助空间复杂度均完全相同",
+            "C": "`factorialA` 的时间复杂度为 O(2^(n))",
+            "D": "`factorialB` 的辅助空间复杂度为 O(n)"
+        },
+        "answer": "A",
+        "explanation": "两者时间同为 O(n)，递归额外占用 O(n) 栈空间。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-24",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "设函数 `fib` 按定义实现：F(1) = F(2) = 1，F(n) = F(n-1) + F(n-2) (n ≥ 3)。\n\n```cpp\nint fib(int n) {\n    if (n <= 2) return 1;\n    return fib(n - 1) + fib(n - 2);\n}\n```\n\n在不使用记忆化的情况下计算 `fib(6)`，函数 `fib` 被调用的总次数（含最外层的那一次调用）为（　　）。",
+        "options": {
+            "A": "8",
+            "B": "13",
+            "C": "15",
+            "D": "16"
+        },
+        "answer": "C",
+        "explanation": "满足 L(n)=1+L(n-1)+L(n-2)，L(6)=15。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-25",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "下面的函数用分治思想求数组区间 [l, r] 中的最大值：\n\n```cpp\nint findMax(int a[], int l, int r) {\n    if (l == r) return a[l];\n    int mid = (l + r) / 2;\n    int x = findMax(a, l, mid);\n    int y = findMax(a, mid + 1, r);\n    return x > y ? x : y;\n}\n```\n\n对长度为 n 的数组调用 `findMax(a, 0, n - 1)`，下列说法错误的是（　　）。",
+        "options": {
+            "A": "时间复杂度为 O(n)",
+            "B": "函数体现了分治思想：把区间一分为二分别求最大值，再合并两个子问题的结果",
+            "C": "当 n = 2^k 时，递归调用树共有 k + 1 层",
+            "D": "空间复杂度为 O(n)，因为需要额外开辟一个与原数组等长的辅助数组"
+        },
+        "answer": "D",
+        "explanation": "该分治只需 O(log n) 的递归栈空间，不需要等长辅助数组。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-26",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "求解最大连续子段和的分治算法中，把区间对半切分，分别递归求解左右两半，再用 O(n) 的时间合并跨越中点的情形。若记 T(n) 为处理长度 n 的区间所需时间，则（　　）。",
+        "options": {
+            "A": "T(n) = 2T((n/2)) + O(n)，T(n) = O(n)",
+            "B": "T(n) = 2T((n/2)) + O(n)，T(n) = O(n log n)",
+            "C": "T(n) = 2T((n/2)) + O(n)，T(n) = O(n²)",
+            "D": "T(n) = T((n/2)) + O(n)，T(n) = O(n log n)"
+        },
+        "answer": "B",
+        "explanation": "主定理：a=2,b=2,f(n)=O(n)，得 O(nlog n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-27",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "下面代码用于计算 a^(n) mod MOD：\n\n```cpp\nlong long power(long long a, long long n) {\n    if (n == 0) return 1;\n    long long half = power(a, n / 2);\n    long long res = half * half % MOD;\n    return n % 2 ? res * a % MOD : res;\n}\n```\n\n该算法体现的编程思想及其时间复杂度是（　　）。",
+        "options": {
+            "A": "分治；O(log n)",
+            "B": "贪心；O(n)",
+            "C": "分治；O(n)",
+            "D": "二分答案；O(log n)"
+        },
+        "answer": "A",
+        "explanation": "T(n)=T(n/2)+O(1)，得 O(log n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-28",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "下面的函数把数组 a 中两个相邻的有序区间 [left, mid] 与 [mid+1, right] 合并为一个有序区间，横线上应填的最佳代码是（　　）。\n\n```cpp\nvoid mergeArray(vector<int>& a, int left, int mid, int right) {\n    vector<int> tmp;\n    int i = left, j = mid + 1;\n    while (i <= mid && ______________) {   // 在此处填入代码\n        if (a[i] <= a[j]) tmp.push_back(a[i++]);\n        else              tmp.push_back(a[j++]);\n    }\n    while (i <= mid)   tmp.push_back(a[i++]);\n    while (j <= right) tmp.push_back(a[j++]);\n    for (int k = 0; k < (int)tmp.size(); k++) a[left + k] = tmp[k];\n}\n```",
+        "options": {
+            "A": "`j < right`",
+            "B": "`j <= right`",
+            "C": "`j <= mid`",
+            "D": "`j < mid`"
+        },
+        "answer": "B",
+        "explanation": "右半区间下标上界为 `right`，故为 `j <= right`。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-29",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "对长度为 n（n ≥ 2）的数组执行二路归并排序：\n\n```cpp\nvoid mergeSort(vector<int>& a, int l, int r) {\n    if (l >= r) return;\n    int mid = (l + r) / 2;\n    mergeSort(a, l, mid);\n    mergeSort(a, mid + 1, r);\n    mergeArray(a, l, mid, r);\n}\n```\n\n则函数 `mergeArray` 在整个排序过程中被调用的次数为（　　）。",
+        "options": {
+            "A": "n - 1",
+            "B": "n",
+            "C": "⌈ log_2 n ⌉",
+            "D": "2n - 1"
+        },
+        "answer": "A",
+        "explanation": "每次合并使有序段数减 1，共合并 n-1 次。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-30",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下列关于归并排序的说法中，不正确的是（　　）。",
+        "options": {
+            "A": "最好、最坏、平均情况下的时间复杂度均为 O(n log n)",
+            "B": "归并排序是稳定排序",
+            "C": "二路归并排序通常需要 O(n) 的辅助空间",
+            "D": "归并排序的时间复杂度与输入数据是否已基本有序有关，输入越接近有序，速度越快"
+        },
+        "answer": "D",
+        "explanation": "归并排序与输入有序程度无关，恒为 O(nlog n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-31",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "设 T(n) 表示对长度 n 的区间执行上述 `mergeSort` 所需时间（n > 1），则 T(n) 满足的递推式及其解为（　　）。",
+        "options": {
+            "A": "T(n) = 2T((n/2)) + O(n)，T(n) = O(n log n)",
+            "B": "T(n) = 2T((n/2)) + O(n)，T(n) = O(n²)",
+            "C": "T(n) = T((n/2)) + O(n)，T(n) = O(n log n)",
+            "D": "T(n) = 2T(n - 1) + O(n)，T(n) = O(2^(n))"
+        },
+        "answer": "A",
+        "explanation": "T(n)=2T(n/2)+O(n)⇒ O(nlog n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-32",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "下面是用 Lomuto 划分法实现的快速排序，横线上应填的最佳代码是（　　）。\n\n```cpp\nint partition(vector<int>& arr, int low, int high) {\n    int pivot = arr[high];   // 基准值\n    int i = low - 1;\n    for (int j = low; j < high; j++) {\n        ______________________   // 在此处填入代码\n    }\n    swap(arr[i + 1], arr[high]);\n    return i + 1;\n}\n```",
+        "options": {
+            "A": "`if (arr[j] < pivot) { i++; swap(arr[i], arr[j]); }`",
+            "B": "`if (arr[j] > pivot) { i++; swap(arr[i], arr[j]); }`",
+            "C": "`if (arr[j] <= pivot) { swap(arr[i], arr[j]); i++; }`",
+            "D": "`if (arr[j] < pivot) { swap(arr[i], arr[j]); }`"
+        },
+        "answer": "A",
+        "explanation": "小于枢轴的数前移，`i` 先自增再交换。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-33",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "single_choice",
+        "question": "对已按升序排好序的 n 个整数，采用下面的快速排序（每次均取区间最右端元素为枢轴）：\n\n```cpp\nvoid quickSort(vector<int>& a, int l, int r) {\n    if (l >= r) return;\n    int p = partition(a, l, r);\n    quickSort(a, l, p - 1);\n    quickSort(a, p + 1, r);\n}\n```\n\n其时间复杂度为（　　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log n)",
+            "C": "O(n²)",
+            "D": "O(2^(n))"
+        },
+        "answer": "C",
+        "explanation": "已有序且取端点作枢轴时每次划分极不平衡，退化为 O(n²)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-34",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "single_choice",
+        "question": "现需把记录按关键字 k 升序排序，并要求关键字相同的记录保持原有的先后次序。下列关于排序稳定性的说法中，正确的是（　　）。",
+        "options": {
+            "A": "冒泡排序是稳定的，选择排序是不稳定的",
+            "B": "快速排序是稳定的，归并排序是不稳定的",
+            "C": "选择排序是稳定的，插入排序是不稳定的",
+            "D": "归并排序是不稳定的，冒泡排序也是不稳定的"
+        },
+        "answer": "A",
+        "explanation": "口诀：\"选快\"不稳定，冒泡、插入、归并稳定。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-35",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "在整数区间 [1, 2026] 内用二分法猜一个数，每次猜测后可以得到\"偏大 / 偏小 / 正确\"三种反馈之一。则最多需要猜（　　）次一定能猜中。",
+        "options": {
+            "A": "10",
+            "B": "11",
+            "C": "12",
+            "D": "1013"
+        },
+        "answer": "B",
+        "explanation": "2¹⁰=1024<2026≤2048=2¹¹，故需 ⌈log_2 2026⌉=11 次。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-36",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "下面的函数返回有序数组中第一个不小于 x 的元素下标（若不存在则返回 n），横线上应填的最佳代码是（　　）。\n\n```cpp\nint lowerBound(const vector<int>& a, int x) {\n    int l = 0, r = (int)a.size();   // 在左闭右开区间 [l, r) 上二分\n    while (l < r) {\n        int mid = l + (r - l) / 2;\n        if (a[mid] >= x) ______________;\n        else             ______________;\n    }\n    return l;\n}\n```",
+        "options": {
+            "A": "`r = mid;`　`l = mid + 1;`",
+            "B": "`l = mid;`　`r = mid - 1;`",
+            "C": "`r = mid - 1;`　`l = mid + 1;`",
+            "D": "`l = mid + 1;`　`r = mid;`"
+        },
+        "answer": "A",
+        "explanation": "左闭右开区间上，真则收右界 `r = mid`，假则 `l = mid + 1`。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-37",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "有 n 根长度分别为 L_i 的木棍，要切割出若干段长度均为正整数 x 的小段，要求总段数不少于 k，且希望 x 尽可能大。判定函数为\n\n```cpp\nbool check(int x) {\n    long long cnt = 0;\n    for (int i = 0; i < n; i++) cnt += L[i] / x;\n    return cnt >= k;\n}\n```\n\n关于 `check` 的单调性与二分的边界更新，说法正确的是（　　）。",
+        "options": {
+            "A": "x 越大 `check(x)` 越容易为真，应写 `l = mid`（并让 `mid` 向上取整）",
+            "B": "x 越大 `check(x)` 越难为真，即 `check` 关于 x 单调递减；应写 `l = mid + 1`（假）与 `r = mid`（真）",
+            "C": "`check` 不具有单调性，本题不能用二分求解",
+            "D": "x 越大 `check(x)` 越难为真；应写 `r = mid `（假）与 `l = mid + 1`（真）"
+        },
+        "answer": "D",
+        "explanation": "x 越大段数越少，`check` 单调递减，采用\"求最大可行值\"模板。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-38",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "关于二分查找的适用条件，说法正确的是（　　）。",
+        "options": {
+            "A": "只要元素之间可以比较大小就可以使用二分查找，不要求序列有序",
+            "B": "二分查找要求数据结构支持 O(1) 的随机访问（如数组），因此不能直接应用于有序单链表",
+            "C": "二分查找的时间复杂度为 O(n)",
+            "D": "在长度为 n 的有序单链表上执行二分查找，时间复杂度为 O(log n)"
+        },
+        "answer": "B",
+        "explanation": "二分依赖 O(1) 随机访问，链表不行。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-39",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "用二分法求 √2 的近似值（要求精确到 10⁻⁶）。下列关于浮点二分的说法中，正确的是（　　）。",
+        "options": {
+            "A": "循环条件应写成 `while (l < r)`，且每次迭代的中点为整数",
+            "B": "通常写 `for (int i = 0; i < 100; i++)` 固定迭代约 100 次，或写 `while (r - l > eps)`，每次令 `mid = (l + r) / 2.0`",
+            "C": "浮点数不能用二分法，只能从小到大逐个试算",
+            "D": "必须通过判断 `a[mid] == x` 来决定何时终止"
+        },
+        "answer": "B",
+        "explanation": "浮点二分用固定迭代次数或 `eps` 控制精度，不判等。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-40",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "贪心算法"
+        ],
+        "type": "single_choice",
+        "question": "关于贪心算法，说法正确的是（　　）。",
+        "options": {
+            "A": "贪心算法在每一步都做出当前看来最优的选择且不回溯，因此总能得到全局最优解",
+            "B": "贪心算法在每一步都做出当前看来最优的选择且不回溯，适用于同时满足贪心选择性质与最优子结构的问题",
+            "C": "贪心算法必须枚举所有可能的解之后才能确定答案",
+            "D": "贪心算法与分治算法在思想与实现上完全等价"
+        },
+        "answer": "B",
+        "explanation": "贪心需同时满足贪心选择性质与最优子结构，并不保证全局最优。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-41",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "贪心算法"
+        ],
+        "type": "single_choice",
+        "question": "有 n 部电影，第 i 部的放映时间段为 [s_i, e_i)。小明同一时刻只能观看一部电影，希望观看的影片数量最多，则应采用的策略是（　　）。",
+        "options": {
+            "A": "按 s_i 从小到大排序，依次选取与已选影片不冲突的影片",
+            "B": "按 e_i 从小到大排序，依次选取起点不早于上一部影片结束时间的影片",
+            "C": "按 e_i - s_i 从小到大排序，优先选取时长最短的影片",
+            "D": "按 s_i + e_i 从小到大排序，依次选取与已选影片不冲突的影片"
+        },
+        "answer": "B",
+        "explanation": "按结束时间升序贪心是区间调度的标准结论。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-42",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "贪心算法"
+        ],
+        "type": "single_choice",
+        "question": "下面的函数用\"每次尽量取面值最大的硬币\"的贪心策略凑出 n 元：\n\n```cpp\nint coins[] = {1, 5, 10, 50, 100};\n\nint greedy(int n) {\n    int ans = 0;\n    for (int i = 4; i >= 0; i--) {\n        ans += n / coins[i];\n        n %= coins[i];\n    }\n    return ans;\n}\n```\n\n若把硬币面值改为 {1, 3, 4}，仍按从大到小的顺序尽量取，则用该策略凑出 6 元所需的硬币数，以及真正的最少硬币数分别是（　　）。",
+        "options": {
+            "A": "2；2",
+            "B": "3；2",
+            "C": "3；3",
+            "D": "2；3"
+        },
+        "answer": "B",
+        "explanation": "面值 {1,3,4} 凑 6：贪心 4+1+1=3 枚，最优 3+3=2 枚。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-43",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "分析下面的函数：\n\n```cpp\nint solve(int n) {\n    int cnt = 0;\n    for (int i = 1; i <= n; i++)\n        for (int j = 1; j * j <= i; j++)\n            cnt++;\n    return cnt;\n}\n```\n\n当 n 充分大时，其时间复杂度为（　　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n √n)",
+            "C": "O(n log n)",
+            "D": "O(n²)"
+        },
+        "answer": "B",
+        "explanation": "内层次数 Σ(i=1..)^(n) √i ≈ 2/3n^(3/2)，即 O(n√n)。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-44",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "数组模拟高精度加减乘除"
+        ],
+        "type": "single_choice",
+        "question": "下面用数组模拟高精度加法（数组低位在前），横线上应填的最佳代码是（　　）。\n\n```cpp\nvector<int> add(vector<int>& A, vector<int>& B) {\n    vector<int> C;\n    for (int i = 0, t = 0; i < (int)A.size() || i < (int)B.size() || t; i++) {\n        if (i < (int)A.size()) t += A[i];\n        if (i < (int)B.size()) t += B[i];\n        C.push_back(t % 10);\n        ______________   // 在此处填入代码\n    }\n    return C;\n}\n```",
+        "options": {
+            "A": "`t = 0;`",
+            "B": "`t = t % 10;`",
+            "C": "`t /= 10;`",
+            "D": "`t = 1;`"
+        },
+        "answer": "C",
+        "explanation": "用 `t /= 10` 保留进位。"
+    },
+    {
+        "id": "gesp-5-mock1-sc-45",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "数组模拟高精度加减乘除"
+        ],
+        "type": "single_choice",
+        "question": "下面用数组模拟高精度减法 A - B（保证 A ≥ B，数组低位在前），横线上应填的最佳代码是（　　）。\n\n```cpp\nvector<int> sub(vector<int>& A, vector<int>& B) {\n    vector<int> C;\n    for (int i = 0, t = 0; i < (int)A.size(); i++) {\n        t = A[i] - t;\n        if (i < (int)B.size()) t -= B[i];\n        C.push_back((t + 10) % 10);\n        if (t < 0) ______________;   // 在此处填入代码\n        else       ______________;\n    }\n    while (C.size() > 1 && C.back() == 0) C.pop_back();\n    return C;\n}\n```",
+        "options": {
+            "A": "`t = 1`　`t = 0`",
+            "B": "`t = -1`　`t = 0`",
+            "C": "`t = 0`　`t = 1`",
+            "D": "`t = 10`　`t = 0`\n\n---"
+        },
+        "answer": "A",
+        "explanation": "借位为 1、无借位为 0：`t = 1` / `t = 0`。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "单链表"
+        ],
+        "type": "true_false",
+        "question": "数组和链表都属于线性表；数组在一段连续的存储单元中存放元素，链表的各结点在内存中可以不连续，因此二者都能在 O(1) 时间内随机访问第 k 个元素。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "链表不支持 O(1) 随机访问，只有数组支持。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "单链表",
+            "指针类型的概念及基本应用"
+        ],
+        "type": "true_false",
+        "question": "在单链表中，若已知指向结点 p 的指针且 p 的后继结点存在，则可以把后继结点的数据复制到 p，再删除那个后继结点，从而在 O(1) 时间内达到\"删除 p\"的效果，但此时原来 p 所在的内存单元仍被占用（只是内容被改写）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "覆盖法可达到 O(1) 的\"删除效果\"，但被删结点地址实际改变。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "辗转相除法"
+        ],
+        "type": "true_false",
+        "question": "设 a,b 为正整数，则 lcm(a,b) = a/gcd(a,b) × b 恒成立；写成这种\"先除后乘\"的形式，还可以减小中间结果的数值规模，降低溢出风险。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "公式成立，且先除后乘可减小中间值。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "唯一分解定理"
+        ],
+        "type": "true_false",
+        "question": "根据唯一分解定理，任意大于 1 的自然数都可以唯一地表示成若干质数的乘积；若不计因子的书写顺序，这种表示方法是唯一的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "定理原意，注意因子顺序不计。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "true_false",
+        "question": "无论在什么规模与数据下，线性筛（欧拉筛）的实际运行时间都严格优于埃氏筛，因此掌握了线性筛之后，埃氏筛已不再有任何使用价值。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "线性筛 O(n) 但常数较大，小数据下埃氏筛往往更快，且埃氏筛实现更简单。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "true_false",
+        "question": "快速排序即使在选取中间元素作为枢轴时也仍然是稳定排序，并且它的时间复杂度与输入数据是否已经有序完全无关。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "取中间元素作枢轴不能保证稳定；且快排复杂度与输入有序程度有关。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "true_false",
+        "question": "对含 n 个元素的序列进行二路归并排序，最好、最坏、平均情况下的时间复杂度均为 O(n log n)，且归并排序是稳定排序。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "复杂度稳定为 O(nlog n)，且为稳定排序。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "选择排序与快速排序是不稳定的排序，而冒泡排序、插入排序与归并排序是稳定的排序。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "\"选快\"不稳定，冒泡、插入、归并稳定。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "true_false",
+        "question": "二分查找只要求\"能够比较大小\"，不必要求数据支持随机访问，因此它同样适用于有序单链表，时间复杂度为 O(log n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "二分要求随机访问，有序单链表上达不到 O(log n)。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "true_false",
+        "question": "若判定函数 `check(x)` 关于 x 单调递减（x 增大时 `check(x)` 由真变为假），则可以用二分求出使 `check(x)` 为真的最大 x；当 x 的可取个数为 R 时，二分次数约为 ⌈ log_2 R ⌉。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "单调判定函数 + 二分求边界，次数 ⌈ log_2 R⌉。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-11",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "贪心算法"
+        ],
+        "type": "true_false",
+        "question": "贪心算法每一步都选择当前状态下的最优解且不回溯；只要问题满足最优子结构，贪心策略就一定能够得到全局最优解。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "有最优子结构不等于满足贪心选择性质，贪心不保证全局最优（经典陷阱）。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-12",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "贪心算法"
+        ],
+        "type": "true_false",
+        "question": "\"每次优先选取面值最大的硬币\"是一种贪心策略；在面值集合 {1,3,4} 下，用该策略凑出 6 元需要 3 枚硬币，而最优方案只需 2 枚，这说明贪心策略不一定能求得全局最优解。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "{1,3,4} 凑 6 是贪心失效的标准反例。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-13",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "递归",
+            "算法复杂度的估算"
+        ],
+        "type": "true_false",
+        "question": "若不加记忆化，直接按下式递归计算 Fibonacci 数列 F(n) = F(n-1) + F(n-2)，其时间复杂度为 O(2^(n)) 量级；引入记忆化（把已算出的 F(i) 存起来）之后可降为 O(n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "朴素递归 O(2^(n))，记忆化后 O(n)。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-14",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "true_false",
+        "question": "归并排序先把序列分成两半分别排序，再把两个有序子序列合并，体现了\"分解—求解—合并\"的分治思想；汉诺塔问题用分治求解，时间满足 T(n) = 2T(n-1) + O(1)，解得 T(n) = O(2^(n))。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "T(n)=2T(n-1)+1⇒ T(n)=2^(n)-1。"
+    },
+    {
+        "id": "gesp-5-mock1-tf-15",
+        "exam": {
+            "type": "GESP",
+            "level": 5,
+            "date": "mock1"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "true_false",
+        "question": "若某算法的时间满足递推式 T(n) = T((n/2)) + O(1)，则 T(n) = O(log n)；在 O(log n)、O(n)、O(nlog n)、O(2^(n)) 中增长最快的是 O(2^(n))；大 O 记号忽略常数因子，例如 3n + 100 的时间复杂度仍记为 O(n)。\n\n---",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "递推式解为 O(log n)；O(2^(n)) 增长最快；忽略常数因子。"
+    }
+]
