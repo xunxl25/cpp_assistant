@@ -133,13 +133,12 @@ def main():
                 for (et, el), v in sorted(agg.items())
             ]
             if index_data:
+                # 日期列给足固定像素宽（容纳 19+ 个缩写日期）：
+                # Glide 截断后无悬浮提示，改为完整展示 + 表格横向滚动条
                 st.dataframe(
                     index_data, width='stretch', hide_index=True,
                     column_config={
-                        "考试类型": st.column_config.TextColumn(width="small"),
-                        "级别": st.column_config.TextColumn(width="small"),
-                        "真题卷数量": st.column_config.NumberColumn(width="small"),
-                        "日期": st.column_config.TextColumn(width="large"),
+                        "日期": st.column_config.TextColumn(width=800),
                     },
                 )
             else:
