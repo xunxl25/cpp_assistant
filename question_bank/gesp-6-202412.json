@@ -1,0 +1,511 @@
+[
+    {
+        "id": "gesp-6-202412-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "面向对象编程(OOP)是一种特殊的程序设计方法。下面（　）不是重要的OOP特性。",
+        "options": {
+            "A": "抽象",
+            "B": "封装",
+            "C": "继承",
+            "D": "模块化"
+        },
+        "answer": "D",
+        "explanation": "抽象、封装、继承（以及多态）是面向对象的基本特性；模块化是程序设计的一般原则，不属于 OOP 特有特性。"
+    },
+    {
+        "id": "gesp-6-202412-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "以下关于C++中类的说法，哪一项是正确的？",
+        "options": {
+            "A": "类中定义的所有成员变量和成员函数默认是 public 访问权限。",
+            "B": "类的构造函数必须显式声明返回类型为 void。",
+            "C": "在C++中，类的数据一般设置为私有，其公有成员函数提供访问私有数据的唯一途径。",
+            "D": "同一个类的实例有各自的成员数据和成员函数。"
+        },
+        "answer": "C",
+        "explanation": "class 默认 private；构造函数不写返回类型；成员函数代码被所有对象共享（只有成员数据各自独立）；封装思想即数据私有+公有接口。"
+    },
+    {
+        "id": "gesp-6-202412-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "以下C++代码段中存在语法错误或逻辑错误，（　）是正确的。\nclass MyClass {\npublic:\n    MyClass() { cout << \"Constructor called!\" << endl; }\n    void display() { cout << \"Display function called!\" << endl; }\n};\nint main() {\n    MyClass* obj = NULL;\n    obj->display();\n    return 0;\n}",
+        "options": {
+            "A": "NULL 在C++中无法用于指针初始化，应使用 nullptr。",
+            "B": "obj 的定义应该是 MyClass obj; 而不是指针类型。",
+            "C": "obj->display() 语句存在空指针访问错误，obj 应该初始化为一个有效的对象。",
+            "D": "obj->display() 语句会调用 display() 函数，但它没有输出任何内容。"
+        },
+        "answer": "C",
+        "explanation": "obj 为空指针，通过空指针调用成员函数属于未定义行为（解引用空指针），应指向有效对象；NULL 可以用于指针初始化。"
+    },
+    {
+        "id": "gesp-6-202412-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "阅读以下代码，下面哪一项是正确的？\nvoid processData() {\n    stack<int> s;\n    queue<int> q;\n    for (int i = 1; i <= 5; ++i) { s.push(i); q.push(i); }\n    while (!s.empty()) { cout << \"Stack pop: \" << s.top() << endl; s.pop(); }\n    while (!q.empty()) { cout << \"Queue pop: \" << q.front() << endl; q.pop(); }\n}",
+        "options": {
+            "A": "栈 s 的输出顺序是 1 2 3 4 5，队列 q 的输出顺序是 5 4 3 2 1。",
+            "B": "栈 s 的输出顺序是 5 4 3 2 1，队列 q 的输出顺序是 1 2 3 4 5。",
+            "C": "栈 s 的输出顺序是 1 2 3 4 5，队列 q 的输出顺序是 1 2 3 4 5。",
+            "D": "栈 s 的输出顺序是 1 2 3 4 5，队列 q 的输出顺序是 1 2 3 4 5，程序不会正常执行。"
+        },
+        "answer": "B",
+        "explanation": "栈后进先出：5 4 3 2 1；队列先进先出：1 2 3 4 5。"
+    },
+    {
+        "id": "gesp-6-202412-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "双链表",
+            "循环链表"
+        ],
+        "type": "single_choice",
+        "question": "N 个节点的双向循环链，在其中查找某个节点的平均时间复杂度是（　）。",
+        "options": {
+            "A": "O(1)",
+            "B": "O(N)",
+            "C": "O(log N)",
+            "D": "O(N³)"
+        },
+        "answer": "B",
+        "explanation": "链表查找需沿链遍历，平均比较约 N/2 个节点，时间复杂度 O(N)。"
+    },
+    {
+        "id": "gesp-6-202412-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "以下关于树的说法，（　）是正确的。",
+        "options": {
+            "A": "在一棵二叉树中，叶子结点的度一定是2。",
+            "B": "满二叉树中每一层的结点数等于 2^(层数-1)。",
+            "C": "在一棵树中，所有结点的度之和等于所有叶子结点的度之和。",
+            "D": "一棵二叉树的先序遍历结果和中序遍历结果一定相同。"
+        },
+        "answer": "B",
+        "explanation": "满二叉树第 i 层恰有 2^(i-1) 个结点；叶子结点度为 0；结点度之和 = 结点数-1；先序与中序一般不同。"
+    },
+    {
+        "id": "gesp-6-202412-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "已知字符集 {A, B, C, D} 的出现频率为 A:8、B:3、C:1、D:6。根据哈夫曼编码法，下面（　）是正确的哈夫曼树。",
+        "options": {
+            "A": "根{A(8), 内部{D(6), 内部{B(3), C(1)}}}",
+            "B": "根{A(8), 内部{B(3), 内部{C(1), D(6)}}}",
+            "C": "根{D(6), 内部{A(8), 内部{B(3), C(1)}}}",
+            "D": "根{C(1), 内部{B(3), 内部{A(8), D(6)}}}"
+        },
+        "answer": "A",
+        "explanation": "合并过程：C1+B3=4，4+D6=10，10+A8=18。树为 A(8) 与 10 同层，10 下为 D(6) 与 4(B,C)。"
+    },
+    {
+        "id": "gesp-6-202412-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "上一题中各字符的哈夫曼编码是（　）。",
+        "options": {
+            "A": "A: 0, B: 10, C: 110, D: 111",
+            "B": "A: 0, B: 10, C: 11, D: 10",
+            "C": "A: 0, B: 101, C: 100, D: 11",
+            "D": "A: 11, B: 10, C: 01, D: 00"
+        },
+        "answer": "C",
+        "explanation": "按树 A(8)|10{4{C(1),B(3)}, D(6)}（左右孩子顺序可交换）：A 深度1、D 深度2、B/C 深度3，对应 C 选项（B:101, C:100, D:11）。"
+    },
+    {
+        "id": "gesp-6-202412-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "（　　）是3位格雷编码。",
+        "options": {
+            "A": "000 001 011 010 110 111 101 100",
+            "B": "000 001 010 011 100 101 110 111",
+            "C": "000 001 100 101 011 010 111 110",
+            "D": "000 010 001 011 100 110 101 111"
+        },
+        "answer": "A",
+        "explanation": "3 位格雷码按镜像法生成：000 001 011 010 110 111 101 100，相邻编码仅一位不同。"
+    },
+    {
+        "id": "gesp-6-202412-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "给定以下二叉搜索树（根5，左3{2,4}，右7{6,8}），调用函数 search(root,7) 时，输出的结果是（　　）。（search 先输出当前结点值再比较）",
+        "options": {
+            "A": "5 3 7",
+            "B": "5 7",
+            "C": "2 3 4 5 6 7",
+            "D": "8 7"
+        },
+        "answer": "B",
+        "explanation": "先输出 5，7>5 走右子树；输出 7，命中。路径仅经过 5、7。"
+    },
+    {
+        "id": "gesp-6-202412-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "阅读以下二叉树的深度优先搜索算法，横线上应填写（　　）。\nvoid dfs(TreeNode* root) {\n    if (root == nullptr) return;\n    stack<TreeNode*> s;\n    s.push(root);\n    while (!s.empty()) {\n        ________________\n        cout << node->value << \" \";\n        if (node->right) s.push(node->right);\n        if (node->left) s.push(node->left);\n    }\n}",
+        "options": {
+            "A": "TreeNode* node = s.top();",
+            "B": "TreeNode* node = s.top();  s.pop();",
+            "C": "TreeNode* node = s.front();",
+            "D": "TreeNode* node = s.front();  s.pop();"
+        },
+        "answer": "B",
+        "explanation": "取栈顶元素后必须 pop 弹出，否则死循环；stack 只有 top() 没有 front()。"
+    },
+    {
+        "id": "gesp-6-202412-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "阅读以下二叉树的广度优先搜索的代码，横线上应填写（　　）。\nvoid bfs(TreeNode* root) {\n    if (root == NULL) return;\n    queue<TreeNode*> q;\n    q.push(root);\n    while (!q.empty()) {\n        ________________\n        cout << node->val << \" \";\n        if (node->left) q.push(node->left);\n        if (node->right) q.push(node->right);\n    }\n}",
+        "options": {
+            "A": "TreeNode* node = q.top();",
+            "B": "TreeNode* node = q.top();  q.pop();",
+            "C": "TreeNode* node = q.front();",
+            "D": "TreeNode* node = q.front();  q.pop();"
+        },
+        "answer": "D",
+        "explanation": "队列取队头用 front()，取出后必须 pop；queue 没有 top()。"
+    },
+    {
+        "id": "gesp-6-202412-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "使用宽度优先搜索算法遍历以下这棵树（根1，左2{8, 9{4,5}}，右3{6{7}}），可能的输出是（　）。",
+        "options": {
+            "A": "1 2 8 9 4 5 3 6 7",
+            "B": "1 2 3 4 5 6 6 8 9",
+            "C": "1 2 3 8 9 6 4 5 7",
+            "D": "8 4 5 9 2 1 3 6 7"
+        },
+        "answer": "C",
+        "explanation": "BFS 按层访问：第1层 1；第2层 2 3；第3层 8 9 6；第4层 4 5 7，得 1 2 3 8 9 6 4 5 7。"
+    },
+    {
+        "id": "gesp-6-202412-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "以下关于动态规划的描述，（　　）是正确的。",
+        "options": {
+            "A": "动态规划适用于没有重叠子问题的优化问题。",
+            "B": "动态规划要求问题具有最优子结构和无后效性。",
+            "C": "动态规划通常通过递归来实现。",
+            "D": "动态规划与贪心算法不同，贪心算法不适用于有重叠子问题的问题。"
+        },
+        "answer": "B",
+        "explanation": "使用动态规划的两个基本条件：最优子结构和无后效性（另常伴随重叠子问题）。"
+    },
+    {
+        "id": "gesp-6-202412-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "假设背包的最大容量 W = 8kg，4个物品的重量分别为 weights = [2, 3, 5, 7]，对应的价值分别为 values = [30, 40, 60, 80]，则该0/1背包问题中，背包的最大价值为（　　）。",
+        "options": {
+            "A": "70",
+            "B": "90",
+            "C": "100",
+            "D": "120"
+        },
+        "answer": "C",
+        "explanation": "选物品2和3：重量 3+5=8kg，价值 40+60=100，为不超过容量的最大价值。"
+    },
+    {
+        "id": "gesp-6-202412-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "构造函数是一种特殊的类成员函数，构造函数的名称和类名相同。但通过函数重载，可以创建多个同名的构造函数，条件是每个构造函数的参数列表不同。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "构造函数可以重载，参数列表不同的多个构造函数构成重载。"
+    },
+    {
+        "id": "gesp-6-202412-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "类的静态成员函数既能访问类的静态数据成员，也能访问非静态数据成员。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "静态成员函数没有 this 指针，只能访问静态成员，不能直接访问非静态数据成员。"
+    },
+    {
+        "id": "gesp-6-202412-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "栈中元素的插入和删除操作都在栈的顶端进行，所以方便用单向链表实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "栈只在栈顶操作，单链表头插/头删均为 O(1)，用单向链表实现即可。"
+    },
+    {
+        "id": "gesp-6-202412-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "下面代码构建的树一定是完全二叉树（逐层依次 new 出 1~6 号结点，6 是 3 的左孩子）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "结点按层序编号依次创建，最后一层结点集中在最左边，满足完全二叉树定义。"
+    },
+    {
+        "id": "gesp-6-202412-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "在二叉排序树中，左子树所有节点的值都大于根节点的值，右子树所有节点的值都小于根节点的值。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "方向反了：BST 中左子树所有结点值小于根，右子树所有结点值大于根。"
+    },
+    {
+        "id": "gesp-6-202412-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在生成一个派生类的对象时，只调用派生类的构造函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "构造顺序为先基类后派生类，会先调用基类构造函数。"
+    },
+    {
+        "id": "gesp-6-202412-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "递归"
+        ],
+        "type": "true_false",
+        "question": "下面的代码实现了二叉树的前序遍历，它通过递归方法访问每个节点并打印节点值（先输出当前结点，再递归左右子树）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "先访问根、再左子树、再右子树，是标准的前序递归遍历。"
+    },
+    {
+        "id": "gesp-6-202412-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在二叉树中，宽度优先搜索算法（BFS）保证从起点到每个节点的访问路径是边数最少的路径（即最短路径）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BFS 按层扩展，第一次到达某结点时经过的边数即为最少边数。"
+    },
+    {
+        "id": "gesp-6-202412-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "0/1背包的状态转移方程 dp[i][w] = max(dp[i-1][w], dp[i-1][w - weights[i-1]] + values[i-1]) 表示：不放物品 i 继承 dp[i-1][w]，放物品 i 则在容量 w-weights[i-1] 的最优解上加入价值 values[i-1]（下标从 0 开始）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "方程省略了边界条件：只有当 w >= weights[i-1] 时才能放入物品 i（否则应保留 dp[i-1][w]），完整实现需要条件判断，该表述不严谨。"
+    },
+    {
+        "id": "gesp-6-202412-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202412"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "栈中元素的插入和删除操作都在栈的顶端进行，所以用双向链表比单向链表更合适实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "栈只需在栈顶操作，单向链表即可满足且更节省空间，无需双向链表。"
+    }
+]

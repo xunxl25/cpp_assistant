@@ -1,0 +1,511 @@
+[
+    {
+        "id": "gesp-6-202603-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下列关于 C++ 中类的描述，正确的是（　　）。",
+        "options": {
+            "A": "如果类没有用户声明的构造函数，那么编译器会隐式声明一个默认构造函数",
+            "B": "类的析构函数可以被重载，一个类可以有多个析构函数",
+            "C": "类中的所有成员都必须声明为 public",
+            "D": "类和结构体在 C++ 中没有区别，包括默认访问权限也相同"
+        },
+        "answer": "A",
+        "explanation": "无用户声明构造函数时编译器隐式生成默认构造函数；析构函数不能重载（无参数）；成员不必全为 public；class 默认 private、struct 默认 public，默认访问权限不同。"
+    },
+    {
+        "id": "gesp-6-202603-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "下列代码中，`s1->draw();` 和 `s2->draw();` 输出不同结果的主要原因是（　　）。\nclass Shape {\npublic:\n    virtual void draw() { cout << \"绘制图形\" << endl; }\n    virtual ~Shape() {}\n};\nclass Circle : public Shape {\npublic:\n    void draw() override { cout << \"绘制圆形\" << endl; }\n};\nclass Rectangle : public Shape {\npublic:\n    void draw() override { cout << \"绘制矩形\" << endl; }\n};\n// main: Shape* s1 = new Circle(); Shape* s2 = new Rectangle();",
+        "options": {
+            "A": "draw() 是普通成员函数",
+            "B": "Shape 中的 draw() 被声明为虚函数",
+            "C": "Circle 和 Rectangle 中使用了 public 继承",
+            "D": "指针变量名不同"
+        },
+        "answer": "B",
+        "explanation": "draw() 声明为虚函数后，通过基类指针调用时执行动态绑定，实际类型 Circle/Rectangle 的 override 版本被调用，这是多态的实现机制。"
+    },
+    {
+        "id": "gesp-6-202603-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下面的代码在 main() 中有一行会导致编译错误，请找出来。\nclass Pet {\npublic:\n    Pet(string n, int a) : name(n), age(a) {}\n    string getName()  { return name; }\n    void   birthday() { age++; }\nprivate:\n    string name;\n    int    age;\n};\n// main:\n// ① cout << cat.getName();\n// ② cat.birthday();\n// ③ cat.name = \"大橘\";\n// ④ cout << cat.getName();",
+        "options": {
+            "A": "第①行",
+            "B": "第②行",
+            "C": "第③行",
+            "D": "第④行"
+        },
+        "answer": "C",
+        "explanation": "name 是 private 成员，在 main()（类外）直接赋值 cat.name = \"大橘\" 编译报错；其余行都通过 public 成员函数访问，合法。"
+    },
+    {
+        "id": "gesp-6-202603-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "游乐园的过山车每次限坐 4 人，用循环队列管理排队（容量 MAX=5，空一格判满）。下面代码执行后，循环队列是否已满？rear 的值是多少？\nconst int MAX = 5;\nint queue[MAX];\nint front = 0, rear = 0;\n// 入队: queue[rear]=x; rear=(rear+1)%MAX;\n// 出队: front=(front+1)%MAX;\n// main: enqueue 1,2,3,4; dequeue×2; enqueue 5,6;",
+        "options": {
+            "A": "已满，rear = 1",
+            "B": "未满，rear = 1",
+            "C": "已满，rear = 2",
+            "D": "未满，rear = 4"
+        },
+        "answer": "A",
+        "explanation": "入队4次后 rear=4，出队2次后 front=2，再入队 5、6：queue[4]=5 使 rear=0，queue[0]=6 使 rear=1。此时 (rear+1)%MAX = 2 = front，按空一格判满规则队列已满。"
+    },
+    {
+        "id": "gesp-6-202603-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "在以下计算机系统应用场景中，最适合使用循环队列的是（　　）。",
+        "options": {
+            "A": "函数调用过程中，保存局部变量和返回地址",
+            "B": "表达式求值中的运算符优先级处理",
+            "C": "操作系统中的进程优先级调度（高优先级先执行）",
+            "D": "生产者和消费者问题中的共享缓冲区"
+        },
+        "answer": "D",
+        "explanation": "循环队列适合固定容量、先进先出的生产者-消费者共享缓冲区；A/B 用栈，C 用优先队列（堆）。"
+    },
+    {
+        "id": "gesp-6-202603-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "在二叉搜索树（BST）中，若中序遍历的序列为{1, 2, 3, 4, 5}，且先序遍历的第一个序列元素为3，则下列说法正确的是（　　）。",
+        "options": {
+            "A": "该树一定是一棵完全二叉树。",
+            "B": "元素4和5不可能是兄弟节点。",
+            "C": "元素1所在节点的深度可能大于3（根节点深度为1）。",
+            "D": "元素2一定是元素1的父节点。"
+        },
+        "answer": "B",
+        "explanation": "根为 3，左子树含 {1,2}、右子树含 {4,5}。4 和 5 同属只有两个节点的右子树，必为父子关系（不是兄弟）；其余说法均不一定成立：左子树可取 2 为根或 1 为根，树形不定。"
+    },
+    {
+        "id": "gesp-6-202603-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "某二叉树共有10个结点，记为A~J，已知它的先序遍历序列为：A B D H I E C F J G，中序遍历序列为：H D I B E A F J C G，则该二叉树的后序遍历序列是（　　）。",
+        "options": {
+            "A": "H I D E B J F G C A",
+            "B": "H I D B E J F G C A",
+            "C": "I H D E B J F G C A",
+            "D": "H I D E B F J G C A"
+        },
+        "answer": "A",
+        "explanation": "由先序定根 A，中序划分左右子树，递归重建：左子树 {H D I B E}（根 B），右子树 {F J C G}（根 C）；后序为左右根：H I D E B J F G C A。"
+    },
+    {
+        "id": "gesp-6-202603-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列关于树的遍历的说法中，正确的一项是（　　）。",
+        "options": {
+            "A": "对任意一棵树进行深度优先遍历，所得序列一定唯一。",
+            "B": "已知一棵二叉树的先序遍历和后序遍历序列，可以唯一确定这棵二叉树。",
+            "C": "已知一棵二叉树的先序遍历和中序遍历序列，可以唯一确定这棵二叉树。",
+            "D": "已知一棵二叉树的先序遍历序列，可以唯一确定这棵二叉树。"
+        },
+        "answer": "C",
+        "explanation": "先序+中序可唯一重建二叉树；先序+后序无法区分只有一个孩子的节点是其左孩子还是右孩子；DFS 子节点访问顺序不同则序列不同。"
+    },
+    {
+        "id": "gesp-6-202603-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "有 6 个字符，它们出现的次数分别为：{2, 3, 3, 4, 6, 8}，现在用哈夫曼编码为这些字符编码，最小加权路径长度WPL（每个字符的出现次数×它的编码长度，再把每个字符结果加起来）的值为（　　）。",
+        "options": {
+            "A": "58",
+            "B": "60",
+            "C": "62",
+            "D": "64"
+        },
+        "answer": "D",
+        "explanation": "依次合并：2+3=5，3+4=7，5+6=11，7+8=15，11+15=26。叶深：26(1) 下 11(2)、15(2)；11 下 5(3)、6(2)；5 下 2(3)、3(3)；15 下 8(2)、7(2)；7 下 3(3)、4(3)。WPL = 6×2 + 2×3 + 3×3 + 3×3 + 4×3 + 8×2 = 12+6+9+9+12+16 = 64。"
+    },
+    {
+        "id": "gesp-6-202603-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "对 n 个不同符号的符号进行哈夫曼编码。若生成的哈夫曼树共有 115 个结点，则 n 的值是（　　）。",
+        "options": {
+            "A": "60",
+            "B": "58",
+            "C": "57",
+            "D": "56"
+        },
+        "answer": "B",
+        "explanation": "哈夫曼树没有度为 1 的节点：总节点数 = 2n − 1 = 115，解得 n = 58。"
+    },
+    {
+        "id": "gesp-6-202603-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "关于格雷编码（Gray Code），下列说法正确的是（　　）。",
+        "options": {
+            "A": "格雷编码中，编码位数越多，相邻编码之间变化的位数也越多",
+            "B": "格雷编码中，相邻两个编码的二进制位恰好有一位不同",
+            "C": "格雷编码就是把普通二进制编码按位取反后得到的结果",
+            "D": "格雷编码不能用于数字电路和状态转换的设计中"
+        },
+        "answer": "B",
+        "explanation": "格雷码的核心性质是相邻两个编码只有一位二进制不同，可减少数字电路状态跳变时的误码。"
+    },
+    {
+        "id": "gesp-6-202603-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "给定一棵二叉树，采用广度优先搜索(BFS)算法返回右视图所有节点的值（每层最右侧节点）。代码用队列记录节点与深度，逐层更新 rightmostValueAtDepth[depth]。横线处应填写：\n// while 循环内：max_depth = max(max_depth, depth); rightmostValueAtDepth[depth] = node->val;\n// 若有孩子则 nodeQueue.push(________); depthQueue.push(________);\n// 循环后：for (int depth = ________; rightmostValueAtDepth.count(depth); ++depth) rightView.push_back(rightmostValueAtDepth[depth]);",
+        "options": {
+            "A": "depth; depth; depth < max_depth",
+            "B": "depth + 1; depth + 1; depth <= max_depth",
+            "C": "depth + 1; depth + 1; depth < max_depth",
+            "D": "depth; depth; depth <= max_depth"
+        },
+        "answer": "B",
+        "explanation": "孩子节点深度为父节点深度 +1，两处 push 均为 depth + 1；输出层号从 0 到 max_depth（含），循环条件 depth <= max_depth。"
+    },
+    {
+        "id": "gesp-6-202603-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "下列关于树的深度优先搜索（DFS）的说法中，正确的是（　　）。",
+        "options": {
+            "A": "对树进行 DFS 时，一定是按层从上到下依次访问结点",
+            "B": "对任意一棵树进行 DFS，得到的遍历序列唯一",
+            "C": "对一棵树进行 DFS 时，常借助递归或栈实现",
+            "D": "DFS 只能用于二叉树，不能用于普通树"
+        },
+        "answer": "C",
+        "explanation": "DFS 深入到底再回溯，常以递归或显式栈实现；按层访问是 BFS；子节点访问顺序不同则序列不同；DFS 同样适用于普通树与图。"
+    },
+    {
+        "id": "gesp-6-202603-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "小朋友们去邻里拜年，每个家里有不同数量的糖果。规则是：不能连续进入两个相邻的房子（即不能同时取相邻两家的糖果）。目标是拿到最多糖果。以下是代码实现，请补全横线。\nint visit(vector<int>& nums) {\n    int size = nums.size();\n    if (size == 1) return nums[0];\n    vector<int> dp(size, 0);\n    dp[0] = nums[0];\n    dp[1] = max(nums[0], nums[1]);\n    for (int i = 2; i < size; i++) {\n        dp[i] = _____;\n    }\n    return dp[size - 1];\n}",
+        "options": {
+            "A": "dp[i] = dp[i - 1] + nums[i];",
+            "B": "dp[i] = max(dp[i - 1], dp[i - 2] * nums[i]);",
+            "C": "dp[i] = max(dp[i - 1], dp[i - 2] + nums[i]);",
+            "D": "dp[i] = dp[i - 2] + nums[i];"
+        },
+        "answer": "C",
+        "explanation": "打家劫舍（不相邻取最大和）：dp[i] 表示前 i+1 家的最大收益——要么不取第 i 家（dp[i-1]），要么取第 i 家（dp[i-2]+nums[i]），两者取较大。"
+    },
+    {
+        "id": "gesp-6-202603-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "元宵节晚上，小朋友沿着一条发光石板路前进，每次可向前走 1 块或 2 块石板。动态规划定义如下：dp[i] = dp[i - 1] + dp[i - 2]，下面关于 dp[i] 的含义最合适的是（　　）。",
+        "options": {
+            "A": "走到第 i 块石板的方法总数",
+            "B": "走到第 i 块石板所需的最少步数",
+            "C": "第 i 块石板的编号",
+            "D": "在第 i 块石板上停留的时间"
+        },
+        "answer": "A",
+        "explanation": "递推式 dp[i] = dp[i-1] + dp[i-2]（从第 i-1 块走 1 步、从第 i-2 块走 2 步）统计的是到达第 i 块石板的走法总数。"
+    },
+    {
+        "id": "gesp-6-202603-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "有如下结构体定义：\nstruct Point {\n    int x, y;\n    Point(int _x, int _y) : x(_x), y(_y) {}\n};\nstruct Segment { Point a, b; };\n// main 中：Segment seg;  // ①",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "Point 已有用户声明的构造函数（带参），编译器不再隐式生成默认构造函数；Segment 的成员 Point a, b 需要默认构造，编译报错。"
+    },
+    {
+        "id": "gesp-6-202603-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "C++ 中的继承支持单继承和多继承，但子类无法直接访问父类的私有成员。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "C++ 支持单继承与多继承；父类 private 成员对子类不可直接访问，需通过父类的 public/protected 接口。"
+    },
+    {
+        "id": "gesp-6-202603-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "对如下结构的树，执行 travel 函数，输出结果是 1 2 3 4 5。\n树结构：根 1，左孩子 2（其孩子为 4、5），右孩子 3。\nvoid travel(Node* root) {\n    if (!root) return;\n    stack<Node*> s; s.push(root);\n    while (!s.empty()) {\n        Node* cur = s.top(); s.pop();\n        cout << cur->val << \" \";\n        if (cur->right) s.push(cur->right);\n        if (cur->left)  s.push(cur->left);\n    }\n}",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "栈版先序：pop 1 后先压 3 再压 2，则先访问 2；2 出栈后压 5、4，先访问 4 再 5，最后 3。实际输出 1 2 4 5 3，不是 1 2 3 4 5。"
+    },
+    {
+        "id": "gesp-6-202603-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码",
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "若所有字符出现频率相同，则哈夫曼编码一定会得到完全二叉树。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "等频时每次合并的两个最小节点权值相同，树形不唯一，合并过程得到的树不一定是完全二叉树（例如 6 个等频字符合并后最后一层可能不满或层序不连续）。"
+    },
+    {
+        "id": "gesp-6-202603-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码是一种变长的前缀编码，在解码时不需要额外的分隔符就能唯一还原，这是因为在哈夫曼树中，任何一个字符的叶子结点都不会成为另一个字符结点的祖先。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "哈夫曼编码的字符都是叶子节点，任何编码都不是另一编码的前缀（前缀码性质），因此码流可无歧义地唯一解码。"
+    },
+    {
+        "id": "gesp-6-202603-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "在 C++ 中使用一维数组 vector<int> tree 存储按层序遍历的完全二叉树时，若根节点存储在 tree[0]，则对于任意非空节点 tree[i]，其右孩子（如果存在）必然位于 tree[2 * i + 2]。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "0 起始的层序存储中，tree[i] 的左孩子为 2i+1、右孩子为 2i+2。"
+    },
+    {
+        "id": "gesp-6-202603-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "在 C++ 中使用栈来非递归地实现二叉树的前序遍历时，为了保证遍历顺序正确，在处理完当前结点后，应该先将该结点的左孩子压入栈中，然后再将右孩子压入栈中。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "栈是后进先出：要保证先访问左孩子，必须先压右孩子、再压左孩子。先压左孩子会导致先访问右子树。"
+    },
+    {
+        "id": "gesp-6-202603-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "算法复杂度的估算"
+        ],
+        "type": "true_false",
+        "question": "设二叉树共有 n 个结点，函数 preorderTraversal 采用递归先序遍历，其时间复杂度为 O(n)，空间复杂度为 O(n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "每个节点访问一次，时间 O(n)；递归调用栈深度为树高，最差（链状树）为 O(n)。"
+    },
+    {
+        "id": "gesp-6-202603-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "下列代码实现了一个0-1背包的一维动态规划代码，内层循环是经典的逆序写法。若将内层循环改成正序遍历（即 for (int j = w[i]; j <= W; j++)），仍能得到正确答案。\n// dp[j] = max(dp[j], dp[j - w[i]] + v[i]); 外层物品、内层容量 W=5 逆序",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "0-1 背包内层逆序保证每个物品至多选一次；改成正序后 dp[j-w[i]] 可能已含本轮物品，变成完全背包（物品可重复选取），答案错误。"
+    },
+    {
+        "id": "gesp-6-202603-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "在动态规划问题中，状态空间相同且没有重复计算的情况下，“状态转移方程+递推”与“递归+记忆化搜索”的时间复杂度通常相同。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "两种实现访问的状态集合相同、每个状态只计算一次，时间复杂度通常相同（自底向上与自顶向下的对应关系）。"
+    }
+]

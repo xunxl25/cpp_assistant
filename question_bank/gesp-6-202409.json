@@ -1,0 +1,509 @@
+[
+    {
+        "id": "gesp-6-202409-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "以下（　　）没有涉及 C++ 语言的面向对象特性支持。",
+        "options": {
+            "A": "C++ 中构造一个 class 或 struct",
+            "B": "C++ 中调用 printf 函数",
+            "C": "C++ 中调用用户定义的类成员函数",
+            "D": "C++ 中构造来源于同一基类的多个派生类"
+        },
+        "answer": "B",
+        "explanation": "printf 是 C 语言标准库函数，与类和对象无关；其余均涉及类、成员函数、派生类等面向对象特性。"
+    },
+    {
+        "id": "gesp-6-202409-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "关于以下C++代码，（　　）行代码会引起编译错误。\nclass Base {\nprivate:\n    int a;\nprotected:\n    int b;\npublic:\n    int c;\n    Base() : a(1), b(2), c(3) {}\n};\nclass Derived : public Base {\npublic:\n    void show() {\n        cout << a << endl;   // Line 1\n        cout << b << endl;   // Line 2\n        cout << c << endl;   // Line 3\n    }\n};",
+        "options": {
+            "A": "Line 1",
+            "B": "Line 2",
+            "C": "Line 3",
+            "D": "没有编译错误"
+        },
+        "answer": "A",
+        "explanation": "private 成员 a 仅基类内部可访问，派生类也不能访问 → Line 1 编译错误；protected 的 b 和 public 的 c 派生类均可访问。"
+    },
+    {
+        "id": "gesp-6-202409-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "有6个元素，按照 6,5,4,3,2,1 的顺序进入栈S，下列（　　）的出栈序列是不能出现的。",
+        "options": {
+            "A": "5,4,3,6,1,2",
+            "B": "4,5,3,1,2,6",
+            "C": "3,4,6,5,2,1",
+            "D": "2,3,4,1,5,6"
+        },
+        "answer": "C",
+        "explanation": "C 中先出 3、4 后要出 6：此时栈中 6 之下压着 5，必须先弹出 5 才能弹出 6，故 6 不能先于 5 出栈，该序列不可能。"
+    },
+    {
+        "id": "gesp-6-202409-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "采用如下代码实现检查输入的字符串括号是否匹配，横线上应填入的代码为（　　）。\nif (st.empty()) return false;\n________________________  // 在此处填入代码\nif ((ch == ')' && top != '(') || (ch == '}' && top != '{') || (ch == ']' && top != '[')) { return false; }",
+        "options": {
+            "A": "top = st.top(); st.pop();",
+            "B": "st.pop(); top = st.top();",
+            "C": "st.pop(); top = st.front();",
+            "D": "top = st.front();  st.pop();"
+        },
+        "answer": "A",
+        "explanation": "先取栈顶元素赋给 top，再弹出；st.pop() 无返回值且 stack 无 front() 成员。"
+    },
+    {
+        "id": "gesp-6-202409-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "下面代码判断队列的第一个元素是否等于 a，并删除该元素，横线上应填写（　　）。\nbool is_front_equal(std::queue<int>& q, int a) {\n    bool is_equal = false;\n    if (!q.empty()) {\n        ________________________  // 在此处填入代码\n    }\n    return is_equal;\n}",
+        "options": {
+            "A": "is_equal = (q.front() == a);",
+            "B": "is_equal = (q.front() == a); q.pop();",
+            "C": "q.pop(); is_equal = (q.front() == a);",
+            "D": "q.pop(); is_equal = (q.top() == a);"
+        },
+        "answer": "B",
+        "explanation": "先取队头元素与 a 比较并记录结果，再出队；queue 无 top() 成员，先 pop 会丢失队头。"
+    },
+    {
+        "id": "gesp-6-202409-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "假设字母表 {a,b,c,d,e} 在字符串出现的频率分别为 10%，15%，30%，16%，29%。若使用哈夫曼编码方式对字母进行二进制编码，则字符 a,b,c,d,e 分别对应的一组哈夫曼编码的长度分别为（　　）。",
+        "options": {
+            "A": "4,4,1,3,2",
+            "B": "3,3,2,2,2",
+            "C": "3,3,1,2,1",
+            "D": "4,4,1,2,2"
+        },
+        "answer": "B",
+        "explanation": "哈夫曼合并：10+15=25，16+25=41，29+30=59，41+59=100。根的两枝 41、59：a(10)、b(15) 在 41→25 内深度 3；d(16) 深度 2；c(30)、e(29) 在 59 内深度 2，故长度为 3,3,2,2,2。"
+    },
+    {
+        "id": "gesp-6-202409-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "以下C++代码实现n位的格雷码，则横线上应填写（　　）。\nfor (int i = 2; i <= n; i++) {\n    int current_size = graycode_list.size();\n    for (int j = current_size - 1; j >= 0; j--) {\n        graycode_list.push_back(\"1\" + graycode_list[j]);\n    }\n    for (int j = 0; j < current_size; j++) {\n        ____________________  // 在此处填入代码\n    }\n}",
+        "options": {
+            "A": "graycode_list.push_back(\"0\" + graycode_list[j]);",
+            "B": "graycode_list[j] = \"0\" + graycode_list[j];",
+            "C": "graycode_list.push_back(\"1\" + graycode_list[j]);",
+            "D": "graycode_list[j] = \"1\" + graycode_list[j];"
+        },
+        "answer": "B",
+        "explanation": "镜像法生成格雷码：前半部分保留原码，后半部分在原码前加 1；新加的前半部分须在原码前加 0，直接在原位置赋值。"
+    },
+    {
+        "id": "gesp-6-202409-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "给定一棵二叉树，其前序遍历结果为：ABDECFG，中序遍历结果为：DEBACFG，则这棵树的正确后序遍历结果是（　　）。",
+        "options": {
+            "A": "EDBGFCA",
+            "B": "EDGBFCA",
+            "C": "DEBGFCA",
+            "D": "DBEGFCA"
+        },
+        "answer": "A",
+        "explanation": "根 A 划分左右子树；左子树（先 BDE、中 DEB）根 B、左 D 右 E；右子树（先 CFG、中 CFG）根 C、左 F 右 G。后序 = 左 DEB + 右 FGC + 根 A = EDBGFCA。"
+    },
+    {
+        "id": "gesp-6-202409-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一棵有 n 个结点的完全二叉树用数组进行存储与表示，已知根结点存储在数组的第1个位置。若存储在数组第9个位置的结点存在兄弟结点和两个子结点，则它的兄弟结点和右子结点的位置分别是（　　）。",
+        "options": {
+            "A": "8, 18",
+            "B": "10, 18",
+            "C": "8, 19",
+            "D": "10, 19"
+        },
+        "answer": "C",
+        "explanation": "1 起数组：位置 9 是奇数即右孩子，其兄弟为 8；孩子为 2×9=18（左）和 19（右）。"
+    },
+    {
+        "id": "gesp-6-202409-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "二叉树的深度定义为从根结点到叶结点的最长路径上的结点数，则以下基于二叉树的深度优先搜索实现的深度计算函数中横线上应填写（　　）。\nint left_depth = max_depth(root->left);\nint right_depth = max_depth(root->right);\n____________________ // 在此处填入代码",
+        "options": {
+            "A": "return left_depth + right_depth;",
+            "B": "return max(left_depth, right_depth);",
+            "C": "return max(left_depth, right_depth) + 1;",
+            "D": "return left_depth + right_depth + 1;"
+        },
+        "answer": "C",
+        "explanation": "深度为左右子树深度的较大值再加 1（当前结点层）；不加 1 会漏掉当前结点这一层。"
+    },
+    {
+        "id": "gesp-6-202409-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "上一题的二叉树深度计算还可以采用二叉树的广度优先搜索来实现。以下基于二叉树的广度优先搜索实现的深度计算函数中横线上应填写（　　）。\nwhile (!q.empty()) {\n    ____________________ // 在此处填入代码\n    for (int i = 0; i < level_size; ++i) { ... }\n}",
+        "options": {
+            "A": "int level_size = q.size(); depth++;",
+            "B": "int level_size = 2; depth++;",
+            "C": "int level_size = q.size(); depth += level_size;",
+            "D": "int level_size = 2; depth += level_size;"
+        },
+        "answer": "A",
+        "explanation": "按层遍历：每轮记录当前队列长度（该层结点数），处理完一层深度加 1。"
+    },
+    {
+        "id": "gesp-6-202409-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "二叉搜索树中的每个结点，其左子树的所有结点值都小于该结点值，右子树的所有结点值都大于该结点值。以下代码对给定的整数数组构造一个对应的二叉搜索树，横线上应填写（　　）：\ntree_node* insert(tree_node* root, int val) {\n    if (root == nullptr) { return new tree_node(val); }\n    ________________________  // 在此处填入代码\n    return root;\n}",
+        "options": {
+            "A": "if (val < root->val)\n    root->left = insert(root->left, val);\nelse\n    root->right = insert(root->right, val);",
+            "B": "if (val > root->val)\n    root->left = insert(root->left, val);\nelse\n    root->right = insert(root->right, val);",
+            "C": "if (val < root->val)\n    root->left = insert(root, val);\nelse\n    root->right = insert(root, val);",
+            "D": "if (val > root->val)\n    root->left = insert(root, val);\nelse\n    root->right = insert(root, val);"
+        },
+        "answer": "A",
+        "explanation": "小于当前结点插入左子树、大于插入右子树，且需把递归返回值接到对应孩子指针上；C/D 传入 root 造成死循环。"
+    },
+    {
+        "id": "gesp-6-202409-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "对上题中的二叉搜索树，当输入数组为[5,3,7,2,4,6,8]时，构建二叉搜索树，并采用如下代码实现的遍历方式，得到的输出是（　　）。\nvoid traversal(tree_node* root) {\n    if (root == nullptr) { return; }\n    traversal(root->left);\n    cout << root->val << \" \";\n    traversal(root->right);\n}",
+        "options": {
+            "A": "5 3 7 2 4 6 8",
+            "B": "2 3 4 5 6 7 8",
+            "C": "2 4 3 6 8 7 5",
+            "D": "2 4 3 5 6 7 8"
+        },
+        "answer": "B",
+        "explanation": "traversal 为中序遍历，二叉搜索树的中序遍历输出升序序列 2 3 4 5 6 7 8。"
+    },
+    {
+        "id": "gesp-6-202409-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "动态规划通常用于解决（　　）。",
+        "options": {
+            "A": "无法分解的问题",
+            "B": "可以分解成相互依赖的子问题的问题",
+            "C": "可以通过贪心算法解决的问题",
+            "D": "只能通过递归解决的问题"
+        },
+        "answer": "B",
+        "explanation": "动态规划适用于可分解为相互依赖（重叠）子问题、且具有最优子结构的问题。"
+    },
+    {
+        "id": "gesp-6-202409-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "阅读以下用动态规划解决的0-1背包问题的函数，假设背包的容量 W 是10kg，4个物品的重量分别为1,3,4,6（kg），价值分别为20,30,50,60，则函数的输出为（　　）。",
+        "options": {
+            "A": "90",
+            "B": "100",
+            "C": "110",
+            "D": "140"
+        },
+        "answer": "C",
+        "explanation": "最优方案选重量 4+6=10kg 的两件，价值 50+60=110；其余组合均不超过 110。"
+    },
+    {
+        "id": "gesp-6-202409-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "C++、Python和JAVA等都是面向对象的编程语言。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "三者均支持类、对象、封装、继承等面向对象特性。"
+    },
+    {
+        "id": "gesp-6-202409-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在C++中，类的静态成员变量只能被该类对象的成员函数访问。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "静态成员变量属于类本身，可通过“类名::成员”直接访问，静态成员函数也可访问，不依赖对象。"
+    },
+    {
+        "id": "gesp-6-202409-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "栈是一种线性结构，可通过数组或链表来实现。二者相比，数组实现占用的内存较少，链表实现的入队和出队操作的时间复杂度较低。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "数组和链表实现的栈操作均为 O(1)，链表实现的复杂度并不更低；数组实现无额外指针开销但可能预留空间。"
+    },
+    {
+        "id": "gesp-6-202409-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "运行以下C++代码，屏幕将输出\"derived class\"。\nclass base {\npublic:\n    virtual void show() { cout << \"base class\" << endl; }\n};\nclass derived : public base {\npublic:\n    void show() override { cout << \"derived class\" << endl; }\n};\n// main: base* b; derived d; b = &d; b->show();",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "show 是虚函数，基类指针指向派生类对象时发生动态绑定，调用派生类版本。"
+    },
+    {
+        "id": "gesp-6-202409-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "如下列代码所示的基类（base）及其派生类（derived），则生成一个派生类的对象时，只调用派生类的构造函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "构造派生类对象时先调用基类构造函数，再执行派生类构造函数。"
+    },
+    {
+        "id": "gesp-6-202409-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码",
+            "贪心算法"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码本质上是一种贪心策略。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "每次合并频率最小的两个结点，是典型的贪心选择。"
+    },
+    {
+        "id": "gesp-6-202409-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "true_false",
+        "question": "如果根结点的深度记为1，则一棵恰有2024个叶结点的二叉树的深度最少是12。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "深度为 d 的二叉树最多 2^(d-1) 个叶结点：2^10=1024 < 2024 ≤ 2048=2^11，故最少深度为 12。"
+    },
+    {
+        "id": "gesp-6-202409-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在非递归实现的树的广度优先搜索中，通常使用栈来辅助实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "广度优先搜索按层处理，使用队列辅助；栈用于深度优先搜索。"
+    },
+    {
+        "id": "gesp-6-202409-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "状态转移方程是动态规划的核心，可以通过递推方式表示问题状态的变化。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "状态转移方程描述状态之间的递推关系，是动态规划求解的核心。"
+    },
+    {
+        "id": "gesp-6-202409-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "应用动态规划算法时，识别并存储重叠子问题的解是必须的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "存储子问题的解避免重复计算，是动态规划区别于朴素递归的关键。"
+    }
+]

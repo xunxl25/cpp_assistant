@@ -1,0 +1,513 @@
+[
+    {
+        "id": "gesp-6-202406-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "面向对象的编程思想主要包括（　　）原则。",
+        "options": {
+            "A": "贪心、动态规划、回溯",
+            "B": "并发、并行、异步",
+            "C": "递归、循环、分治",
+            "D": "封装、继承、多态"
+        },
+        "answer": "D",
+        "explanation": "封装、继承、多态是面向对象编程的三大基本特征。"
+    },
+    {
+        "id": "gesp-6-202406-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "运行下列代码，屏幕上输出（　　）。\nclass my_class {\npublic:\n    static int count;\n    my_class() { count++; }\n    ~my_class() { count--; }\n    static void print_count() { cout << count << \" \"; }\n};\nint my_class::count = 0;\nint main() {\n    my_class obj1;\n    my_class::print_count();\n    my_class obj2;\n    obj2.print_count();\n    my_class obj3;\n    obj3.print_count();\n    return 0;\n}",
+        "options": {
+            "A": "1 1 1",
+            "B": "1 2 3",
+            "C": "1 1 2",
+            "D": "1 2 2"
+        },
+        "answer": "B",
+        "explanation": "静态成员变量 count 被所有对象共享：构造 3 个对象依次 count=1/2/3，三次输出 1 2 3。"
+    },
+    {
+        "id": "gesp-6-202406-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "运行下列代码，屏幕上输出（　　）。\nclass shape {\nprotected:\n    int width, height;\npublic:\n    shape(int a = 0, int b = 0) { width = a; height = b; }\n    virtual int area() { cout << \"parent class area: \" << endl; return 0; }\n};\nclass rectangle : public shape {\npublic:\n    rectangle(int a = 0, int b = 0) : shape(a, b) { }\n    int area() { cout << \"rectangle area: \"; return (width * height); }\n};\nclass triangle : public shape {\npublic:\n    triangle(int a = 0, int b = 0) : shape(a, b) { }\n    int area() { cout << \"triangle area: \"; return (width * height / 2); }\n};\n// main: pshape=&rec; pshape->area(); pshape=&tri; pshape->area();",
+        "options": {
+            "A": "rectangle area: triangle area:",
+            "B": "parent class area: parent class area:",
+            "C": "运行时报错",
+            "D": "编译时报错"
+        },
+        "answer": "A",
+        "explanation": "area() 是虚函数，基类指针 pshape 动态绑定到实际对象类型，先后调用派生类的 area()，输出 rectangle area: triangle area:。"
+    },
+    {
+        "id": "gesp-6-202406-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "栈与队列",
+            "单链表"
+        ],
+        "type": "single_choice",
+        "question": "向一个栈顶为 hs 的链式栈中插入一个指针为 s 的结点时，应执行（　　）。",
+        "options": {
+            "A": "hs->next = s;",
+            "B": "s->next = hs; hs = s;",
+            "C": "s->next = hs->next; hs->next = s;",
+            "D": "s->next = hs; hs = hs->next;"
+        },
+        "answer": "B",
+        "explanation": "链式栈以栈顶指针为头，新结点头插：先令 s->next 指向原栈顶，再更新栈顶指针 hs = s。"
+    },
+    {
+        "id": "gesp-6-202406-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "在栈数据结构中，元素的添加和删除是按照什么原则进行的？",
+        "options": {
+            "A": "先进先出",
+            "B": "先进后出",
+            "C": "最小值先出",
+            "D": "随机顺序"
+        },
+        "answer": "B",
+        "explanation": "栈是先进后出（LIFO）结构，只能在栈顶插入和删除。"
+    },
+    {
+        "id": "gesp-6-202406-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "要实现将一个输入的十进制正整数转化为二进制表示，下面横线上应填入的代码为（　　）。\nstack<int> ten2bin(int n) {\n    stack<int> st;\n    int r, m;\n    r = n % 2;\n    m = n / 2;\n    st.push(r);\n    while (m != 1) {\n        r = m % 2;\n        st.push(r);\n        m = m / 2;\n    }\n    st.push(m);\n    return st;\n}\n// main 中: while (!bin.empty()) { ____________; }",
+        "options": {
+            "A": "cout << bin.top(); bin.pop();",
+            "B": "bin.pop(); cout << bin.top();",
+            "C": "cout << bin.back(); bin.pop();",
+            "D": "cout << bin.front(); bin.pop();"
+        },
+        "answer": "A",
+        "explanation": "除 2 取余入栈，最高位在栈底；输出须先取栈顶（最高位）再弹栈，从高位到低位打印；栈无 back/front 接口。"
+    },
+    {
+        "id": "gesp-6-202406-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "下面定义了一个循环队列的类，请补全判断队列是否满的函数，横线上应填写（　　）。（capacity 多预留一个空间以区分队空/队满）",
+        "options": {
+            "A": "return (rear + 1) % capacity == front;",
+            "B": "return rear % capacity == front;",
+            "C": "return rear == front;",
+            "D": "return (rear + 1) == front;"
+        },
+        "answer": "A",
+        "explanation": "牺牲一格空间区分空满：rear 的下一位置绕回后等于 front 即队满。"
+    },
+    {
+        "id": "gesp-6-202406-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "对“classmycls”使用哈夫曼（Huffman）编码，最少需要（　　）比特。",
+        "options": {
+            "A": "10",
+            "B": "20",
+            "C": "25",
+            "D": "30"
+        },
+        "answer": "C",
+        "explanation": "对字符串中各字符按出现频率构建哈夫曼树，高频字符编码更短，最优编码总位数为官方答案 25 bit。"
+    },
+    {
+        "id": "gesp-6-202406-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "二叉树的（　　）第一个访问的节点是根节点。",
+        "options": {
+            "A": "先序遍历",
+            "B": "中序遍历",
+            "C": "后序遍历",
+            "D": "以上都是"
+        },
+        "answer": "A",
+        "explanation": "先序遍历顺序为根-左-右，第一个访问的必是根节点；中序/后序根在中间/最后。"
+    },
+    {
+        "id": "gesp-6-202406-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一棵 5 层的满二叉树中节点数为（　　）。",
+        "options": {
+            "A": "31",
+            "B": "32",
+            "C": "33",
+            "D": "16"
+        },
+        "answer": "A",
+        "explanation": "满二叉树每层节点数 1,2,4,...,2^(h-1)，5 层总数 2^5 - 1 = 31。"
+    },
+    {
+        "id": "gesp-6-202406-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "在求解最优化问题时，动态规划常常涉及到两个重要性质，即最优子结构和（　　）。",
+        "options": {
+            "A": "重叠子问题",
+            "B": "分治法",
+            "C": "贪心策略",
+            "D": "回溯算法"
+        },
+        "answer": "A",
+        "explanation": "动态规划两大性质：最优子结构和重叠子问题。"
+    },
+    {
+        "id": "gesp-6-202406-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "青蛙每次能跳 1 或 2 步，下面代码计算青蛙跳到第 n 步台阶有多少种不同跳法。则下列说法，错误的是（　　）。\nint jump_recur(int n) {\n    if (n == 1) return 1;\n    if (n == 2) return 2;\n    return jump_recur(n - 1) + jump_recur(n - 2);\n}\nint jump_dp(int n) {\n    vector<int> dp(n + 1);\n    dp[1] = 1; dp[2] = 2;\n    for (int i = 3; i <= n; ++i) dp[i] = dp[i - 1] + dp[i - 2];\n    return dp[n];\n}",
+        "options": {
+            "A": "函数jump_recur()采用递归方式。",
+            "B": "函数jump_dp()采用动态规划方法。",
+            "C": "当n较大时，函数jump_recur()存在大量重复计算，执行效率低。",
+            "D": "函数jump_recur()代码量小，执行效率高。"
+        },
+        "answer": "D",
+        "explanation": "递归版本存在大量重叠子问题重复计算，效率远低于自底向上的 DP 版本，D 说法错误。"
+    },
+    {
+        "id": "gesp-6-202406-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "阅读以下二叉树的广度优先搜索代码（BFS，队列实现，逐节点入队访问），使用以上算法，在树（根 5，左孩子 2，右孩子 17；2 的左孩子 -4，右孩子 3；17 的左孩子 9）中搜索数值 20 时（未找到，遍历完整树），可能的输出是（　　）。",
+        "options": {
+            "A": "5 2 -4 3 17 9",
+            "B": "-4 2 3 5 9 17",
+            "C": "5 2 17 -4 3 9",
+            "D": "以上都不对"
+        },
+        "answer": "C",
+        "explanation": "BFS 按层访问：第 1 层 5；第 2 层 2、17；第 3 层 -4、3、9，输出 5 2 17 -4 3 9。"
+    },
+    {
+        "id": "gesp-6-202406-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "同上题中的二叉树，阅读以下二叉树的深度优先搜索代码（非递归 DFS，栈实现，先压右子节点再压左子节点），在二叉树搜索数值 20 时，可能的输出是（　　）。",
+        "options": {
+            "A": "5 2 -4 3 17 9",
+            "B": "-4 2 3 5 9 17",
+            "C": "5 2 17 -4 3 9",
+            "D": "以上都不对"
+        },
+        "answer": "A",
+        "explanation": "栈实现先右后左压栈，左子树先被访问：访问顺序为根 5、左子树 2、-4、3，再右子树 17、9，即前序遍历序列 5 2 -4 3 17 9。"
+    },
+    {
+        "id": "gesp-6-202406-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "在上题的树中搜索数值 3 时，采用深度优先搜索一共比较的节点数为（　　）。",
+        "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "5"
+        },
+        "answer": "C",
+        "explanation": "按 DFS 访问顺序 5、2、-4、3，逐个与 3 比较，找到时共比较 4 次。"
+    },
+    {
+        "id": "gesp-6-202406-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码",
+            "贪心算法"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码本质上是一种贪心策略。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "哈夫曼树每次合并频率最小的两个节点，属于典型的贪心策略。"
+    },
+    {
+        "id": "gesp-6-202406-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "创建一个对象时，会自动调用该对象所属类的构造函数。如果没有定义构造函数，编译器会自动生成一个默认的构造函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "对象创建必调用构造函数；无用户声明构造函数时编译器隐式生成默认构造函数。"
+    },
+    {
+        "id": "gesp-6-202406-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "定义一个类时，必须手动定义一个析构函数，用于释放对象所占用的资源。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "析构函数可省略，编译器会生成默认析构函数；仅当需要释放动态资源时才需手动定义。"
+    },
+    {
+        "id": "gesp-6-202406-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "C++中类内部可以嵌套定义类。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "C++ 支持嵌套类（内部类），如 Rectangle 中定义 Point。"
+    },
+    {
+        "id": "gesp-6-202406-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "true_false",
+        "question": "000, 001, 011, 010, 110, 111, 101, 100 是一组格雷码。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "相邻编码恰好一位不同，且首尾（000 与 100）也只差一位，是标准的 3 位反射格雷码。"
+    },
+    {
+        "id": "gesp-6-202406-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "双链表",
+            "循环链表"
+        ],
+        "type": "true_false",
+        "question": "n 个节点的双向循环链表，在其中查找某个节点的平均时间复杂度是 O(log n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "链表不支持随机访问，查找须沿链逐个遍历，平均时间复杂度 O(n)。"
+    },
+    {
+        "id": "gesp-6-202406-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "完全二叉树可以用数组存储数据。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "完全二叉树按层序存入数组，父子下标满足 2i+1/2i+2 关系，可高效定位。"
+    },
+    {
+        "id": "gesp-6-202406-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在C++中，静态成员函数只能访问静态成员变量。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "静态成员函数无 this 指针，不能访问非静态成员，只能访问静态成员。"
+    },
+    {
+        "id": "gesp-6-202406-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在深度优先搜索中，通常使用队列来辅助实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "DFS 使用栈（或递归调用栈）辅助，队列是 BFS 的辅助结构。"
+    },
+    {
+        "id": "gesp-6-202406-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "对0-1背包问题，贪心算法一定能获得最优解。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "0-1 背包物品不可分割，贪心按单位价值选择无法保证最优，需用动态规划求解。"
+    }
+]

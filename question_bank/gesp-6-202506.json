@@ -1,0 +1,508 @@
+[
+    {
+        "id": "gesp-6-202506-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "下列哪一项不是面向对象编程的基本特征？",
+        "options": {
+            "A": "继承",
+            "B": "封装",
+            "C": "多态",
+            "D": "链接"
+        },
+        "answer": "D",
+        "explanation": "封装、继承、多态是 OOP 三大基本特征；链接是编译链接过程的概念。"
+    },
+    {
+        "id": "gesp-6-202506-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "为了让 Dog 类的构造函数能正确地调用其父类 Animal 的构造方法，横线处应填入（　）。\nclass Animal {\npublic:\n    std::string name;\n    Animal(std::string str) : name(str) { std::cout << \"Animal created\\n\"; }\n    virtual void speak() { cout << \"Animal speaks\" << endl; }\n};\nclass Dog : public Animal {\n    std::string breed;\npublic:\n    Dog(std::string name, std::string b) : ______________, breed(b) { std::cout << \"Dog created\\n\"; }\n    void speak() override { cout << \"Dog barks\" << endl; }\n};",
+        "options": {
+            "A": "Animal(name)",
+            "B": "super(name)",
+            "C": "Animal::Animal(name)",
+            "D": "Animal()"
+        },
+        "answer": "A",
+        "explanation": "派生类构造函数初始化列表中用基类名(参数)调用基类构造；C++ 无 super 关键字；显式限定写法非法；Animal() 无匹配的无参构造。"
+    },
+    {
+        "id": "gesp-6-202506-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "代码同上一题，代码执行结果是（　）。",
+        "options": {
+            "A": "输出 Animal speaks",
+            "B": "输出 Dog barks",
+            "C": "编译错误",
+            "D": "程序崩溃"
+        },
+        "answer": "B",
+        "explanation": "speak() 是虚函数，基类指针指向 Dog 对象时动态绑定到派生类的 Dog barks。"
+    },
+    {
+        "id": "gesp-6-202506-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "以下关于栈和队列的代码，执行后输出是（　）。\nstack<int> s; queue<int> q;\nfor (int i = 1; i <= 3; ++i) { s.push(i); q.push(i); }\ncout << s.top() << \" \" << q.front() << endl;",
+        "options": {
+            "A": "1 3",
+            "B": "3 1",
+            "C": "3 3",
+            "D": "1 1"
+        },
+        "answer": "B",
+        "explanation": "栈后进先出 top=3；队列先进先出 front=1。"
+    },
+    {
+        "id": "gesp-6-202506-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "在一个循环队列中，front 是指向队头的指针，rear 指向队尾的指针，队列最大容量为 maxSize。判断队列已满的条件是（　）。",
+        "options": {
+            "A": "rear == front",
+            "B": "(rear + 1) % maxSize == front",
+            "C": "(rear - 1 + maxSize) % maxSize == front",
+            "D": "(rear - 1) == front"
+        },
+        "answer": "B",
+        "explanation": "空一格判满的循环队列：rear 的下一位置追上 front 即满。"
+    },
+    {
+        "id": "gesp-6-202506-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "（　）只有最底层的节点未被填满，且最底层节点尽量靠左填充。",
+        "options": {
+            "A": "完美二叉树",
+            "B": "完全二叉树",
+            "C": "完满二叉树",
+            "D": "平衡二叉树"
+        },
+        "answer": "B",
+        "explanation": "完全二叉树：除最后一层外全满，最后一层靠左填充。"
+    },
+    {
+        "id": "gesp-6-202506-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "在使用数组表示完全二叉树时，如果一个节点的索引为 i（从0开始计数），那么其左子节点的索引通常是（　）。",
+        "options": {
+            "A": "(i − 1)/2",
+            "B": "i + 1",
+            "C": "i * 2",
+            "D": "2 * i + 1"
+        },
+        "answer": "D",
+        "explanation": "0 起层序存储：左孩子 2i+1、右孩子 2i+2、父 (i-1)/2。"
+    },
+    {
+        "id": "gesp-6-202506-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "已知一棵二叉树的前序遍历序列为 GDAFEMHZ，中序遍历序列为 ADFGEHMZ，则其后序遍历序列为（　）。",
+        "options": {
+            "A": "ADFGEHMZ",
+            "B": "ADFGHMEZ",
+            "C": "AFDGEMZH",
+            "D": "AFDZMHEG"
+        },
+        "answer": "D",
+        "explanation": "根 G；左子树（中 ADF，先 DAF）后序 AFD；右子树（中 EHMZ，先 EMHZ）后序 ZMHE；整体 AFDZMHEG。"
+    },
+    {
+        "id": "gesp-6-202506-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "设有字符集 {a, b, c, d, e}，其出现频率分别为 {5, 8, 12, 15, 20}，得到的哈夫曼编码为（　）。",
+        "options": {
+            "A": "a: 010, b: 011, c: 00, d: 10, e: 11",
+            "B": "a: 00, b: 10, c: 011, d: 100, e: 111",
+            "C": "a: 10, b: 01, c: 011, d: 100, e: 111",
+            "D": "a: 100, b: 01, c: 011, d: 100, e: 00"
+        },
+        "answer": "A",
+        "explanation": "合并 5+8=13、12+13=25、15+20=35、25+35=60。树 60[25[12(c=00), 13[a=010, b=011]], 35[d=10, e=11]]。"
+    },
+    {
+        "id": "gesp-6-202506-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "3位格雷编码中，编码 101 之后的下一个编码不可能是（　）。",
+        "options": {
+            "A": "100",
+            "B": "111",
+            "C": "110",
+            "D": "001"
+        },
+        "answer": "D",
+        "explanation": "格雷码相邻编码只差一位：001 与 101 差三位，不可能相邻。"
+    },
+    {
+        "id": "gesp-6-202506-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "深度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "请将下列 C++ 实现的深度优先搜索（DFS）代码补充完整，横线处应填入（　）。void dfs(TreeNode* root, vector<int>& result) { if (root == nullptr) return; ______________________ }",
+        "options": {
+            "A": "result.push_back(root->val);\ndfs(root->left);\ndfs(root->right);",
+            "B": "result.push_back(root->left->val);\ndfs(root->right);\ndfs(root->left);",
+            "C": "result.push_back(root->left->val);\ndfs(root->left);\ndfs(root->right);",
+            "D": "result.push_back(root->right->val);\ndfs(root->right);\ndfs(root->left);"
+        },
+        "answer": "A",
+        "explanation": "先记录当前结点再递归左右子树，即前序 DFS。"
+    },
+    {
+        "id": "gesp-6-202506-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "给定一个二叉树，返回每一层中最大的节点值，横线处应填入（　）。while (!q.empty()) { int sz = q.size(); int maxVal = INT_MIN; for (int i = 0; i < sz; ++i) { TreeNode* node; ____________________________ maxVal = max(maxVal, node->val); ... } result.push_back(maxVal); }",
+        "options": {
+            "A": "node = q.end();",
+            "B": "node = q.front();",
+            "C": "q.pop();\nnode = q.front();",
+            "D": "node = q.front();\nq.pop();"
+        },
+        "answer": "D",
+        "explanation": "先取队头再出队；node = q.front() 后必须 q.pop() 否则死循环。"
+    },
+    {
+        "id": "gesp-6-202506-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "下面代码实现一个二叉排序树的插入函数（没有相同的数值），横线处应填入（　）。void insert(TreeNode*& root, int key) { if (!root) { root = new TreeNode(key); return; } ____________________________ }",
+        "options": {
+            "A": "if (key < root->val)\n    insert(root->left, key);\nelse if (key > root->val)\n    insert(root->right, key);",
+            "B": "if (key < root->val)\n    insert(root->right, key);\nelse if (key > root->val)\n    insert(root->left, key);",
+            "C": "insert(root->left, key);\ninsert(root->right, key);",
+            "D": "insert(root->right, key);\ninsert(root->left, key);"
+        },
+        "answer": "A",
+        "explanation": "key 小于当前值走左子树，大于走右子树，空位创建新结点。"
+    },
+    {
+        "id": "gesp-6-202506-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "以下关于动态规划算法特性的描述，正确的是（　）。",
+        "options": {
+            "A": "子问题相互独立，不重叠",
+            "B": "问题包含重叠子问题和最优子结构",
+            "C": "只能从底至顶迭代求解",
+            "D": "必须使用递归实现，不能使用迭代"
+        },
+        "answer": "B",
+        "explanation": "重叠子问题+最优子结构是 DP 前提；递推（迭代）与递归（记忆化）两种实现皆可。"
+    },
+    {
+        "id": "gesp-6-202506-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "关于下面代码，说法正确的是（　）。int knapsack1D(int W, vector<int>& wt, vector<int>& val, int n) { vector<int> dp(W+1, 0); for (int i = 0; i < n; ++i) { for (int w = W; w >= wt[i]; --w) { dp[w] = max(dp[w], dp[w - wt[i]] + val[i]); } } return dp[W]; }",
+        "options": {
+            "A": "该算法不能处理背包容量为 0 的情况",
+            "B": "外层循环 i 遍历背包容量，内层遍历物品",
+            "C": "从大到小遍历 w 是为了避免重复使用同一物品",
+            "D": "这段代码计算的是最小重量而非最大价值"
+        },
+        "answer": "C",
+        "explanation": "一维 0/1 背包内层逆序遍历，保证 dp[w-wt[i]] 仍是上一轮（未考虑第 i 件）的值，即每件物品最多选一次。"
+    },
+    {
+        "id": "gesp-6-202506-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "构造函数可以被声明为 virtual。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "构造函数不能是虚函数（对象未构造完成时虚表未建立）。"
+    },
+    {
+        "id": "gesp-6-202506-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "给定一组字符及其出现的频率，构造出的哈夫曼树是唯一的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "相同频率节点的合并顺序可任意，哈夫曼树与编码不唯一（WPL 唯一）。"
+    },
+    {
+        "id": "gesp-6-202506-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "为了实现一个队列，使其出队操作（pop）的时间复杂度为 O(1) 并且避免数组删除首元素的 O(n) 问题，一种常见且有效的方法是使用环形数组，通过调整队首和队尾指针来实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "环形数组（循环队列）通过移动下标代替搬移元素，出队 O(1)。"
+    },
+    {
+        "id": "gesp-6-202506-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "对一棵二叉排序树进行中序遍历，可以得到一个递增的有序序列。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BST 的中序遍历即升序序列，这是 BST 的重要性质。"
+    },
+    {
+        "id": "gesp-6-202506-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "如果二叉搜索树在连续的插入和删除操作后，所有节点都偏向一侧，导致其退化为类似于链表的结构，这时其查找、插入、删除操作的时间复杂度会从理想情况下的 O(log n) 退化到 O(n log n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "退化为链表时复杂度退化为 O(n)，而非 O(n log n)。"
+    },
+    {
+        "id": "gesp-6-202506-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "执行下列代码，my_dog.name 的最终值是 Charlie。class Dog { public: std::string name; Dog(std::string str) : name(str) {} }; int main() { Dog my_dog(\"Buddy\"); my_dog.name = \"Charlie\"; return 0; }",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "name 为 public 成员，赋值后最终值为 Charlie。"
+    },
+    {
+        "id": "gesp-6-202506-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "下列 C++ 代码可以成功编译，并且子类 Child 的实例能通过其成员函数访问父类 Parent 的属性 value。class Parent { private: int value = 100; }; class Child : public Parent { public: int get_private_val() { return value; } };",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "private 成员即使派生类也无法直接访问，代码编译报错。"
+    },
+    {
+        "id": "gesp-6-202506-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "下列代码中的 tree 向量，表示的是一棵完全二叉树（-1 代表空节点）按照层序遍历的结果。std::vector<int> tree = {1, 2, 3, 4, -1, 6, 7};",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "层序中 4 之后出现空位（5 号位为空）但其后仍有 6、7，最后一层不靠左，不是完全二叉树。"
+    },
+    {
+        "id": "gesp-6-202506-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在树的深度优先搜索（DFS）中，使用栈作为辅助数据结构以实现“先进后出”的访问顺序。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "DFS 递归靠系统栈、非递归靠显式栈，本质都是后进先出。"
+    },
+    {
+        "id": "gesp-6-202506-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "下面代码采用动态规划求解零钱兑换问题：给定 n 种硬币，第 i 种硬币的面值为 coins[i - 1]，目标金额为 amt，每种硬币可以重复选取，求能够凑出目标金额的最少硬币数量；如果不能凑出目标金额，返回 -1。int coinChangeDPComp(vector<int> &coins, int amt) { int n = coins.size(); int MAX = amt + 1; vector<int> dp(amt + 1, MAX); dp[0] = 0; for (int i = 1; i <= n; i++) { for (int a = 1; a <= amt; a++) { if (coins[i - 1] > a) dp[a] = dp[a]; else dp[a] = min(dp[a], dp[a - coins[i - 1]] + 1); } } return dp[amt] == MAX ? -1 : dp[amt]; }",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "正序内层允许重复选币（完全背包式），dp[amt]==MAX 判不可凑，是标准零钱兑换 DP。"
+    }
+]

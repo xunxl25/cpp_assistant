@@ -1,0 +1,513 @@
+[
+    {
+        "id": "gesp-6-202312-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "关于C++类和对象的说法，错误的是（　　）。",
+        "options": {
+            "A": "在C++中，一切皆对象，即便是字面量如整数5等也是对象",
+            "B": "在C++中，可以自定义新的类，并实例化为新的对象",
+            "C": "在C++中，内置函数和自定义函数，都是类或者对象",
+            "D": "在C++中，可以在自定义函数中嵌套定义新的函数"
+        },
+        "answer": "D",
+        "explanation": "C++不允许在函数体内嵌套定义函数（C++11 的 lambda 表达式并非嵌套命名函数），D 错误。"
+    },
+    {
+        "id": "gesp-6-202312-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法，错误的是（　　）。\nclass Rectangle {\nprivate:\n    class Point {\n    public:\n        double x;\n        double y;\n    };\n    Point a, b, c, d;\n    double length;\n    double width;\npublic:",
+        "options": {
+            "A": "C++中类内部可以嵌套定义类",
+            "B": "在类中定义的类被称为内部类，定义类的类被称为外部类",
+            "C": "内部类可以随便访问，不需要通过外部类来访问",
+            "D": "代码中 Point 被称为内部类，可以通过外部类 Rectangle 来访问，Rectangle::Point"
+        },
+        "answer": "C",
+        "explanation": "嵌套类是外部类作用域内的类型，类外使用须通过 Rectangle::Point 限定，不能“随便访问”，C 错误。"
+    },
+    {
+        "id": "gesp-6-202312-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法，正确的是（　　）。\nusing namespace std;\nclass newClass {\n    public:\n    static int objCounter;\n};\nint newClass::objCounter = 2;\nint main() {\n    newClass classA;\n    newClass classB;\n    cout << newClass::objCounter << endl;\n    cout << classB.objCounter << endl;\n}",
+        "options": {
+            "A": "第14行代码错误，第15行正确",
+            "B": "第15行代码错误，第14行代码正确",
+            "C": "第14、15两行代码都正确",
+            "D": "第6行代码可修改为 objCounter += 1"
+        },
+        "answer": "C",
+        "explanation": "静态成员既可用类名访问（newClass::objCounter），也可用对象访问（classB.objCounter），两行都正确；静态成员声明处不能写 objCounter += 1，类外初始化才是正确做法。"
+    },
+    {
+        "id": "gesp-6-202312-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法，错误的是（　　）。\nstruct BiNode {\n    char data;\n    BiNode *lchid, *rchid;\n};\nclass BiTree {\nprivate:\n    BiNode* Creat();\n    void Release(BiNode* bt);\n    BiNode* root;\npublic:\n    BiTree() { root = Creat(); }\n    ~BiTree() { Release(root); }",
+        "options": {
+            "A": "上述C++代码适用于构造各种二叉树",
+            "B": "代码 struct BiNode 用于构造二叉树的节点",
+            "C": "代码 BiTree(){root=Creat();} 用于构造二叉树",
+            "D": "析构函数不可以省略"
+        },
+        "answer": "D",
+        "explanation": "析构函数可以省略（编译器会生成默认析构函数），只是动态分配的结点不会被释放，D 说法错误。"
+    },
+    {
+        "id": "gesp-6-202312-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "基于第4题的定义，有关下面C++代码的说法正确的是（　　）。\nvoid Order(BiNode* bt) {\n    if (bt == nullptr)\n        return;\n    else {\n        cout << bt->data;\n        Order(bt->lchid);\n        Order(bt->rchid);\n    }\n}",
+        "options": {
+            "A": "代码中 Order() 函数是中序遍历二叉树的方法",
+            "B": "代码中 Order() 先访问根节点，然后对左子树进行前序遍历，再对右子树前序遍历",
+            "C": "代码中 Order() 先访问中序遍历左子树，然后访问根节点，最后则是中序遍历右子树",
+            "D": "代码中 Order() 先后序遍历左子树，然后后序遍历右子树，最后访问根节点"
+        },
+        "answer": "B",
+        "explanation": "先输出根结点数据，再递归左、右子树，是前序（先序）遍历。"
+    },
+    {
+        "id": "gesp-6-202312-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "双链表"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法正确的是（　　）。\ntypedef struct LinkList {\n    int data;\n    LinkList *next;\n    LinkList *prev;\n} LinkList, LinkNode;\nbool ListInit(LinkList* &L) {\n    L = new LinkNode;\n    if (!L) return false;\n    L->next = NULL;\n    L->prev = NULL;\n    L->data = -1;\n    return true;\n}",
+        "options": {
+            "A": "上述代码构成单向链表",
+            "B": "上述代码构成双向链表",
+            "C": "上述代码构成循环链表",
+            "D": "上述代码构成指针链表"
+        },
+        "answer": "B",
+        "explanation": "结点同时含 next 和 prev 两个方向指针，构成双向链表（未成环，不是循环链表）。"
+    },
+    {
+        "id": "gesp-6-202312-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "对 hello world 使用霍夫曼编码（Huffman Coding），最少 bit（比特）为（　　）。",
+        "options": {
+            "A": "4",
+            "B": "32",
+            "C": "64",
+            "D": "88"
+        },
+        "answer": "B",
+        "explanation": "11 个字符共 8 种（l 出现 3 次、o 2 次、其余 6 个字符各 1 次）。构建哈夫曼树：6 个频次为 1 的字符与频率合并，得到最短带权路径长度 WPL = 3×2 + 2×2 + 2×3 + 4×4 = 32 bit，远小于 ASCII 定长的 88 bit。"
+    },
+    {
+        "id": "gesp-6-202312-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "递归",
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "下面的 fiboA() 和 fiboB() 两个函数分别实现斐波那契数列，该数列第1、第2项值为1，其余各项分别为前两项之和。下面有关说法错误的是（　　）。\nint fiboA(int n) {\n    if (n == 0) return 1;\n    if (n == 1) return 1;\n    else return fiboA(n-1) + fiboA(n-2);\n}\nint fiboB(int n) {\n    if ((n == 0) || (n == 1)) { fiboB[n] = n; return n; }\n    else {\n        if (fiboB[n] == 0) fiboB[n] = FiboB(n-1) + FiboB(n-2);\n        return fiboB[n];\n    }\n}",
+        "options": {
+            "A": "fiboA() 采用递归方式实现斐波那契数列",
+            "B": "fiboB() 采用动态规划算法实现斐波那契数列",
+            "C": "当 N 值较大时，fiboA() 存在大量重复计算",
+            "D": "由于 fiboA() 代码较短，其执行效率较高"
+        },
+        "answer": "D",
+        "explanation": "fiboA 朴素递归存在指数级重复计算，效率远低于带记忆化的 fiboB，代码长短与执行效率无关，D 错误。"
+    },
+    {
+        "id": "gesp-6-202312-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码不正确的说法是（　　）。\nint Depth(BiTree T) {\n    if (T == NULL) return 0;\n    else {\n        int m = Depth(T->lchild);\n        int n = Depth(T->rchild);\n        if (m > n) return m + 1;\n        else return n + 1;\n    }\n}",
+        "options": {
+            "A": "该代码可用于求解二叉树的深度",
+            "B": "代码中函数 Depth() 的参数 T 表示根节点，非根节点不可以作为参数",
+            "C": "代码中函数 Depth() 采用了递归方法",
+            "D": "代码中函数 Depth() 可用于求解各种形式的二叉树深度，要求该二叉树节点至少有 left 和 right 属性"
+        },
+        "answer": "B",
+        "explanation": "Depth 以子树根为参数递归，任何结点都可作为参数（传入子树根即求该子树深度），B 错误。"
+    },
+    {
+        "id": "gesp-6-202312-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历",
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "下面有关树的存储，错误的是（　　）。",
+        "options": {
+            "A": "完全二叉树可以用 list 存储",
+            "B": "一般二叉树都可以用 list 存储，空子树位置可以用 None 表示",
+            "C": "满二叉树可以用 list 存储",
+            "D": "树数据结构，都可以用 list 存储"
+        },
+        "answer": "D",
+        "explanation": "完全二叉树/满二叉树按层序可紧凑地用 list 存储；一般二叉树需以 None 占位；任意树（如多叉树、森林）结构差异大，不能一概用 list 存储，D 过于绝对。"
+    },
+    {
+        "id": "gesp-6-202312-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "构造二叉树 [1,2,3,null,4]（　　）。",
+        "options": {
+            "A": "1(2()(4))(3)",
+            "B": "1(2(3)())(4)",
+            "C": "(1,2(3),(4))",
+            "D": "(1,(2)(3),(4))"
+        },
+        "answer": "A",
+        "explanation": "按层序：1 为根，2 为左孩子、3 为右孩子；2 的左孩子为 null、右孩子为 4，即 1(2()(4))(3)。"
+    },
+    {
+        "id": "gesp-6-202312-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "函数的定义与调用"
+        ],
+        "type": "single_choice",
+        "question": "下面有关布尔类型的函数的说法，正确的是（　　）。",
+        "options": {
+            "A": "bool 类型函数只能返回 0 或者 1 两种值",
+            "B": "bool 类型函数可以返回任何整数值",
+            "C": "bool 类型函数必须有参数传递",
+            "D": "bool 类型函数没有返回值"
+        },
+        "answer": "A",
+        "explanation": "bool 类型函数的返回值只有 true（1）和 false（0）两种，选项 A 正确；return 的表达式会被转换为 bool 而非“返回任何整数值”。"
+    },
+    {
+        "id": "gesp-6-202312-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "网络基础"
+        ],
+        "type": "single_choice",
+        "question": "通讯卫星在通信网络系统中主要起到（　　）的作用。",
+        "options": {
+            "A": "信息过滤",
+            "B": "信号中继",
+            "C": "避免攻击",
+            "D": "数据加密"
+        },
+        "answer": "B",
+        "explanation": "通讯卫星是空间转发站，主要实现信号的远距离中继传输。"
+    },
+    {
+        "id": "gesp-6-202312-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "小杨想编写一个判断任意输入的整数 N 是否为素数的程序，下面哪个方法不合适？（　　）",
+        "options": {
+            "A": "埃氏筛法",
+            "B": "线性筛法",
+            "C": "二分答案",
+            "D": "枚举法"
+        },
+        "answer": "C",
+        "explanation": "筛法与枚举（试除）均可用于判素；二分答案要求问题具有单调性，素性判定不满足，不适用。"
+    },
+    {
+        "id": "gesp-6-202312-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "算法：排序算法"
+        ],
+        "type": "single_choice",
+        "question": "内排序有不同的类别，下面哪种排序算法和冒泡排序是同一类？（　　）",
+        "options": {
+            "A": "希尔排序",
+            "B": "快速排序",
+            "C": "堆排序",
+            "D": "插入排序"
+        },
+        "answer": "B",
+        "explanation": "冒泡排序与快速排序同属交换排序。"
+    },
+    {
+        "id": "gesp-6-202312-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "在面向对象中，方法在C++的class中表现为class内定义的函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "类的方法即类内定义的成员函数。"
+    },
+    {
+        "id": "gesp-6-202312-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "C++类的定义中，可以没有构造函数，会给出默认的构造函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "未定义构造函数时编译器生成默认构造函数。"
+    },
+    {
+        "id": "gesp-6-202312-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "如果某个C++对象（object）支持下标运算符（方括号运算符），则该对象在所对应class中以成员函数的形式进行了重载。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "下标运算符 operator[] 必须以成员函数形式重载。"
+    },
+    {
+        "id": "gesp-6-202312-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "深度优先搜索（DFS，Depth First Search 的简写）属于图算法，其过程是对每一个可能的分支路径深入到不能再深入为止，而且每个节点只能访问一次。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "DFS 沿分支深入到底再回溯，配合访问标记保证每节点访问一次。"
+    },
+    {
+        "id": "gesp-6-202312-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码（Huffman Coding）具有唯一性，因此有确定的压缩率。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "合并相等频率结点时左右子树可交换，哈夫曼编码不唯一，压缩率也不确定。"
+    },
+    {
+        "id": "gesp-6-202312-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "内存管理"
+        ],
+        "type": "true_false",
+        "question": "在下面C++代码中，由于删除了变量 ptr，因此 ptr 所对应的数据也随之删除，故第8行代码被执行时，将报错。\nint *ptr = new int(10);\ncout << *ptr << endl;\ndelete ptr;\ncout << *ptr << endl;",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "delete 后再解引用是未定义行为，不保证报错，可能输出原值或随机值，说法过于绝对。"
+    },
+    {
+        "id": "gesp-6-202312-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "二叉搜索树查找的平均时间复杂度为 O(log N)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BST 平均查找长度与树高同阶，为 O(log N)。"
+    },
+    {
+        "id": "gesp-6-202312-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "二叉搜索树可以是空树（没有任何节点）或者单节点树（只有一个节点），或者多节点。如果是多节点，则左节点的值小于父节点的值，右节点的值大于父节点的值，由此推理，右节点树的值都大于根节点的值，左节点树的值都小于根节点的值。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "符合 BST 的定义：左子树所有结点小于根，右子树所有结点大于根，空树也是 BST。"
+    },
+    {
+        "id": "gesp-6-202312-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "初等数论"
+        ],
+        "type": "true_false",
+        "question": "小杨想写一个程序来算出正整数 N 有多少个因数，经过思考他写出了一个重复没有超过 N/2 次的循环就能够算出来了。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "大于 N/2 的因子只有 N 自身，循环 1..N/2 统计后加上 N 即得全部因数个数。"
+    },
+    {
+        "id": "gesp-6-202312-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "单链表",
+            "双链表",
+            "算法：排序算法"
+        ],
+        "type": "true_false",
+        "question": "同样的整数序列分别保存在单链表和双向链中，这两种链表上的简单冒泡排序的复杂度相同。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "冒泡排序只依赖相邻结点交换，两种链表的时间复杂度同为 O(N²)。"
+    }
+]

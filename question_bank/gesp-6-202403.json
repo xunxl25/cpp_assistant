@@ -1,0 +1,507 @@
+[
+    {
+        "id": "gesp-6-202403-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "在构建哈夫曼树时，每次应该选择（　　）合并。",
+        "options": {
+            "A": "最小权值的节点",
+            "B": "最大权值的节点",
+            "C": "随机节点",
+            "D": "深度最深的节点"
+        },
+        "answer": "A",
+        "explanation": "哈夫曼树的构建每次从节点集合中取出权值最小的两个节点合并，新节点权值为二者之和，如此反复直到只剩一棵树。"
+    },
+    {
+        "id": "gesp-6-202403-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "面向对象的编程思想主要包括以下哪些原则（　　）？",
+        "options": {
+            "A": "贪心、动态规划、回溯",
+            "B": "并发、并行、异步",
+            "C": "递归、循环、分治",
+            "D": "封装、继承、多态"
+        },
+        "answer": "D",
+        "explanation": "封装、继承、多态是面向对象编程的三大基本特征；其余选项均为算法或并发领域的概念。"
+    },
+    {
+        "id": "gesp-6-202403-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "在队列中，元素的添加和删除是按照（　　）原则进行的。",
+        "options": {
+            "A": "先进先出",
+            "B": "先进后出",
+            "C": "最小值先出",
+            "D": "随机进出"
+        },
+        "answer": "A",
+        "explanation": "队列是先进先出（FIFO）的线性结构：队尾入队、队头出队；先进后出是栈的特性。"
+    },
+    {
+        "id": "gesp-6-202403-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "给定一个简单的类定义如下，（　　）语句在类的外部正确地创建了一个 Circle 对象并调用了 getArea 函数？\nclass Circle {\nprivate:\n    double radius;\npublic:\n    Circle(double r) : radius(r) {}\n    double getArea() { return 3.14 * radius * radius; }\n};",
+        "options": {
+            "A": "Circle c = Circle(5.0); c.getArea(c);",
+            "B": "Circle c(5.0); getArea(c);",
+            "C": "Circle c = new Circle(5.0); c.getArea();",
+            "D": "Circle c(5.0); c.getArea();"
+        },
+        "answer": "D",
+        "explanation": "成员函数通过对象以 c.getArea() 形式调用，不需要也不允许把对象作为实参传入；new 返回指针，不能直接赋给对象变量。"
+    },
+    {
+        "id": "gesp-6-202403-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "以下代码希望能在一棵二叉排序树中搜索特定的值，请在横线处填入（　　），使其能正确实现相应功能。\nTreeNode* search(TreeNode* root, int target) {\n    if (root == NULL || root->val == target) return root;\n    if (______________) return search(root->left, target);\n    else return search(root->right, target);\n}",
+        "options": {
+            "A": "target < root->left",
+            "B": "target < root->val",
+            "C": "target > root->val",
+            "D": "target > root->left"
+        },
+        "answer": "B",
+        "explanation": "BST 中左子树所有节点值小于根：target 小于当前节点值时进入左子树查找。"
+    },
+    {
+        "id": "gesp-6-202403-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "3 位格雷编码的正确顺序是（　　）。",
+        "options": {
+            "A": "000, 001, 010, 011, 100, 101, 110, 111",
+            "B": "000, 001, 011, 010, 110, 111, 101, 100",
+            "C": "000, 010, 001, 011, 100, 110, 101, 111",
+            "D": "000, 010, 110, 100, 111, 101, 011, 001"
+        },
+        "answer": "B",
+        "explanation": "格雷码相邻两个编码只有一位不同。3 位格雷码由 2 位镜像生成：000,001,011,010 后倒序最高位加 1 得 110,111,101,100。"
+    },
+    {
+        "id": "gesp-6-202403-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "以下动态规划算法的含义与目的是（　　）。\nint function(vector<int>& nums) {\n    int n = nums.size();\n    if (n == 0) return 0;\n    if (n == 1) return nums[0];\n    vector<int> dp(n, 0);\n    dp[0] = nums[0];\n    dp[1] = max(nums[0], nums[1]);\n    for (int i = 2; i < n; ++i) dp[i] = max(dp[i - 1], nums[i] + dp[i - 2]);\n    return dp[n - 1];\n}",
+        "options": {
+            "A": "计算数组 nums 中的所有元素的和",
+            "B": "计算数组 nums 中相邻元素的最大和",
+            "C": "计算数组 nums 中不相邻元素的最大和",
+            "D": "计算数组 nums 中的最小元素"
+        },
+        "answer": "C",
+        "explanation": "转移方程 dp[i] = max(dp[i-1], nums[i]+dp[i-2])：要么不取第 i 个，要么取第 i 个并加上前 i-2 个的最优值——即选不相邻元素的最大和（打家劫舍问题）。"
+    },
+    {
+        "id": "gesp-6-202403-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "阅读以下广度优先搜索的代码，使用以上算法遍历以下这棵树，可能的输出是（　　）。\nvoid bfs(TreeNode* root) {\n    queue<TreeNode*> q;\n    q.push(root);\n    while (!q.empty()) {\n        TreeNode* current = q.front();\n        q.pop();\n        cout << current->val << \" \";\n        if (current->left) q.push(current->left);\n        if (current->right) q.push(current->right);\n    }\n}\n树：根 1，左孩子 2（孩子 8、9（孩子 4、5）），右孩子 3（孩子 6（孩子 7（孩子 10、11）））。",
+        "options": {
+            "A": "1 2 8 9 4 5 3 6 7 10 11",
+            "B": "1 2 3 4 5 6 7 8 9 10 11",
+            "C": "1 2 3 8 9 6 4 5 7 10 11",
+            "D": "1 2 3 8 9 4 5 6 7 10 11"
+        },
+        "answer": "C",
+        "explanation": "BFS 按层访问：第 1 层 1；第 2 层 2、3；第 3 层 8、9、6；第 4 层 4、5、7；第 5 层 10、11。"
+    },
+    {
+        "id": "gesp-6-202403-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "给定一个空栈，执行以下操作序列：push(1), push(2), push(3), pop(), pop(), push(4), push(5), pop()，最终栈中的元素是（　　）。",
+        "options": {
+            "A": "1, 2",
+            "B": "1, 4, 5",
+            "C": "1, 2, 5",
+            "D": "1, 4"
+        },
+        "answer": "D",
+        "explanation": "push 1、2、3 后栈为 [1,2,3]；两次 pop 弹出 3、2；push 4、5 后为 [1,4,5]；再 pop 弹出 5，最终栈为 [1,4]（自底向上）。"
+    },
+    {
+        "id": "gesp-6-202403-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一个有 124 个叶子节点的完全二叉树，最多有（　　）个结点。",
+        "options": {
+            "A": 247,
+            "B": 248,
+            "C": 249,
+            "D": 250
+        },
+        "answer": "B",
+        "explanation": "二叉树中 n0 = n2 + 1，故 n2 = 123；完全二叉树 n1 只能为 0 或 1，节点数 n = 124+123+n1，最多 248。"
+    },
+    {
+        "id": "gesp-6-202403-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "在求解最优化问题时，动态规划常常涉及到两个重要性质，即最优子结构和（　　）。",
+        "options": {
+            "A": "重叠子问题",
+            "B": "分治法",
+            "C": "贪心策略",
+            "D": "回溯算法"
+        },
+        "answer": "A",
+        "explanation": "动态规划适用于具有最优子结构和重叠子问题的问题，通过记录子问题的解避免重复计算。"
+    },
+    {
+        "id": "gesp-6-202403-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "若一棵二叉树的先序遍历为：A, B, D, E, C, F、中序遍历为：D, B, E, A, F, C，它的后序遍历为（　　）。",
+        "options": {
+            "A": "D, E, B, F, C, A",
+            "B": "E, D, B, F, C, A",
+            "C": "D, E, B, C, F, A",
+            "D": "E, D, B, C, F, A"
+        },
+        "answer": "A",
+        "explanation": "先序首元素 A 为根，中序中 A 左侧 D,B,E 为左子树、右侧 F,C 为右子树；递归还原：A(左 B(D,E)，右 C(F))，后序为左(左后右)、右、根 = D,E,B,F,C,A。"
+    },
+    {
+        "id": "gesp-6-202403-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "线性筛法与埃氏筛法相比的优势是（　　）。",
+        "options": {
+            "A": "更容易实现",
+            "B": "更节省内存",
+            "C": "更快速",
+            "D": "更准确"
+        },
+        "answer": "C",
+        "explanation": "线性筛保证每个合数只被其最小质因数筛一次，时间复杂度 O(n)；埃氏筛会对同一合数重复筛选。"
+    },
+    {
+        "id": "gesp-6-202403-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "辗转相除法"
+        ],
+        "type": "single_choice",
+        "question": "以下代码使用了辗转相除法求解最大公因数，请在横线处填入（　　），使其能正确实现相应功能。\nint gcd(int a, int b) {\n    while (b != 0) { ______________________ }\n    return a;\n}",
+        "options": {
+            "A": "int temp = b; b = a / b; a = temp;",
+            "B": "int temp = a; a = b / a; b = temp;",
+            "C": "int temp = b; b = a % b; a = temp;",
+            "D": "b = a % b; a = b;"
+        },
+        "answer": "C",
+        "explanation": "辗转相除：gcd(a,b) = gcd(b, a mod b)。需要暂存 b 以免覆盖：temp=b; b=a%b; a=temp。"
+    },
+    {
+        "id": "gesp-6-202403-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "单链表"
+        ],
+        "type": "single_choice",
+        "question": "下面的代码片段用于反转单链表，请进行（　　）修改，使其能正确实现相应功能。\nListNode* reverseLinkedList(ListNode* head) {\n    ListNode* prev = nullptr;\n    ListNode* current = head;\n    while (current != nullptr) {\n        ListNode* next = current->next;\n        current->next = next;\n        prev = current;\n        current = next;\n    }\n    return prev;\n}",
+        "options": {
+            "A": "current->next = next; 应该改为 current->next = prev;",
+            "B": "ListNode* next = current->next; 应该改为 ListNode* next = prev->next;",
+            "C": "current != nullptr 应该改为 current->next != nullptr",
+            "D": "ListNode* prev = nullptr; 应该改为 ListNode* prev = head;"
+        },
+        "answer": "A",
+        "explanation": "反转的核心是让当前节点指向前驱：current->next = prev。原代码 current->next = next 是自赋值，链表方向不变。"
+    },
+    {
+        "id": "gesp-6-202403-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼树是一种二叉树。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "哈夫曼树是带权路径长度最短的二叉树（最优二叉树）。"
+    },
+    {
+        "id": "gesp-6-202403-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "在动态规划中，状态转移方程的作用是定义状态之间的关系。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "状态转移方程描述如何由已求解的子状态推出当前状态的值，是动态规划的核心。"
+    },
+    {
+        "id": "gesp-6-202403-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "继承是将已有类的属性和方法引入新类的过程。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "继承允许新类（派生类）复用已有类（基类）的属性和方法，并可扩展或重写。"
+    },
+    {
+        "id": "gesp-6-202403-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "完全二叉树的任意一层都可以不满。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "完全二叉树除最后一层外其余各层必须填满，且最后一层节点集中在左侧。"
+    },
+    {
+        "id": "gesp-6-202403-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "单链表"
+        ],
+        "type": "true_false",
+        "question": "删除单向链表中的节点，只需知道待删除节点的地址即可，无需访问前一个节点。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "单链表节点只持有后继指针，删除操作需要修改前驱节点的 next 指针，必须先找到前驱。"
+    },
+    {
+        "id": "gesp-6-202403-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在宽度优先搜索中，通常使用队列来辅助实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BFS 按层扩展，借助队列的先进先出特性保证先访问的节点的邻居先被访问。"
+    },
+    {
+        "id": "gesp-6-202403-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码的主要应用领域是有损数据压缩。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "哈夫曼编码是无损压缩：解码时能完全还原原始数据。"
+    },
+    {
+        "id": "gesp-6-202403-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "二叉搜索树的查找操作的时间复杂度是 O(N)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "BST 平均查找复杂度为 O(log N)（随机构建下）；最坏退化为链表时才是 O(N)。"
+    },
+    {
+        "id": "gesp-6-202403-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "栈的基本操作包括入栈（push）和出栈（pop）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "栈是后进先出（LIFO）结构，基本操作为 push（入栈）和 pop（出栈）。"
+    },
+    {
+        "id": "gesp-6-202403-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "使用哈夫曼编码对一些字符进行编码，如果两个字符的频率差异最大，则它们的编码可能出现相同的前缀。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "哈夫曼编码是前缀码：任一字符的编码都不是另一字符编码的前缀，与频率差异无关，这保证了解码无歧义。"
+    }
+]

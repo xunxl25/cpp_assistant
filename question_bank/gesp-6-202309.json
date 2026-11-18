@@ -1,0 +1,514 @@
+[
+    {
+        "id": "gesp-6-202309-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "计算机硬件基础"
+        ],
+        "type": "single_choice",
+        "question": "近年来，线上授课变得普遍，很多有助于改善教学效果的设备也逐渐流行，其中包括比较常用的手写板，那么它属于哪类设备？（　　）。",
+        "options": {
+            "A": "输入",
+            "B": "输出",
+            "C": "控制",
+            "D": "记录"
+        },
+        "answer": "A",
+        "explanation": "手写板是向计算机输入笔画/文字的设备，属于输入设备。"
+    },
+    {
+        "id": "gesp-6-202309-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "运算符"
+        ],
+        "type": "single_choice",
+        "question": "如果 a 和 b 均为 int 类型的变量，且 b 的值不为 0，那么下列能正确判断“a 是 b 的3倍”的表达式是（　　）。",
+        "options": {
+            "A": "(a >> 3 == b)",
+            "B": "(a - b) % 3 == 0",
+            "C": "(a / b == 3)",
+            "D": "(a == 3 * b)"
+        },
+        "answer": "D",
+        "explanation": "a >> 3 是除以 8 而非乘 3；(a-b)%3==0 只能说明差值是 3 的倍数，不能说明倍数关系；整型除法 (a/b==3) 会截断且不能排除余数；(a==3*b) 才是精确的倍数判断。"
+    },
+    {
+        "id": "gesp-6-202309-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "以下不属于面向对象程序设计语言的是（　　）。",
+        "options": {
+            "A": "C++",
+            "B": "Python",
+            "C": "Java",
+            "D": "C"
+        },
+        "answer": "D",
+        "explanation": "C 是面向过程的程序设计语言，不支持类与对象等面向对象特性；C++、Python、Java 均支持面向对象。"
+    },
+    {
+        "id": "gesp-6-202309-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下面有关C++类定义的说法，错误的是（　　）。",
+        "options": {
+            "A": "C++类实例化时，会执行构造函数。",
+            "B": "C++自定义类可以通过定义构造函数实现自动类型转换。",
+            "C": "C++自定义类可以通过重载 >、< 等运算符实现大小比较。",
+            "D": "C++自定义类可以包含任意类型的成员。"
+        },
+        "answer": "D",
+        "explanation": "类不能包含自身类型的对象成员（会造成无限递归的内存布局），只能包含自身类型的指针或引用，因此“任意类型”的说法错误；其余说法均正确。"
+    },
+    {
+        "id": "gesp-6-202309-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法，错误的是（　　）。\n#include <iostream>\n#include <string>\nusing namespace std;\n\nclass MyStr {\n    string data;\npublic:\n    MyStr(string _data): data(_data) {}\n};\n\nint main() {\n    MyStr st(\"ABC\");\n    cout << st << endl;\n    return 0;\n}",
+        "options": {
+            "A": "代码 `cout << st << endl;` 会报错，因为没有为 MyStr 类重载 `<<` 运算符。",
+            "B": "第 6 行代码的 `data` 是 MyStr 类的成员变量。",
+            "C": "代码 `MyStr st(\"ABC\");` 不会报错，将执行构造函数。",
+            "D": "代码 `cout << st.data << endl;` 可输出 ABC。"
+        },
+        "answer": "D",
+        "explanation": "data 是 private 成员，在类外通过 st.data 直接访问会编译报错，D 说法错误；A 正确：未重载 << 时不能对自定义类对象使用 cout <<；B、C 正确。"
+    },
+    {
+        "id": "gesp-6-202309-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "作用域"
+        ],
+        "type": "single_choice",
+        "question": "下列关于命名空间的说法错误的是（　　）。",
+        "options": {
+            "A": "命名空间可以嵌套，例如 `namespace A { namespace B { int i;}}`。",
+            "B": "命名空间只可以在全局定义。",
+            "C": "命名空间中可以存放变量和函数。",
+            "D": "如果程序中使用了 using 命令同时引用了多个命名空间，并且命名空间中存在相同的函数，会出现程序运行错误。"
+        },
+        "answer": "D",
+        "explanation": "using 引入多个命名空间中的同名函数会产生编译期的二义性（编译错误），而不是程序运行错误，D 说法错误；A、B、C 说法正确。"
+    },
+    {
+        "id": "gesp-6-202309-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "栈与队列",
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法，正确的是（　　）。\n#include <iostream>\nusing namespace std;\n\nclass ManyData {\n    int * __data;\n    int head, tail, capacity;\npublic:\n    ManyData(int cap) {\n        capacity = cap;\n        __data = new int[capacity];\n        head = tail = 0;\n    }\n    void push(int val) {\n        __data[tail++] = val;\n    }\n    int pop() {\n        return __data[--tail];\n    }\n    int size() {\n        return tail - head;\n    }\n};\nint main() {\n    auto myData = ManyData(100);\n    myData.push(1);\n    myData.push(2);\n    myData.push(3);\n    myData.push(100);\n    cout << myData.size() << endl;\n    cout << myData.pop() << endl;\n    return 0;\n}",
+        "options": {
+            "A": "这段代码不能正常运行。",
+            "B": "`ManyData` 类可用于构造队列（Queue）数据结构。",
+            "C": "在上面代码环境，代码 `cout << myData.__data[0] << endl;` 可以增加到代码 `main` 函数末尾（`return 0;` 之前），且不会导致报错。",
+            "D": "可以为 `ManyData` 类的 `push()`、`pop()` 函数增加异常处理代码，否则在使用 `ManyData` 类时可能导致运行时错误或逻辑错误（不一定局限于上述代码中的 `main` 函数）。"
+        },
+        "answer": "D",
+        "explanation": "push 从尾部进入、pop 从尾部取出（--tail），是栈（LIFO）而非队列，B 错误；__data 是私有成员，类外访问会报错，C 错误；push 无容量检查、pop 空栈时下标越界，都可能在其他使用场景引发运行/逻辑错误，增加异常处理是正确做法，D 正确。"
+    },
+    {
+        "id": "gesp-6-202309-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "栈与队列",
+            "内存管理"
+        ],
+        "type": "single_choice",
+        "question": "有关下面C++代码的说法，错误的是（　　）。\n#include <iostream>\nusing namespace std;\n\nclass MoreData {\n    int * __data;\n    int head, tail, capacity;\npublic:\n    MoreData(int cap) {\n        capacity = cap;\n        __data = new int[capacity];\n        head = tail = 0;\n    }\n    MoreData & push(int val) {\n        __data[tail++] = val;\n        return *this;\n    }\n    int pop() {\n        return __data[head++];\n    }\n    int size() {\n        return tail - head;\n    }\n};\nint main() {\n    auto myData = MoreData(100);\n    myData.push(1);\n    myData.push(2);\n    myData.push(3);\n    myData.push(11).push(12).push(13);\n    cout << myData.pop() << endl;\n    return 0;\n}",
+        "options": {
+            "A": "`MoreData` 类可用于构造队列（Queue）数据结构。",
+            "B": "代码第29行，连续 `push()` 的用法将导致编译错误。",
+            "C": "`__data` 是 `MoreData` 类的私有成员，只能在类内访问。",
+            "D": "以上说法均没有错误。"
+        },
+        "answer": "B",
+        "explanation": "push 从尾部进入、pop 从头部取出（head++），是队列（FIFO），A 正确；push 返回 MoreData& 引用，第29行连续 push 合法且不会编译错误，B 说法错误；C 正确；由于 B 有误，D“均没有错误”不成立。"
+    },
+    {
+        "id": "gesp-6-202309-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "某内容仅会出现 ABCDEFG，其对应的出现概率为0.40、0.30、0.15、0.05、0.04、0.03、0.03，按照哈夫曼编码规则，假设 B 的编码为 11，则 D 的编码为（　　）。",
+        "options": {
+            "A": "10010",
+            "B": "10011",
+            "C": "10111",
+            "D": "10001"
+        },
+        "answer": "B",
+        "explanation": "哈夫曼构造：合并 0.03+0.03=0.06，0.04+0.05=0.09，0.06+0.09=0.15，0.15+0.15(C)=0.30，0.30+0.30(B)=0.60，0.40+0.60=1.00。B=11 确定左0右1方向后，D 位于 1→0→0→1→1，编码 10011。"
+    },
+    {
+        "id": "gesp-6-202309-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "下面有关格雷码的说法，错误的是（　　）。",
+        "options": {
+            "A": "在格雷码中，任意两个相邻的代码只有一位二进制数不同。",
+            "B": "格雷码是一种唯一性编码。",
+            "C": "在格雷码中，最大数和最小数只有一位二进制数不同。",
+            "D": "格雷码是一种可靠性编码。"
+        },
+        "answer": "B",
+        "explanation": "格雷码不唯一——同一数值集合可以构造出不同的格雷码序列（如标准格雷码与多种循环格雷码），因此“唯一性编码”的说法错误；其余为格雷码的典型性质。"
+    },
+    {
+        "id": "gesp-6-202309-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "有关下图的二叉树，说法正确的是（　　）。\n二叉树示意图：根为 5，左子树根 2（其子节点为 -4 和 3），右子树根 17（左子节点 9，右子节点 21），21 的子节点为 19 和 25。",
+        "options": {
+            "A": "既是完全二叉树也是满二叉树。",
+            "B": "既是二叉搜索树也是平衡二叉树。",
+            "C": "非平衡二叉树。",
+            "D": "以上说法都不正确。"
+        },
+        "answer": "B",
+        "explanation": "逐节点验证：2<5、-4<2、3>2、17>5、9<17、21>17、19<21、25>21，满足 BST 性质；各节点左右子树高度差均不超过 1，是平衡二叉树；节点 9 无孩子而 21 有两个孩子，按层序不连续，不是完全二叉树。故 B 正确。"
+    },
+    {
+        "id": "gesp-6-202309-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "二叉排序树",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "N 个节点的二叉搜索树，其查找的平均时间复杂度为（　　）。",
+        "options": {
+            "A": "O(1)",
+            "B": "O(N)",
+            "C": "O(log N)",
+            "D": "O(N²)"
+        },
+        "answer": "C",
+        "explanation": "随机插入序列下，N 个节点的 BST 高度期望为 O(log N)，每次查找沿一条根到叶的路径进行，平均时间复杂度 O(log N)。"
+    },
+    {
+        "id": "gesp-6-202309-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "青蛙每次能跳1或2步。下面是青蛙跳到第 N 步台阶C++实现代码。该段代码采用的算法是（　　）。\nint jumpFrog(int N) {\n    if (N <= 3)\n        return N;\n    return jumpFrog(N - 1) + jumpFrog(N - 2);\n}",
+        "options": {
+            "A": "递推算法",
+            "B": "贪心算法",
+            "C": "动态规划算法",
+            "D": "分治算法"
+        },
+        "answer": "C",
+        "explanation": "跳法数满足 f(N)=f(N-1)+f(N-2) 的重叠子问题结构，代码为自顶向下的求解形式，官方口径为动态规划算法。"
+    },
+    {
+        "id": "gesp-6-202309-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "双链表",
+            "循环链表",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "N 个节点的双向循环链，在其中查找某个节点的平均时间复杂度是（　　）。",
+        "options": {
+            "A": "O(1)",
+            "B": "O(N)",
+            "C": "O(log N)",
+            "D": "O(N²)"
+        },
+        "answer": "B",
+        "explanation": "链表不支持随机访问，查找需沿链逐节点遍历，平均检查约一半节点，时间复杂度 O(N)。"
+    },
+    {
+        "id": "gesp-6-202309-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "关于C++语言，以下说法不正确的是（　　）。",
+        "options": {
+            "A": "若对象被定义为常量，则它只能调用以 `const` 修饰的成员函数。",
+            "B": "所有的常量静态变量都只能在类外进行初始化。",
+            "C": "若类 A 的对象 a 是类 B 的静态成员变量，则 a 在 `main()` 函数调用之前应被初始化。",
+            "D": "静态全局对象、常量全局对象都是在 `main` 函数调用之前完成初始化，执行完 `main` 函数后被析构。"
+        },
+        "answer": "D",
+        "explanation": "官方答案 D：全局对象的动态初始化在 main 之前完成，但其析构发生在程序终止阶段（main 返回后的运行期清理过程），并非“执行完 main 函数后”的直接析构语义。"
+    },
+    {
+        "id": "gesp-6-202309-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "网络基础"
+        ],
+        "type": "true_false",
+        "question": "TCP/IP的传输层的两个不同的协议分别是UDP和TCP。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "传输层两大协议为面向连接的 TCP 与无连接的 UDP。"
+    },
+    {
+        "id": "gesp-6-202309-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "网络基础"
+        ],
+        "type": "true_false",
+        "question": "5G网络中，5G中的G表示Gigabytes/s，其中 1 GB = 1024 MB。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "5G 的 G 指 Generation（第 5 代移动通信技术），不是数据量单位 Gigabyte。"
+    },
+    {
+        "id": "gesp-6-202309-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "在面向对象中，类是对象的实例。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "关系反了：对象是类的实例，类是对象的抽象模板。"
+    },
+    {
+        "id": "gesp-6-202309-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在C++类的定义中，使用 `static` 修饰符定义的静态成员被该类的所有对象共享。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "静态成员属于类本身，被所有对象共享，只有一份存储。"
+    },
+    {
+        "id": "gesp-6-202309-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在C++类的定义中，可以定义初始化函数或运算符函数等。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "类内可以定义构造函数等初始化函数，也可以重载运算符（运算符函数）。"
+    },
+    {
+        "id": "gesp-6-202309-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "`DFS` 是深度优先算法的英文简写。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "DFS = Depth-First Search，深度优先搜索。"
+    },
+    {
+        "id": "gesp-6-202309-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码是一种有损压缩算法。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "哈夫曼编码依据字符频率构造最优前缀码，解码过程无信息丢失，是无损压缩。"
+    },
+    {
+        "id": "gesp-6-202309-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "单链表"
+        ],
+        "type": "true_false",
+        "question": "有些算法或数据结构在C/C++语言中使用指针实现，一个典型的例子就是链表。因此，链表这一数据结构在C/C++语言中只能使用指针来实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "链表也可以用数组模拟（下标当指针使用），“只能用指针实现”说法错误。"
+    },
+    {
+        "id": "gesp-6-202309-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "算法复杂度的估算"
+        ],
+        "type": "true_false",
+        "question": "如果节点数为 N，广度搜索算法的最差时间复杂度为 O(N)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "每个节点至多入队一次，最差情况访问全部 N 个节点，复杂度 O(N)。"
+    },
+    {
+        "id": "gesp-6-202309-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202309"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "二叉搜索树的左右子树也是二叉搜索树。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BST 定义即递归的：左右子树也必须满足 BST 性质。"
+    }
+]

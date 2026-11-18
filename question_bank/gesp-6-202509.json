@@ -1,0 +1,509 @@
+[
+    {
+        "id": "gesp-6-202509-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下列关于类的说法，错误的是（　）。",
+        "options": {
+            "A": "构造函数不能声明为虚函数，但析构函数可以。",
+            "B": "函数参数如声明为类的引用类型，调用时不会调用该类的复制构造函数。",
+            "C": "静态方法属于类而不是某个具体对象，因此推荐用 类名::方法(...) 调用。",
+            "D": "不管基类的析构函数是否是虚函数，都可以通过基类指针/引用正确删除派生类对象。"
+        },
+        "answer": "D",
+        "explanation": "基类析构函数非虚时，通过基类指针 delete 派生类对象是未定义行为（派生类析构不会执行），D 错误。"
+    },
+    {
+        "id": "gesp-6-202509-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "假设变量 veh 是类 Car 的一个实例，我们可以调用 veh.move()，是因为面向对象编程有（　）性质。\nclass Vehicle {\npublic:\n    Vehicle(string b) : brand(b) {}\n    void move() const { cout << brand << \" is moving...\" << endl; }\nprotected:\n    string brand;\n};\nclass Car : public Vehicle {\npublic:\n    Car(string b, int seats) : Vehicle(b), seatCount(seats) {}\n};",
+        "options": {
+            "A": "继承 (Inheritance)",
+            "B": "封装 (Encapsulation)",
+            "C": "多态 (Polymorphism)",
+            "D": "链接 (Linking)"
+        },
+        "answer": "A",
+        "explanation": "Car 继承 Vehicle 获得 move() 成员函数，体现继承特性。"
+    },
+    {
+        "id": "gesp-6-202509-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "single_choice",
+        "question": "下面代码中 v1 和 v2 调用了相同接口 move()，但输出结果不同，这体现了面向对象编程的（　）特性。class Vehicle { public: virtual void move() const { cout << brand << \" is moving...\" << endl; } protected: string brand; }; class Car : public Vehicle { public: void move() const override { cout << getBrand() << \" car is driving on the road!\" << endl; } }; class Bike : public Vehicle { public: void move() const override { cout << getBrand() << \" bike is cycling on the path!\" << endl; } }; // main: Vehicle* v1 = new Car(\"Toyota\", 5); Vehicle* v2 = new Bike(\"Giant\"); v1->move(); v2->move();",
+        "options": {
+            "A": "继承 (Inheritance)",
+            "B": "封装 (Encapsulation)",
+            "C": "多态 (Polymorphism)",
+            "D": "链接 (Linking)"
+        },
+        "answer": "C",
+        "explanation": "虚函数 + 基类指针，同一接口不同实现，运行时多态。"
+    },
+    {
+        "id": "gesp-6-202509-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "栈的操作特点是（　）。",
+        "options": {
+            "A": "先进先出",
+            "B": "先进后出",
+            "C": "随机访问",
+            "D": "双端进出"
+        },
+        "answer": "B",
+        "explanation": "栈是后进先出（先进后出）的线性结构。"
+    },
+    {
+        "id": "gesp-6-202509-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "循环队列常用于实现数据缓冲。假设一个循环队列容量为 5（即最多存放 4 个元素，留一个位置区分空与满），依次进行操作：入队数据1，2，3，出队1个数据，再入队数据4和5，此时队首到队尾的元素顺序是（　）。",
+        "options": {
+            "A": "[2, 3, 4, 5]",
+            "B": "[1, 2, 3, 4]",
+            "C": "[3, 4, 5, 2]",
+            "D": "[2, 3, 5, 4]"
+        },
+        "answer": "A",
+        "explanation": "入 1,2,3 后出队 1，剩 [2,3]；再入 4、5 得 [2,3,4,5]。"
+    },
+    {
+        "id": "gesp-6-202509-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "以下函数 createTree() 构造的树是什么类型？\nTreeNode* createTree() {\n    TreeNode* root = new TreeNode(1);\n    root->left = new TreeNode(2);\n    root->right = new TreeNode(3);\n    root->left->left = new TreeNode(4);\n    root->left->right = new TreeNode(5);\n    return root;\n}",
+        "options": {
+            "A": "满二叉树",
+            "B": "完全二叉树",
+            "C": "二叉排序树",
+            "D": "其他都不对"
+        },
+        "answer": "B",
+        "explanation": "5 个结点层序连续填充，最后一层靠左，是完全二叉树。"
+    },
+    {
+        "id": "gesp-6-202509-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "已知二叉树的 中序遍历 是 [D, B, E, A, F, C]，先序遍历 是 [A, B, D, E, C, F]。请问该二叉树的后序遍历结果是（　）。",
+        "options": {
+            "A": "[D, E, B, F, C, A]",
+            "B": "[D, B, E, F, C, A]",
+            "C": "[D, E, B, C, F, A]",
+            "D": "[B, D, E, F, C, A]"
+        },
+        "answer": "A",
+        "explanation": "根 A；左子树（中 DBE，先 BDE）后序 DEB；右子树（中 FC，先 CF）后序 FC；整体 DEBFCA。"
+    },
+    {
+        "id": "gesp-6-202509-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "完全二叉树可以用数组连续高效存储，如果节点从 1 开始编号，则对有两个孩子节点的节点 i，（　）。",
+        "options": {
+            "A": "左孩子位于 2i，右孩子位于 2i+1",
+            "B": "完全二叉树的叶子节点可以出现在最后一层的任意位置",
+            "C": "所有节点都有两个孩子",
+            "D": "左孩子位于 2i+1，右孩子位于 2i+2"
+        },
+        "answer": "A",
+        "explanation": "1 起编号：左孩子 2i、右孩子 2i+1（0 起编号才是 2i+1/2i+2）。"
+    },
+    {
+        "id": "gesp-6-202509-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "设有字符集 {a, b, c, d, e, f}，其出现频率分别为 {5, 9, 12, 13, 16, 45}。哈夫曼算法构造最优前缀编码，以下哪一组可能是对应的哈夫曼编码？（非叶子节点左边分支记作 0，右边分支记作 1，左右互换不影响正确性）。",
+        "options": {
+            "A": "a: 00; b: 01; c: 10; d: 110; e: 111; f: 0",
+            "B": "a: 1100; b: 1101; c: 100; d: 101; e: 111; f: 0",
+            "C": "a: 000; b: 001; c: 01; d: 10; e: 110; f: 111",
+            "D": "a: 10; b: 01; c: 100; d: 101; e: 111; f: 0"
+        },
+        "answer": "B",
+        "explanation": "合并 5+9=14、12+13=25、14+16=30、25+30=55、45+55=100。树 100[f=0, 55[25[14[a=1100, b=1101], 16=111], 30[c=100, d=101]]] 与 B 一致。"
+    },
+    {
+        "id": "gesp-6-202509-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "格雷编码"
+        ],
+        "type": "single_choice",
+        "question": "下面代码生成格雷编码，则横线上应填写（　）。vector<string> grayCode(int n) { vector<string> prev = grayCode(n-1); vector<string> result; for (string s : prev) { result.push_back(\"0\" + s); } for (______________) { result.push_back(\"1\" + prev[i]); } return result; }",
+        "options": {
+            "A": "int i = 0; i < prev.size(); i++",
+            "B": "int i = prev.size()-1; i >= 0; i--",
+            "C": "auto s : prev",
+            "D": "int i = prev.size()/2; i < prev.size(); i++"
+        },
+        "answer": "B",
+        "explanation": "反射法：上半部分 0 前缀（正序），下半部分 1 前缀须按逆序衔接保证相邻一位不同。"
+    },
+    {
+        "id": "gesp-6-202509-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "请将下列树的深度优先遍历代码补充完整，横线处应填入（　）。void dfs(TreeNode* root) { if (!root) return; _____<TreeNode*> temp; temp.push(root); while (!temp.empty()) { TreeNode* node = temp.top(); temp.pop(); ... } }",
+        "options": {
+            "A": "vector",
+            "B": "list",
+            "C": "queue",
+            "D": "stack"
+        },
+        "answer": "D",
+        "explanation": "代码使用 top()/push()/pop()，是栈容器；DFS 非递归实现用栈。"
+    },
+    {
+        "id": "gesp-6-202509-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "令 n 是树的节点数目，下列代码实现了树的广度优先遍历，其时间复杂度是（　）。void bfs(TreeNode* root) { queue<TreeNode*> q; q.push(root); while (!q.empty()) { TreeNode* node = q.front(); q.pop(); cout << node->val << \" \"; if (node->left) q.push(node->left); if (node->right) q.push(node->right); } }",
+        "options": {
+            "A": "O(n)",
+            "B": "O(log n)",
+            "C": "O(n²)",
+            "D": "O(2ⁿ)"
+        },
+        "answer": "A",
+        "explanation": "每个结点入队出队各一次，时间复杂度 O(n)。"
+    },
+    {
+        "id": "gesp-6-202509-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "在二叉排序树（BST）中查找元素 50，从根节点开始：若根值为 60，则下一步应去搜索：",
+        "options": {
+            "A": "左子树",
+            "B": "右子树",
+            "C": "随机",
+            "D": "根节点"
+        },
+        "answer": "A",
+        "explanation": "50 < 60，目标只可能在左子树。"
+    },
+    {
+        "id": "gesp-6-202509-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "删除二叉排序树中的节点时，如果节点有两个孩子，则横线处应填入（　），其中 findMax 和 findMin 分别为寻找树的最大值和最小值的函数。TreeNode* temp = __________; root->val = temp->val; root->right = deleteNode(root->right, temp->val);",
+        "options": {
+            "A": "root->left",
+            "B": "root->right",
+            "C": "findMin(root->right)",
+            "D": "findMax(root->left)"
+        },
+        "answer": "C",
+        "explanation": "双孩子删除：用右子树最小值（后继）替换后到右子树中删除该结点，后续 deleteNode 也作用于 root->right。"
+    },
+    {
+        "id": "gesp-6-202509-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "给定 n 个物品和一个最大承重为 W 的背包，每个物品只能选择放或不放，则横线上应填写（　）。int knapsack(int W, vector<int>& wt, vector<int>& val, int n) { vector<int> dp(W+1, 0); for (int i = 0; i < n; ++i) { for (int w = W; w >= wt[i]; --w) { ______________________ } } return dp[W]; }",
+        "options": {
+            "A": "dp[w] = max(dp[w], dp[w] + val[i]);",
+            "B": "dp[w] = dp[w - wt[i]] + val[i];",
+            "C": "dp[w] = max(dp[w - 1], dp[w - wt[i]] + val[i]);",
+            "D": "dp[w] = max(dp[w], dp[w - wt[i]] + val[i]);"
+        },
+        "answer": "D",
+        "explanation": "一维 0/1 背包转移：max(不放 dp[w]，放 dp[w-wt[i]]+val[i])。"
+    },
+    {
+        "id": "gesp-6-202509-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "当基类可能被多态使用，其析构函数应该声明为虚函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "虚析构保证通过基类指针 delete 派生类对象时正确调用派生类析构。"
+    },
+    {
+        "id": "gesp-6-202509-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼编码是最优前缀码，且编码结果唯一。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "WPL 最优唯一，但相同频率节点合并顺序可不同，树与编码不唯一。"
+    },
+    {
+        "id": "gesp-6-202509-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "一个含有 100 个节点的完全二叉树，高度为 8。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "高度 = ⌊log2 100⌋ + 1 = 7，不是 8。"
+    },
+    {
+        "id": "gesp-6-202509-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "在 C++ STL 中，栈（std::stack）的 pop 操作返回栈顶元素并移除它。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "std::stack::pop() 只移除不返回；取栈顶须先调用 top()。"
+    },
+    {
+        "id": "gesp-6-202509-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "栈与队列"
+        ],
+        "type": "true_false",
+        "question": "循环队列通过模运算循环使用空间。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "下标对容量取模实现环形复用。"
+    },
+    {
+        "id": "gesp-6-202509-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "true_false",
+        "question": "一棵有 n 个节点的二叉树一定有 n-1 条边。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "除根外每个结点恰有一条入边，共 n-1 条。"
+    },
+    {
+        "id": "gesp-6-202509-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "true_false",
+        "question": "以下代码实现了二叉树的中序遍历。输入根 1、左子 2（孩子 4、5）、右子 3（左孩子 6），中序遍历结果是 4 2 5 1 3 6。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "迭代中序：先一路压左，弹出访问后转右。树 1[2[4,5], 3[6,-]]，中序 4 2 5 1 3 6。"
+    },
+    {
+        "id": "gesp-6-202509-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "下面代码实现的二叉排序树的查找操作时间复杂度是 O(h)，其中 h 为树高。TreeNode* searchBST(TreeNode* root, int val) { while (root && root->val != val) { root = (val < root->val) ? root->left : root->right; } return root; }",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "每步下降一层，比较次数不超过树高。"
+    },
+    {
+        "id": "gesp-6-202509-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "下面代码实现了动态规划版本的斐波那契数列计算，其时间复杂度是 O(2^n)。int fib_dp(int n) { if (n <= 1) return n; vector<int> dp(n+1); dp[0] = 0; dp[1] = 1; for (int i = 2; i <= n; i++) { dp[i] = dp[i-1] + dp[i-2]; } return dp[n]; }",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "DP 版时间复杂度 O(n)；O(2^n) 是朴素递归版本。"
+    },
+    {
+        "id": "gesp-6-202509-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 6,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "有一排香蕉，每个香蕉有不同的甜度值。小猴子想吃香蕉，但不能吃相邻的香蕉。以下代码能找到小猴子吃到最甜的香蕉组合。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "打家劫舍式 DP：dp[i] = max(dp[i-1], dp[i-2] + a[i])，可求不相邻最大和。"
+    }
+]
