@@ -1,0 +1,509 @@
+[
+    {
+        "id": "gesp-7-202406-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "下列C++代码的输出结果是（　）。\n#include <iostream>\n#include <cmath>\nusing namespace std;\nint main() {\n    cout << sin(3.1415926 / 2);\n    return 0;\n}",
+        "options": {
+            "A": "0",
+            "B": "1",
+            "C": "0.5",
+            "D": "0.7071"
+        },
+        "answer": "B",
+        "explanation": "sin 的参数为弧度，3.1415926/2 ≈ π/2，sin(π/2) ≈ 1。"
+    },
+    {
+        "id": "gesp-7-202406-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "对于二叉树（根 1，1 的右孩子 2，2 的左孩子 3），说法正确的是（　）。",
+        "options": {
+            "A": "先序遍历是 132。",
+            "B": "中序遍历是 123。",
+            "C": "后序遍历是 312。",
+            "D": "先序遍历和后序遍历正好是相反的。"
+        },
+        "answer": "D",
+        "explanation": "先序 1,2,3、后序 3,2,1，正好相反；中序为 1,3,2。"
+    },
+    {
+        "id": "gesp-7-202406-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "已知两个序列 s1={1,3,4,5,6,7,7,8,1}、s2={3,5,7,4,8,2,9,5,1}，则它们的最长公共子序列是（　）。",
+        "options": {
+            "A": "{3,5,7,8,1}",
+            "B": "{3,4,5,7,8}",
+            "C": "{5,7,8}",
+            "D": "{3,5,7,9,1}"
+        },
+        "answer": "A",
+        "explanation": "{3,5,7,8,1} 是两序列的公共子序列且长度 5 为最长；B 中 4 与 5 的先后在 s1 中相反，不是公共子序列。"
+    },
+    {
+        "id": "gesp-7-202406-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "关于序列 {2,7,1,5,6,4,3,8,9}，以下说法错误的是（　）。",
+        "options": {
+            "A": "{2,5,6,8,9} 是它的最长上升子序列",
+            "B": "{1,5,6,8,9} 是它的最长上升子序列",
+            "C": "{7,5,4,3} 是它的最长下降子序列",
+            "D": "{1,5,6,8,9} 是它的唯一最长上升子序列"
+        },
+        "answer": "D",
+        "explanation": "{2,5,6,8,9} 与 {1,5,6,8,9} 长度均为 5，都是最长上升子序列，“唯一”不成立。"
+    },
+    {
+        "id": "gesp-7-202406-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "关于图的深度优先搜索和广度优先搜索，下列说法错误的是（　）。",
+        "options": {
+            "A": "二叉树也是一种图。",
+            "B": "二叉树的前序遍历和后序遍历都是深度优先搜索的一种。",
+            "C": "深度优先搜索可以从任意根节点开始。",
+            "D": "二叉树的后序遍历也是广度优先搜索的一种。"
+        },
+        "answer": "D",
+        "explanation": "后序遍历沿子树深入后回溯，属于深度优先；广度优先按层访问，与后序遍历无关。"
+    },
+    {
+        "id": "gesp-7-202406-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "对于二叉树（A 的左右孩子 B、C；B 的左右孩子 D、E，D 的右孩子 H；C 的左右孩子 F、G，G 的左孩子 I），下面访问顺序说法错误的是（　）。",
+        "options": {
+            "A": "HDEBFIGCA 不是它的后序遍历序列",
+            "B": "ABCDEFGHI 是它的广度优先遍历序列",
+            "C": "ABDHECFGI 是它的深度优先遍历序列",
+            "D": "ABDHECFGI 是它的先序遍历序列"
+        },
+        "answer": "A",
+        "explanation": "后序遍历为 H,D,E,B,F,I,G,C,A，HDEBFIGCA 正是后序序列，“不是”的说法错误；B、C、D 均正确。"
+    },
+    {
+        "id": "gesp-7-202406-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "以下哪个方案不能合理解决或缓解哈希表冲突（　）。",
+        "options": {
+            "A": "丢弃发生冲突的新元素。",
+            "B": "在每个哈希表项处，使用不同的哈希函数再建立一个哈希表，管理该表项的冲突元素。",
+            "C": "在每个哈希表项处，建立二叉排序树，管理该表项的冲突元素。",
+            "D": "使用不同的哈希函数建立额外的哈希表，用来管理所有发生冲突的元素。"
+        },
+        "answer": "A",
+        "explanation": "丢弃冲突元素会丢失数据，不能算合理方案；再哈希与桶内建 BST 都是可行的冲突处理策略。"
+    },
+    {
+        "id": "gesp-7-202406-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "single_choice",
+        "question": "在C++中，关于运算符 &，下面说法正确的是（　）。",
+        "options": {
+            "A": "2 & 3 的结果是 true",
+            "B": "011 & 111 的结果是 3",
+            "C": "3 & 6 的结果是 2",
+            "D": "110 & 101 的结果是 4"
+        },
+        "answer": "C",
+        "explanation": "3(011) & 6(110) = 2(010)；2&3=2 非 true；011、111 是八进制（9&73=1）；110&101 按十进制为 100。"
+    },
+    {
+        "id": "gesp-7-202406-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下面关于图的说法正确的是（　）。",
+        "options": {
+            "A": "在无向图中，环是指至少包含三个不同顶点，并且第一个顶点和最后一个顶点是相同的路径。",
+            "B": "在有向图中，环是指一个顶点经过至少另一个顶点到自身的路径。",
+            "C": "在有向图中，如果任意两个顶点之间都存在一条边，则这个图一定是强连通图。",
+            "D": "在有向图中，所有顶点的入度和出度的总和就是图的边数的两倍。"
+        },
+        "answer": "D",
+        "explanation": "有向图每条弧给一个顶点贡献一个出度、给另一顶点贡献一个入度，故 Σ入度 + Σ出度 = 2×弧数。"
+    },
+    {
+        "id": "gesp-7-202406-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "图的存储和遍历算法，下面说法错误的是（　）。",
+        "options": {
+            "A": "图的深度优先搜索和广度优先搜索对有向图和无向图都适用。",
+            "B": "图的深度优先搜索和二叉树的先序遍历道理是不一样的。",
+            "C": "图的深度优先搜索需要借助栈来完成。",
+            "D": "邻接表中，顶点 v_i 对应链表中的边结点数目正好是顶点 v_i 的度。"
+        },
+        "answer": "B",
+        "explanation": "图的 DFS 与二叉树先序遍历本质都是“先访问、再深入后继”，道理相同，B 说法错误。"
+    },
+    {
+        "id": "gesp-7-202406-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "邻接表（V1→V4→NULL；V2→V3→V1→NULL；V3→V4→V2→NULL；V4→V1→NULL；V5→V2→NULL）表示的是下列哪个选项中的图？",
+        "options": {
+            "A": "边 V1–V2、V1–V4、V2–V3、V2–V5、V3–V4、V3–V5、V4–V5",
+            "B": "边 V1–V2、V2–V3、V1–V4、V3–V4、V3–V5、V4–V5",
+            "C": "边 V1–V2、V2–V3、V2–V5、V1–V4、V3–V4、V3–V5",
+            "D": "边 V1–V2、V1–V4、V2–V5、V3–V5"
+        },
+        "answer": "C",
+        "explanation": "邻接表中 V1 与 V4、V2 相邻，V2 与 V3、V1、V5 相邻，V3 与 V4、V2 相邻，对应 C 选项的无向图。"
+    },
+    {
+        "id": "gesp-7-202406-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "邻接矩阵（inf 表示无穷大）M[0][2]=12、M[0][3]=30、M[2][4]=32、M[3][1]=5、M[4][0]=50（其余 inf，不对称），表示的是下列哪个选项中的图？",
+        "options": {
+            "A": "有向带权图：0→2(12)、0→3(30)、3→1(5)、4→0(50)、2→4(32)",
+            "B": "有向图：0→2(12)、0→3(30)、4→0(50)、2→4(32)、4→1(5)",
+            "C": "无向图：0–2(12)、0–3(30)、0–4(50)、2–4(32)、3–1(5)",
+            "D": "无向图：0–2(12)、0–3(30)、0–4(50)、2–4(32)、4–1(5)"
+        },
+        "answer": "A",
+        "explanation": "矩阵不对称（M[0][2]=12 而 M[2][0]=inf），说明是有向图；各非 inf 项对应 A 的边及权重。"
+    },
+    {
+        "id": "gesp-7-202406-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "递归",
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的输出为（　）。\nint fib(int n) {\n    if (n <= 1) return n;\n    return fib(n - 1) + fib(n - 2);\n}\nint main() { cout << fib(6) << endl; }",
+        "options": {
+            "A": "5",
+            "B": "8",
+            "C": "13",
+            "D": "无法正常结束。"
+        },
+        "answer": "B",
+        "explanation": "fib: 0,1,1,2,3,5,8，fib(6)=8。"
+    },
+    {
+        "id": "gesp-7-202406-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下面 count_triple 函数的时间复杂度为（　）。\nint count_triple(int n) {\n    int cnt = 0;\n    for (int a = 1; a <= n; a++)\n        for (int b = a; a + b <= n; b++) {\n            int c = sqrt(a*a + b*b);\n            if (a + b + c > n) break;\n            if (a*a + b*b == c*c) cnt++;\n        }\n    return cnt;\n}",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n²)",
+            "C": "O(n³)",
+            "D": "O(n⁴)"
+        },
+        "answer": "B",
+        "explanation": "两重循环，内层每个 b 的处理为 O(1)，总迭代次数 O(n²)。"
+    },
+    {
+        "id": "gesp-7-202406-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "有向图（边：2→1、4→2、9→4、1→3、3→2、3→4、1→5、5→3、3→7、7→5、7→6、6→8、8→9、9→7），哪个可能是它的深度优先遍历序列（　）。",
+        "options": {
+            "A": "1, 3, 7, 5, 4, 2, 6, 8, 9",
+            "B": "9, 4, 2, 1, 3, 5, 7, 6, 8",
+            "C": "1, 3, 4, 2, 7, 6, 8, 9, 5",
+            "D": "9, 7, 6, 8, 4, 2, 1, 5, 3"
+        },
+        "answer": "C",
+        "explanation": "1→3→4→2（2 无出边回溯）→回 3→7→6→8→9→（4、7 已访问）→回溯到 1→5，得 1,3,4,2,7,6,8,9,5，每步均为图中的有向边。"
+    },
+    {
+        "id": "gesp-7-202406-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，表达式 6 & 5 的结果类型为 int、值为 1。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "6(110) & 5(101) = 4(100)，值为 4。"
+    },
+    {
+        "id": "gesp-7-202406-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "冒泡排序是稳定的排序算法。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "冒泡排序相邻元素交换，相等元素相对次序不变，稳定。"
+    },
+    {
+        "id": "gesp-7-202406-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "唯一分解定理",
+            "初等数论"
+        ],
+        "type": "true_false",
+        "question": "唯一分解定理指出每个大于1的自然数都可以唯一地分解成若干个素数的乘积，因此很容易对给定的自然数 n 进行质因数分解，时间复杂度仅为 O(log(n))。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "定理保证分解唯一，但试除法分解需要 O(√n) 量级，达不到 O(log n)。"
+    },
+    {
+        "id": "gesp-7-202406-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，可以为同一个类定义多个构造函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "构造函数可以重载，参数列表不同的多个构造函数可以共存。"
+    },
+    {
+        "id": "gesp-7-202406-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的对数函数，表达式 log(128) 的结果类型为 double、值约为 7.0。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "cmath 的 log 是自然对数，log(128) = ln 128 ≈ 4.85，7.0 是 log2(128)。"
+    },
+    {
+        "id": "gesp-7-202406-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "true_false",
+        "question": "一颗 N 层的二叉树，至少有 2^(N-1) 个节点。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "N 层二叉树最少每层 1 个节点，即至少 N 个节点；2^(N-1) 是满二叉树最下层的情况。"
+    },
+    {
+        "id": "gesp-7-202406-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "非连通图不能使用广度优先搜索算法进行遍历。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "从每个连通分量分别调用 BFS 即可遍历全图。"
+    },
+    {
+        "id": "gesp-7-202406-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "有 N 个表项的哈希表，从 M 个元素中查找，为每个表项建立单链表存储冲突元素，其查找操作的最坏情况时间复杂度为 O(M)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "所有元素哈希到同一表项时链表长 M，最坏需遍历整条链。"
+    },
+    {
+        "id": "gesp-7-202406-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "动态规划有递推实现和递归实现，对于很多问题，通过记录子问题的解，两种实现的时间复杂度是相同的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "自顶向下记忆化与自底向上递推计算的子问题集合相同，复杂度一致。"
+    },
+    {
+        "id": "gesp-7-202406-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202406"
+        },
+        "knowledge_points": [
+            "泛洪算法"
+        ],
+        "type": "true_false",
+        "question": "泛洪算法的递归方法容易造成溢出，因此大的二维地图算法中，一般不用递归方法。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "大地图上递归深度可达整图规模，容易栈溢出，通常用显式队列/栈实现。"
+    }
+]

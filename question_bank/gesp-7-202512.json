@@ -1,0 +1,513 @@
+[
+    {
+        "id": "gesp-7-202512-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "形参与实参、作用域"
+        ],
+        "type": "single_choice",
+        "question": "下面关于C++中形参、实参和定义域的说法中，正确的一项是（　）。",
+        "options": {
+            "A": "形参是函数定义时所指定的变量，它只在函数内部有效。",
+            "B": "在函数内部，可以修改传入的形参的值，即使该形参是一个常量引用。",
+            "C": "实参和形参的类型必须完全一致，否则会导致编译错误。",
+            "D": "使用指针作为形参时，形参是指向实参的地址，因此对该指针赋值会影响实参。"
+        },
+        "answer": "A",
+        "explanation": "形参在函数定义时指定、作用域限于函数体；常量引用不可修改；类型可隐式转换；对指针形参本身赋值不影响实参。"
+    },
+    {
+        "id": "gesp-7-202512-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "已知三个序列 s1={3,1,8,2,5,6,7,4}，s2={1,5,1,8,6,4,7,5,6}，s3={1,8,3,5,7,6,2,4}。以下哪个序列是它们的最长公共子序列（　）。",
+        "options": {
+            "A": "{1, 8, 5, 6}",
+            "B": "{1, 5, 6, 7}",
+            "C": "{1, 8, 6}",
+            "D": "{1, 5, 7, 4}"
+        },
+        "answer": "A",
+        "explanation": "{1,8,5,6} 在三个序列中都按序出现且长度 4 最长；B 中 6 与 7 的顺序在 s3 中不满足；D 中 7 与 4 的顺序在 s2 中不满足。"
+    },
+    {
+        "id": "gesp-7-202512-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "哈希表地址区间 0～10，冲突时向后找第一个空位（循环），依次存储 (1,3,5,7,9)，哈希函数 h(x) = (x²+x) mod 11。其中 9 存储在哪个地址中（　）。",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "3",
+            "D": "4"
+        },
+        "answer": "D",
+        "explanation": "1→2、3→1、5→8、7→1 冲突依次探测到 3、9→2 冲突、3 冲突、最终存入 4。"
+    },
+    {
+        "id": "gesp-7-202512-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "算法优化"
+        ],
+        "type": "single_choice",
+        "question": "以下关于0/1背包问题的描述，正确的是（　）。",
+        "options": {
+            "A": "使用贪心算法可以保证找到最优解，因为物品只能放入一次。",
+            "B": "0/1背包是P问题（多项式时间可解问题），它可以在 O(nW) 的时间复杂度内解决。",
+            "C": "动态规划解法的空间复杂度为 O(nW)，但可以通过滚动数组技巧将空间复杂度优化到 O(W)。",
+            "D": "每个物品只能选择一次，并且子问题之间是独立的，无法重用计算结果。"
+        },
+        "answer": "C",
+        "explanation": "DP 空间可滚动优化到 O(W)；贪心不保证最优；O(nW) 是伪多项式而非 P；DP 正是利用重叠子问题重用结果。"
+    },
+    {
+        "id": "gesp-7-202512-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一棵深度为6（根节点深度为1）的完全二叉树，节点总数最少有（　）。",
+        "options": {
+            "A": "31",
+            "B": "32",
+            "C": "63",
+            "D": "64"
+        },
+        "answer": "B",
+        "explanation": "深度 5 的满二叉树 31 个结点，再加深度 6 至少 1 个，共 32 个。"
+    },
+    {
+        "id": "gesp-7-202512-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "对于二叉树（根 A，左 B(左D, 右E)，右 C(左F, 右G(左H, 右I(右J)))），下面关于访问的顺序说法错误的是（　）。",
+        "options": {
+            "A": "D E B F H J I G C A 是它的后序遍历序列。",
+            "B": "A B C D E F G H I J 是它的广度优先遍历序列。",
+            "C": "A B D E C F G H I J 是它的先序遍历序列。",
+            "D": "D B E A F C H G J I 是它的中序遍历序列。"
+        },
+        "answer": "D",
+        "explanation": "中序遍历为 D B E A F C H G I J，D 选项中 J 与 I 顺序颠倒，说法错误。"
+    },
+    {
+        "id": "gesp-7-202512-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "下面程序（二分查找下界）的运行结果为（　）。\nint query(int n, int *a, int x) {\n    int l = 0, r = n;\n    while (l < r) { int mid = l + (r - l) / 2; if (a[mid] >= x) r = mid; else l = mid + 1; }\n    if (l == n) return -1;\n    return l;\n}\n// n=10, x=3, num[] = {1,2,2,3,3,4,5,5,6,7}",
+        "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "5"
+        },
+        "answer": "B",
+        "explanation": "查找第一个大于等于 3 的元素下标，即 num[3]=3，返回 3。"
+    },
+    {
+        "id": "gesp-7-202512-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "二分枚举法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "上面程序中，函数 query 的时间复杂度是（　）。",
+        "options": {
+            "A": "O(1)",
+            "B": "O(log n)",
+            "C": "O(n)",
+            "D": "O(n log n)"
+        },
+        "answer": "B",
+        "explanation": "每次循环区间减半，O(log n)。"
+    },
+    {
+        "id": "gesp-7-202512-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "5个字符出现次数分别为 2、2、3、3、5，用哈夫曼编码，最小加权路径长度 WPL 为（　）。",
+        "options": {
+            "A": "30",
+            "B": "34",
+            "C": "43",
+            "D": "47"
+        },
+        "answer": "B",
+        "explanation": "合并 2+2=4、3+3=6、4+5=9、6+9=15：WPL = 5×2 + 3×2×2 + 2×3×2 = 34。"
+    },
+    {
+        "id": "gesp-7-202512-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的运行结果为（　）。\nint f(int n) {\n    if (n <= 2) return n * 2;\n    return f(n - 1) + f(n - 2);\n}\nint main() { cout << f(5) << endl; }",
+        "options": {
+            "A": "10",
+            "B": "16",
+            "C": "26",
+            "D": "30"
+        },
+        "answer": "B",
+        "explanation": "f(1)=2、f(2)=4、f(3)=6、f(4)=10、f(5)=16。"
+    },
+    {
+        "id": "gesp-7-202512-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "一个简单无向图 G 有36条边，且每个顶点的度数都为4，则图 G 的顶点个数为（　）。",
+        "options": {
+            "A": "9",
+            "B": "12",
+            "C": "18",
+            "D": "36"
+        },
+        "answer": "C",
+        "explanation": "度数之和 = 2×边数：4n = 72，n = 18。"
+    },
+    {
+        "id": "gesp-7-202512-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "下面关于二叉树的说法正确的是（　）。",
+        "options": {
+            "A": "任意二叉树的中序遍历与后序遍历必定不相同。",
+            "B": "对任意二叉树，若已知先序遍历与后序遍历，则该二叉树唯一确定。",
+            "C": "若二叉树有 n 个结点，根节点高度为1，则其高度满足：⌈log₂(n+1)⌉ ≤ h ≤ n。",
+            "D": "在二叉树的先序遍历中，根后紧跟的结点一定是根的左孩子。"
+        },
+        "answer": "C",
+        "explanation": "单结点树中序与后序相同故 A 错；先序+后序无法唯一确定（只有左孩子或只有右孩子时无法区分）故 B 错；先序根后可能是右子树根（无左孩子时）故 D 错。"
+    },
+    {
+        "id": "gesp-7-202512-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "假设一个算法时间复杂度的递推式是 T(n) = 8T(n/4) + n·√n，那么这个算法的时间复杂度是（　）。",
+        "options": {
+            "A": "O(n√n)",
+            "B": "O(n√n log n)",
+            "C": "O(n²)",
+            "D": "O(n² log n)"
+        },
+        "answer": "B",
+        "explanation": "主定理：n^(log₄8) = n^1.5，与 f(n)=n^1.5 同阶，属 case 2，T = O(n^1.5 log n)。"
+    },
+    {
+        "id": "gesp-7-202512-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下面哪一个可能是图的深度优先遍历序列（　）。（有向图，图见原卷）",
+        "options": {
+            "A": "1, 5, 6, 3, 2, 8, 9, 4, 7",
+            "B": "1, 5, 8, 9, 7, 4, 6, 3, 2",
+            "C": "3, 2, 1, 4, 7, 6, 9, 5, 8",
+            "D": "2, 5, 6, 3, 8, 7, 9, 4, 1"
+        },
+        "answer": "B",
+        "explanation": "按图中边的方向与 DFS 规则逐序验证，B 序列满足深度优先遍历的可达性约束（官方口径）。"
+    },
+    {
+        "id": "gesp-7-202512-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下面这个有向图的强连通分量的个数是（　）。（图见原卷）",
+        "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+        },
+        "answer": "C",
+        "explanation": "按图中边方向划分强连通分量，共 5 个（官方口径）。"
+    },
+    {
+        "id": "gesp-7-202512-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，表达式 3 ^ 2 的结果类型为 int，值为 9。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "^ 是按位异或，3^2 = 1。"
+    },
+    {
+        "id": "gesp-7-202512-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 cmath 头文件中的正弦函数，表达式 sin(90) 的结果类型为 double，值约为 1.0。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "参数为弧度，sin(90) ≈ 0.894。"
+    },
+    {
+        "id": "gesp-7-202512-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "字符与字符串"
+        ],
+        "type": "true_false",
+        "question": "使用 strcmp(\"10\", \"9\") 比较两个字符串，返回值大于0，说明 \"10\" 比 \"9\" 大。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "strcmp 按字典序比较，'1' < '9'，返回负值。"
+    },
+    {
+        "id": "gesp-7-202512-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "选择排序是一种不稳定的排序算法，而冒泡排序是一种稳定的排序算法。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "选择排序跨距离交换不稳定，冒泡相邻交换稳定。"
+    },
+    {
+        "id": "gesp-7-202512-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "算法优化"
+        ],
+        "type": "true_false",
+        "question": "求两个长度为 n 序列的最长公共子序列（LCS）长度时，可以使用滚动数组将空间复杂度从 O(n²) 优化到 O(n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "LCS 转移只依赖上一行与当前行左侧，可滚动至 O(n)。"
+    },
+    {
+        "id": "gesp-7-202512-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "在无向图中，所有顶点的度数之和等于边数的两倍。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "每条边对两个端点各贡献 1 度。"
+    },
+    {
+        "id": "gesp-7-202512-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "使用邻接矩阵存储一个有 V 个顶点、E 条边的图，对该图进行一次完整的BFS遍历，时间复杂度为 O(V + E)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "邻接矩阵下每个顶点出边扫描都是 O(V)，完整 BFS 为 O(V²)。"
+    },
+    {
+        "id": "gesp-7-202512-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "泛洪算法"
+        ],
+        "type": "true_false",
+        "question": "在图像处理或游戏开发中，泛洪（flood fill）算法既可以用BFS实现，也可以用DFS实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "两种遍历均可实现泛洪填充。"
+    },
+    {
+        "id": "gesp-7-202512-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "使用链地址法处理冲突的哈希表，当所有元素都映射到同一个槽位时，查找操作的最坏时间复杂度为 O(n)，其中 n 为元素个数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "全部元素成一条链，退化为线性查找。"
+    },
+    {
+        "id": "gesp-7-202512-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202512"
+        },
+        "knowledge_points": [
+            "最小生成树",
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "一个包含 V 个顶点的连通无向图，其任何一棵生成树都恰好包含 V − 1 条边。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "生成树为 V 个顶点的无环连通子图，边数恒为 V-1。"
+    }
+]

@@ -1,0 +1,514 @@
+[
+    {
+        "id": "gesp-7-202409-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "字符与字符串"
+        ],
+        "type": "single_choice",
+        "question": "已知小写字母 b 的ASCII码为98，下列C++代码的输出结果是（　）。\nchar a = 'b';\na++;\ncout << a;",
+        "options": {
+            "A": "b",
+            "B": "c",
+            "C": "98",
+            "D": "99"
+        },
+        "answer": "B",
+        "explanation": "char 自增后为下一个字符 'c'，输出按字符显示。"
+    },
+    {
+        "id": "gesp-7-202409-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "运算符"
+        ],
+        "type": "single_choice",
+        "question": "已知 a 为 int 类型变量，下列表达式不符合语法的是（　）。",
+        "options": {
+            "A": "&a + 3",
+            "B": "+a & 3",
+            "C": "a - - 4",
+            "D": "a++3"
+        },
+        "answer": "D",
+        "explanation": "a++ 是后缀自增，返回右值不能再接字面量构成 a++3；其余均合法。"
+    },
+    {
+        "id": "gesp-7-202409-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "下列关于C++语言中指针的叙述，不正确的是（　）。",
+        "options": {
+            "A": "指针变量中存储的是内存地址。",
+            "B": "指针变量指向的内存地址不一定能够合法访问。",
+            "C": "结构类型中的指针成员不能指向该结构类型。",
+            "D": "定义指针变量时必须指定其指向的类型。"
+        },
+        "answer": "C",
+        "explanation": "结构体中包含指向自身类型的指针是完全合法的（链表、树的实现方式）。"
+    },
+    {
+        "id": "gesp-7-202409-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下列关于C++类的说法，错误的是（　）。",
+        "options": {
+            "A": "将C++类对象通过值传递给函数参数时，会自动调用复制构造函数。",
+            "B": "将一个类的对象赋值给该类的另一个对象时，不会自动调用构造函数。",
+            "C": "定义C++类对象时，一定会调用默认构造函数。",
+            "D": "构造派生类的对象时，一定会调用基类的构造函数。"
+        },
+        "answer": "C",
+        "explanation": "定义对象时调用的是匹配实参的构造函数，有参构造时不会调默认构造；赋值调用的是赋值运算符而非构造函数。"
+    },
+    {
+        "id": "gesp-7-202409-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "某二叉树T的先序遍历序列为 {A B D C E G H F}，中序遍历序列为 {D B A H G E C F}，则下列说法中正确的是（　）。",
+        "options": {
+            "A": "T的高为5",
+            "B": "T有4个叶节点",
+            "C": "T是平衡树",
+            "D": "以上说法都不对"
+        },
+        "answer": "A",
+        "explanation": "重建：A(B(D), C(E(G(H,-),-), F))，高为 5（A→C→E→G→H）；叶为 D、H、F 共 3 个；左右子树高差大，不平衡。"
+    },
+    {
+        "id": "gesp-7-202409-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一棵完全二叉树有431个结点，则叶结点有多少个？（　）",
+        "options": {
+            "A": "176",
+            "B": "215",
+            "C": "216",
+            "D": "255"
+        },
+        "answer": "C",
+        "explanation": "n 为奇数时 n1=0，n0 = (n+1)/2 = 216。"
+    },
+    {
+        "id": "gesp-7-202409-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列关于树的说法，错误的是（　）。",
+        "options": {
+            "A": "二叉树的中序遍历与其深度优先遍历总是相同的。",
+            "B": "所有树都可以构造一颗二叉树与之一一对应。",
+            "C": "如果树的一个叶结点有两个不同的祖先结点，那么其中一个一定是另一个的祖先结点。",
+            "D": "树的结点不能有两个父结点。"
+        },
+        "answer": "A",
+        "explanation": "二叉树的深度优先遍历有先序、中序、后序三种，中序只是其中之一，“总是相同”不成立。"
+    },
+    {
+        "id": "gesp-7-202409-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "一个简单无向图有10个结点、30条边。再增加多少条边可以成为完全图。（　）",
+        "options": {
+            "A": "10",
+            "B": "15",
+            "C": "51",
+            "D": "60"
+        },
+        "answer": "B",
+        "explanation": "完全图边数 10×9/2 = 45，还需 45-30 = 15 条。"
+    },
+    {
+        "id": "gesp-7-202409-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "以下哪个方案可以合理解决或缓解哈希表冲突（　）。",
+        "options": {
+            "A": "丢弃发生冲突的新元素。",
+            "B": "用新元素覆盖发生冲突的元素。",
+            "C": "用新元素覆盖在冲突位置的下一个位置。",
+            "D": "将新元素放置在冲突位置之后的第一个空位。"
+        },
+        "answer": "D",
+        "explanation": "线性探测开放寻址：冲突后依次向后找第一个空位存放，不丢失任何数据。"
+    },
+    {
+        "id": "gesp-7-202409-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "图的定义及遍历",
+            "深度优先搜索算法",
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "一个迷宫，已知从起点不经过重复结点到达终点的路径有且仅有一条，则下面说法错误的是（　）。",
+        "options": {
+            "A": "可以使用深度优先搜索找到这条路径。",
+            "B": "可以使用广度优先搜索找到这条路径。",
+            "C": "该迷宫内与起点连通的结点，一定也与终点连通。",
+            "D": "该迷宫内与起点连通的结点及它们之间的路径可以抽象为无向无环图。"
+        },
+        "answer": "D",
+        "explanation": "按官方口径选 D：迷宫通道若存在单行（有向）情况，则不能抽象为无向图。"
+    },
+    {
+        "id": "gesp-7-202409-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的输出为（　）。\ncout << (int)log(8) << endl;",
+        "options": {
+            "A": "2",
+            "B": "3",
+            "C": "8",
+            "D": "无法通过编译。"
+        },
+        "answer": "A",
+        "explanation": "log(8) 是自然对数 ln 8 ≈ 2.079，截断为 int 后为 2。"
+    },
+    {
+        "id": "gesp-7-202409-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "杨辉三角"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的输出为（　）。\nint path[N][N];\nfor (int i = 1; i < N; i++) path[i][0] = i;\nfor (int j = 1; j < N; j++) path[0][j] = j;\nfor (int i = 1; i < N; i++)\n    for (int j = 1; j < N; j++)\n        path[i][j] = path[i-1][j] + path[i][j-1];\ncout << path[8][4] << endl;",
+        "options": {
+            "A": "84",
+            "B": "495",
+            "C": "1012",
+            "D": "结果是随机的。"
+        },
+        "answer": "C",
+        "explanation": "递推与杨辉三角同构但边界为 path[i][0]=i、path[0][j]=j，逐层递推得 path[8][4]=1012（g++ 验证一致）。"
+    },
+    {
+        "id": "gesp-7-202409-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "上题中程序的时间复杂度为（　）。",
+        "options": {
+            "A": "O(1)",
+            "B": "O(N)",
+            "C": "O(N log N)",
+            "D": "O(N²)"
+        },
+        "answer": "D",
+        "explanation": "两重循环各 N 次，总量 O(N²)。"
+    },
+    {
+        "id": "gesp-7-202409-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下面 fib 函数（带 fib_rcd 数组但未写入缓存）的时间复杂度为（　）。\nint fib_rcd[MAX_N];\nint fib(int n) {\n    if (n <= 1) return 1;\n    if (fib_rcd[n] > 0) return fib_rcd[n];\n    return fib(n-1) + fib(n-2);\n}",
+        "options": {
+            "A": "O(n)",
+            "B": "O(φⁿ)，φ = (√5−1)/2",
+            "C": "O(2ⁿ)",
+            "D": "无法正常结束。"
+        },
+        "answer": "B",
+        "explanation": "fib_rcd 数组从未被写入，缓存形同虚设，仍为指数级递归，增长基数为黄金分割比相关的 φⁿ。"
+    },
+    {
+        "id": "gesp-7-202409-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列选项中，哪个可能是该有向图（边 2→1、4→2、9→4、1→3、1→5、3→2、3→4、3→7、5→3、7→5、9→7、7→6、6→8、8→9）的广度优先遍历序列（　）。",
+        "options": {
+            "A": "1, 3, 5, 7, 4, 2, 6, 8, 9",
+            "B": "9, 4, 2, 1, 3, 7, 5, 6, 8",
+            "C": "1, 3, 5, 7, 6, 8, 9, 4, 2",
+            "D": "9, 4, 7, 2, 1, 3, 5, 6, 8"
+        },
+        "answer": "A",
+        "explanation": "从 1 出发，按邻接顺序 1→[3,5]、3→[7,4,2] 入队，得序列 1,3,5,7,4,2,6,8,9，为合法广度优先遍历序列。"
+    },
+    {
+        "id": "gesp-7-202409-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "true_false",
+        "question": "表达式 'a' << 1 的结果为 'a '。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "'a' 左移后得到的是 int 型的 2×97=194，不是字符。"
+    },
+    {
+        "id": "gesp-7-202409-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "函数的定义与调用"
+        ],
+        "type": "true_false",
+        "question": "在C++语言中，函数可以定义在另一个函数定义之内。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "C++ 不支持嵌套函数定义。"
+    },
+    {
+        "id": "gesp-7-202409-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "选择排序一般是不稳定的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "跨距离交换可能改变相等元素的相对次序。"
+    },
+    {
+        "id": "gesp-7-202409-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "true_false",
+        "question": "埃氏筛法和欧拉筛法都是使用筛法思想生成素数表的算法，欧拉筛法的时间复杂度更低。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "欧拉（线性）筛 O(n)，埃氏筛 O(n log log n)。"
+    },
+    {
+        "id": "gesp-7-202409-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的正弦函数，表达式 sin(30) 的结果类型为 double、值约为 0.5。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "参数为弧度，sin(30 rad) ≈ -0.988。"
+    },
+    {
+        "id": "gesp-7-202409-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "一颗 N 层的完全二叉树，一定有 2^N − 1 个结点。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "2^N - 1 是满二叉树；完全二叉树最后一层可以不满。"
+    },
+    {
+        "id": "gesp-7-202409-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "图的定义及遍历",
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "一个图，不管是否连通，都可以使用深度优先搜索算法进行遍历。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "对每个连通分量分别调用 DFS 即可。"
+    },
+    {
+        "id": "gesp-7-202409-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "哈希函数 H(x) = x % p，要求 p 选择素数是因为这样不会产生冲突。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "素数模只能减少冲突，不能完全避免冲突。"
+    },
+    {
+        "id": "gesp-7-202409-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "栈与队列",
+            "单链表"
+        ],
+        "type": "true_false",
+        "question": "使用单链表实现队列时，链表头结点作为队首比链表头结点作为队尾更便于操作。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "队首出队在表头为 O(1)；若表头做队尾，入队需遍历到表尾 O(n)。"
+    },
+    {
+        "id": "gesp-7-202409-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202409"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "一个图中，每个结点表达一个人，连接两个结点的边表达两个人相互认识，则这个图可以用来表达社交网络。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "社交网络是无向图模型的典型应用。"
+    }
+]

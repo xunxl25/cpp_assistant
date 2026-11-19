@@ -1,0 +1,508 @@
+[
+    {
+        "id": "gesp-7-202312-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "定义变量 double x，如果下面代码输入为 100，输出最接近（　）。\n#include <iostream>\n#include <cmath>\nusing namespace std;\nint main() {\n    double x;\n    cin >> x;\n    cout << log10(x) - log2(x) << endl;\n    return 0;\n}",
+        "options": {
+            "A": "0",
+            "B": "-5",
+            "C": "-8",
+            "D": "8"
+        },
+        "answer": "B",
+        "explanation": "log10(100)=2，log2(100)≈6.64，差值 ≈ -4.64，最接近 -5。"
+    },
+    {
+        "id": "gesp-7-202312-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "对于下面动态规划方法实现的函数（石子合并），以下选项中最适合表达其状态转移函数的为（　）。\nint s[MAX_N], f[MAX_N][MAX_N];\nint stone_merge(int n, int a[]) {\n    for (int i = 1; i <= n; i++) s[i] = s[i-1] + a[i];\n    for (int i = 1; i <= n; i++)\n        for (int j = 1; j <= n; j++)\n            for (int k = i; k < j; k++)\n                f[i][j] = min(f[i][j], f[i][k] + f[k+1][j] + s[j] - s[i-1]);\n    return f[1][n];\n}",
+        "options": {
+            "A": "f(i,j) = min_{i≤k<j}( f(i,j), f(i,k) + f(k+1,j) + Σ_{k=i}^{j} a(k) )",
+            "B": "f(i,j) = min( f(i,j), f(i,k) + f(k+1,j) ) + Σ_{k=i}^{j} a(k)，其中 i ≤ k < j",
+            "C": "f(i,j) = min( f(i,j), f(i,k) + f(k+1,j) + Σ_{k=i}^{j} a(k) )，其中 i ≤ k ≤ j",
+            "D": "f(i,j) = min_{i≤k<j}( f(i,k) + f(k+1,j) ) + Σ_{k=i}^{j} a(k)"
+        },
+        "answer": "D",
+        "explanation": "石子合并是经典区间 DP：f(i,j) 表示合并第 i 到 j 堆的最小代价，转移为枚举最后一步的分割点 k，取 f(i,k)+f(k+1,j) 的最小值，加上合并两堆的代价（区间和 s[j]-s[i-1]），即 min_{i≤k<j}(f(i,k)+f(k+1,j)) + Σa(k)，与代码实现一致。"
+    },
+    {
+        "id": "gesp-7-202312-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "输入 5\n1 7 3 5 9，下面求最长上升子序列（LIS）的动态规划代码输出为（　）。\nfor (int i = 1; i <= n; i++) {\n    f[i] = 1;\n    for (int j = 1; j < i; j++)\n        if (a[j] < a[i]) f[i] = max(f[i], f[j] + 1);\n}\nfor (int i = 1; i <= n; i++) cout << f[i] << \" \";\ncout << ans;",
+        "options": {
+            "A": "1 2 2 3 4 5",
+            "B": "1 2 2 3 4 4",
+            "C": "1 2 2 3 4",
+            "D": "1 2 3 4 5"
+        },
+        "answer": "B",
+        "explanation": "序列 1 7 3 5 9：f[1]=1（1），f[2]=2（1,7），f[3]=2（1,3），f[4]=3（1,3,5），f[5]=4（1,3,5,9）；最长上升子序列长度为 4，输出 1 2 2 3 4 4。"
+    },
+    {
+        "id": "gesp-7-202312-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "关于 C++ 中 static 的描述，不正确的是（　）。",
+        "options": {
+            "A": "static 可以修饰类的成员函数。",
+            "B": "常量静态成员可以在类外进行初始化。",
+            "C": "若 a 是类 A 常量静态成员，则 a 的地址都可以访问且唯一。",
+            "D": "静态全局对象一定在 main 函数调用前完成初始化，执行完 main 函数后被析构。"
+        },
+        "answer": "C",
+        "explanation": "整型常量静态成员虽可在类内初始化，但其地址被使用时通常需要类外定义（C++17 前非 inline 常量静态成员在类外取地址会因缺少定义而无法通过链接），C 的说法不正确。"
+    },
+    {
+        "id": "gesp-7-202312-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "G 是一个非连通无向图，共有 28 条边，则该图至少有（　）个顶点。",
+        "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "9"
+        },
+        "answer": "D",
+        "explanation": "n 个顶点的非连通图最多边数为完全图 K_{n-1} 的边数（其余顶点孤立）：(n-1)(n-2)/2 ≥ 28 → (n-1)(n-2) ≥ 56 → n-1 = 8 时恰为 56，故 n 至少为 9。"
+    },
+    {
+        "id": "gesp-7-202312-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "哈希表长 31，按照下面的程序依次输入 4 17 28 30 4，则最后的 4 存入哪个位置？（　）\nconst int N=31;\nint htab[N], flag[N];\ncin >> n;\nfor (i = 0; i < n; i++) {\n    cin >> x;\n    k = x % 13;\n    while (flag[k]) k = (k+1) % 13;\n    htab[k] = x;\n    flag[k] = 1;\n}",
+        "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "7"
+        },
+        "answer": "D",
+        "explanation": "哈希函数为 x % 13，采用线性探测。4、17、28、30 依次线性探测存入下标 4、5、2、6，最后的 4 探测 4→5→6 均被占用，存入下标 7。"
+    },
+    {
+        "id": "gesp-7-202312-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "已知二叉树的先序遍历序列为 {A B D F C E G H}，中序遍历序列为 {B F D A G E H C}，则该二叉树的形态是（　）。",
+        "options": {
+            "A": "根结点的度为 1",
+            "B": "树的高度为 4",
+            "C": "树有 2 个叶节点",
+            "D": "以上说法都不对"
+        },
+        "answer": "B",
+        "explanation": "重建：根 A；左子树（中序 BFD）为 B(右子 D(左 F))；右子树（中序 GEHC）为 C(左子 E(子 G、H))。路径 A→B→D→F 含 4 个节点，树高为 4；根 A 度为 2；叶节点为 F、G、H 共 3 个。"
+    },
+    {
+        "id": "gesp-7-202312-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "下面代码段可以求两个字符串 s1 和 s2 的最长公共子串（LCS），下列相关描述不正确的是（　）。\nfor (int i = 1; i <= n1; i++)\n    for (int j = 1; j <= n2; j++)\n        if (s1[i-1] == s2[j-1]) dp[i][j] = dp[i-1][j-1] + 1;\n        else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);",
+        "options": {
+            "A": "代码的时间复杂度为 O(n²)",
+            "B": "代码的空间复杂度为 O(n²)",
+            "C": "空间复杂度已经最优",
+            "D": "该算法采用的动态规划方法"
+        },
+        "answer": "C",
+        "explanation": "时间与空间复杂度均为 O(n1·n2)；空间可用滚动数组优化到 O(min(n1, n2))，C 说法不正确。"
+    },
+    {
+        "id": "gesp-7-202312-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "图的广度优先搜索用什么结构存放结点？（　）",
+        "options": {
+            "A": "栈",
+            "B": "队列",
+            "C": "树",
+            "D": "堆"
+        },
+        "answer": "B",
+        "explanation": "BFS 按层扩展，使用队列保证先访问的结点的邻居先被处理。"
+    },
+    {
+        "id": "gesp-7-202312-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "假设哈希函数为 h(k) = k % 7，采用链地址法处理冲突，按顺序插入 {44, 36, 23, 35, 52, 73, 90, 58}（新元素插入链表头部），则查找成功时的平均查找长度为（　）。",
+        "options": {
+            "A": "12/8",
+            "B": "11/8",
+            "C": "1.5",
+            "D": "1.25"
+        },
+        "answer": "C",
+        "explanation": "各元素链内位置：44(3)、36(1)、23(2)、35(1)、52(2)、73(1)、90(1)、58(1)，总比较 12 次，平均 12/8 = 1.5。"
+    },
+    {
+        "id": "gesp-7-202312-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "小明想选修一门课程，但该课程有多门先修课程，且先修课程之间也有依赖关系。已知课程依赖关系图和课程列表，下列哪种方法不适合用于找出选修该课程前需要完成的所有课程？（　）",
+        "options": {
+            "A": "广度优先搜索",
+            "B": "深度优先搜索",
+            "C": "沿反向边进行 BFS/DFS 遍历可达课程集合",
+            "D": "动态规划"
+        },
+        "answer": "D",
+        "explanation": "先修课程集合本质是图中沿反向边可达的结点集合，BFS/DFS 均可求解；动态规划不适用于任意依赖图的可达性枚举。"
+    },
+    {
+        "id": "gesp-7-202312-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一棵完全二叉树共有 2023 个结点，则叶结点的个数为（　）。",
+        "options": {
+            "A": "1014",
+            "B": "1013",
+            "C": "1012",
+            "D": "1011"
+        },
+        "answer": "C",
+        "explanation": "n = n0 + n1 + n2，n0 = n2 + 1；2023 为奇数故 n1 = 0，n0 = (2023+1)/2 = 1012。"
+    },
+    {
+        "id": "gesp-7-202312-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "用下面的邻接表结构保存一个有向图 G，设 G 有 n 个顶点、e 条弧，则求图 G 中某个顶点 u（其顶点序号为 k）的度的算法复杂度是（　）。\ntypedef struct ArcNode { int adjvex; struct ArcNode *nextarc; InfoType *info; } ArcNode;\ntypedef struct VNode { VertexType data; ArcNode *firstarc; } VNode, AdjList[MAX_VERTEX_NUM];\ntypedef struct { AdjList vertices; int vexnum, arcnum; int kind; } ALGraph;",
+        "options": {
+            "A": "O(n)",
+            "B": "O(e)",
+            "C": "O(n + e)",
+            "D": "O(n + 2e)"
+        },
+        "answer": "B",
+        "explanation": "有向图顶点的度 = 入度 + 出度：出度沿 u 的弧链表扫描（不超过 e），入度需统计全部弧（O(e)），主导项为 O(e)。"
+    },
+    {
+        "id": "gesp-7-202312-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "给定一个简单有向图 G，判断其中是否存在环路的下列说法哪个最准确？（　）",
+        "options": {
+            "A": "BFS 更快",
+            "B": "DFS 更快",
+            "C": "BFS 和 DFS 一样快",
+            "D": "不确定"
+        },
+        "answer": "D",
+        "explanation": "BFS 与 DFS 都能判环（复杂度同为 O(n+e)），但具体效率取决于图的形态与实现，没有绝对更快的结论。"
+    },
+    {
+        "id": "gesp-7-202312-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "从顶点 v1 开始遍历下图 G 得到顶点访问序列，在所给的 4 个序列中符合广度优先的序列有几个？（　）\n图 G 边集：v1–v2，v1–v4，v2–v3，v2–v5，v3–v4，v3–v5\n序列：{v1 v2 v3 v4 v5}，{v1 v2 v4 v3 v5}，{v1 v4 v2 v3 v5}，{v1 v2 v4 v5 v3}",
+        "options": {
+            "A": "4",
+            "B": "3",
+            "C": "2",
+            "D": "1"
+        },
+        "answer": "B",
+        "explanation": "BFS 中 v1 的邻居 v2、v4 必先于 v3 入队，故 {v1 v2 v3 v4 v5} 不合法；后三个序列在合适的邻接表顺序下均合法，共 3 个。"
+    },
+    {
+        "id": "gesp-7-202312-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "小杨这学期准备参加 GESP 的 7 级考试，其中有关于三角函数的内容，他能够通过下面的代码找到结束循环的角度值。\nint main() {\n    double x;\n    do {\n        cin >> x;\n        x = x/180*3.14;\n    } while (int(sin(x)*sin(x)+cos(x)*cos(x)) == 1);\n    cout << \"//\" << sin(x) << \"  \" << cos(x);\n}",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "sin²x + cos²x 理论上恒为 1，但由于 3.14 ≠ π 及浮点误差，sin²+cos² 会略小于 1，int 截断后等于 0，循环能够结束。"
+    },
+    {
+        "id": "gesp-7-202312-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "泛洪算法"
+        ],
+        "type": "true_false",
+        "question": "泛洪（Flood Fill）填充算法是从一个起始节点开始，将与其连通的区域填充为特定颜色的算法。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "泛洪算法从种子点出发，访问所有与种子点满足连通（颜色相同等条件）的结点并逐一标记，可用 BFS 或 DFS 实现。"
+    },
+    {
+        "id": "gesp-7-202312-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "具有 N 个结点的完全二叉树，其深度为 log(N) + 1。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "完全二叉树深度为 ⌊log₂N⌋ + 1，需要对 log 结果向下取整，直接写 log(N)+1 不准确。"
+    },
+    {
+        "id": "gesp-7-202312-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "利用动态规划求解最大子段和问题时，状态转移方程为 f[i] = max(f[i-1] + a[i], a[i])。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "f[i] 表示以 i 结尾的最大子段和：要么接在前一段后面，要么从 i 重新开始，取二者较大值。"
+    },
+    {
+        "id": "gesp-7-202312-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "已知底数 e > 10，因此当 x 为正数时，ln(x) > log₁₀(x) 恒成立。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "对数函数换底公式 ln x = ln(10)·log₁₀x ≈ 2.3·log₁₀x，当 x > 1 时二者同为正数，ln x 恒大于 log₁₀ x。"
+    },
+    {
+        "id": "gesp-7-202312-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "对一个图 G，如果采用邻接矩阵存储和邻接表存储，求图中某个顶点的度的算法复杂度是一样的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "邻接矩阵求度需扫描该行/列，复杂度 O(n)；邻接表出度沿链表扫描、入度需遍历全表，复杂度不同。"
+    },
+    {
+        "id": "gesp-7-202312-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "如果哈希函数的除数（模数）取素数，哈希表将不会产生冲突。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "取素数模只能减少冲突概率（使键分布更均匀），无法完全避免冲突。"
+    },
+    {
+        "id": "gesp-7-202312-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "推导出状态转移方程就可以写出递归程序求出最优解。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "仅有状态转移方程还不够，还需要确定边界条件（初始状态）和计算顺序，否则递归无法终止或无法求解。"
+    },
+    {
+        "id": "gesp-7-202312-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "从给定起点开始进行宽度优先搜索，可以确定哪些结点与起点连通。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BFS 从起点出发逐层扩展，搜索结束时所有被访问过的结点即为与起点连通的结点。"
+    },
+    {
+        "id": "gesp-7-202312-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202312"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在C++中创建一个类的对象数组时，编译器会首先调用类的默认构造函数初始化所有元素，然后再调用类的其他构造函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "对象数组的每个元素只调用一次构造函数：无初始化器时调用默认构造，有初始化器时调用对应的构造函数，不会“先默认再其他”。"
+    }
+]

@@ -1,0 +1,512 @@
+[
+    {
+        "id": "gesp-7-202609-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "single_choice",
+        "question": "下列 C++ 代码的输出结果是（　　）。\nint a = 5, b = 3;\ncout << (a & b) + (a | b) << endl;",
+        "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "9"
+        },
+        "answer": "C",
+        "explanation": "5&3=1，5|3=7，和为 8（恒等式 a&b + a|b = a+b）。"
+    },
+    {
+        "id": "gesp-7-202609-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "使用 cmath 或 math.h 中的数学库函数，下列说法中正确的是（　　）。",
+        "options": {
+            "A": "pow(2, 3) 的返回值类型为 int",
+            "B": "sin(30) 的参数 30 表示 30 度",
+            "C": "sqrt(4) 的返回值类型为 int",
+            "D": "log(1) 的返回值为 0.0，且类型为 double"
+        },
+        "answer": "D",
+        "explanation": "数学库函数返回 double；sin 参数为弧度；log(1)=0.0 为 double。"
+    },
+    {
+        "id": "gesp-7-202609-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "有 4 个字符，出现次数分别为 1、2、3、4。哈夫曼编码中次数为 1 的字符的编码长度为（　　）。",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "3",
+            "D": "4"
+        },
+        "answer": "C",
+        "explanation": "合并 1+2=3、3+3=6、4+6=10：频率 1 的字符在 3+3=6 分支内，深度 3。"
+    },
+    {
+        "id": "gesp-7-202609-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "计数原理",
+            "排列与组合"
+        ],
+        "type": "single_choice",
+        "question": "从 4×5 个点连接成的网格的左上角走到右下角，每次只能向右或向下移动，不同路径共有（　　）条。",
+        "options": {
+            "A": "20",
+            "B": "35",
+            "C": "70",
+            "D": "126"
+        },
+        "answer": "B",
+        "explanation": "需要 3 步向右、4 步向下，C(7,3) = 35 条。"
+    },
+    {
+        "id": "gesp-7-202609-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "二叉排序树",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "在含有 n 个结点的二叉排序树中查找一个元素，平均时间复杂度和最坏时间复杂度分别为（　　）。",
+        "options": {
+            "A": "O(log n)、O(n)",
+            "B": "O(n)、O(log n)",
+            "C": "O(log n)、O(log n)",
+            "D": "O(1)、O(n)"
+        },
+        "answer": "A",
+        "explanation": "平衡时平均 O(log n)，退化成链表时最坏 O(n)。"
+    },
+    {
+        "id": "gesp-7-202609-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "有 4 堆石子，数量分别为 1、2、3、4。每次合并相邻两堆，代价为两堆之和，全部合并的最小总代价为（　　）。",
+        "options": {
+            "A": "17",
+            "B": "19",
+            "C": "20",
+            "D": "23"
+        },
+        "answer": "B",
+        "explanation": "区间 DP：f(1,2)=3、f(2,3)=5、f(3,4)=7，最优方案 (1,2)→(3,4)→再合并得 3+6+10=19（g++ 验证）。"
+    },
+    {
+        "id": "gesp-7-202609-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "BFS 中 dist[v] = dist[u] + 1（起点 dist 为 0），最终 dist[v] 表示（　　）。",
+        "options": {
+            "A": "起点到结点 v 的最少边数",
+            "B": "结点 v 的度数",
+            "C": "从起点到结点 v 的路径上经过的最大边权",
+            "D": "包含结点 v 的连通块大小"
+        },
+        "answer": "A",
+        "explanation": "无权图 BFS 按层扩展，dist 即最短边数。"
+    },
+    {
+        "id": "gesp-7-202609-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "泛洪算法",
+            "宽度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "二维网格泛洪填充防止递归过深，最适合的非递归实现是（　　）。",
+        "options": {
+            "A": "使用哈希表记录每个格子被访问的次数",
+            "B": "使用快速排序预处理网格",
+            "C": "使用二分查找定位边界",
+            "D": "使用队列实现 BFS 或使用显式栈模拟 DFS"
+        },
+        "answer": "D",
+        "explanation": "显式队列/栈把递归转为迭代，避免调用栈溢出。"
+    },
+    {
+        "id": "gesp-7-202609-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "关于哈希表，下列说法正确的是（　　）。",
+        "options": {
+            "A": "只要哈希函数选择合适，就可以完全避免冲突",
+            "B": "在链地址法中，查找一个元素的时间复杂度一定为 O(1)",
+            "C": "开放定址法发生冲突后，会在表内寻找下一个可用位置",
+            "D": "哈希表的查找速度与表中元素个数无关"
+        },
+        "answer": "C",
+        "explanation": "开放定址按探测序列找下一个空位；冲突不可避免；链地址最坏 O(n)；装填因子影响查找效率。"
+    },
+    {
+        "id": "gesp-7-202609-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "函数参数传递"
+        ],
+        "type": "single_choice",
+        "question": "下列 C++ 代码的输出结果是（　　）。\nvoid inc(int &x) { x++; }\nint main() { int a = 3; inc(a); cout << a; }",
+        "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "编译错误"
+        },
+        "answer": "B",
+        "explanation": "引用形参是实参别名，x++ 直接修改 a，输出 4。"
+    },
+    {
+        "id": "gesp-7-202609-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "LCS 的 DP：dp[i][j] 表示 s₁ 前 i 个元素与 s₂ 前 j 个元素的 LCS 长度。当 s₁[i−1] = s₂[j−1] 时，正确的状态转移是（　　）。",
+        "options": {
+            "A": "dp[i][j] = dp[i - 1][j - 1] + 1",
+            "B": "dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])",
+            "C": "dp[i][j] = dp[i - 1][j] + 1",
+            "D": "dp[i][j] = dp[i][j - 1]"
+        },
+        "answer": "A",
+        "explanation": "末尾字符相等时，LCS 在去掉两末尾字符的基础上加 1。"
+    },
+    {
+        "id": "gesp-7-202609-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "一维数组优化 0/1 背包（w=3, v=5, W=8），执行后 dp[8] 的输出结果是（　　）。",
+        "options": {
+            "A": "0",
+            "B": "1",
+            "C": "3",
+            "D": "5"
+        },
+        "answer": "D",
+        "explanation": "c=8 时 dp[8] = max(0, dp[5]+5) = 5。"
+    },
+    {
+        "id": "gesp-7-202609-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "single_choice",
+        "question": "若要求排序后相等元素的相对顺序保持不变，下列排序算法中最不适宜使用的是（　　）。",
+        "options": {
+            "A": "冒泡排序",
+            "B": "插入排序",
+            "C": "归并排序",
+            "D": "快速排序"
+        },
+        "answer": "D",
+        "explanation": "快速排序跨区间交换相等元素，通常不稳定；冒泡/插入/归并均可稳定实现。"
+    },
+    {
+        "id": "gesp-7-202609-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下列代码片段的时间复杂度为（　　）。\nfor (int i = 1; i <= n; i++)\n    for (int j = 1; j <= n; j += i)\n        s += i + j;",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log n)",
+            "C": "O(n²)",
+            "D": "O(n√n)"
+        },
+        "answer": "B",
+        "explanation": "内层执行 n/i 次，总量 n·Σ(1/i) = O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202609-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "数组与指针"
+        ],
+        "type": "single_choice",
+        "question": "已知 int a[6] = {1, 3, 5, 7, 9, 11}; int *p = a + 1;，则 *(p + 3) 的值是（　　）。",
+        "options": {
+            "A": "5",
+            "B": "7",
+            "C": "9",
+            "D": "11"
+        },
+        "answer": "C",
+        "explanation": "p+3 指向 a[4]，值为 9。"
+    },
+    {
+        "id": "gesp-7-202609-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 cmath 或 math.h 中的函数，表达式 exp(0) 的结果值为 1.0，且类型为 double。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "e^0 = 1.0，数学库函数返回 double。"
+    },
+    {
+        "id": "gesp-7-202609-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "采用开放定址法处理冲突的哈希表中，删除一个元素后可以直接将该位置置空，不会影响后续查找。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "直接置空会截断探测序列，需用墓碑标记等机制。"
+    },
+    {
+        "id": "gesp-7-202609-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "在哈夫曼树中，出现次数更多的叶子结点，其深度总是更小。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "频率相同时深度相同；“总是更小”过于绝对，且不等频时也只是保证总 WPL 最小。"
+    },
+    {
+        "id": "gesp-7-202609-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "在一个有向图中，所有顶点的入度之和总是等于所有顶点的出度之和。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "每条边贡献一个入度和一个出度，两者都等于边数。"
+    },
+    {
+        "id": "gesp-7-202609-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "广度优先搜索通常借助队列实现，深度优先搜索通常借助栈或递归实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BFS 先进先出按层扩展；DFS 后进先出深入。"
+    },
+    {
+        "id": "gesp-7-202609-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "算法：排序算法",
+            "算法复杂度的估算"
+        ],
+        "type": "true_false",
+        "question": "快速排序的平均时间复杂度为 O(n log n)，最坏时间复杂度也为 O(n log n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "最坏（每次划分极度不平衡）退化为 O(n²)。"
+    },
+    {
+        "id": "gesp-7-202609-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "为解决 0/1 背包问题，使用一维数组优化时，内层容量循环应从大到小枚举。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "逆序保证每件物品最多选一次。"
+    },
+    {
+        "id": "gesp-7-202609-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "使用邻接表存储图时，遍历某个顶点的所有邻边所需时间与图中顶点数成正比。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "邻接表遍历 u 的邻边只需沿 u 的链表，与 u 的出度成正比。"
+    },
+    {
+        "id": "gesp-7-202609-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "在按层序从 1 开始对结点编号的完全二叉树中，编号为 i（i > 1）的结点的父结点编号为 ⌊i/2⌋。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "层序编号下父子关系即为 i 与 ⌊i/2⌋。"
+    },
+    {
+        "id": "gesp-7-202609-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202609"
+        },
+        "knowledge_points": [
+            "数组与指针"
+        ],
+        "type": "true_false",
+        "question": "在定义了数组 int arr[10]; 后，表达式 arr 和表达式 &arr[0] 总是等价的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "值相同但类型不同：arr 衰变为 int*，&arr[0] 是 int*，而 &arr 是 int(*)[10]，两者并非总是等价。"
+    }
+]

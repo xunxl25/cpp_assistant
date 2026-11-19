@@ -1,0 +1,518 @@
+[
+    {
+        "id": "gesp-7-202509-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "字符与字符串",
+            "运算符"
+        ],
+        "type": "single_choice",
+        "question": "已知小写字母 b 的ASCII码为98，下列C++代码的输出结果是（　）。\nchar a = 'b' + 1;\ncout << a;",
+        "options": {
+            "A": "b",
+            "B": "c",
+            "C": "98",
+            "D": "99"
+        },
+        "answer": "B",
+        "explanation": "'b'+1 = 99，赋给 char 后为字符 'c'，按字符输出。"
+    },
+    {
+        "id": "gesp-7-202509-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "指针类型的概念及基本应用",
+            "运算符"
+        ],
+        "type": "single_choice",
+        "question": "已知 a 为 int 类型变量，p 为 int * 类型变量，下列表达式不符合语法的是（　）。",
+        "options": {
+            "A": "a * a",
+            "B": "p * p",
+            "C": "a && a",
+            "D": "p && p"
+        },
+        "answer": "B",
+        "explanation": "指针不支持乘法运算；逻辑与对指针、整数均合法。"
+    },
+    {
+        "id": "gesp-7-202509-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "面向对象的思想",
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下列关于C++类的说法，错误的是（　）。",
+        "options": {
+            "A": "如果一个类包含纯虚函数，则它不能包含成员变量。",
+            "B": "如果一个类包含纯虚函数，则不能用定义对象。",
+            "C": "派生类对象占用的内存总是不小于基类对象。",
+            "D": "派生类可以不实现基类的虚函数。"
+        },
+        "answer": "A",
+        "explanation": "含纯虚函数的抽象类完全可以包含成员变量，A 错误；抽象类不能实例化 B 正确；派生类至少包含基类部分 C 正确；抽象基类派生类可暂不实现全部纯虚函数（自身仍是抽象类）D 正确。"
+    },
+    {
+        "id": "gesp-7-202509-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "数组与指针"
+        ],
+        "type": "single_choice",
+        "question": "已知数组 a 的定义 int a[10] = {-1};，下列说法不正确的是（　）。",
+        "options": {
+            "A": "数组 a 至少占用 10 个 int 大小的内存，一般为 40 个字节。",
+            "B": "数组 a 的所有元素均被初始化为 -1。",
+            "C": "语句 a[-1] = 0; 不会产生编译错误，但会导致难以预测的运行结果。",
+            "D": "语句 a[13] = 0; 不会产生编译错误，但会导致难以预测的运行结果。"
+        },
+        "answer": "B",
+        "explanation": "初始化列表 {-1} 只把 a[0] 置 -1，其余 9 个元素补 0，B 错误。"
+    },
+    {
+        "id": "gesp-7-202509-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "一棵完全二叉树有165个结点，则叶结点有多少个？（　）",
+        "options": {
+            "A": "38",
+            "B": "82",
+            "C": "83",
+            "D": "84"
+        },
+        "answer": "C",
+        "explanation": "n=165 为奇数故度 1 结点为 0，n0 = (n+1)/2 = 83（或 165 - ⌊165/2⌋ = 83）。"
+    },
+    {
+        "id": "gesp-7-202509-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "下列关于二叉树的说法，错误的是（　）。",
+        "options": {
+            "A": "二叉排序树的中序遍历顺序与元素排序的顺序是相同的。",
+            "B": "自平衡二叉查找树（AVL树）是一种二叉排序树。",
+            "C": "n 个元素的二叉排序树，其高一定为⌈log₂ n⌉。",
+            "D": "任意的森林，都可以映射为一颗二叉树进行表达和存储。"
+        },
+        "answer": "C",
+        "explanation": "BST 插入顺序不佳时会退化为链，高度可达 n，并非一定 ⌈log₂n⌉。"
+    },
+    {
+        "id": "gesp-7-202509-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "图的定义及遍历",
+            "最小生成树"
+        ],
+        "type": "single_choice",
+        "question": "下列关于树和图的说法，错误的是（　）。",
+        "options": {
+            "A": "保留树的所有节点，并把树的每个节点指向其父节点，则可以将树转换为一个有向弱连通图。",
+            "B": "保留树的所有节点，并把树的每个节点指向其子节点，则可以将树转换为一个有向无环图。",
+            "C": "每个连通图都存在生成树。",
+            "D": "每个存在生成树的有向图，都一定是强连通的。"
+        },
+        "answer": "D",
+        "explanation": "存在生成树只说明底图连通，有向图各边单向时并不强连通，D 错误。"
+    },
+    {
+        "id": "gesp-7-202509-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "对一个包含 V 个顶点、E 条边的图，执行广度优先搜索，其最优时间复杂度是（　）。",
+        "options": {
+            "A": "O(V + E)",
+            "B": "O(V)",
+            "C": "O(E)",
+            "D": "O(V²)"
+        },
+        "answer": "A",
+        "explanation": "邻接表存储下每个顶点和每条边各被访问一次，为 O(V+E)。"
+    },
+    {
+        "id": "gesp-7-202509-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "以下哪个方案不能合理解决或缓解哈希表冲突（　）。",
+        "options": {
+            "A": "用新元素覆盖发生冲突的哈希表项。",
+            "B": "在每个哈希表项处，使用单链表管理该表项的冲突元素。",
+            "C": "建立额外的单链表，用来管理所有发生冲突的元素。",
+            "D": "使用不同的哈希函数再建立一个哈希表，用来管理所有发生冲突的元素。"
+        },
+        "answer": "A",
+        "explanation": "覆盖会丢失已有元素；B、C、D（链地址/附加链/再哈希）均合理。"
+    },
+    {
+        "id": "gesp-7-202509-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "贪心算法"
+        ],
+        "type": "single_choice",
+        "question": "以下关于贪心法和动态规划的说法中，错误的是（　）。",
+        "options": {
+            "A": "对特定的问题，贪心法不一定适用。",
+            "B": "当特定的问题适用贪心法时，通常比动态规划的时间复杂度更低。",
+            "C": "对很多问题，递推实现和递归实现动态规划方法的时间复杂度相当。",
+            "D": "采用动态规划的算法一定具有多项式时间复杂度。"
+        },
+        "answer": "D",
+        "explanation": "DP 也可能是指数或伪多项式（如 0/1 背包 O(nW)），并非一定多项式，D 错误。"
+    },
+    {
+        "id": "gesp-7-202509-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的输出为（　）。\nint fib(int n) {\n    if (n == 0) return 1;\n    return fib(n - 1) + fib(n - 2);\n}\nint main() { cout << fib(6) << endl; }",
+        "options": {
+            "A": "8",
+            "B": "13",
+            "C": "21",
+            "D": "无法正常结束。"
+        },
+        "answer": "D",
+        "explanation": "终止条件只有 n==0 时返回 1，而 fib(-1) 递减无终止，调用 fib(6) 展开后必然触达 fib(-1)，无限递归导致栈溢出，程序无法正常结束。"
+    },
+    {
+        "id": "gesp-7-202509-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下面程序（带记忆化缓存数组的递归 fib）的时间复杂度为（　）。\nint rec_fib[MAX_N];\nint fib(int n) {\n    if (n <= 1) return n;\n    if (rec_fib[n] != 0) return rec_fib[n];\n    return fib(n - 1) + fib(n - 2);\n}",
+        "options": {
+            "A": "O(φ^n)，φ = (√5+1)/2",
+            "B": "O(2^n)",
+            "C": "O(n²)",
+            "D": "O(n)"
+        },
+        "answer": "A",
+        "explanation": "代码只读不写缓存（未执行 rec_fib[n] = ...），记忆化失效，仍为指数复杂度 O(φ^n)。"
+    },
+    {
+        "id": "gesp-7-202509-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算",
+            "初等数论"
+        ],
+        "type": "single_choice",
+        "question": "下面 init_sieve 函数（双重计数循环）的时间复杂度为（　）。\nfor (int i = 1; i <= n; i++) sieve[i] = i;\nfor (int i = 2; i <= n; i++)\n    for (int j = i; j <= n; j += i)\n        sieve[j]--;",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log log n)",
+            "C": "O(n log n)",
+            "D": "O(n²)"
+        },
+        "answer": "C",
+        "explanation": "内层执行 Σ⌊n/i⌋ ≈ n·ln n 次，为 O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202509-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算",
+            "辗转相除法"
+        ],
+        "type": "single_choice",
+        "question": "下面 count_triple 函数（枚举勾股数生成元）的时间复杂度为（　）。\nfor (int v = 1; v * v * 4 <= n; v++)\n    for (int u = v + 1; u * (u + v) * 2 <= n; u += 2)\n        if (gcd(u, v) == 1) { ... }",
+        "options": {
+            "A": "O(n²)",
+            "B": "O(n² log n)",
+            "C": "O(n log n)",
+            "D": "O(n)"
+        },
+        "answer": "C",
+        "explanation": "u 的界 u(u+v)≤n/2 使得内层总量为 O(n)（调和级数性质），每次 gcd 为 O(log n)，总 O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202509-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列选项中，哪个不可能是下图的深度优先遍历序列（　）。（图：边 1→2、1→4、1→5、2→3、3→5、3→6、4→5、4→7、5→8、6→7、6→8、6→9、7→8、8→9）",
+        "options": {
+            "A": "2, 3, 5, 7, 8, 9, 6, 4, 1",
+            "B": "5, 7, 8, 9, 1, 2, 4, 3, 6",
+            "C": "6, 8, 9, 5, 7, 1, 2, 3, 4",
+            "D": "8, 5, 7, 9, 1, 2, 3, 6, 4"
+        },
+        "answer": "B",
+        "explanation": "结点 5 的出边只有 5→8，序列 B 中 5 之后直接访问 7（5→7 不存在），不可能。"
+    },
+    {
+        "id": "gesp-7-202509-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "运算符"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，表达式 9 && 12 的结果类型为 int、值为 8。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "9 && 12 结果为 bool true（输出 1），不是 8。"
+    },
+    {
+        "id": "gesp-7-202509-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "数组与指针"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，在有 int a[10]; 定义的范围内，通过表达式 a[-1] 进行访问将导致编译错误。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "下标越界不做编译期检查，编译通过但行为未定义。"
+    },
+    {
+        "id": "gesp-7-202509-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "选择排序一般是不稳定的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "选择排序交换可能跨越相等元素，一般不稳定。"
+    },
+    {
+        "id": "gesp-7-202509-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "计算机基础知识"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，float 和 int 类型一般都是 4 字节，因此 float 类型能够表达不同的浮点数值的数量，与 int 类型能够表达不同的整数值的数量是相同的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "同为 32 位时两者的可表达值数量都是 2^32 个组合，但 float 的分布不均匀（含 NaN/±0 等编码），能表达的不同浮点数值数量与 int 并不相同，说法不成立。"
+    },
+    {
+        "id": "gesp-7-202509-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的对数函数，表达式 log(256) 的结果类型为 double、值约为 8.0。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "log 是自然对数，ln 256 ≈ 5.55，不是 8.0。"
+    },
+    {
+        "id": "gesp-7-202509-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "一棵有 N 个节点的完全二叉树，则树的深度为 ⌊log₂(N)⌋ + 1。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "完全二叉树深度公式成立。"
+    },
+    {
+        "id": "gesp-7-202509-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "邻接表和邻接矩阵都是图的存储形式。通常，使用邻接表比使用邻接矩阵的时间复杂度更低。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "判断两顶点间是否有边时邻接矩阵 O(1) 更快；复杂度取决于操作，不能一概而论。"
+    },
+    {
+        "id": "gesp-7-202509-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，类的构造函数可以声明为私有（private）。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "私有构造函数常用于单例模式等场景，语法合法。"
+    },
+    {
+        "id": "gesp-7-202509-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "泛洪算法",
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "泛洪算法的递归实现容易造成溢出，因此大的二维地图算法中，一般使用广度优先搜索实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "递归深度过大导致栈溢出，大地图常用 BFS/显式栈实现。"
+    },
+    {
+        "id": "gesp-7-202509-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202509"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "技能间依赖关系常被玩家称为“技能树”，但它并不一定是树，更可能是有向无环图。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "多个前置技能依赖可汇聚，形成 DAG 而非树。"
+    }
+]

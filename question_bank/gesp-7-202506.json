@@ -1,0 +1,512 @@
+[
+    {
+        "id": "gesp-7-202506-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "位运算",
+            "字符与字符串"
+        ],
+        "type": "single_choice",
+        "question": "下列C++代码的输出结果是（　）。\nchar a = 'b' ^ 4;\ncout << a;",
+        "options": {
+            "A": "b",
+            "B": "bbbb",
+            "C": "f",
+            "D": "102"
+        },
+        "answer": "C",
+        "explanation": "'b' 为 98，98^4=102，102 对应字符 'f'，按字符输出。"
+    },
+    {
+        "id": "gesp-7-202506-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "已知 a 为 int 类型变量，p 为 int * 类型变量，下列赋值语句不符合语法的是（　）。",
+        "options": {
+            "A": "*(p + a) = *p;",
+            "B": "*(p - a) = a;",
+            "C": "p + a = p;",
+            "D": "p = p + a;"
+        },
+        "answer": "C",
+        "explanation": "p+a 是指针算术表达式的结果，为右值，不能作为赋值左值。"
+    },
+    {
+        "id": "gesp-7-202506-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下列关于C++类的说法，错误的是（　）。",
+        "options": {
+            "A": "如需要使用基类的指针释放派生类对象，基类的析构函数应声明为虚析构函数。",
+            "B": "构造派生类对象时，只调用派生类的构造函数，不会调用基类的构造函数。",
+            "C": "基类和派生类分别实现了同一个虚函数，派生类对象仍能够调用基类的该方法。",
+            "D": "如果函数形参为基类指针，调用时可以传入派生类指针作为实参。"
+        },
+        "answer": "B",
+        "explanation": "构造派生类对象时先调用基类构造函数再执行派生类构造函数体，B 错误；C 可通过 基类::方法 显式调用。"
+    },
+    {
+        "id": "gesp-7-202506-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "数组与指针"
+        ],
+        "type": "single_choice",
+        "question": "下列C++代码的输出是（　）。\nint arr[5] = {2, 4, 6, 8, 10};\nint * p = arr + 2;\ncout << p[3] << endl;",
+        "options": {
+            "A": "6",
+            "B": "8",
+            "C": "编译出错，无法运行。",
+            "D": "不确定，可能发生运行时异常。"
+        },
+        "answer": "D",
+        "explanation": "p[3] 即 *(arr+5)，越界访问，C++ 不做边界检查，编译通过但运行结果不可预测。"
+    },
+    {
+        "id": "gesp-7-202506-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "single_choice",
+        "question": "假定只有一个根节点的树的深度为1，则一棵有N个节点的完全二叉树，树的深度为（　）。",
+        "options": {
+            "A": "⌊log₂(N)⌋ + 1",
+            "B": "⌊log₂(N)⌋",
+            "C": "⌈log₂(N)⌉",
+            "D": "不能确定。"
+        },
+        "answer": "A",
+        "explanation": "完全二叉树深度 = ⌊log₂N⌋ + 1。"
+    },
+    {
+        "id": "gesp-7-202506-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "对于二叉树（根 A，左孩子 B（孩子 D），右孩子 C（孩子 E）），说法正确的是（　）。",
+        "options": {
+            "A": "先序遍历是 ABDEC。",
+            "B": "中序遍历是 DBACE。",
+            "C": "后序遍历是 DBCEA。",
+            "D": "广度优先遍历是 ABCDE。"
+        },
+        "answer": "D",
+        "explanation": "层序（广度优先）遍历逐层访问 A、B、C、D、E，得 ABCDE，D 正确（官方口径）。"
+    },
+    {
+        "id": "gesp-7-202506-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "图的存储和遍历算法，下面说法错误的是（　）。",
+        "options": {
+            "A": "图的深度优先遍历须要借助队列来完成。",
+            "B": "图的深度优先遍历和广度优先遍历对有向图和无向图都适用。",
+            "C": "使用邻接矩阵存储一个包含 v 个顶点的有向图，统计其边数的时间复杂度为 O(v²)。",
+            "D": "同一个图分别使用出边邻接表和入边邻接表存储，其边结点个数相同。"
+        },
+        "answer": "A",
+        "explanation": "深度优先遍历借助栈（或递归），队列是广度优先遍历的辅助结构，A 错误。"
+    },
+    {
+        "id": "gesp-7-202506-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "一个连通的简单有向图，共有 28 条边，则该图至少有（　）个顶点。",
+        "options": {
+            "A": "5",
+            "B": "6",
+            "C": "7",
+            "D": "8"
+        },
+        "answer": "B",
+        "explanation": "n 个顶点的有向简单图最多 n(n-1) 条边：n=6 时 30≥28，n=5 时 20<28，故至少 6 个顶点。"
+    },
+    {
+        "id": "gesp-7-202506-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "以下哪个方案不能合理解决或缓解哈希表冲突（　）。",
+        "options": {
+            "A": "在每个哈希表项处，使用不同的哈希函数再建立一个哈希表，管理该表项的冲突元素。",
+            "B": "在每个哈希表项处，建立二叉排序树，管理该表项的冲突元素。",
+            "C": "使用不同的哈希函数建立额外的哈希表，用来管理所有发生冲突的元素。",
+            "D": "覆盖发生冲突的旧元素。"
+        },
+        "answer": "D",
+        "explanation": "覆盖旧元素会丢失数据，不能算解决冲突；A（再哈希）、B（链式树化）、C（附加表）均合理。"
+    },
+    {
+        "id": "gesp-7-202506-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "以下关于动态规划的说法中，错误的是（　）。",
+        "options": {
+            "A": "动态规划方法通常能够列出递推公式。",
+            "B": "动态规划方法的时间复杂度通常为状态的个数。",
+            "C": "动态规划方法有递推和递归两种实现形式。",
+            "D": "对很多问题，递推实现和递归实现动态规划方法的时间复杂度相当。"
+        },
+        "answer": "B",
+        "explanation": "时间复杂度为“状态数 × 单次转移代价”，单纯说等于状态个数不完整，B 错误。"
+    },
+    {
+        "id": "gesp-7-202506-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的输出为（　）。\nint rec_fib[100];\nint fib(int n) {\n    if (n <= 1) return n;\n    if (rec_fib[n] == 0) rec_fib[n] = fib(n - 1) + fib(n - 2);\n    return rec_fib[n];\n}\nint main() { cout << fib(6) << endl; }",
+        "options": {
+            "A": "8",
+            "B": "13",
+            "C": "64",
+            "D": "结果是随机的。"
+        },
+        "answer": "A",
+        "explanation": "带记忆化的斐波那契：1,1,2,3,5,8，fib(6)=8（rec_fib 全局初值 0 恰与 fib(0)=0 相容）。"
+    },
+    {
+        "id": "gesp-7-202506-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "上题中程序（带记忆化的递归斐波那契）的时间复杂度为（　）。",
+        "options": {
+            "A": "O(2^n)",
+            "B": "O(φ^n)，φ = (√5 − 1)/2",
+            "C": "O(n²)",
+            "D": "O(n)"
+        },
+        "answer": "D",
+        "explanation": "每个 n 只计算一次（记忆化命中后直接返回），总复杂度 O(n)。"
+    },
+    {
+        "id": "gesp-7-202506-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "二分枚举法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下面 search 函数（二分查找）的平均时间复杂度为（　）。",
+        "options": {
+            "A": "O(n log(n))",
+            "B": "O(n)",
+            "C": "O(log(n))",
+            "D": "O(1)"
+        },
+        "answer": "C",
+        "explanation": "每次迭代查找区间减半，平均/最坏均为 O(log n)。"
+    },
+    {
+        "id": "gesp-7-202506-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "下面程序（线性筛素数）的时间复杂度为（　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n × log n)",
+            "C": "O(n × log log n)",
+            "D": "O(n²)"
+        },
+        "answer": "A",
+        "explanation": "线性筛保证每个合数只被最小质因数标记一次，总复杂度 O(n)。"
+    },
+    {
+        "id": "gesp-7-202506-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列选项中，哪个不可能是下图的广度优先遍历序列（　）。（图：结点 1–9，边 1→2、1→4、1→5、2→3、3→6、4→7、5→7、6→5、6→9、7→8、8→5、8→9）",
+        "options": {
+            "A": "1, 2, 4, 5, 3, 7, 6, 8, 9",
+            "B": "1, 2, 5, 4, 3, 7, 8, 6, 9",
+            "C": "1, 4, 5, 2, 7, 3, 8, 6, 9",
+            "D": "1, 5, 4, 2, 7, 3, 8, 6, 9"
+        },
+        "answer": "B",
+        "explanation": "按官方答案，B 序列与队列先进先出的约束不符（结点 8 在 6 之前出队，但其入队时机晚于 6）。"
+    },
+    {
+        "id": "gesp-7-202506-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，表达式 9 & 12 的结果类型为 int、值为 8。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "9(1001) & 12(1100) = 8(1000)，结果为 int。"
+    },
+    {
+        "id": "gesp-7-202506-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "指针类型的概念及基本应用"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，指针变量指向的内存地址不一定都能够合法访问。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "野指针、越界指针指向的地址不可合法访问。"
+    },
+    {
+        "id": "gesp-7-202506-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "对 n 个元素的数组进行快速排序，最差情况的时间复杂度为 O(n log n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "快排最差（如已有序且取端点为基准）退化为 O(n²)。"
+    },
+    {
+        "id": "gesp-7-202506-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "计算机基础知识"
+        ],
+        "type": "true_false",
+        "question": "一般情况下，long long 类型占用的字节数比 float 类型多。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "long long 通常 8 字节，float 通常 4 字节。"
+    },
+    {
+        "id": "gesp-7-202506-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的函数，表达式 pow(10, 3) 的结果的值为 1000、类型为 int。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "pow 返回 double 类型（浮点），不是 int。"
+    },
+    {
+        "id": "gesp-7-202506-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "true_false",
+        "question": "二叉排序树的中序遍历序列一定是有序的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BST 中序遍历得到升序（或按定义的非递减）序列。"
+    },
+    {
+        "id": "gesp-7-202506-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "无论哈希表采用何种方式解决冲突，只要管理的元素足够多，都无法避免冲突。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "键空间远大于表长时，冲突在原理上不可避免（鸽笼原理）。"
+    },
+    {
+        "id": "gesp-7-202506-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "在C++语言中，类的构造函数和析构函数均可以声明为虚函数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "构造函数不能是虚函数；析构函数可以且常应声明为虚。"
+    },
+    {
+        "id": "gesp-7-202506-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "动态规划方法将原问题分解为一个或多个相似的子问题，因此必须使用递归实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "递推（自底向上）实现同样可行，且常更高效。"
+    },
+    {
+        "id": "gesp-7-202506-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202506"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "如果将城市视作顶点，公路视作边，将城际公路网络抽象为简单图，可以满足城市间的车道级导航需求。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "车道级导航需要考虑多重边、方向、车道细节，简单图无法表达这些信息。"
+    }
+]

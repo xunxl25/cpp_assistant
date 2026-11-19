@@ -1,0 +1,515 @@
+[
+    {
+        "id": "gesp-7-202403-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "single_choice",
+        "question": "关于排序算法，下列说法正确的是（　）。",
+        "options": {
+            "A": "冒泡排序是最快的排序算法之一。",
+            "B": "快速排序通常是不稳定的。",
+            "C": "最差情况，N个元素做归并排序的时间复杂度为 O(N)。",
+            "D": "以上均不正确。"
+        },
+        "answer": "B",
+        "explanation": "快速排序在交换相等元素时可能改变相对次序，通常不稳定；冒泡 O(n²) 不快；归并最差 O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202403-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "下面的程序（八皇后求解）属于哪种算法（　）。",
+        "options": {
+            "A": "贪心算法",
+            "B": "动态规划",
+            "C": "深度优先搜索",
+            "D": "广度优先搜索"
+        },
+        "answer": "C",
+        "explanation": "逐行放置皇后并回溯试探，属于深度优先搜索（带回溯的递归）。"
+    },
+    {
+        "id": "gesp-7-202403-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下面有关C++类的说法，错误的是（　）。",
+        "options": {
+            "A": "C++类对象销毁时，会执行析构函数。",
+            "B": "C++类可以通过定义构造函数实现自动类型转换。",
+            "C": "C++类可以通过重载 [] 运算符实现通过给定下标访问数组成员的元素。",
+            "D": "C++类可以包含任意类型的成员变量。"
+        },
+        "answer": "D",
+        "explanation": "类不能包含自身类型的对象成员（会导致无限递归定义），只能包含其指针或引用，“任意类型”不成立。"
+    },
+    {
+        "id": "gesp-7-202403-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "一个连通的简单无向图，共有 28 条边，则该图至少有（　）个顶点。",
+        "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "9"
+        },
+        "answer": "C",
+        "explanation": "n 个顶点的简单无向图最多 n(n-1)/2 条边，n(n-1)/2 ≥ 28 → n ≥ 8，8 个顶点的完全图恰有 28 条边。"
+    },
+    {
+        "id": "gesp-7-202403-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "以下哪个方案不能合理解决或缓解哈希表冲突（　）。",
+        "options": {
+            "A": "在每个哈希表项处，使用单链表管理该表项的冲突元素。",
+            "B": "建立额外的单链表，用来管理所有发生冲突的元素。",
+            "C": "使用不同的哈希函数再建立一个哈希表，用来管理所有发生冲突的元素。",
+            "D": "用新元素覆盖发生冲突的哈希表项。"
+        },
+        "answer": "D",
+        "explanation": "覆盖会丢失已有元素，不是冲突处理策略；A 是链地址法、B 是公共溢出区、C 是再哈希。"
+    },
+    {
+        "id": "gesp-7-202403-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "已知一颗二叉树的中序遍历序列为 {C F B A E D G}，后序遍历序列为 {F C B E G D A}，则下列说法中正确的是（　）。",
+        "options": {
+            "A": "该树是平衡二叉树。",
+            "B": "该树的高为4。",
+            "C": "该树有4个叶节点。",
+            "D": "以上说法都不对。"
+        },
+        "answer": "B",
+        "explanation": "重建得 A(B(C(→F), D(E, G)))：路径 A→B→C→F 长 4，叶为 F、E、G 共 3 个；结点 C 左空右 F 不平衡。"
+    },
+    {
+        "id": "gesp-7-202403-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "二叉排序树"
+        ],
+        "type": "single_choice",
+        "question": "以下关于二叉排序树的说法，正确的是（　）。",
+        "options": {
+            "A": "二叉排序树的中序遍历序列一定是有序的。",
+            "B": "在含 n 个节点的二叉排序树中查找元素，最差情况的时间复杂度为 O(log(n))。",
+            "C": "二叉排序树一定是二叉平衡树。",
+            "D": "以上说法都不对。"
+        },
+        "answer": "A",
+        "explanation": "BST 中序遍历得到升序序列；退化 BST 最差查找 O(n)、不保证平衡。"
+    },
+    {
+        "id": "gesp-7-202403-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "已知 x 为 double 类型的变量，且值大于 0，则下列表达式的值一定大于 0 的是（　）。",
+        "options": {
+            "A": "sin(x) / x",
+            "B": "exp(x) - x",
+            "C": "log(x) - x",
+            "D": "x * x - x"
+        },
+        "answer": "B",
+        "explanation": "e^x > x 对一切实数成立，exp(x) - x > 0 恒成立；sin(x)/x 在 x>π 时为负，log(x)-x < 0，x²-x 在 0<x<1 时为负。"
+    },
+    {
+        "id": "gesp-7-202403-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "一个简单有向图有 10 个结点、30 条边。再增加多少条边可以成为完全图？（　）",
+        "options": {
+            "A": "60",
+            "B": "70",
+            "C": "15",
+            "D": "20"
+        },
+        "answer": "A",
+        "explanation": "有向完全图最多 10×9 = 90 条弧，还需 90 - 30 = 60 条。"
+    },
+    {
+        "id": "gesp-7-202403-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列选项中，哪个可能是下图的深度优先遍历序列（　）。（图：12 个结点的有向图）",
+        "options": {
+            "A": "8, 6, 1, 5, 3, 4, 2, 10, 7, 12, 11, 9",
+            "B": "7, 8, 6, 4, 2, 1, 5, 3, 12, 9, 11, 10",
+            "C": "8, 10, 12, 9, 11, 4, 5, 3, 2, 1, 6, 7",
+            "D": "7, 8, 10, 9, 11, 12, 4, 5, 1, 2, 3, 6"
+        },
+        "answer": "C",
+        "explanation": "DFS 沿有向边深入并回溯，序列 C 满足图中边的方向约束（依邻接表顺序遍历）。"
+    },
+    {
+        "id": "gesp-7-202403-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算",
+            "贪心算法"
+        ],
+        "type": "single_choice",
+        "question": "下面 schedule 函数（活动选择）的时间复杂度为（　）。\nint schedule(int n, activity * p) {\n    sort(p, p + n, compare);\n    int cnt = 0, end = 0;\n    for (int i = 0; i < n; i++)\n        if (p[i].start >= end) { end = p[i].end; cnt++; }\n    return cnt;\n}",
+        "options": {
+            "A": "O(n)",
+            "B": "O(log(n))",
+            "C": "O(n log(n))",
+            "D": "O(n²)"
+        },
+        "answer": "C",
+        "explanation": "排序 O(n log n) 主导，其后线性扫描 O(n)，总复杂度 O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202403-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "二分枚举法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下面 search 函数（二分查找）的平均时间复杂度为（　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(log(n))",
+            "C": "O(1)",
+            "D": "可能无法返回"
+        },
+        "answer": "B",
+        "explanation": "每次迭代搜索区间减半，平均时间复杂度 O(log n)。"
+    },
+    {
+        "id": "gesp-7-202403-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "下面 count_triple 函数的时间复杂度为（　）。\nint count_triple(int n) {\n    int cnt = 0;\n    for (int a = 1; a <= n; a++)\n        for (int b = a; a + b <= n; b++)\n            for (int c = b; a + b + c <= n; c++)\n                if (a * a + b * b == c * c) cnt++;\n    return cnt;\n}",
+        "options": {
+            "A": "O(N)",
+            "B": "O(N²)",
+            "C": "O(N³)",
+            "D": "O(N⁴)"
+        },
+        "answer": "C",
+        "explanation": "三重循环的总迭代次数约为 n³/12，量级为 O(n³)。"
+    },
+    {
+        "id": "gesp-7-202403-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "递归",
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "下面程序的输出为（　）。\nint down(int n) {\n    if (n <= 1) return n;\n    return down(n-1) + down(n-2) + down(n-3);\n}\nint main() { cout << down(6) << endl; }",
+        "options": {
+            "A": "6",
+            "B": "13",
+            "C": "20",
+            "D": "无法正常结束"
+        },
+        "answer": "A",
+        "explanation": "注意 n≤1 时返回 n 本身：d(0)=0、d(1)=1、d(-1)=-1，故 d(2)=1+0+(-1)=0、d(3)=0+1+0=1、d(4)=2、d(5)=3、d(6)=3+2+1=6。"
+    },
+    {
+        "id": "gesp-7-202403-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "单源最短路"
+        ],
+        "type": "single_choice",
+        "question": "下面的程序使用邻接矩阵表达的带权无向图，则从顶点 0 到顶点 3 的最短距离为（　）。\nint weight[4][4] = {\n    {0, 2, 5, 8},\n    {2, 0, 1, 7},\n    {5, 1, 0, 4},\n    {8, 7, 4, 0}};",
+        "options": {
+            "A": "6",
+            "B": "7",
+            "C": "8",
+            "D": "9"
+        },
+        "answer": "B",
+        "explanation": "路径 0→1→2→3：2+1+4 = 7，短于直连 8、0→1→3 = 9、0→2→3 = 9。"
+    },
+    {
+        "id": "gesp-7-202403-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "计算机基础知识"
+        ],
+        "type": "true_false",
+        "question": "祖冲之是南北朝时期杰出的数学家、天文学家，其主要贡献在数学、天文历法和机械制造三方面。他首次将“圆周率”精算到小数第七位，即在 3.1415926 和 3.1415927 之间。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "祖冲之将圆周率精确到 3.1415926 与 3.1415927 之间，领先世界近千年。"
+    },
+    {
+        "id": "gesp-7-202403-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "位运算",
+            "运算符"
+        ],
+        "type": "true_false",
+        "question": "C++语言中，表达式 2 ^ 3 的结果类型为 int、值为 8。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "^ 是按位异或运算符，2 ^ 3 = 0b10 ^ 0b11 = 0b01 = 1，不是幂运算。"
+    },
+    {
+        "id": "gesp-7-202403-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "一棵有 N 个节点的完全二叉树，则树的深度为 ⌊log₂(N)⌋ + 1。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "完全二叉树深度为 ⌊log₂N⌋ + 1。"
+    },
+    {
+        "id": "gesp-7-202403-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "贪心算法"
+        ],
+        "type": "true_false",
+        "question": "能用动态规划解决的问题，一般也可以用贪心法解决，但动态规划的效率更高。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "贪心只适用于具有贪心选择性质的问题，二者适用范围不同，并非 DP 问题都能贪心。"
+    },
+    {
+        "id": "gesp-7-202403-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的正弦函数，表达式 sin(30) 的结果类型为 double、值约为 0.5。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "C++ 三角函数参数为弧度，sin(30) 是 30 弧度的正弦值（约 -0.988），30° 应写 sin(30 * M_PI / 180)。"
+    },
+    {
+        "id": "gesp-7-202403-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "要求出简单有向图中从顶点 A 到顶点 B 的最短路径，在深度优先搜索和广度优先搜索中选择，广度优先更适合。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "无权图中 BFS 按层扩展，首次到达 B 时路径边数最少。"
+    },
+    {
+        "id": "gesp-7-202403-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "某 N 个表项的哈希表，发生冲突时采用向后寻找空位的方法解决冲突。其查找操作的平均时间复杂度为 O(1)，即使当该哈希表的每个表项都有元素时，查找操作的平均时间复杂度仍为 O(1)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "表满时线性探测的查找可能退化为 O(N)。"
+    },
+    {
+        "id": "gesp-7-202403-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "动态规划有递推实现和递归实现，有时两种实现的时间复杂度不同。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "如递归无记忆化时可能指数级，递推/记忆化后为多项式级，两种实现复杂度可能不同。"
+    },
+    {
+        "id": "gesp-7-202403-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "泛洪算法"
+        ],
+        "type": "true_false",
+        "question": "围棋游戏中，判断落下一枚棋子后是否会提掉对方的子，可以使用泛洪算法来实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "对落子后对方棋块做泛洪（连通块搜索），统计该块有无气（空邻点），无气则被提掉。"
+    },
+    {
+        "id": "gesp-7-202403-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202403"
+        },
+        "knowledge_points": [
+            "面向对象的思想",
+            "类的创建"
+        ],
+        "type": "true_false",
+        "question": "类 B 继承了抽象类 A，但未实现类 A 中的纯虚函数 f，则类 B 不能直接实例化。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "含纯虚函数的类是抽象类，未实现全部纯虚函数的派生类仍是抽象类，不能直接实例化。"
+    }
+]

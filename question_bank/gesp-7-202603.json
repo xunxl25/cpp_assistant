@@ -1,0 +1,520 @@
+[
+    {
+        "id": "gesp-7-202603-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "假设一个算法时间复杂度的递推式是 T(n) = 2T(n−1) + 1（n 为正整数），且 T(0) = 1，那么这个算法的时间复杂度是（　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log n)",
+            "C": "O(n²)",
+            "D": "O(2ⁿ)"
+        },
+        "answer": "D",
+        "explanation": "每层状态翻倍，T(n) = 2^(n+1) − 1，指数级。"
+    },
+    {
+        "id": "gesp-7-202603-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "初等数论",
+            "唯一分解定理",
+            "素数表的埃氏筛法和线性筛法"
+        ],
+        "type": "single_choice",
+        "question": "下面关于“唯一分解定理”和“素数筛法”的说法中，错误的是（　）。",
+        "options": {
+            "A": "如果预处理出 n 以内每个数的最小质因子，那么可以在 O(log n) 时间内完成任意一个不超过 n 的整数的质因数分解。",
+            "B": "线性筛（欧拉筛）能够保证每个合数只被其最小质因子筛掉一次，这一性质依赖于唯一分解定理。",
+            "C": "唯一分解定理保证：若一个数未被任何不超过其平方根的质数筛去，则它一定是质数。",
+            "D": "唯一分解定理是埃氏筛时间复杂度为 O(n log log n) 的根本原因。"
+        },
+        "answer": "D",
+        "explanation": "埃氏筛的复杂度来自对每个质数枚举其倍数的调和级数求和，与唯一分解定理无关，D 错误。"
+    },
+    {
+        "id": "gesp-7-202603-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "字符与字符串"
+        ],
+        "type": "single_choice",
+        "question": "若字符串 A 与字符串 B 的最长公共子序列（LCS）长度为 5，则（　）。",
+        "options": {
+            "A": "它们的编辑距离为 5",
+            "B": "它们至少有 5 个公共字符",
+            "C": "它们最长公共子串长度为 5",
+            "D": "它们一定长度相等"
+        },
+        "answer": "B",
+        "explanation": "LCS 的每个字符都是两串公共字符，故至少 5 个公共字符；编辑距离、公共子串、长度均无必然关系。"
+    },
+    {
+        "id": "gesp-7-202603-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "对于一棵包含 n 个顶点（n ≥ 2）的树，其所有顶点的度数之和必定等于（　）。",
+        "options": {
+            "A": "n − 1",
+            "B": "2n − 2",
+            "C": "2n",
+            "D": "n²"
+        },
+        "answer": "B",
+        "explanation": "树有 n−1 条边，度和 = 2×边数 = 2n−2。"
+    },
+    {
+        "id": "gesp-7-202603-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "关于哈希表在不考虑扩容且采用简单均匀哈希函数的前提下，下列说法中错误的是（　）。",
+        "options": {
+            "A": "装载因子越大，发生冲突的概率通常越高",
+            "B": "开放定址法在删除元素时实现相对复杂",
+            "C": "链地址法在最坏情况下查找时间复杂度为 O(n)",
+            "D": "查找哈希表的时间复杂度总是 O(1)"
+        },
+        "answer": "D",
+        "explanation": "冲突严重或探测序列长时查找会退化到 O(n)，“总是 O(1)”不成立。"
+    },
+    {
+        "id": "gesp-7-202603-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "递归"
+        ],
+        "type": "single_choice",
+        "question": "深度优先搜索（DFS）在遍历图时，每当访问到某个顶点后……直到某个顶点的所有相邻顶点均已被访问，则退回到前一顶点继续搜索。该算法主要运用了（　）。",
+        "options": {
+            "A": "分治",
+            "B": "贪心",
+            "C": "动态规划",
+            "D": "回溯"
+        },
+        "answer": "D",
+        "explanation": "DFS 的“退回到前一顶点”正是回溯思想。"
+    },
+    {
+        "id": "gesp-7-202603-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "二分枚举法",
+            "贪心算法"
+        ],
+        "type": "single_choice",
+        "question": "下面程序（Aggressive Cows 类二分）的运行结果为（　）。\n// a[] = {1,2,8,4,9}, k=3\nbool check(...) { /* 贪心统计间距 ≥ dist 可放置的结点数 cnt，返回 cnt >= k */ }\nint solve(...) {\n    sort(a, a+n);\n    int l = 0, r = a[n-1] - a[0];\n    while (l < r) { int mid = (l+r+1)/2; if (check(n,a,k,mid)) l = mid; else r = mid - 1; }\n    return l;\n}",
+        "options": {
+            "A": "2",
+            "B": "3",
+            "C": "4",
+            "D": "5"
+        },
+        "answer": "B",
+        "explanation": "排序后 a={1,2,4,8,9}，二分最大化最小间距：dist=3 可选 {1,4,8} 满足 k=3，dist=4 只能选 2 个，答案 3。"
+    },
+    {
+        "id": "gesp-7-202603-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "二分枚举法",
+            "算法复杂度的估算"
+        ],
+        "type": "single_choice",
+        "question": "上面程序的时间复杂度是（　），假设数组 a 的值域范围是 D。",
+        "options": {
+            "A": "O(n log n + n log D)",
+            "B": "O(n log n log D)",
+            "C": "O(n log n)",
+            "D": "O(n log D)"
+        },
+        "answer": "A",
+        "explanation": "排序 O(n log n)，二分 O(log D) 次每次 check O(n)，合计 O(n log n + n log D)。"
+    },
+    {
+        "id": "gesp-7-202603-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "某二叉树 10 个结点 A~J，先序 A B D H I E C F J G，中序 H D I B E A F J C G，则后序遍历序列是（　）。",
+        "options": {
+            "A": "H I D E B J F G C A",
+            "B": "H I D B E J F G C A",
+            "C": "I H D E B J F G C A",
+            "D": "H I D E B F J G C A"
+        },
+        "answer": "A",
+        "explanation": "根 A；左子树先 B D H I E 中 H D I B E → B(左 D(H,I), 右 E)，左子树后序 H I D E B；右子树先 C F J G 中 F J C G → C(左 F(右J), 右 G)，后序 J F G C；整体后序 H I D E B J F G C A。"
+    },
+    {
+        "id": "gesp-7-202603-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下面哪一个可能是图的深度优先遍历序列（　）。（有向图，图见原卷）",
+        "options": {
+            "A": "1, 5, 4, 8, 7, 9, 6, 3, 2",
+            "B": "1, 5, 8, 4, 7, 9, 6, 3, 2",
+            "C": "2, 5, 8, 7, 9, 6, 3, 4, 1",
+            "D": "8, 9, 6, 3, 2, 5, 1, 4, 7"
+        },
+        "answer": "B",
+        "explanation": "按图中边的方向与 DFS 回溯规则逐序验证，B 满足深度优先遍历的可达性约束（官方口径）。"
+    },
+    {
+        "id": "gesp-7-202603-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "下面这个有向图的强连通分量的个数是（　）。（16 结点有向图，图见原卷）",
+        "options": {
+            "A": "3",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+        },
+        "answer": "B",
+        "explanation": "按图中边方向划分强连通分量，共 4 个（官方口径）。"
+    },
+    {
+        "id": "gesp-7-202603-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "泛洪算法",
+            "图的定义及遍历"
+        ],
+        "type": "single_choice",
+        "question": "关于泛洪算法（Flood Fill）的说法，正确的是（　）。",
+        "options": {
+            "A": "泛洪算法只适用于二维网格中的四连通或八连通问题。",
+            "B": "泛洪算法必须使用递归方式实现。",
+            "C": "泛洪算法本质上是对图进行一次从起点出发的搜索。",
+            "D": "泛洪算法只能用于统计连通块个数，不能用于计算面积或周长。"
+        },
+        "answer": "C",
+        "explanation": "泛洪本质是从起点出发的一次遍历搜索，网格只是其应用场景之一，BFS/DFS/显式栈均可实现。"
+    },
+    {
+        "id": "gesp-7-202603-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "6 个字符出现次数 {2, 3, 3, 4, 6, 8}，哈夫曼编码最小 WPL 为（　）。",
+        "options": {
+            "A": "58",
+            "B": "60",
+            "C": "62",
+            "D": "64"
+        },
+        "answer": "D",
+        "explanation": "合并 2+3=5、3+4=7、5+6=11、7+8=15、11+15=26：WPL = 2×3 + 3×3 + 6×2 + 3×3 + 4×3 + 8×2 = 64。"
+    },
+    {
+        "id": "gesp-7-202603-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "单链表",
+            "循环链表"
+        ],
+        "type": "single_choice",
+        "question": "关于单链表、双链表和循环链表，下列说法正确的是（　）。",
+        "options": {
+            "A": "在单链表中，若已知某结点的指针，则可以在 O(1) 时间内删除该结点。",
+            "B": "循环链表中一定不存在空指针。",
+            "C": "在循环双链表中，尾结点的 next 指针一定为 NULL。",
+            "D": "在带头结点的循环单链表中，判定链表是否为空只需判断头结点的 next 是否指向自身。"
+        },
+        "answer": "D",
+        "explanation": "带头结点循环单链表中空表时 head->next == head；A 有尾结点例外，B/C 与循环定义矛盾。"
+    },
+    {
+        "id": "gesp-7-202603-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "single_choice",
+        "question": "下列关于树的遍历的说法中，正确的一项是（　）。",
+        "options": {
+            "A": "对任意一棵树进行深度优先遍历，所得序列一定唯一。",
+            "B": "已知一棵二叉树的先序遍历和后序遍历序列，可以唯一确定这棵二叉树。",
+            "C": "已知一棵二叉树的先序遍历和中序遍历序列，可以唯一确定这棵二叉树。",
+            "D": "一棵二叉树的中序遍历序列是单调递增的，则该二叉树一定是二叉平衡树。"
+        },
+        "answer": "C",
+        "explanation": "先序+中序可唯一重建二叉树；先序序列受子树访问顺序影响不唯一；先+后无法唯一；中序有序只说明是 BST 不保证平衡。"
+    },
+    {
+        "id": "gesp-7-202603-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "true_false",
+        "question": "C++ 语言中，表达式 4 ^ 2 的结果类型为 int，值为 6。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "4 XOR 2 = 100b ^ 010b = 110b = 6。"
+    },
+    {
+        "id": "gesp-7-202603-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "函数参数传递"
+        ],
+        "type": "true_false",
+        "question": "C++ 中引用可以重新绑定。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "引用初始化后与其绑定的对象固定，不能改为引用其他对象。"
+    },
+    {
+        "id": "gesp-7-202603-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "函数参数传递"
+        ],
+        "type": "true_false",
+        "question": "在 C++ 中，若函数形参为引用类型，则在函数内部对该形参的修改会影响对应的实参。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "引用是实参的别名，修改形参即修改实参。"
+    },
+    {
+        "id": "gesp-7-202603-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "贪心算法"
+        ],
+        "type": "true_false",
+        "question": "如果一个最值问题可以用动态规划在多项式时间内求解，那么也一定存在一种贪心策略，可以在多项式时间内求得最优解。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "DP 与贪心适用范围不同，很多 DP 问题（如一般背包）不存在最优贪心策略。"
+    },
+    {
+        "id": "gesp-7-202603-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性",
+            "分治算法（归并和快速排序）"
+        ],
+        "type": "true_false",
+        "question": "使用归并排序对 n 个元素进行排序时，无论最好、最坏还是平均情况，时间复杂度均为 O(n log n)。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "归并排序的分解与合并与数据初态无关，恒为 O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202603-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "在无向连通图中删除一条边，该图就一定变成非连通图。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "环上的边删除后图仍连通（该边不是桥）。"
+    },
+    {
+        "id": "gesp-7-202603-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在一个无向图中，每个顶点有不同的编号，在执行深度优先遍历过程中选择下一个顶点时总是优先选择编号更小的相邻顶点，则从指定顶点开始的遍历序列是唯一的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "访问顺序完全确定，遍历序列唯一。"
+    },
+    {
+        "id": "gesp-7-202603-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码",
+            "完全二叉树"
+        ],
+        "type": "true_false",
+        "question": "若所有字符出现频率相同，则哈夫曼编码一定会得到完全二叉树。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "等频时哈夫曼树形态取决于字符个数（如 6 个字符得 6 叶非完全结构），不一定是完全二叉树。"
+    },
+    {
+        "id": "gesp-7-202603-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的函数，表达式 sin(90) 的结果为 1。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "参数为弧度，sin(90) ≈ 0.894。"
+    },
+    {
+        "id": "gesp-7-202603-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202603"
+        },
+        "knowledge_points": [
+            "图的定义及遍历",
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在一个无向连通图中，从任意顶点开始进行深度优先遍历，最终得到的 DFS 生成树一定包含图中的所有顶点。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "连通图从任意点 DFS 可达全部顶点，生成树含所有顶点。"
+    }
+]

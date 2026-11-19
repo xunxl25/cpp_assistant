@@ -1,0 +1,512 @@
+[
+    {
+        "id": "gesp-7-202503-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "程序编译过程"
+        ],
+        "type": "single_choice",
+        "question": "下列哪个选项是C++中的关键字？",
+        "options": {
+            "A": "function",
+            "B": "class",
+            "C": "method",
+            "D": "object"
+        },
+        "answer": "B",
+        "explanation": "class 是 C++ 关键字；function/method/object 均不是。"
+    },
+    {
+        "id": "gesp-7-202503-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "位运算"
+        ],
+        "type": "single_choice",
+        "question": "下面代码输出的是（　）。\nint a = 5, b = 2;\ncout << (a >> b) << endl;",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "5",
+            "D": "10"
+        },
+        "answer": "A",
+        "explanation": "5 >> 2 右移两位，等于 5/4 取整 = 1。"
+    },
+    {
+        "id": "gesp-7-202503-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "指针类型的概念及基本应用"
+        ],
+        "type": "single_choice",
+        "question": "以下代码的输出是什么？\nint a = 10;\nint *p = &a;\nint *&q = p;\n*q = 20;\ncout << a << endl;",
+        "options": {
+            "A": "10",
+            "B": "20",
+            "C": "0",
+            "D": "编译错误"
+        },
+        "answer": "B",
+        "explanation": "q 是指针 p 的引用，*q = 20 等价于 *p = 20，通过指针修改 a 的值为 20。"
+    },
+    {
+        "id": "gesp-7-202503-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "数组与指针"
+        ],
+        "type": "single_choice",
+        "question": "下面代码输出的是（　）。\nint arr[5] = {1, 2, 3, 4, 5};\nint *p = arr + 2;\ncout << *p << endl;",
+        "options": {
+            "A": "1",
+            "B": "2",
+            "C": "3",
+            "D": "4"
+        },
+        "answer": "C",
+        "explanation": "arr + 2 指向第三个元素 arr[2]，值为 3。"
+    },
+    {
+        "id": "gesp-7-202503-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "single_choice",
+        "question": "下列关于排序的说法，正确的是（　）。",
+        "options": {
+            "A": "选择排序是最快的排序算法之一。",
+            "B": "归并排序通常是稳定的。",
+            "C": "最差情况，N个元素做快速排序的时间复杂度为O(N)。",
+            "D": "最好情况，N个元素做插入排序的时间复杂度为O(N²)。"
+        },
+        "answer": "B",
+        "explanation": "归并排序合并时不交换相等元素，通常稳定；选择排序 O(n²)；快排最差 O(n²)；插入排序最好 O(n)。"
+    },
+    {
+        "id": "gesp-7-202503-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "类的创建"
+        ],
+        "type": "single_choice",
+        "question": "下面关于C++类构造和析构函数的说法，错误的是（　）。",
+        "options": {
+            "A": "构造函数不能声明为虚函数。",
+            "B": "析构函数必须声明为虚函数。",
+            "C": "类的默认构造函数可以被声明为private。",
+            "D": "类的析构函数可以被声明为private。"
+        },
+        "answer": "B",
+        "explanation": "析构函数并不必须为虚函数（仅在通过基类指针多态删除时才需要），A、C、D 均正确。"
+    },
+    {
+        "id": "gesp-7-202503-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "图的定义及遍历",
+            "最小生成树"
+        ],
+        "type": "single_choice",
+        "question": "下列关于树和图的说法，错误的是（　）。",
+        "options": {
+            "A": "树是一种有向无环图，但有向无环图不都是一棵树。",
+            "B": "如果把树看做有向图（节点指向子节点），则该图是强连通图。",
+            "C": "N个顶点且连通的无向图，其最小生成树一定包含 N−1 条边。",
+            "D": "N+1 个顶点、N 条边的有向图，一定不是强连通的。"
+        },
+        "answer": "B",
+        "explanation": "父指向子的有向树中，子结点无法回到父结点，不是强连通图；N+1 顶点仅 N 条边不足 n 条（环）无法强连通。"
+    },
+    {
+        "id": "gesp-7-202503-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "字符与字符串"
+        ],
+        "type": "single_choice",
+        "question": "2025 = (20 + 25)² 且由 20 和 25 拼接而成。程序统计小于 N 的此类“神奇数字”（n² 的十进制表示拆成两段之和等于 n）。横线处应填入（　）。",
+        "options": {
+            "A": "nl + nr == n",
+            "B": "nl + nr == n2",
+            "C": "(nl + nr) * (nl + nr) == n",
+            "D": "(nl + nr) ^ 2 == n2"
+        },
+        "answer": "A",
+        "explanation": "循环中 n 是底数、n² = n*n 为待拆分的平方数，条件即两段之和等于底数 n，如 45² = 2025 = (20+25)²。"
+    },
+    {
+        "id": "gesp-7-202503-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "使用栈实现无向图 DFS 的程序中，横线处应填入（　）。",
+        "options": {
+            "A": "visited[neighbor] = true; s.push(neighbor-1);",
+            "B": "visited[neighbor] = true; s.push(neighbor+1);",
+            "C": "visited[neighbor] = false; s.push(neighbor);",
+            "D": "visited[neighbor] = true; s.push(neighbor);"
+        },
+        "answer": "D",
+        "explanation": "未访问邻居需标记已访问并入栈，保持下标不变。"
+    },
+    {
+        "id": "gesp-7-202503-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "求最长严格上升子序列长度的 O(n²) DP 中，横线处应填入（　）。",
+        "options": {
+            "A": "dp[i] = max(dp[i], dp[j]);",
+            "B": "dp[i] = max(dp[i+1], dp[j] + 1);",
+            "C": "dp[i] = max(dp[i], dp[j] - 1);",
+            "D": "dp[i] = max(dp[i], dp[j] + 1);"
+        },
+        "answer": "D",
+        "explanation": "nums[i] > nums[j] 时，dp[i] 可由 dp[j] + 1 转移，取最大值。"
+    },
+    {
+        "id": "gesp-7-202503-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算",
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "上题 LIS 程序的时间复杂度为（　）。",
+        "options": {
+            "A": "O(n²)",
+            "B": "O(n)",
+            "C": "O(log(n))",
+            "D": "O(nlog(n))"
+        },
+        "answer": "A",
+        "explanation": "两重循环各 n 次，总量 O(n²)。"
+    },
+    {
+        "id": "gesp-7-202503-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "图的定义及遍历",
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "判断两个无向图是否同构的程序中（按邻接排序生成结点哈希再拼接），横线处应填入（　）。",
+        "options": {
+            "A": "hash += to_string(neighbor);",
+            "B": "hash += to_string(neighbors);",
+            "C": "hash += to_string(neighbor) + \",\";",
+            "D": "hash -= to_string(neighbors);"
+        },
+        "answer": "C",
+        "explanation": "逐邻居拼接字符串，加分隔符避免相邻编号粘连产生歧义（如 1 和 23 拼成 \"123\"）。"
+    },
+    {
+        "id": "gesp-7-202503-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "m×n 网格从左上到右下（只能向右或向下）路径数字总和最小的 DP 中，横线处应填入（　）。",
+        "options": {
+            "A": "dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][1];",
+            "B": "dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j];",
+            "C": "dp[i][j] = min(dp[i-1][j], dp[i][j]) + grid[i][j];",
+            "D": "dp[i][j] = min(dp[i][j], dp[i][j-1]) + grid[i][j];"
+        },
+        "answer": "B",
+        "explanation": "到达 (i,j) 只能来自上方或左方，取较小者加当前格值 grid[i][j]。"
+    },
+    {
+        "id": "gesp-7-202503-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "最大子数组（连续子数组最大和）DP 中，横线处应填入（　）。",
+        "options": {
+            "A": "dp[i] = max(nums[i+1], dp[i-1] + nums[i]);",
+            "B": "dp[i] = max(nums[i], dp[i-1] + nums[i]);",
+            "C": "dp[i] = max(nums[i], dp[i+1] + nums[i]);",
+            "D": "dp[i] = max(nums[i], dp[i-1] + nums[i+1]);"
+        },
+        "answer": "B",
+        "explanation": "dp[i] 表示以 i 结尾的最大子数组和：要么独立成段 nums[i]，要么接在前一段后 dp[i-1]+nums[i]。"
+    },
+    {
+        "id": "gesp-7-202503-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "以下哪种方法不是常见的哈希表冲突解决策略？",
+        "options": {
+            "A": "链地址法（Chaining）",
+            "B": "开放地址法（Open Addressing）",
+            "C": "二次哈希法（Double Hashing）",
+            "D": "二分查找法（Binary Search）"
+        },
+        "answer": "D",
+        "explanation": "二分查找是查找算法，与冲突解决无关。"
+    },
+    {
+        "id": "gesp-7-202503-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "位运算",
+            "运算符"
+        ],
+        "type": "true_false",
+        "question": "在C++语法中，表达式 1e6、1000000 和 10^6 的值是相同的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "1e6 与 1000000 数值相同（前者是 double）；10^6 是按位异或，结果为 1000000^6 的值，完全不同。"
+    },
+    {
+        "id": "gesp-7-202503-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "函数的定义与调用"
+        ],
+        "type": "true_false",
+        "question": "在C++语言中，函数调用前必须有函数声明或定义。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "C++ 要求名字先声明后使用，否则编译错误。"
+    },
+    {
+        "id": "gesp-7-202503-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "快速排序一般是不稳定的。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "划分过程中相等元素可能交换相对次序。"
+    },
+    {
+        "id": "gesp-7-202503-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "计算机基础知识"
+        ],
+        "type": "true_false",
+        "question": "long long 类型能表达的数都能使用 double 类型精确表达。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "double 只有 53 位尾数精度，超过 2^53 的 long long 整数会丢失精度。"
+    },
+    {
+        "id": "gesp-7-202503-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 math.h 或 cmath 头文件中的函数，表达式 cos(60) 的结果类型为 double、值约为 0.5。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "cos 的参数是弧度，cos(60) ≈ cos(60 rad) ≈ -0.9524，并非 cos(60°)。"
+    },
+    {
+        "id": "gesp-7-202503-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "true_false",
+        "question": "一颗N层的满二叉树，一定有 2^N − 1 个结点。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "满二叉树每层都填满，第 i 层 2^(i-1) 个，总计 2^N − 1。"
+    },
+    {
+        "id": "gesp-7-202503-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "图的定义及遍历"
+        ],
+        "type": "true_false",
+        "question": "邻接表和邻接矩阵都是图的存储形式。为了操作时间复杂度考虑，同一个图可以同时维护两种存储形式。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "两种结构各有优势（遍历邻边 vs 判断相邻），按需同时维护是常见做法。"
+    },
+    {
+        "id": "gesp-7-202503-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "面向对象的思想"
+        ],
+        "type": "true_false",
+        "question": "子类对象包含父类的所有成员（包括私有成员）。从父类继承的私有成员也是子类的成员，因此子类可以直接访问。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "私有成员虽被子类对象包含（占据内存），但子类代码无权直接访问，需通过父类提供的接口。"
+    },
+    {
+        "id": "gesp-7-202503-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "动态规划算法通常有递归实现和递推实现。由于递归调用在运行时会由于层数过多导致程序崩溃，有些动态规划算法只能用递推实现。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "递归实现总能通过增大栈限制或显式栈改写，并非“只能”递推；两者的计算模型等价。"
+    },
+    {
+        "id": "gesp-7-202503-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202503"
+        },
+        "knowledge_points": [
+            "树的定义，构造与遍历"
+        ],
+        "type": "true_false",
+        "question": "按规则生成 30 代直系家谱（父为左子、母为右子），则这是一棵满二叉树。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "真实家谱中祖先可能无法追溯到 30 代前（信息缺失）或出现共同祖先，左右子树不会每层都成对存在。"
+    }
+]

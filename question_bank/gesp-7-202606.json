@@ -1,0 +1,511 @@
+[
+    {
+        "id": "gesp-7-202606-sc-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "下列 C++ 代码的输出结果是（　）。\ncout << (int)(sqrt(50) + log2(8));",
+        "options": {
+            "A": "9",
+            "B": "10",
+            "C": "11",
+            "D": "12"
+        },
+        "answer": "B",
+        "explanation": "sqrt(50) ≈ 7.07，log2(8) = 3，和 ≈ 10.07，截断为 10。"
+    },
+    {
+        "id": "gesp-7-202606-sc-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "single_choice",
+        "question": "下列关于 <cmath> 或 <math.h> 中的数学库函数的说法，正确的是（　）。",
+        "options": {
+            "A": "sqrt(49) 的返回值可以参与浮点运算。",
+            "B": "log2(32) 的返回值类型为 int。",
+            "C": "pow(2, 5) 的返回值类型一定为 int。",
+            "D": "sin(90) 的参数 90 表示 90 度。"
+        },
+        "answer": "A",
+        "explanation": "数学库函数返回 double，sqrt(49) 为 7.0 可参与浮点运算；sin 参数为弧度。"
+    },
+    {
+        "id": "gesp-7-202606-sc-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "函数参数传递"
+        ],
+        "type": "single_choice",
+        "question": "下列关于 C++ 函数参数传递的说法，正确的是（　）。",
+        "options": {
+            "A": "函数形参一定和实参使用同一块内存。",
+            "B": "值传递时，在函数内修改形参一定会修改实参。",
+            "C": "引用形参绑定到实参后，在函数内修改引用形参通常会影响实参。",
+            "D": "指针形参不能用于修改实参指向的数据。"
+        },
+        "answer": "C",
+        "explanation": "值传递复制独立内存，修改互不影响；引用形参是实参别名；指针形参可通过解引用修改实参指向的数据。"
+    },
+    {
+        "id": "gesp-7-202606-sc-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "single_choice",
+        "question": "有 5 个字符，出现次数分别为 3、4、7、8、9。哈夫曼编码最小 WPL 为（　）。",
+        "options": {
+            "A": "62",
+            "B": "64",
+            "C": "67",
+            "D": "69"
+        },
+        "answer": "D",
+        "explanation": "合并 3+4=7、7+7=14、8+9=17、14+17=31：WPL = 3×3 + 4×3 + 7×2 + 8×2 + 9×2 = 69。"
+    },
+    {
+        "id": "gesp-7-202606-sc-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "网格 DP：dp[i][j] 表示从左上角走到 (i,j) 的最大数字和，只能向右或向下，正确的状态转移为（　）。",
+        "options": {
+            "A": "dp[i][j] = a[i][j] + min(dp[i-1][j], dp[i][j-1])",
+            "B": "dp[i][j] = max(dp[i-1][j-1], dp[i][j])",
+            "C": "dp[i][j] = a[i][j] + max(dp[i-1][j], dp[i][j-1])",
+            "D": "dp[i][j] = a[i][j] + dp[i-1][j-1]"
+        },
+        "answer": "C",
+        "explanation": "到达 (i,j) 只能来自上方或左方，取两者较大者加当前格。"
+    },
+    {
+        "id": "gesp-7-202606-sc-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "已知 f[0]=0，f[1]=2，f[i] = max(f[i-1], f[i-2] + a[i])，a[1..5]={2,7,9,3,1}，则 f[5] =（　）。",
+        "options": {
+            "A": "10",
+            "B": "11",
+            "C": "12",
+            "D": "22"
+        },
+        "answer": "C",
+        "explanation": "f[2]=7、f[3]=max(7,2+9)=11、f[4]=max(11,7+3)=11、f[5]=max(11,11+1)=12。"
+    },
+    {
+        "id": "gesp-7-202606-sc-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "single_choice",
+        "question": "一维数组优化 0/1 背包，横线处应填入（　）。\nfor (int c = W; c >= w[i]; c--) { _________; }",
+        "options": {
+            "A": "dp[c] = max(dp[c], dp[c + w[i]] + v[i])",
+            "B": "dp[c] = min(dp[c], dp[c - w[i]] + v[i])",
+            "C": "dp[c] = dp[c - w[i]] + v[i]",
+            "D": "dp[c] = max(dp[c], dp[c - w[i]] + v[i])"
+        },
+        "answer": "D",
+        "explanation": "逆序枚举容量，用上一层（未更新）的 dp[c-w[i]] 转移，保证每件物品最多选一次。"
+    },
+    {
+        "id": "gesp-7-202606-sc-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "泛洪算法",
+            "深度优先搜索算法"
+        ],
+        "type": "single_choice",
+        "question": "下面程序片段（vis 标记 + 四方向递归扩散）主要体现的算法思想是（　）。",
+        "options": {
+            "A": "泛洪算法",
+            "B": "二分查找",
+            "C": "贪心算法",
+            "D": "归并排序"
+        },
+        "answer": "A",
+        "explanation": "从起点向四邻域扩散并标记访问，是典型的泛洪（Flood Fill）DFS 实现。"
+    },
+    {
+        "id": "gesp-7-202606-sc-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "single_choice",
+        "question": "下列关于排序稳定性的说法，正确的是（　）。",
+        "options": {
+            "A": "冒泡排序在只交换相邻逆序元素时是稳定排序",
+            "B": "选择排序一定是稳定排序",
+            "C": "快速排序一定是稳定排序",
+            "D": "稳定排序一定会改变相等元素的相对顺序"
+        },
+        "answer": "A",
+        "explanation": "冒泡只交换相邻逆序对，相等元素不交换，稳定；选择/快排通常不稳定；稳定排序不改变相等元素相对顺序。"
+    },
+    {
+        "id": "gesp-7-202606-sc-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法",
+            "栈与队列"
+        ],
+        "type": "single_choice",
+        "question": "无向图边 (1,2),(1,3),(2,4),(3,4),(4,5)，从顶点 1 BFS，按编号从小到大入队，顶点 4 第一次入队时队列状态为（　）。",
+        "options": {
+            "A": "1, 2, 3, 4",
+            "B": "2, 3, 4",
+            "C": "3, 4",
+            "D": "3, 4, 5"
+        },
+        "answer": "C",
+        "explanation": "1 出队后 2、3 入队；2 出队时 4 入队，此时队列为 [3, 4]。"
+    },
+    {
+        "id": "gesp-7-202606-sc-11",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "长度 11 的哈希表线性探测，h(x)=x%11，依次插入 22、33、4、15、26，则 26 最终存放在下标（　）。",
+        "options": {
+            "A": "0",
+            "B": "4",
+            "C": "5",
+            "D": "6"
+        },
+        "answer": "D",
+        "explanation": "22→0，33→1，4→4，15 冲突→5，26 从 4 探测到 6。"
+    },
+    {
+        "id": "gesp-7-202606-sc-12",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "single_choice",
+        "question": "关于哈希表处理冲突的方法，下列说法正确的是（　）。",
+        "options": {
+            "A": "线性探测法发生冲突后，只能放弃插入该元素。",
+            "B": "链地址法可以把哈希到同一位置的多个元素组织在同一个桶中。",
+            "C": "只要哈希表长度是素数，就一定不会发生冲突。",
+            "D": "开放定址法查找元素时不需要考虑冲突位置。"
+        },
+        "answer": "B",
+        "explanation": "链地址法将同位置元素链成桶；线性探测继续向后找空位；素数表长只能减少冲突；开放定址查找需沿探测序列比较。"
+    },
+    {
+        "id": "gesp-7-202606-sc-13",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "算法复杂度的估算",
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "枚举 n 个对象、每个对象做一次规模为 n 的二分查找，算法时间复杂度通常为（　）。",
+        "options": {
+            "A": "O(n)",
+            "B": "O(n log n)",
+            "C": "O(n²)",
+            "D": "O(log n)"
+        },
+        "answer": "B",
+        "explanation": "n 次 × 每次 O(log n) = O(n log n)。"
+    },
+    {
+        "id": "gesp-7-202606-sc-14",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "二分枚举法"
+        ],
+        "type": "single_choice",
+        "question": "升序数组二分查找第一个大于等于 x 的位置，若 a[mid] < x，下一步应（　）。",
+        "options": {
+            "A": "令闭区间右边界变为 mid - 1",
+            "B": "令闭区间左边界变为 mid + 1",
+            "C": "立即返回 mid",
+            "D": "交换 a[mid] 与 x"
+        },
+        "answer": "B",
+        "explanation": "mid 及其左侧都小于 x，答案在 mid 右侧，收缩左边界至 mid+1。"
+    },
+    {
+        "id": "gesp-7-202606-sc-15",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "动态规划",
+            "计数原理"
+        ],
+        "type": "single_choice",
+        "question": "5×5 网格（# 不可走、. 可走，图见原卷），从左上走到右下只能向右或向下，不同路径共有（　）条。",
+        "options": {
+            "A": "5",
+            "B": "6",
+            "C": "7",
+            "D": "8"
+        },
+        "answer": "D",
+        "explanation": "逐格递推（障碍格为 0）：最右下格 dp = 8 条。"
+    },
+    {
+        "id": "gesp-7-202606-tf-1",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "使用 cmath 或 math.h 中的三角函数时，角度参数默认采用角度制。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "三角函数参数均为弧度制。"
+    },
+    {
+        "id": "gesp-7-202606-tf-2",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "数学库常用函数"
+        ],
+        "type": "true_false",
+        "question": "pow(2, 10) 参数均为整型 int，返回值类型也为整型 int。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "pow 返回 double，整数幂可能有精度误差。"
+    },
+    {
+        "id": "gesp-7-202606-tf-3",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "0/1 背包使用一维数组优化时，容量从小到大枚举也能保证每件物品最多被选一次。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "正序枚举允许同一物品重复转移（退化为完全背包），必须逆序。"
+    },
+    {
+        "id": "gesp-7-202606-tf-4",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "哈希表"
+        ],
+        "type": "true_false",
+        "question": "哈希表采用开放定址法时，即使哈希函数设计合理，也仍然可能发生冲突。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "不同键仍可能映射到同一地址，冲突不可避免。"
+    },
+    {
+        "id": "gesp-7-202606-tf-5",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "深度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "同一个图从同一个起点进行深度优先搜索，访问序列一定与邻接点的枚举顺序无关。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "邻接点枚举顺序不同，DFS 访问序列随之不同。"
+    },
+    {
+        "id": "gesp-7-202606-tf-6",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "泛洪算法"
+        ],
+        "type": "true_false",
+        "question": "泛洪算法可以用递归 DFS 实现，但地图很大时可能由于递归层数过深导致调用栈溢出等运行时错误。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "大规模地图递归深度可达格子总数，存在栈溢出风险。"
+    },
+    {
+        "id": "gesp-7-202606-tf-7",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "哈夫曼树与哈夫曼编码"
+        ],
+        "type": "true_false",
+        "question": "哈夫曼树中不存在度为 1 的结点。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "哈夫曼树每次合并两个节点，所有内部结点度均为 2，只有叶子与度 2 结点。"
+    },
+    {
+        "id": "gesp-7-202606-tf-8",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "算法：排序概念和稳定性"
+        ],
+        "type": "true_false",
+        "question": "冒泡排序的常见实现是稳定排序，选择排序也是。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "F",
+        "explanation": "选择排序跨位置交换会打乱相等元素相对次序，不稳定。"
+    },
+    {
+        "id": "gesp-7-202606-tf-9",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "宽度优先搜索算法"
+        ],
+        "type": "true_false",
+        "question": "在无权图中从起点执行 BFS 时，某个顶点第一次被访问到的层数等于起点到该顶点经过的最少边数。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "BFS 按层扩展，首次到达即最短（最少边数）。"
+    },
+    {
+        "id": "gesp-7-202606-tf-10",
+        "exam": {
+            "type": "GESP",
+            "level": 7,
+            "date": "202606"
+        },
+        "knowledge_points": [
+            "动态规划"
+        ],
+        "type": "true_false",
+        "question": "在二维动态规划中，状态 dp[i][j] 的计算常常依赖其他状态，这些状态必须在完成 dp[i][j] 前完成。",
+        "options": {
+            "T": "正确",
+            "F": "错误"
+        },
+        "answer": "T",
+        "explanation": "DP 按拓扑序（如先行后列）计算，依赖状态先行求出。"
+    }
+]
